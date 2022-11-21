@@ -15,7 +15,7 @@ pygmentsCodefencesGuessSyntax = true
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
   subtitle = "Fitness Fellowship Faith"
   mainSections = ["post","posts"]
-  logo = "img/f3-pc-logo.jpg" # Expecting square dimensions
+  logo = "img/f3-500x500.jpg" # Expecting square dimensions
   favicon = "img/cropped-cropped-F3-Nation-Logo-White-with-Black-background-32x32.jpg"
   dateFormat = "January 2, 2006"
   commit = false
@@ -70,7 +70,7 @@ pygmentsCodefencesGuessSyntax = true
 #   mastodon = "url"
 #   kaggle = "username"
 #   weibo = "username"
-#   slack = "username"
+  slack = "f3peakcity"
 #   discord = "invite code (https://discord.gg/XXXXXXX)"
 #   strava = "userid"
 
@@ -93,33 +93,5 @@ pygmentsCodefencesGuessSyntax = true
 
 [[menu.main]]
     name = "Backblasts"
-    url = "page/backblasts/"
+    url = "backblasts/"
     weight = 2
-
-# [[menu.main]]
-#     identifier = "samples"
-#     name = "Samples"
-#     weight = 20
-
-# [[menu.main]]
-#     parent = "samples"
-#     name = "Big Image Sample"
-#     url = "post/2017-03-07-bigimg-sample"
-#     weight = 10
-
-# [[menu.main]]
-#     parent = "samples"
-#     name = "Math Sample"
-#     url = "post/2017-03-05-math-sample"
-#     weight = 2
-
-# [[menu.main]]
-#     parent = "samples"
-#     name = "Code Sample"
-#     url = "post/2016-03-08-code-sample"
-#     weight = 3
-
-# [[menu.main]]
-#     name = "Tags"
-#     url = "tags"
-#     weight = 3
