@@ -82,16 +82,27 @@ pygmentsCodefencesGuessSyntax = true
 [[menu.main]]
     parent = "schedule"
     name = "Workout Schedule"
-    url = "page/workout-schedule/"
+    url = "schedule/"
     weight = 1
 
 [[menu.main]]
     parent = "schedule"
     name = "Q Sheet"
-    url = "page/q/"
+    url = "q/"
     weight = 2
+
+[[menu.main]]
+    parent = "schedule"
+    name = "3rdF Schedule"
+    url = "3rdf-schedule/"
+    weight = 3
 
 [[menu.main]]
     name = "Backblasts"
     url = "backblasts/"
     weight = 2
+
+[[menu.main]]
+    name = "Newsletter"
+    url = "https://mailchi.mp/c76d4700cf17/f3-carpex-november-newsletter?e=90d47758dd"
+    weight = 3
