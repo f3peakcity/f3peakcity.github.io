@@ -84,28 +84,50 @@ unsafe = true
 
 [[menu.main]]
     parent = "schedule"
-    name = "Workout Schedule"
+    name = "1st F (Fitness)"
     url = "schedule/"
-    weight = 1
-
-[[menu.main]]
-    parent = "schedule"
-    name = "Q Sheet"
-    url = "q/"
     weight = 2
 
 [[menu.main]]
     parent = "schedule"
-    name = "3rdF Schedule"
-    url = "3rdf-schedule/"
-    weight = 3
+    name = "2nd F (Fellowship)"
+    url = "schedule/#2ndf"
+    weight = 4
+
+[[menu.main]]
+    parent = "schedule"
+    name = "3rd F (Faith)"
+    url = "schedule/#3rdf"
+    weight = 4
+
+[[menu.main]]
+    name = "Q Shop"
+    url = "q/"
+    weight = 10
 
 [[menu.main]]
     name = "Backblasts"
     url = "backblasts/"
-    weight = 2
+    weight = 20
 
 [[menu.main]]
     name = "Newsletter"
     url = "https://mailchi.mp/c76d4700cf17/f3-carpex-november-newsletter?e=90d47758dd"
-    weight = 3
+    weight = 30
+
+[[menu.main]]
+    identifier = "pax"
+    name = "PAX"
+    weight = 40
+
+[[menu.main]]
+    parent = "pax"
+    name = "Leadership"
+    url = "leadership/"
+    weight = 41
+
+[[menu.main]]
+    parent = "pax"
+    name = "PaxMate Dashboard"
+    url = "paxmate-dashboard/"
+    weight = 42

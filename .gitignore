@@ -1,4 +1,6 @@
 /public/
+/resources/
+.hugo_build.lock
 
 # Windows image file caches
 Thumbs.db
