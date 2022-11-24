@@ -14,6 +14,13 @@ pygmentsCodefencesGuessSyntax = true
 [markup.goldmark.renderer]
 unsafe = true
 
+[module]
+  [module.hugoVersion]
+    min = "0.104.2"
+  proxy = "direct"
+  [[module.imports]]
+    path = "github.com/halogenica/beautifulhugo"
+
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
   subtitle = "Fitness Fellowship Faith"
@@ -43,6 +50,14 @@ unsafe = true
 #[[Params.bigimg]]
 #  src = "img/hexagon.jpg"
 #  desc = "Hexagon"
+
+[taxonomies]
+  # keep default taxonomies
+  category = 'categories'
+  tag = 'tags'
+  # new taxonomies for backblasts
+  ao = 'aos'
+  pax = 'pax'
 
 [Author]
   # Set only your "username" for default hosts and full URLs otherwise (e.g., "https://MyGitLab.org/username")
