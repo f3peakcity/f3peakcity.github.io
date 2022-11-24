@@ -3,6 +3,8 @@ title: 12 Ways that Year 2 Differed from Year 1
 date: 2022-11-16
 author: Clockwork
 tags: ["lions-den"]
+aos: ["Lions Den"]
+pax: ["BUMPER STICKER", "CHICKEN LITTLE", "CHIQUITA BANANA", "CLOCKWORK", "DECAL", "HAMM", "I-BEAM", "IMP", "PEACHES", "QUEEQUEG", "RAMSAY", "RED RYDER", "SLIM SHADY", "SNOOKI", "STEAKS", "TRIPLE LINDY", "WAHOO", "YAHOO"]
 bigimg: [{ src: "/img/backblasts/Lions-Kariega.jpeg" }]
 ---
 
