@@ -11,6 +11,8 @@ pygmentsCodefencesGuessSyntax = true
 #disqusShortname = "XXX"
 #googleAnalytics = "XXX"
 
+# Required for inlining iframes, divs, and other markup
+# in the markdown (i.e. .md) files
 [markup.goldmark.renderer]
 unsafe = true
 
