@@ -13,5 +13,5 @@ Launch the site locally with:
 hugo server -D
 ```
 
-Open [https://localhost:1313]() in your browser. The site will automatically
+Open [https://localhost:1313](https://localhost:1313) in your browser. The site will automatically
 refresh as changes are made in hugo.
