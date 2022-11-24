@@ -35,3 +35,7 @@ To build this site locally:
 ### Taxonomies
 
 * Added `ao` and `pax` taxonomies so that we can organize the backblasts by these (instead of using terms like categories and tags)
+
+### CSS
+
+The `/static/css/main.css` file is mostly copied from the Beautiful Hugo repo. However, the `blog-AOs` and `blog-pax` properties were added to style the custom taxonomies for those.
