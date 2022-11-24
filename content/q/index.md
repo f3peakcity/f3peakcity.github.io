@@ -1,12 +1,12 @@
 ---
-title: Q SHEET
+title: Q SHOP
 comments: false
 socialShare: false
 ---
 
 <p>
     <a href="https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit?usp=sharing" style="font-size:24pt">
-        To Sign Up to Q Click Here!
+        Sign Up to Q
     </a>
 </p>
 
