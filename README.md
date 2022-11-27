@@ -1,6 +1,6 @@
 # f3peakcity.com website ![Deploy Huge site to Pages](https://github.com/f3peakcity/f3peakcity.github.io/actions/workflows/hugo.yml/badge.svg?branch=main)
 
-The F3 Peak City website site is built using Hugo and the [Beautiful Hugo theme](https://github.com/halogenica/beautifulhugo).
+The F3 Peak City website site is built using Hugo and a fork of the [Beautiful Hugo theme](https://github.com/f3peakcity/beautifulhugo).
 
 The site is published using GitHub pages, available at this URL: [https://f3peakcity.github.io/](https://f3peakcity.github.io/)
 
