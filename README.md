@@ -2,7 +2,9 @@
 
 The F3 Peak City website site is built using Hugo and a fork of the [Beautiful Hugo theme](https://github.com/f3peakcity/beautifulhugo).
 
-The site is published using GitHub pages, available at this URL: [https://f3peakcity.github.io/](https://f3peakcity.github.io/)
+The site is published using GitHub pages, available at the following URLs:
+* Staging: [https://f3peakcity.github.io/](https://f3peakcity.github.io/)
+* Production: [https://f3peakcity.com/](https://f3peakcity.com/)
 
 ## Contributors
 
