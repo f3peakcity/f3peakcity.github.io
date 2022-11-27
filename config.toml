@@ -21,7 +21,7 @@ unsafe = true
     min = "0.104.2"
   proxy = "direct"
   [[module.imports]]
-    path = "github.com/halogenica/beautifulhugo"
+    path = "github.com/f3peakcity/beautifulhugo"
 
 [Params]
 #  homeTitle = "Beautiful Hugo Theme" # Set a different text for the header on the home page
