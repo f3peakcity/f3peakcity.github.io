@@ -31,13 +31,17 @@ Depending on what you want to do, you have a few options to contribute.
    ```
 4. Open [https://localhost:1313](https://localhost:1313) in your browser. The site will automatically refresh as you save changes to the locally cloned files.
 
-## Differences from standard Hugo and theme
+## Updating the theme
 
+The [forked Beautiful Hugo theme](https://github.com/f3peakcity/beautifulhugo) is added as a [Hugo module](https://gohugo.io/hugo-modules/). The general process to update the theme is as follows.
+
+1. Make your theme changes in the [forked repo](https://github.com/f3peakcity/beautifulhugo).
+2. [Create a new release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) for the theme changes. Naming convention is like `v0.0.1`.
+3. Navigate to your clone of this repo and run `hugo mod get github.com/f3peakcity/beautifulhugo`.
+4. Commit and push your changes.
+
+## Differences from standard Hugo and this site
 
 ### Taxonomies
 
 * Added `ao` and `pax` taxonomies so that we can organize the backblasts by these (instead of using terms like categories and tags)
-
-### CSS
-
-The `/static/css/main.css` file is mostly copied from the Beautiful Hugo repo. However, the `blog-AOs` and `blog-pax` properties were added to style the custom taxonomies for those.
