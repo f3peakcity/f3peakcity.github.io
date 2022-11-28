@@ -17,9 +17,9 @@ pygmentsCodefencesGuessSyntax = true
 unsafe = true
 
 [module]
+  proxy = "direct"  
   [module.hugoVersion]
     min = "0.104.2"
-  proxy = "direct"
   [[module.imports]]
     path = "github.com/f3peakcity/beautifulhugo"
 
@@ -58,7 +58,7 @@ unsafe = true
   category = 'categories'
   tag = 'tags'
   # new taxonomies for backblasts
-  ao = 'AOs'
+  ao = 'aos'
   pax = 'pax'
 
 [Author]

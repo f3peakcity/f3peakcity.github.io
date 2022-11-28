@@ -9,8 +9,8 @@ The site is published using GitHub pages, available at the following URLs:
 ## Contributors
 
 Pax with admin rights:
-* Wahoo
-* Clockwork
+* [Wahoo](https://github.com/mikeyrcamp)
+* [Clockwork](https://github.com/artberger)
 
 ## Contributing
 
