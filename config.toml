@@ -58,7 +58,7 @@ unsafe = true
   category = 'categories'
   tag = 'tags'
   # new taxonomies for backblasts
-  ao = 'aos'
+  ao = 'AOs'
   pax = 'pax'
 
 [Author]
