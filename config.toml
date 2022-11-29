@@ -9,7 +9,9 @@ pygmentsCodefencesGuessSyntax = true
 #pygmentsUseClassic = true
 #pygmentOptions = "linenos=inline"
 #disqusShortname = "XXX"
-googleAnalytics = "G-9J33VEZ1WE"
+#googleAnalytics = "XXX"
+# Google Analytics 4
+GoogleAnalyticsID = "G-9J33VEZ1WE"
 
 # Required for inlining iframes, divs, and other markup
 # in the markdown (i.e. .md) files
