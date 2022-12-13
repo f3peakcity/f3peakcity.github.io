@@ -1,10 +1,13 @@
 # Slack
 
+{{< columns >}}
 Slack is a group chat app that serves as our group's virtual space for all sorts of mumblechatter. You can access Slack from your phone, desktop, or browser.
+{{< column >}}
+<br>
+{{< button href="https://f3peakcity.slack.com/" >}}Launch Slack{{< /button >}}
+{{< endcolumns >}}
 
-{{< button href="/schedule" >}}Join Slack{{< /button >}}
-</br>
-</br>
+> **Need an invite?** Anyone already in the Slack can text you an invite link, or you can give them your email and they can send you a link via email. If needed, [contact us](/contact) for help.
 
 ## Channels
 
@@ -16,10 +19,9 @@ Everyone automatically is part of the following channels:
 
 | Channel | Description | 
 | --- | --- |
-| #1stF | Anything fitness-related, including "preblasts" or promotional info for who's leading each workout the night before.|
-| #2ndF | Anything fellowship-related, such as happy hours, spontaneous meetups to watch a game, or recommendations on things to do.|
-| #3rdF | Anything faith-related, such as praises, prayers, and other ways we can help each other out.|
-| #backblasts | A channel where backblasts, or reports for each workout of the day, are automatically added based on the Q filling out the **Paxmate** bot. You can also review the [Paxmate Dashboard](/paxmate-dashboard/) based on these reports. |
+| #1st-f | Anything fitness-related, including "preblasts" or promotional info for who's leading each workout the night before.|
+| #2nd-f | Anything fellowship-related, such as happy hours, spontaneous meetups to watch a game, or recommendations on things to do.|
+| #3rd-f | Anything faith-related, such as praises, prayers, and other ways we can help each other out.|
 | #cot-announcements | Announcements that you would like the pax to hear about in Circle of Trust at the end of each workout. These are usually upcoming events like a race or service project. Only admins can post to this channel. If you have an announcement, let someone on the [Leadership](/leadership/) team know.|
 | #mumblechatter | A catch-all channel for general questions, comments, observations of life, etc. Usually the most active channel on the site.|
 
@@ -46,3 +48,13 @@ A few general guidelines:
 * 🔥 If you post about "hot button" topics like politics, please be considerate in your word choices and remember that we include men from all walks of life.
 * 🤑 It's ok to share about your personal business, especially if a Pax asks for recommendations. But please don't spam the channels constantly.
 * 🧹 Occassionally the Commz team or another Pax might suggest that a post would be better in a different channel. This is to help us keep Slack tidy, since things get lost very fast.
+* 🚨 Avoid using `@channel` or `@here` unless you _really_ need everyone to get a notification that very second. 
+
+## Profiles
+
+Here are some tips for filling out your profile.
+
+* Most people have a silly profile picture related to their nickname, but you are also welcome to use a selfie. 
+* For your **Display Name**, use your F3 name. Some people from other regions might also add their region, like **Prodigal (Carpex)**.
+* Make sure to add a phone number to the **ICE**, or in case of emergency, field. You can also put this in your title if you want to add more details like a contact name.
+* In your title, feel free to add what you do in real life, or in the group, like if you're a Site Q.
