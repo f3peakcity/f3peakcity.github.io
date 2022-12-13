@@ -2,7 +2,7 @@
 
 Everyone starts off as a "friendly new guy" (FNG) and then gets a slightly silly nickname after completing a workout.
 
-## What to expect
+## What to expect on Day 1
 
 * We don’t care what shape you’re in, what size you are, or how old you are. No excuses, just show up and we’ll be there for you, something we call "picking up the six."
 * [Pick a workout](/schedule). If you don't have someone already in the group to "post" with, feel free to [contact us](/contact). 
@@ -19,7 +19,6 @@ Everyone starts off as a "friendly new guy" (FNG) and then gets a slightly silly
    8. Ball of Man (BOM) with a closing prayer or encouraging word. 
    9. We often meet for coffee afterwards, at a local shop or sometimes guys bring coffee.
 * We have a lot of strange names and terms like FNG or pick up the six (PUT6), including for exercises. If you really want to get into the weeds, you can review the [Exicon](https://f3nation.com/exicon/) and [Lexicon](https://f3nation.com/lexicon/).
-
 
 ## What to bring
 
@@ -43,10 +42,6 @@ The five core principles are:
 
 ## What else
 
-Things to expect as you go along
-* Soreness
-* Joining Slack
-* Staying for coffee
-* Q a workout
-* Doing a crazy event
+Everyone's journey is unique, but the following timeline might help set expectations for your first year doing F3.
 
+{{< figure src="/img/timeline.png" title="F3 Timeline" >}}
