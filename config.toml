@@ -1,7 +1,7 @@
 baseurl = "https://f3peakcity.github.io"
 DefaultContentLanguage = "en"
 title = "F3 Peak City"
-theme = "beautifulhugo"
+#theme = "beautifulhugo"
 pygmentsStyle = "trac"
 pygmentsUseClasses = true
 pygmentsCodeFences = true
@@ -101,9 +101,15 @@ unsafe = true
 
 [[menu.main]]
     parent = "schedule"
+    name = "Q Shop"
+    url = "q/"
+    weight = 2
+
+[[menu.main]]
+    parent = "schedule"
     name = "1st F (Fitness)"
     url = "schedule/"
-    weight = 2
+    weight = 3
 
 [[menu.main]]
     parent = "schedule"
@@ -115,22 +121,7 @@ unsafe = true
     parent = "schedule"
     name = "3rd F (Faith)"
     url = "schedule/#3rdf"
-    weight = 4
-
-[[menu.main]]
-    name = "Q Shop"
-    url = "q/"
-    weight = 10
-
-[[menu.main]]
-    name = "Backblasts"
-    url = "backblasts/"
-    weight = 20
-
-[[menu.main]]
-    name = "Newsletter"
-    url = "https://mailchi.mp/c76d4700cf17/f3-carpex-november-newsletter?e=90d47758dd"
-    weight = 30
+    weight = 5
 
 [[menu.main]]
     identifier = "pax"
@@ -139,12 +130,53 @@ unsafe = true
 
 [[menu.main]]
     parent = "pax"
+    name = "New to F3"
+    url = "new-to-f3/"
+    weight = 41
+
+[[menu.main]]
+    parent = "pax"
     name = "Leadership"
     url = "leadership/"
-    weight = 41
+    weight = 42
 
 [[menu.main]]
     parent = "pax"
     name = "PaxMate Dashboard"
     url = "paxmate-dashboard/"
-    weight = 42
+    weight = 43
+
+[[menu.main]]
+    identifier = "contact"
+    name = "Stay in touch"
+    weight = 50
+
+[[menu.main]]
+    parent = "contact"
+    name = "Slack"
+    url = "slack/"
+    weight = 51
+
+[[menu.main]]
+    parent = "contact"
+    name = "Backblasts"
+    url = "contact/"
+    weight = 51
+
+[[menu.main]]
+    parent = "contact"
+    name = "Backblasts"
+    url = "backblasts/"
+    weight = 52
+
+[[menu.main]]
+    parent = "contact"
+    name = "Newsletter"
+    url = "https://mailchi.mp/c76d4700cf17/f3-carpex-november-newsletter?e=90d47758dd"
+    weight = 53
+
+[[menu.main]]
+    parent = "contact"
+    name = "Contact Us"
+    url = "contact/"
+    weight = 54

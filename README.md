@@ -33,6 +33,12 @@ Depending on what you want to do, you have a few options to contribute.
    ```
 4. Open [https://localhost:1313](https://localhost:1313) in your browser. The site will automatically refresh as you save changes to the locally cloned files.
 
+## Local changes to the theme
+
+If you want to make styling changes such as CSS to the beautifulhugo forked theme, you have a couple options to test local changes:
+* In the `config.toml` file, [add a replace section](https://gohugo.io/hugo-modules/use-modules/#make-and-test-changes-in-a-module) to point to your local clone of the forked repo. Then make your changes in that repo and refresh your Hugo server.
+* Use `hugo mod vendor` to download a [local `_vendor` directory](https://gohugo.io/hugo-modules/use-modules/#vendor-your-modules) in this `f3peakcity.github.io` project. Then make your changes in that `_vendor` directory and refresh your Hugo server.
+
 ## Updating the theme
 
 The [forked Beautiful Hugo theme](https://github.com/f3peakcity/beautifulhugo) is added as a [Hugo module](https://gohugo.io/hugo-modules/). The general process to update the theme is as follows.
