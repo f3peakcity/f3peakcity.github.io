@@ -6,10 +6,13 @@ socialShare: false
 
 ### <a name="1stf"></a>1st F Workout Schedule
 
-Looking for Workouts in a surrounding Region?<br/>
-Check out [Carpex](https://f3carpex.com), [South Cary](https://f3southcary.com),
-[Raleigh](https://f3raleigh.com/), [South Wake](https://f3southwake.com),
-or [Churham](https://f3churham.com)
+Looking for a closer workout? Check out a surrounding Region:<br/><br/>
+{{< button href="https://f3carpex.com/schedule/" >}}Carpex{{< /button >}} |
+{{< button href="https://f3southcary.com/schedule/" >}}South Cary{{< /button >}} |
+{{< button href="https://f3southwake.com/schedule/" >}}South Wake{{< /button >}} |
+{{< button href="https://f3raleigh.com/fitness/" >}}Raleigh{{< /button >}} |
+{{< button href="https://f3churham.com/workouts/" >}}Churham{{< /button >}}
+<br/><br/>
 
 <iframe src="https://map.f3nation.com/?lat=35.732988&amp;lon=-78.857426&amp;zoom=13"
     style="border:0px #ffffff none;"
