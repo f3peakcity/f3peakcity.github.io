@@ -4,9 +4,13 @@ comments: false
 socialShare: false
 ---
 
+F3 is peer-led, and as part of that leadership, these PAX make up the Shared Leadership Team (SLT) in Peak City and focus on the invigoration of male community leadership. Whether that's thinking about new ways to motivate and encourage or helping launch new workouts, this team is here to support PAX as they grow and serve.
+
+### Current SLT
+
 - Nantan: Red Ryder
 
-  - The Q of the Carpex region. He’s the cheerleader. Lays down the 43 feet for the region and exemplifies the Carpex culture.
+  - The Q of the Peak City region. He’s the cheerleader. Lays down the 43 feet for the region and exemplifies the Peak City culture.
 
 - 1st F Qs: Hamm, Triple Lindy, Earhart
 
@@ -24,6 +28,6 @@ socialShare: false
 
   - These are the men to help you promote your next great plan.
 
-- Expansion Q: Rooney
+- Region Ambassador: Rooney
 
-  - This role focuses on strategic expansion both within our region and at the boundaries. The job is to make sure we are growing men in all phases of leadership so that when we get ready to launch the next Region…there are men already in place in each area which make the launch easy.
+  - This role ensures we maintain intentional connections with the greater Carpex region.
