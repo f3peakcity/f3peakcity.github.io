@@ -9,6 +9,10 @@ Slack is a group chat app that serves as our group's virtual space for all sorts
 
 > **Need an invite?** Anyone already in the Slack can text you an invite link, or you can give them your email and they can send you a link via email. If needed, [contact us](/contact) for help.
 
+## Paxmate
+
+Paxmate is under development, and will be enabled January 1, 2023.
+
 ## Channels
 
 Conversations on Slack are organized into channels that start with `#`. The following sections share details about the most common. Don't see one you want? Ask in `#mumblechatter`. You can even [create your own channel](https://slack.com/help/articles/201402297-Create-a-channel), such as for your Shield Lock or a one-time event!
@@ -19,9 +23,9 @@ Everyone automatically is part of the following channels:
 
 | Channel | Description | 
 | --- | --- |
-| #1st-f | Anything fitness-related, including "preblasts" or promotional info for who's leading each workout the night before.|
-| #2nd-f | Anything fellowship-related, such as happy hours, spontaneous meetups to watch a game, or recommendations on things to do.|
-| #3rd-f | Anything faith-related, such as praises, prayers, and other ways we can help each other out.|
+| #1stf | Anything fitness-related, including "preblasts" or promotional info for who's leading each workout the night before.|
+| #2ndf | Anything fellowship-related, such as happy hours, spontaneous meetups to watch a game, or recommendations on things to do.|
+| #3rdf | Anything faith-related, such as praises, prayers, and other ways we can help each other out.|
 | #cot-announcements | Announcements that you would like the pax to hear about in Circle of Trust at the end of each workout. These are usually upcoming events like a race or service project. Only admins can post to this channel. If you have an announcement, let someone on the [Leadership](/leadership/) team know.|
 | #mumblechatter | A catch-all channel for general questions, comments, observations of life, etc. Usually the most active channel on the site.|
 
