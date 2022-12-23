@@ -28,7 +28,9 @@ The workouts are for men of all fitness levels and goals, and include running; c
 
 Check out 2nd F (fellowship) and 3rd F (service) opportunities on the F3 Peak City schedule.
 
-This month, you won't want to miss **The Exchange**, a series of conversations to build excitement for the launch of the new region on 1/1/2023.
+This month, you won't want to miss **The Official Launch of Peak City**, a two-part event:
+* Saturday, 12/31/2022, 0645 at Piranha Park and Dante's Peak (Apex Nature Park)
+* Sunday, 1/1/2023, 0700 at the Apex Water Tower near Bounty Hunters (Hunter Street Skatepark). **Wear your Olive Drab Peak City gear!**
 {{< column >}}
 
 {{< figure src="/img/events/2022-peak-city-exchange.jpg" title="The Exchange" >}}
