@@ -3,25 +3,26 @@
 The F3 Peak City website site is built using Hugo and a fork of the [Beautiful Hugo theme](https://github.com/f3peakcity/beautifulhugo).
 
 The site is published using GitHub pages, available at the following URLs:
-* Staging: [https://f3peakcity.github.io/](https://f3peakcity.github.io/)
-* Production: [https://f3peakcity.com/](https://f3peakcity.com/)
+
+- Production: [https://f3peakcity.com/](https://f3peakcity.com/)
 
 ## Contributors
 
 Pax with admin rights:
-* [Wahoo](https://github.com/mikeyrcamp)
-* [Clockwork](https://github.com/artberger)
+
+- [Wahoo](https://github.com/mikeyrcamp)
+- [Clockwork](https://github.com/artberger)
 
 ## Contributing
 
 Depending on what you want to do, you have a few options to contribute.
 
-| What you want to do | How to contribute |
-| --- | --- |
-| Update content on a page | Search this repo for what you want to update and open a pull request. |
-| Add a new AO to the Q sheet | Contact Wahoo on Slack or open an issue. |
-| Write a backblast | Right now, you can create a new file in the `/backblasts` folder and open a pull request. In the future, we hope to automate this from the Slack Paxmate. |
-| Change the way the website looks or behaves | Open a pull request. You also probably want to build locally to test your changes (see the following **Quick start**). |
+| What you want to do                         | How to contribute                                                                                                                                         |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Update content on a page                    | Search this repo for what you want to update and open a pull request.                                                                                     |
+| Add a new AO to the Q sheet                 | Contact Wahoo on Slack or open an issue.                                                                                                                  |
+| Write a backblast                           | Right now, you can create a new file in the `/backblasts` folder and open a pull request. In the future, we hope to automate this from the Slack Paxmate. |
+| Change the way the website looks or behaves | Open a pull request. You also probably want to build locally to test your changes (see the following **Quick start**).                                    |
 
 ## Quick start
 
@@ -36,8 +37,9 @@ Depending on what you want to do, you have a few options to contribute.
 ## Local changes to the theme
 
 If you want to make styling changes such as CSS to the beautifulhugo forked theme, you have a couple options to test local changes:
-* In the `config.toml` file, [add a replace section](https://gohugo.io/hugo-modules/use-modules/#make-and-test-changes-in-a-module) to point to your local clone of the forked repo. Then make your changes in that repo and refresh your Hugo server.
-* Use `hugo mod vendor` to download a [local `_vendor` directory](https://gohugo.io/hugo-modules/use-modules/#vendor-your-modules) in this `f3peakcity.github.io` project. Then make your changes in that `_vendor` directory and refresh your Hugo server.
+
+- In the `config.toml` file, [add a replace section](https://gohugo.io/hugo-modules/use-modules/#make-and-test-changes-in-a-module) to point to your local clone of the forked repo. Then make your changes in that repo and refresh your Hugo server.
+- Use `hugo mod vendor` to download a [local `_vendor` directory](https://gohugo.io/hugo-modules/use-modules/#vendor-your-modules) in this `f3peakcity.github.io` project. Then make your changes in that `_vendor` directory and refresh your Hugo server.
 
 ## Updating the theme
 
@@ -52,4 +54,4 @@ The [forked Beautiful Hugo theme](https://github.com/f3peakcity/beautifulhugo) i
 
 ### Taxonomies
 
-* Added `ao` and `pax` taxonomies so that we can organize the backblasts by these (instead of using terms like categories and tags)
+- Added `ao` and `pax` taxonomies so that we can organize the backblasts by these (instead of using terms like categories and tags)

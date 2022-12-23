@@ -1,4 +1,4 @@
-baseurl = "https://f3peakcity.github.io"
+baseurl = "https://f3peakcity.com"
 DefaultContentLanguage = "en"
 title = "F3 Peak City"
 #theme = "beautifulhugo"
@@ -9,7 +9,7 @@ pygmentsCodefencesGuessSyntax = true
 #pygmentsUseClassic = true
 #pygmentOptions = "linenos=inline"
 #disqusShortname = "XXX"
-googleAnalytics = "G-9J33VEZ1WE"
+googleAnalytics = "G-Z265E06J10"
 
 # Required for inlining iframes, divs, and other markup
 # in the markdown (i.e. .md) files
