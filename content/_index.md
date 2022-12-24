@@ -6,7 +6,7 @@
 
 Join us for 20+ free workouts right here in the "Peak of Good Living" in Apex, NC and the surrounding areas of Friendship, New Hill, and Jordan Lake.
 
-The workouts are for men of all fitness levels and goals, and include running; cardio with total-body and body-weight exercises; limited run and strength-building with dumbells, kettleballs, and other toys; walking; rucking; and even yoga and stretching.
+The workouts are for men of all fitness levels and goals, and include running; cardio with total-body and body-weight exercises; limited run and strength-building with dumbells, kettleballs, and other toys; walking; rucking; recovery stretching and yoga; and even paddleboarding in warm months!
 
 {{< column >}}
 
@@ -28,12 +28,15 @@ The workouts are for men of all fitness levels and goals, and include running; c
 
 Check out 2nd F (fellowship) and 3rd F (service) opportunities on the F3 Peak City schedule.
 
-This month, you won't want to miss **The Exchange**, a series of conversations to build excitement for the launch of the new region on 1/1/2023.
+{{< button relref="/schedule#2ndf" >}}Check schedule{{< /button >}}
+
 {{< column >}}
 
-{{< figure src="/img/events/2022-peak-city-exchange.jpg" title="The Exchange" >}}
+{{< figure src="/img/events/2022-peak-city-launch.png" title="Peak City Launch Details" >}}
 
-{{< button relref="/schedule#2ndf" >}}Check schedule{{< /button >}}
+This month, you won't want to miss **The Official Launch of Peak City**, a two-part event:
+* **Carpex Sendoff**: Saturday, 12/31/2022, 0645 at Piranha Park and Dante's Peak (Apex Nature Park)
+* **Peak City Launch**: Sunday, 1/1/2023, 0700 at the Apex Water Tower near Bounty Hunters (Hunter Street Skatepark). **Wear your Olive Drab Peak City gear!**
 
 {{< endcolumns >}}
 
