@@ -6,7 +6,7 @@
 
 Join us for 20+ free workouts right here in the "Peak of Good Living" in Apex, NC and the surrounding areas of Friendship, New Hill, and Jordan Lake.
 
-The workouts are for men of all fitness levels and goals, and include running; cardio with total-body and body-weight exercises; limited run and strength-building with dumbells, kettleballs, and other toys; walking; rucking; and even yoga and stretching.
+The workouts are for men of all fitness levels and goals, and include running; cardio with total-body and body-weight exercises; limited run and strength-building with dumbells, kettleballs, and other toys; walking; rucking; recovery stretching and yoga; and even paddleboarding in warm months!
 
 {{< column >}}
 
