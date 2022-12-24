@@ -28,14 +28,15 @@ The workouts are for men of all fitness levels and goals, and include running; c
 
 Check out 2nd F (fellowship) and 3rd F (service) opportunities on the F3 Peak City schedule.
 
-This month, you won't want to miss **The Official Launch of Peak City**, a two-part event:
-* Saturday, 12/31/2022, 0645 at Piranha Park and Dante's Peak (Apex Nature Park)
-* Sunday, 1/1/2023, 0700 at the Apex Water Tower near Bounty Hunters (Hunter Street Skatepark). **Wear your Olive Drab Peak City gear!**
+{{< button relref="/schedule#2ndf" >}}Check schedule{{< /button >}}
+
 {{< column >}}
 
-{{< figure src="/img/events/2022-peak-city-exchange.jpg" title="The Exchange" >}}
+{{< figure src="/img/events/2022-peak-city-launch.png" title="Peak City Launch Details" >}}
 
-{{< button relref="/schedule#2ndf" >}}Check schedule{{< /button >}}
+This month, you won't want to miss **The Official Launch of Peak City**, a two-part event:
+* **Carpex Sendoff**: Saturday, 12/31/2022, 0645 at Piranha Park and Dante's Peak (Apex Nature Park)
+* **Peak City Launch**: Sunday, 1/1/2023, 0700 at the Apex Water Tower near Bounty Hunters (Hunter Street Skatepark). **Wear your Olive Drab Peak City gear!**
 
 {{< endcolumns >}}
 
