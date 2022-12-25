@@ -1,4 +1,7 @@
-# New to F3?
+---
+title: NEW TO F3?
+comments: false
+---
 
 Everyone starts off as a "friendly new guy" (FNG) and then gets a slightly silly nickname after completing a workout.
 

@@ -1,4 +1,8 @@
-# Slack
+---
+title: SLACK
+comments: false
+socialShare: false
+---
 
 {{< columns >}}
 Slack is a group chat app that serves as our group's virtual space for all sorts of mumblechatter. You can access Slack from your phone, desktop, or browser.
