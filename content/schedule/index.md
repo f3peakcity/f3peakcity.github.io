@@ -26,34 +26,34 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
     width="100%"
     allowfullscreen=""></iframe>
 
-| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                |
-| --------- | -------------------------------------------------------------------------- | ------------------ | -------------------- | ------------------------------------ |
-| Monday    | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615        | Hell's Bells         | Kettlebell                           |
-| Monday    | [Hunter Street Park](https://goo.gl/OY4tsf)                                | 0530 - 0615        | Off the Rails        | Boot Camp                            |
-| Monday    | [Beaver Creak Commons](https://goo.gl/maps/n9WPcgbaZyqPNW5m7)              | 0530 - 0615        | Beaver Chase         | High Temp Boot Camp                  |
-| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                |
-| Tuesday   | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                     | 0530 - 0615        | Disturbing the Peace | Boot Camp                            |
-| Tuesday   | [Apex Nature Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)                  | 0530 - 0615        | Cougar Town          | Boot Camp                            |
-| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                |
-| Wednesday | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615        | Tortoises            | Limited Run Boot Camp                |
-| Wednesday | [St. Mary Magdalene Church](https://goo.gl/maps/gDKAiqRS5dF2)              | 0530 - 0615        | Lion's Den           | Boot Camp                            |
-| Wednesday | [Seagrove Park](https://goo.gl/maps/nrWfz9gTNBPqR829A)                     | 0530 - 0615        | 7th Inning Stretch   | Run/Yoga (Seasonal, Apr – Sep)       |
-| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                |
-| Thursday  | [Lowes at Hwy 55 & Apex Peakway](https://goo.gl/maps/44UHinjZif3FRPSaA)    | 0530 - 0615        | Half Dome            | Hi Tempo Hills Boot Camp             |
-| Thursday  | [Hunter Street Park](https://goo.gl/OY4tsf)                                | 0530 - 0615        | Bounty Hunters       | Boot Camp                            |
-| Thursday  | [Hunter Street Park](https://goo.gl/OY4tsf)                                | \*0500 - 0615      | The Happy Dino       | Running – 8.7 Miles                  |
-| Thursday  | [Publix Parking Lot](https://goo.gl/maps/HK6uAH1PneKCeKxj6)                | 0530 - 0615        | Hot For Teacher      | Boot Camp                            |
-| Thursday  | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615        | Tin2Iron             | No Run Boot Camp                     |
-| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                |
-| Friday    | [Apex Nature Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)                  | 0530 - 0615        | Dante's Peak         | Boot Camp                            |
-| Friday    | [Apex Community Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)               | 0530 - 0615        | Dazed and Confused   | Boot Camp                            |
-| Friday    | [Jordan Lake Beaver Creek Pier](https://maps.app.goo.gl/FQxfhkypaK3v5maR7) | 0600 - 0645        | The Board Meeting    | Paddleboarding (Seasonal, May - Aug) |
-| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                |
-| Saturday  | [Apex Nature Park](https://goo.gl/maps/mZiMKmHYUpX4Gd1VA)                  | 0645 - 0745        | Pirahna Park         | Boot Camp                            |
-| Saturday  | [Vicious Fishes Parking Lot](https://goo.gl/maps/TUBsjWAtYddDtzEz8)        | 0615 – 0745 – 0810 | The Piranha Mile     | EC Run – 1.7 Miles Each Way          |
-| Saturday  | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                     | 0700               | Das Boot             | Running - 6 Miles                    |
-| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                |
-| Sunday    | [Starbucks - Hwy 55](https://goo.gl/maps/v82Apf8yVfP1T1Aw9)                | 0700               | Sunday Slowzy        | Running – ~6 Miles – Varying Routes  |
+| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
+| --------- | -------------------------------------------------------------------------- | ------------------ | -------------------- | ------------------------------------------------------------------------ |
+| Monday    | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615        | Hell's Bells         | Kettlebell                                                               |
+| Monday    | [Hunter Street Park](https://goo.gl/OY4tsf)                                | 0530 - 0615        | Off the Rails        | Boot Camp                                                                |
+| Monday    | [Beaver Creak Commons](https://goo.gl/maps/n9WPcgbaZyqPNW5m7)              | 0530 - 0615        | Beaver Chase         | High Temp Boot Camp                                                      |
+| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
+| Tuesday   | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                     | 0530 - 0615        | Disturbing the Peace | Boot Camp                                                                |
+| Tuesday   | [Apex Nature Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)                  | 0530 - 0615        | Cougar Town          | Boot Camp                                                                |
+| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
+| Wednesday | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615        | Tortoises            | Limited Run Boot Camp                                                    |
+| Wednesday | [St. Mary Magdalene Church](https://goo.gl/maps/gDKAiqRS5dF2)              | 0530 - 0615        | Lion's Den           | Boot Camp                                                                |
+| Wednesday | [Seagrove Park](https://goo.gl/maps/nrWfz9gTNBPqR829A)                     | 0530 - 0615        | 7th Inning Stretch   | Run/Yoga (Seasonal, Apr – Sep)                                           |
+| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
+| Thursday  | [Lowes at Hwy 55 & Apex Peakway](https://goo.gl/maps/44UHinjZif3FRPSaA)    | 0530 - 0615        | Half Dome            | Hi Tempo Hills Boot Camp                                                 |
+| Thursday  | [Hunter Street Park](https://goo.gl/OY4tsf)                                | 0530 - 0615        | Bounty Hunters       | Boot Camp                                                                |
+| Thursday  | [Hunter Street Park](https://goo.gl/OY4tsf)                                | \*0500 - 0615      | The Happy Dino       | Running – 8.7 Miles                                                      |
+| Thursday  | [Publix Parking Lot](https://goo.gl/maps/HK6uAH1PneKCeKxj6)                | 0530 - 0615        | Hot For Teacher      | Boot Camp                                                                |
+| Thursday  | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615        | Tin2Iron             | No Run Boot Camp                                                         |
+| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
+| Friday    | [Apex Nature Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)                  | 0530 - 0615        | Dante's Peak         | Boot Camp                                                                |
+| Friday    | [Apex Community Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)               | 0530 - 0615        | Dazed and Confused   | Boot Camp                                                                |
+| Friday    | [Jordan Lake Beaver Creek Pier](https://maps.app.goo.gl/FQxfhkypaK3v5maR7) | 0600 - 0645        | The Board Meeting    | Paddleboarding (Seasonal, May - Aug)                                     |
+| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
+| Saturday  | [Apex Nature Park](https://goo.gl/maps/mZiMKmHYUpX4Gd1VA)                  | 0645 - 0745        | Pirahna Park         | Boot Camp                                                                |
+| Saturday  | [Vicious Fishes Parking Lot](https://goo.gl/maps/TUBsjWAtYddDtzEz8)        | 0615 – 0745 – 0810 | The Piranha Mile     | EC Run – 1.7 Miles Each Way                                              |
+| Saturday  | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                     | 0700               | Das Boot             | Running - all paces - 6 mile base - longer and shorter options available |
+| DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
+| Sunday    | [Starbucks - Hwy 55](https://goo.gl/maps/v82Apf8yVfP1T1Aw9)                | 0700               | Sunday Slowzy        | Running – ~6 Miles – Varying Routes                                      |
 
 _\*Launch time may vary depending on pace. Intention is to be back at the Flag in time for COT at 0615._
 
