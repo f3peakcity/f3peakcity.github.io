@@ -172,7 +172,7 @@ unsafe = true
 [[menu.main]]
     parent = "contact"
     name = "Newsletter"
-    url = "https://mailchi.mp/6ff33d573719/f3-carpex-december-newsletter"
+    url = "https://mailchi.mp/739b4e38b668/f3-greater-carpex-january-newsletter"
     weight = 53
 
 [[menu.main]]
