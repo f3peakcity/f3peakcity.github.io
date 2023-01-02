@@ -32,11 +32,7 @@ Check out 2nd F (fellowship) and 3rd F (service) opportunities on the F3 Peak Ci
 
 {{< column >}}
 
-{{< figure src="/img/events/2022-peak-city-launch.png" title="Peak City Launch Details" >}}
-
-This month, you won't want to miss **The Official Launch of Peak City**, a two-part event:
-* **Carpex Sendoff**: Saturday, 12/31/2022, 0645 at Piranha Park and Dante's Peak (Apex Nature Park)
-* **Peak City Launch**: Sunday, 1/1/2023, 0700 at the Apex Water Tower near Bounty Hunters (Hunter Street Skatepark). **Wear your Olive Drab Peak City gear!**
+<!-- Add specific events here -->
 
 {{< endcolumns >}}
 
