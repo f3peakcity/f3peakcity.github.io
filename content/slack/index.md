@@ -51,7 +51,7 @@ Channels are often used to share interests or coordinate activities around a cer
 Don't see a channel you want? Ask in `#mumblechatter` to see if others are interested, too. You can even [create your own channel](https://slack.com/help/articles/201402297-Create-a-channel), such as for your Shield Lock or a one-time event! Here are some guidelines to help with naming the channel.
 
 * Search for an existing channel that might be similar, and see if it'd make sense to combine channels.
-* Use prefixes:
+* If applicable to your topic, use prefixes:
   * `#1stf-`: For fitness-related topics.
   * `#2ndf-`: For social, fellowship-related topics.
   * `#3rdf-`: For service projects, faith-based, and similar topics.
