@@ -43,7 +43,7 @@ unsafe = true
 #  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
 
 [[Params.bigimg]]
-  src = "img/events/2023-peak-city-launch-water-tower-scaled.png"
+  src = "img/events/2023-peak-city-launch-water-tower-scaled_16x9.png"
 #[[Params.bigimg]]
 #  src = "img/sphere.jpg"
 #  desc = "Sphere"
