@@ -19,7 +19,7 @@ Paxmate is under development, and will be enabled January 1, 2023.
 
 ## Channels
 
-Conversations on Slack are organized into channels that start with `#`. The following sections share details about the most common. Don't see one you want? Ask in `#mumblechatter`. You can even [create your own channel](https://slack.com/help/articles/201402297-Create-a-channel), such as for your Shield Lock or a one-time event!
+Conversations on Slack are organized into channels that start with `#`. The following sections share details about the most common.
 
 ### Default channels
 
@@ -46,6 +46,17 @@ Channels are often used to share interests or coordinate activities around a cer
 | #business-finance-career | Anything related to money, personal finances, career advice, jobs, professional development, and so on.                              |
 | #healthy-eats            | Anything cooking, nutrition, diet-related.                                                                                           |
 
+### Channel naming conventions
+
+Don't see a channel you want? Ask in `#mumblechatter` to see if others are interested, too. You can even [create your own channel](https://slack.com/help/articles/201402297-Create-a-channel), such as for your Shield Lock or a one-time event! Here are some guidelines to help with naming the channel.
+
+* Search for an existing channel that might be similar, and see if it'd make sense to combine channels.
+* Use prefixes:
+  * `#1stf-`: For fitness-related topics.
+  * `#2ndf-`: For social, fellowship-related topics.
+  * `#3rdf-`: For service projects, faith-based, and similar topics.
+* Use keywords that people are likely to search for. For example, `#business-finance-career` covers a lot of bases.
+
 ## Moderation
 
 As with everything in F3, you are "Freed to Lead," and can post mostly whatever you like, or even help the [Commz team](/leadership/) moderate.
@@ -56,7 +67,7 @@ A few general guidelines:
 - <a href="/decal-says/">🙈</a> Try to keep content more PG-13 than R or NSFW.
 - 🔥 If you post about "hot button" topics like politics, please be considerate in your word choices and remember that we include men from all walks of life.
 - 🤑 It's ok to share about your personal business, especially if a Pax asks for recommendations. But please don't spam the channels constantly.
-- 🧹 Occassionally the Commz team or another Pax might suggest that a post would be better in a different channel. This is to help us keep Slack tidy, since things get lost very fast.
+- 🧹 Occassionally the Commz team or another Pax might suggest that a post would be better in a different channel or rename a channel. This is to help us keep Slack tidy, since things get lost very fast.
 - 🚨 Avoid using `@channel` or `@here` unless you _really_ need everyone to get a notification that very second.
 
 ## Profiles
@@ -65,5 +76,5 @@ Here are some tips for filling out your profile.
 
 - Most people have a silly profile picture related to their nickname, but you are also welcome to use a selfie.
 - For your **Display Name**, use your F3 name. Some people from other regions might also add their region, like **Prodigal (Carpex)**.
-- Make sure to add a phone number to the **ICE**, or in case of emergency, field. You can also put this in your title if you want to add more details like a contact name.
 - In your title, feel free to add what you do in real life, or in the group, like if you're a Site Q.
+- Make sure to add a phone number to the **ICE**, or in case of emergency, field. You can also put this in your title if you want to add more details like a contact name. (Note: You can fill out the **ICE** field on desktop or browser only, unfortunately not on the mobile app yet due to a known Slack limitation.)
