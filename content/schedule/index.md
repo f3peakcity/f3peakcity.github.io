@@ -29,7 +29,7 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
 | --------- | -------------------------------------------------------------------------- | ------------------ | -------------------- | ------------------------------------------------------------------------ |
 | Monday    | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615        | Hell's Bells         | Kettlebell                                                               |
-| Monday    | [Hunter Street Park](https://goo.gl/OY4tsf)                                | 0530 - 0615        | Off the Rails        | Boot Camp                                                                |
+| Monday    | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                | 0530 - 0615        | Off the Rails        | Boot Camp                                                                |
 | Monday    | [Beaver Creak Commons](https://goo.gl/maps/n9WPcgbaZyqPNW5m7)              | 0530 - 0615        | Beaver Chase         | High Temp Boot Camp                                                      |
 | DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
 | Tuesday   | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                     | 0530 - 0615        | Disturbing the Peace | Boot Camp                                                                |
@@ -40,8 +40,8 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | Wednesday | [Seagrove Park](https://goo.gl/maps/nrWfz9gTNBPqR829A)                     | 0530 - 0615        | 7th Inning Stretch   | Run/Yoga (Seasonal, Apr – Sep)                                           |
 | DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
 | Thursday  | [Lowes at Hwy 55 & Apex Peakway](https://goo.gl/maps/44UHinjZif3FRPSaA)    | 0530 - 0615        | Half Dome            | Hi Tempo Hills Boot Camp                                                 |
-| Thursday  | [Hunter Street Park](https://goo.gl/OY4tsf)                                | 0530 - 0615        | Bounty Hunters       | Boot Camp                                                                |
-| Thursday  | [Hunter Street Park](https://goo.gl/OY4tsf)                                | \*0500 - 0615      | The Happy Dino       | Running – 8.7 Miles                                                      |
+| Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                | 0530 - 0615        | Bounty Hunters       | Boot Camp                                                                |
+| Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                | \*0500 - 0615      | The Happy Dino       | Running – 8.7 Miles                                                      |
 | Thursday  | [Publix Parking Lot](https://goo.gl/maps/HK6uAH1PneKCeKxj6)                | 0530 - 0615        | Hot For Teacher      | Boot Camp                                                                |
 | Thursday  | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615        | Tin2Iron             | No Run Boot Camp                                                         |
 | DAY       | LOCATION                                                                   | TIME               | WORKOUT              | STYLE                                                                    |
