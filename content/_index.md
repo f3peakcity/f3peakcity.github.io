@@ -1,4 +1,10 @@
-# F3 Peak City
+---
+---
+
+<picture>
+  <source srcset="/img/brand/f3-peak-city-white-on-transparent.png" media="(prefers-color-scheme:dark)">
+  <img height="200px" src="/img/brand/f3-peak-city-black-on-transparent.png">
+</picture>
 
 {{< columns >}}
 
@@ -9,6 +15,8 @@ Join us for 20+ free workouts right here in the "Peak of Good Living" in Apex, N
 The workouts are for men of all fitness levels and goals, and include running; cardio with total-body and body-weight exercises; limited run and strength-building with dumbells, kettleballs, and other toys; walking; rucking; recovery stretching and yoga; and even paddleboarding in warm months!
 
 {{< column >}}
+
+</br>
 
 {{< figure src="/img/workout-hill.jpeg" title="Example workout running up a hill" >}}
 
