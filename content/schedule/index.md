@@ -43,10 +43,10 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                | 0530 - 0615   | Bounty Hunters       | Boot Camp                                                                |
 | Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                | \*0500 - 0615 | The Happy Dino       | Running – 8.7 Miles                                                      |
 | Thursday  | [Publix Parking Lot](https://goo.gl/maps/HK6uAH1PneKCeKxj6)                | 0530 - 0615   | Hot For Teacher      | Boot Camp                                                                |
-| Thursday  | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615   | Tin2Iron             | No Run Boot Camp                                                         |
 | DAY       | LOCATION                                                                   | TIME          | WORKOUT              | STYLE                                                                    |
 | Friday    | [Apex Nature Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)                  | 0530 - 0615   | Dante's Peak         | Boot Camp                                                                |
 | Friday    | [Apex Community Park](https://goo.gl/maps/iwj6MZESjJmgwTf17)               | 0530 - 0615   | Dazed and Confused   | Boot Camp                                                                |
+| Friday    | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615   | Tin2Iron             | No Run Boot Camp                                                         |
 | Friday    | [Jordan Lake Beaver Creek Pier](https://maps.app.goo.gl/FQxfhkypaK3v5maR7) | 0600 - 0645   | The Board Meeting    | Paddleboarding (Seasonal, May - Aug)                                     |
 | DAY       | LOCATION                                                                   | TIME          | WORKOUT              | STYLE                                                                    |
 | Saturday  | [Apex Nature Park](https://goo.gl/maps/mZiMKmHYUpX4Gd1VA)                  | 0645 - 0745   | Pirahna Park         | Boot Camp                                                                |
