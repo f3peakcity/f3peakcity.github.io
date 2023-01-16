@@ -13,10 +13,6 @@ Slack is a group chat app that serves as our group's virtual space for all sorts
 
 > **Need an invite?** Anyone already in the Slack can text you an invite link, or you can give them your email and they can send you a link via email. If needed, [contact us](/contact) for help.
 
-## Paxmate
-
-Paxmate is under development, and will be enabled January 1, 2023.
-
 ## Channels
 
 Conversations on Slack are organized into channels that start with `#`. The following sections share details about the most common.
@@ -56,6 +52,15 @@ Don't see a channel you want? Ask in `#mumblechatter` to see if others are inter
   * `#2ndf-`: For social, fellowship-related topics.
   * `#3rdf-`: For service projects, faith-based, and similar topics.
 * Use keywords that people are likely to search for. For example, `#business-finance-career` covers a lot of bases.
+
+## Paxmate
+
+Paxmate is a tool to help summarize events, including who was there. This information helps us plan events and manage sites. You can also view the data yourself.
+
+For future enhancements to the tool, see the [`f3_bot` issues](https://github.com/f3peakcity/f3_bot/issues).
+
+
+{{< button relref="/articles/paxmate-user-guide" >}}Paxmate User Guide{{< /button >}} | {{< button relref="/paxmate-dashboard" >}}Paxmate Dashboard{{< /button >}}
 
 ## Moderation
 
