@@ -161,12 +161,6 @@ unsafe = true
 [[menu.main]]
     parent = "contact"
     name = "Backblasts"
-    url = "contact/"
-    weight = 51
-
-[[menu.main]]
-    parent = "contact"
-    name = "Backblasts"
     url = "backblasts/"
     weight = 52
 
@@ -178,6 +172,12 @@ unsafe = true
 
 [[menu.main]]
     parent = "contact"
+    name = "Articles"
+    url = "articles/"
+    weight = 54
+
+[[menu.main]]
+    parent = "contact"
     name = "Contact Us"
     url = "contact/"
-    weight = 54
+    weight = 55
