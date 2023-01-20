@@ -1,6 +1,6 @@
 ---
 title: We’ll take it from here", "Cardinal
-date: 2023-01-14
+date: 2023-01-13
 author: Old Maid
 AOs: ["dazed-and-confused"]
 pax: ["ASHBURY", "BUBBA", "CATARACTS", "CAULIFLOWER", "CLOCKWORK", "CRIMSON", "DEUCE", "DISCO DUCK", "DOGGY PADDLE", "FLOPPY CRUST", "MEAT LOAF", "OLD MAID", "RED RYDER", "SEGA", "SLIM SHADY", "SMOKEY", "SOUR MASH", "THE COMMISH", "TRIPLE LINDY", "WAHOO"]

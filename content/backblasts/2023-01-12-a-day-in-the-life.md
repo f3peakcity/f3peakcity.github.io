@@ -1,6 +1,6 @@
 ---
 title: A Day in the Life
-date: 2023-01-13
+date: 2023-01-12
 author: Old Maid
 AOs: ["bounty-hunters"]
 pax: ["BIG RED", "BINER", "BLUEPRINT", "CHIPPER", "CHIQUITA BANANA", "DENALI", "EGON", "FREE BIRD", "HAPPY GILMORE", "I PITY THE FOOL", "MA BELL", "NABISCO", "OLD MAID", "ORPHAN", "PBX", "SILVER FOX", "SQUATTER", "TERM PAPER", "THE SUPER", "TINY ARMS", "WONDERBREAD"]

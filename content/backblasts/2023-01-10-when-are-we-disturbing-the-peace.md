@@ -1,8 +1,8 @@
 ---
 title: When are we going to start disturbing the peace?
-date: 2023-01-09
+date: 2023-01-10
 author: Old Maid
-AOs: ["Disturbing The Peace"]
+AOs: ["dtp"]
 pax:
   [
     "Old Maid",
