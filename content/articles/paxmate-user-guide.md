@@ -76,3 +76,8 @@ On the Pax Detail table, you can interact in two ways:
 Huge shoutout to the Martha Stewart of Data (and Peruvian chicken recipes), **Pivot**, for pulling the Paxmate dashboard together.
 
 Thanks to **Torpedo** for the initial set up of the `f3_bot` app, and to **Wahoo** for making it multi-regional.
+
+---
+
+By Clockwork
+> "Good words are worth much, and cost little." - George Herbert

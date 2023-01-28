@@ -161,3 +161,8 @@ You need to be the cheerleader. When you pass a PAX in the other direction, know
 YHC consulted with some of Greater Carpex's finest for input on this article. Make sure to catch their next Q! 
 
 >Bronx Bomber, Earhart, Flenderson, Lookout, Parker, Pierogi, Saban, and Squatter
+
+---
+
+By Clockwork
+> "Good words are worth much, and cost little." - George Herbert
