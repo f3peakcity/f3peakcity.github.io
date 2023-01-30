@@ -58,7 +58,12 @@ _\*Launch time may vary depending on pace. Intention is to be back at the Flag i
 
 ### <a name="2ndf"></a>2nd F – Fellowship
 
-TBD
+<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&bgcolor=%23ffffff&ctz=America%2FNew_York&title=F3%20Peak%20City%20Events&showNav=1&src=ZjNwZWFrY2l0eUBnbWFpbC5jb20&color=%23039BE5&mode=WEEK" 
+    style="border:solid 1px #777" 
+    width="100%"
+    height="600"
+    frameborder="0"
+    scrolling="no"></iframe>
 
 ### <a name="3rdf"></a>3rd F – Small Groups and Community Service
 

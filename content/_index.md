@@ -38,6 +38,8 @@ Check out 2nd F (fellowship) and 3rd F (service) opportunities on the F3 Peak Ci
 
 {{< button relref="/schedule#2ndf" >}}Check schedule{{< /button >}}
 
+{{< button href="https://calendar.google.com/calendar/u/3?cid=ZjNwZWFrY2l0eUBnbWFpbC5jb20" >}}📅 Add to Calendar{{< /button >}}
+
 {{< column >}}
 
 <!-- Add specific events here -->
