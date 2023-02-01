@@ -39,7 +39,7 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | Wednesday | [St. Mary Magdalene Church](https://goo.gl/maps/gDKAiqRS5dF2)              | 0530 - 0615   | Lion's Den           | Boot Camp                                                                |
 | Wednesday | [Seagrove Park](https://goo.gl/maps/nrWfz9gTNBPqR829A)                     | 0530 - 0615   | 7th Inning Stretch   | Run/Yoga (Seasonal, Apr – Sep)                                           |
 | DAY       | LOCATION                                                                   | TIME          | WORKOUT              | STYLE                                                                    |
-| Thursday  | [Lowes at Hwy 55 & Apex Peakway](https://goo.gl/maps/44UHinjZif3FRPSaA)    | 0530 - 0615   | Half Dome            | Hi Tempo Hills Boot Camp                                                 |
+| Thursday  | [Lowes at Hwy 55 & Apex Peakway](https://goo.gl/maps/1836FAKovn1Z7J7x5)    | 0530 - 0615   | Half Dome            | Hi Tempo Hills Boot Camp                                                 |
 | Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                | 0530 - 0615   | Bounty Hunters       | Boot Camp                                                                |
 | Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                | \*0500 - 0615 | The Happy Dino       | Running – 8.7 Miles                                                      |
 | Thursday  | [Publix Parking Lot](https://goo.gl/maps/HK6uAH1PneKCeKxj6)                | 0530 - 0615   | Hot For Teacher      | Boot Camp                                                                |
