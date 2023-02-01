@@ -42,7 +42,7 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | Thursday  | [Lowes at Hwy 55 & Apex Peakway](https://goo.gl/maps/1836FAKovn1Z7J7x5)    | 0530 - 0615   | Half Dome            | Hi Tempo Hills Boot Camp                                                 |
 | Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                | 0530 - 0615   | Bounty Hunters       | Boot Camp                                                                |
 | Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                | \*0500 - 0615 | The Happy Dino       | Running – 8.7 Miles                                                      |
-| Thursday  | [Publix Parking Lot](https://goo.gl/maps/HK6uAH1PneKCeKxj6)                | 0530 - 0615   | Hot For Teacher      | Boot Camp                                                                |
+| Thursday  | [Olive Chapel Elementary](https://goo.gl/maps/HK6uAH1PneKCeKxj6)           | 0530 - 0615   | Hot For Teacher      | Boot Camp                                                                |
 | DAY       | LOCATION                                                                   | TIME          | WORKOUT              | STYLE                                                                    |
 | Friday    | [Apex Nature Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)                  | 0530 - 0615   | Dante's Peak         | Boot Camp                                                                |
 | Friday    | [Apex Community Park](https://goo.gl/maps/iwj6MZESjJmgwTf17)               | 0530 - 0615   | Dazed and Confused   | Boot Camp                                                                |
