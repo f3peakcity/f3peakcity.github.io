@@ -8,7 +8,7 @@
 
 {{< columns >}}
 
-## Get a free workout
+## Always Free.</br>Always Outside.</br>Open to All Men.
 
 Join us for 20+ free workouts right here in the "Peak of Good Living" in Apex, NC and the surrounding areas of Friendship, New Hill, and Jordan Lake.
 
