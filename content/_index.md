@@ -22,7 +22,6 @@ The workouts are for men of all fitness levels and goals, and include running; c
 
 {{< button relref="/schedule" >}}Find workouts{{< /button >}}
 </br>
-</br>
 {{< button relref="/new-to-f3" >}}New to F3?{{< /button >}}
 
 {{< endcolumns >}}
@@ -61,7 +60,6 @@ In person at an AO or virtually on Slack are the best places to connect with the
 {{< figure src="/img/adopt-a-hwy.jpeg" title="F3 Adopt-a-Highway at Jenks and 55" >}}
 
 {{< button relref="/q" >}}Sign up to Q{{< /button >}}
-</br>
 </br>
 {{< button relref="/slack" >}}Find a Slack channel{{< /button >}}
 {{< endcolumns >}}
