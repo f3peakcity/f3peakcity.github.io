@@ -45,7 +45,7 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | Thursday  | [Olive Chapel Elementary](https://goo.gl/maps/1836FAKovn1Z7J7x5)           | 0530 - 0615   | Hot For Teacher      | Boot Camp                                                                |
 | DAY       | LOCATION                                                                   | TIME          | WORKOUT              | STYLE                                                                    |
 | Friday    | [Apex Nature Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)                  | 0530 - 0615   | Dante's Peak         | Boot Camp                                                                |
-| Friday    | [Apex Community Park](https://goo.gl/maps/iwj6MZESjJmgwTf17)               | 0530 - 0615   | Dazed and Confused   | Boot Camp                                                                |
+| Friday    | [Apex Community Park](https://goo.gl/maps/iwj6MZESjJmgwTf17)               | 0530 - 0615   | Moon Tower           | Boot Camp                                                                |
 | Friday    | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615   | Tin2Iron             | No Run Boot Camp                                                         |
 | Friday    | [Jordan Lake Beaver Creek Pier](https://maps.app.goo.gl/FQxfhkypaK3v5maR7) | 0600 - 0645   | The Board Meeting    | Paddleboarding (Seasonal, May - Aug)                                     |
 | DAY       | LOCATION                                                                   | TIME          | WORKOUT              | STYLE                                                                    |
