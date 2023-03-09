@@ -55,3 +55,11 @@ The [forked Beautiful Hugo theme](https://github.com/f3peakcity/beautifulhugo) i
 ### Taxonomies
 
 - Added `ao` and `pax` taxonomies so that we can organize the backblasts by these (instead of using terms like categories and tags)
+
+## Updating/Adding AOs
+
+To add or update an AO location make sure to update the following places.
+
+1. Submit a [F3 Nation Map Change Request](https://f3nation.com/map-changes/).
+2. Update the link on the [schedule](./content/schedule/index.md).
+3. Update the links on the [Q Sheet](https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit?usp=sharing).
