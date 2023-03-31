@@ -1,6 +1,6 @@
 ---
 title: SAF3TY Short
-date: 2022-01-31
+date: 2023-01-31
 author: Mr. Safety
 tags: ["q","site-q", "newsletter", "safety"]
 bigimg: [{ src: "/img/articles/how-to-q.jpeg" }]

@@ -1,6 +1,6 @@
 ---
 title: Goal setting
-date: 2022-01-01
+date: 2023-01-01
 author: Clockwork
 tags: ["newsletter", "guide", "personal-development"]
 bigimg: [{ src: "/img/articles/paxmate-banner.png" }]

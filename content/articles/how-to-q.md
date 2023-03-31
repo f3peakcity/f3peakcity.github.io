@@ -1,6 +1,6 @@
 ---
 title: How to Q
-date: 2022-01-28
+date: 2023-01-28
 author: Clockwork
 tags: ["q","site-q", "newsletter", "guide"]
 bigimg: [{ src: "/img/articles/how-to-q.jpeg" }]
