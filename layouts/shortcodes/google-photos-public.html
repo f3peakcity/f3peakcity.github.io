@@ -1,0 +1,31 @@
+{{ $album_url := .Get "album_url" }}
+
+<div id="google-photos-album"></div>
+
+<script>
+  function fetchGooglePhotosAlbum() {
+    $.ajax({
+      url: 'https://photoslibrary.googleapis.com/v1/mediaItems:search?q=albumId%3D' + encodeURIComponent('{{ $album_url }}'),
+      type: 'GET',
+      success: function(data) {
+        var photos = data.mediaItems;
+        var albumElement = $('#google-photos-album');
+
+        // Loop through the photos and create HTML elements to display them
+        for (var i = 0; i < photos.length; i++) {
+          var photoUrl = photos[i].baseUrl + '=w640-h480';
+          var photoCaption = photos[i].filename;
+          var photoHtml = '<figure><img src="' + photoUrl + '" alt="' + photoCaption + '"><figcaption>' + photoCaption + '</figcaption></figure>';
+          albumElement.append(photoHtml);
+        }
+      },
+      error: function() {
+        console.log('Error fetching Google Photos album data');
+      }
+    });
+  }
+
+  $(document).ready(function() {
+    fetchGooglePhotosAlbum();
+  });
+</script>
