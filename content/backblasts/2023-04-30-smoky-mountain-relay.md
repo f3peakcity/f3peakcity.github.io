@@ -29,10 +29,10 @@ For more details, check out the [SMR website](https://smokymountainrelay.com/rac
 
 As we suspected, the 9-man category was more competitive this year, and we had fun racing against a team from Charleston in particular who started at the same time as us. While we did not retain our title, we still placed, and even moved up a spot overall...eeking past Norm's Maggots? We'll take it. For full results, see [webscorer](https://www.webscorer.com/racedetails?raceid=313244&did=382888).
 
-| Team | Overall | Nine-man | Total time | Average pace | Delta last year |
-| --- | --- | --- | --- | --- | --- |
-| BTDT | 5th place (+1 spot) | 🥉 3rd place (-2 spots) | 28h, 50m | 8:20 min/mi | -1h, 52m |
-| BCSoR | 20th place | 6th place | 32h, 04m | 9:16 min/mi | +35m |
+| Team | Overall | Nine-man | Total time | Average pace |
+| --- | --- | --- | --- | --- |
+| BTDT | 5th place (+1 spot) | 🥉 3rd place (-2 spots) | 28h, 50m (-1h, 52m from last year!) | 8:20 min/mi |
+| BCSoR | 20th place | 6th place | 32h, 04m | 9:16 min/mi |
 
 ## Leg analysis
 
@@ -81,6 +81,11 @@ The following After Action Report was in part developed the night after the race
   * Play around with the order of the legs...SMR doesn't care if you run them in order, so we could put stronger runners on just some of the trail or long legs, but then not necessarily keep the exact order. Keeping the pod order (your group of 3) is more important.
   * Bring an extra set of running clothes to pick up an extra leg in case.
   * Also might want a blanket, it got kinda cold.
+
+**Training and recovery**
+* ✅ **Went well**: Team runs at Umstead and trackwork training. Stretching and foam-rolling during the race.
+* ❌ **Not so well**: Less cross-team collaboration than last year.
+* 💡 **Ideas to try**: More strength, elevation, and cross-training. Perhaps more regularly communicated training plan, but overall good job on putting out running opportunities, just hard to sync up.
 
 **Support**
 * ✅ **Went well**: Dedicated driver. Offline mode for spreadsheet. Only one person updating the spreadsheet.
