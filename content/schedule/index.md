@@ -47,7 +47,7 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | Friday    | [Apex Nature Park](https://goo.gl/maps/TukJ7mNQD41TcyFY9)                  | 0530 - 0615   | Dante's Peak         | Boot Camp                                                                |
 | Friday    | [Apex Community Park](https://goo.gl/maps/iwj6MZESjJmgwTf17)               | 0530 - 0615   | Moon Tower           | Boot Camp                                                                |
 | Friday    | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)           | 0530 - 0615   | Tin2Iron             | No Run Boot Camp                                                         |
-| Friday    | [Rotating Location Check Q Sheet](/q)                                      | 0530 - 0615   | Ruck this Way        | Rucking                                                                  |
+| Friday    | [Rotating Location Check Q Sheet](/q)                                      | 0515 - 0615   | Ruck this Way        | Rucking                                                                  |
 | Friday    | [Jordan Lake Beaver Creek Pier](https://maps.app.goo.gl/FQxfhkypaK3v5maR7) | 0600 - 0645   | The Board Meeting    | Paddleboarding (Seasonal, May - Aug)                                     |
 | DAY       | LOCATION                                                                   | TIME          | WORKOUT              | STYLE                                                                    |
 | Saturday  | [Apex Nature Park](https://goo.gl/maps/mZiMKmHYUpX4Gd1VA)                  | 0645 - 0745   | Pirahna Park         | Boot Camp                                                                |
