@@ -16,7 +16,7 @@ F3 is peer-led, and as part of that leadership, these PAX make up the Shared Lea
 
   - Any questions about starting a workout or doing something new in Fitness? These are your guys!
 
-- **2nd F Qs**: Pet Sounds, Cataracts
+- **2nd F Qs**: Chicken Little, Cataracts
 
   - These guys execute our large fellowship events a few times a year. Lots of effort, little praise. If you have an ideas about fellowship, reach out to them if you need help.
 
