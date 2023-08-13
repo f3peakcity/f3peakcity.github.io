@@ -108,7 +108,7 @@ Team naming was clearly not our strong suit. We should have used our BRR name, P
 | F3 Dusty Grundles | Hamm | Pongo |
 | Mike Hubbell's Team`*` | 16 Steves | Clockwork |
 | Travis Well's Team | Mr. Safety | Zero Drop |
-| DDD and Bobby | Doug | Bobby |
+| DDD and Bobby Light | Doug | Bobby |
 
 `*` renamed to "Peak Dust" in super-official Sharpie
 
