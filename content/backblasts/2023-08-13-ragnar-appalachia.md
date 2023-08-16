@@ -24,14 +24,24 @@ This backblast also might have more than you would like to explore. Feel free to
 When you arrive, you drive up to a campsite where you have a choice of setting up in a tent city packed with hundreds of other contestants, spreading out on a big field or taking to the woods. Naturally, we took to the woods. The slight inconvenience of a moat separating the woods from the field was quickly solved with a makeshift bridge constructed by our Rooney-upgrade. Soon, we had set up three tents, one decked-out shelter, another buggy one, a recovery zone with all the PT/SM toys, and too many inflatable schwaggins to count.
 
 ![Our Ragnar camp](/img/backblasts/ragnar/Ragnar-camp.jpeg)
+_Figure: Our campsite was legit, complete with spongy-soft, moss-carpeted floors._
 
 And then, we had to wait. For people used to posting at 5:30am, the noon start time for the ultra participants gave us a little too much down time to get antsy before the start. Fortunately, there was plenty to peruse at Ragnar village, and about half the pax bought the same highlighter pink-and-blue Boco hats, since we still don't have that Peak City one.
 
-Maybe it was the wait, or something about the elevation, or the rocky trail conditions, but we all felt a little thrown by the first loop. Specific details on the loops can be found, later, but the basic premise of the race for Black loopers goes like this: the first day, you run three progressively longer and harder trails that total about 17 miles, and the second day, you run a single-track 17 mile trail. Another twist to this race is that you run each loop with a buddy, and your two-man team's time is based on the last man to cross. This buddy system was a nice tie-in to F3 principles of accountability, PUT6, and leave no man behind. But these were not necessarily principles that every team displayed. 
+Maybe it was the wait, or something about the elevation, or the rocky trail conditions, but we all felt a little thrown by the first loop. Specific details on the loops can be found, later, but the basic premise of the race for Black loopers goes like this: the first day, you run three progressively longer and harder trails that total about 17 miles, and the second day, you run a single-track 17 mile trail. 
+
+![Ragnar skeletons](/img/backblasts/ragnar/ragnar-trail.png)
+_Figure: Quite rocky, a little treacherous even, but beautiful views when you dared to look around!_
+
+Another twist to this race is that you run each loop with a buddy, and your two-man team's time is based on the last man to cross. This buddy system was a nice tie-in to F3 principles of accountability, PUT6, and leave no man behind. But these were not necessarily principles that every team displayed. 
+
+![Ragnar skeletons](/img/backblasts/ragnar/ragnar-skeletons.png)
+_Figure: Hopefully you don't leave your buddy quite as skeletal as these dudes._
 
 We all got done with the first loop before 1 o'clock, and then had to wait until 4 o'clock for the second...and 9 o'clock for the last and rockiest of all. All of the trails were much more technical than we thought. On paper, they seemed comparable to Umstead with just a bit more elevation gain, but in person, they were much rougher, rockier, and muddier. The course finish through the village was an adrenaline-racing close, especially at night.
 
 ![Ragnar village](/img/backblasts/ragnar/Ragnar-night.jpeg)
+_Figure: Not pictured was the dizzying rainbow finish._
 
 For those of us who brought a sleeping bag and earplugs to shut out the team of firemen next to us who talked nonstop through the night, the sleeping situation was pretty good. Weather-wise was perfect, mostly sunny, upper 70s in the day, low 60s at night, and still looked beautiful even when we chose to leave after the race instead of camp because of a thunderstorm and tornado warning.
 
@@ -43,9 +53,10 @@ Overall, there is a palpable energy to Ragnar events that is worth experiencing 
 
 ## Course Details
 
+_For more information, you can also check out the [Ragnar website](https://www.runragnar.com/event-detail/trail/appalachians_wv#overview)._
 ![Ragnar course map](/img/backblasts/ragnar/Ragnar-course-map.png)
 
-_For more information, you can also check out the [Ragnar website](https://www.runragnar.com/event-detail/trail/appalachians_wv#overview)._
+A more detailed breakdown of the loops.
 
 | Color           | Distance (mi) | Elevation (ft) | Sample Pace`*` (min/mi) | Description                                                                                               |
 | --------------- | ------------- | -------------- | --- | --------------------------------------------------------------------------------------------------------- |
@@ -110,8 +121,10 @@ Team naming was clearly not our strong suit. We should have used our BRR name, P
 | Travis Well's Team | Mr. Safety | Zero Drop |
 | DDD and Bobby Light | Doug | Bobby |
 
-`*` renamed to "Peak Dust" in super-official Sharpie
-
-While we don't have official race results yet, we do think we have a Top 5 finishing team in honor of our dearly missed brother Travis Wells.
+_`*` renamed to "Peak Dust" in super-official Sharpie_
 
 ![Ragnar team at finish line](/img/backblasts/ragnar/Ragnar-us-tall.jpg)
+
+Aaaand we had a Top 5 finishing team, in honor of our dearly missed brother Travis Wells. Strong work, Mr. Safety and Zero Drop! 👏👏👏
+
+![Ragnar team at finish line](/img/backblasts/ragnar/ragnar-results.png)
