@@ -106,4 +106,4 @@ The following After Action Report was in part developed the night after the race
 
 ## Photo album
 
-{{< google-photos-public album_url="https://photos.app.goo.gl/Pi3UhtS9sGicgmdj6" >}}
+<iframe src="https://albumizr.com/a/Nr5I" scrolling="no" frameborder="0" allowfullscreen width="700" height="400"></iframe>
