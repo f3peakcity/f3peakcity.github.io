@@ -9,7 +9,7 @@ bigimg: [{ src: "/img/backblasts/fall-road.jpeg" }]
 
 Three years have flown by. Some things have changed, such as our region, our workout locations, many of our pax, some dumb new trend of Bay City Scissors, the 4th F, my weight. Some things have stayed the same, such as busy fall F3 schedules that take up just about every free weekend you have, Chiquita's 5-minute grace period, Greater Carpex having the best newsletter in F3 Nation, Wake-O refusing to put my coffee in the cup I bring, or YHC having too much Q-drenaline and starting off too hot out the gate.
 
-And some things, like backblasts, are about more than just workout.
+And some things, like backblasts, are about more than just a workout.
 
 ## EC
 
