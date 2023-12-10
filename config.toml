@@ -144,7 +144,7 @@ unsafe = true
 [[menu.main]]
     parent = "pax"
     name = "PaxMate Dashboard"
-    url = "paxmate-dashboard/"
+    url = "https://lookerstudio.google.com/embed/reporting/877edeac-2d3b-48a5-b0f6-748b3e953533/page/WICTD"
     weight = 43
 
 [[menu.main]]
