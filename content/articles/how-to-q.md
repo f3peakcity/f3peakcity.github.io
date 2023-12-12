@@ -112,6 +112,19 @@ Now that you have a format and muscle group in mind for your "thang," fill it up
 	* The **[Kettlebell Form doc](https://drive.google.com/file/d/1kMiBfKqEDqUeh1fxYCaABYPzVAeBQTvw/view)** that Bronx Bomber put together.
 	* The **[Stretching and Active Recovery doc](https://docs.google.com/document/d/1CrEo_APGBo4ATIV7sK1utBcj6iZ8U21mDet-hGOsYaQ/edit)** for cooldowns and yoga flows.
 
+**Variations on a format**
+
+After you get comfortable with a format, you can experiment to make it more challenging. For example, let's take a `Four Corners` workout and look at how it can be organized in different ways to make it different.
+
+| Variation | Exercises |
+| --- | --- |
+| Vanilla four corners | From center, run to each corner and do 10 of the same exercise, such as squats. |
+| 7 of Diamonds with upper/lower body alternates | <ul><li>Diamond merkins, 7-count</li><li>Bonnie Blairs, 14-count in cadence</li><li>Shoulder taps, 21-count in cadence</li><li>Squats, 28-count</li></ul> |
+| High reps of the exercise to make it suck | <ul><li>Corner 1: 40 squats</li><li>Corner 2: 40 shoulder taps</li><li>Corner 3: 40 Bonnie Blairs</li><li>Corner 4: 40 merkins </li></ul> |
+| Target one muscle group | <ul><li>Corner 1: 10 V-situps</li><li>Corner 2: 15 American hammers</li><li>Corner 3: 20 Freddy Mercury's in cadence</li><li>Corner 4: 25 half situps</li></ul> |
+| Variations of same exercise | <ul><li>Corner 1: 10 diamond merkins</li><li>Corner 2: 20 werkins</li><li>Corner 3: 30 merkins</li><li>Corner 4: 40 plank pulses</li></ul> |
+| Pyramids and ladders (or both) make it longer, plus you can do something else in between | Round 1<ul><li>Corner 1: 7 diamond merkins</li><li>Corner 2: 7 diamond merkins, 14 forward lunges</li><li>Corner 3: 7 diamond merkins, 14 forward lunges, 21 shoulder taps</li><li>Corner 4: 7 diamond merkins, 14 forward lunges, 21 shoulder taps, 28 squats</li></ul>Round 2<ul><li>Corner 1: 28 squats</li><li>Corner 2: 28 squats, 21 shoulder taps</li><li>Corner 3: 28 squats, 21 shoulder taps, 14 forward lunges</li><li>Corner 4: 28 squats, 21 shoulder taps, 14 forward lunges, 7 diamond merkins</li></ul> |
+
 ## Thang 2
 
 Thang 2 can be something totally different than Thang 1, or very similar. See the description for Thang 1 for location, format, and muscle group ideas.
