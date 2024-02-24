@@ -20,13 +20,21 @@ The event kicked off with a bang at midnight of February 10th, when several Peak
 Almost a complete Peak City sweep. If only our Nantan had his priorities straight #skitrip.
 
 🌎 Top Region: Peak City
+
 🏆 Top Individual: Cheap Trick from Peak City
+
 🤝 Top Region by Average Per Pax: Peak City
+
 🌟 1st Place Star Ruck: Clockwork and Bumper Sticker from Peak City
+
 🦆 1st Place Duck Donuts Dash, Youth Division and Overall: Garfield from Peak City
+
 🍩 1st Place Duck Donuts Dash, Mens Division: Clockwork from Peak City
+
 🤴 Most 1st-place KOMs: Mohawk from Peak City
+
 👑 Most KOMs (1st, 2nd, or 3rd): Steaks from Peak City
+
 🤓 Top Nantan Scorer: Jiggly Puff from South Cary
 
 ![Regional and individual results](/img/backblasts/SMR-foggy-path.jpeg)
