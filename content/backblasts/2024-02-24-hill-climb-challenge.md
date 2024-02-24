@@ -37,7 +37,7 @@ Almost a complete Peak City sweep. If only our Nantan had his priorities straigh
 
 🤓 Top Nantan Scorer: Jigglypuff from South Cary
 
-![Regional and individual results](/img/backblasts/SMR-foggy-path.jpeg)
+![Regional and individual results](/img/backblasts/hcc-results.png)
 
 For full results, check out the spreadsheet.
 
