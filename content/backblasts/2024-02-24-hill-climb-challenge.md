@@ -31,7 +31,7 @@ Almost a complete Peak City sweep. If only our Nantan had his priorities straigh
 
 🍩 1st Place Duck Donuts Dash, Mens Division: Clockwork from Peak City
 
-🤴 Most 1st-place KOMs: Mohawk from Peak City
+🤴 Most 1st-place KOMs: Revere and Mohawk tied with 7 each, from Peak City...so nice to see sibling rivalry channeled in a healthy way :D
 
 👑 Most KOMs (1st, 2nd, or 3rd): Steaks from Peak City
 
