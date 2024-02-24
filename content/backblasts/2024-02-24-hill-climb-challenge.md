@@ -29,6 +29,8 @@ Almost a complete Peak City sweep. If only our Nantan had his priorities straigh
 👑 Most KOMs (1st, 2nd, or 3rd): Steaks from Peak City
 🤓 Top Nantan Scorer: Jiggly Puff from South Cary
 
+![Regional and individual results](/img/backblasts/SMR-foggy-path.jpeg)
+
 For full results, check out the spreadsheet.
 
 {{< button href="https://docs.google.com/spreadsheets/d/1CzsnEo65Ezb22Ef3TgW7R-nrpDSbeQDxQjMO7C5QfLg/edit?usp=sharing" >}}📊 Google Sheet with Results{{< /button >}}
