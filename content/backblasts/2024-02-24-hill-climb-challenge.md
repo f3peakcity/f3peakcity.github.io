@@ -43,6 +43,20 @@ For full results, check out the spreadsheet.
 
 {{< button href="https://docs.google.com/spreadsheets/d/1CzsnEo65Ezb22Ef3TgW7R-nrpDSbeQDxQjMO7C5QfLg/edit?usp=sharing" >}}📊 Google Sheet with Results{{< /button >}}
 
+## Differences from last year
+
+If you have ideas for the next iteration of the HCC, add them to the `Ideas for next time` tab on the spreadsheet. This year, we made several changes based on last year, including more promotion before the event (even with a [YouTube video](https://youtu.be/9ygrF0aCjCw)!), hill segments closer to AOs, changing the point distribution to encourage other more participation, options for pax on travel or to self-organize events, and adding more cross-regional events.
+
+Some positive results from these changes include:
+
+🛣️ Overall participants logged an extra 1,000+ miles (25%+ growth over last year)
+
+🌱 More segment completions…last year had fewer than 100 region completions, this year had 250+ (150%+ growth)
+
+📈 More active participants by about 50, with each region having at least 20 active participants (more than double for most regions)
+
+💰 Way more even average points per pax
+
 ## Photo Album
 
 <iframe src="https://albumizr.com/a/Jkqw" scrolling="no" frameborder="0" allowfullscreen width="700" height="400"></iframe>
@@ -64,9 +78,7 @@ Other local Spring events coming up include:
 
 Summer is sure to kick off training for Fall classics such as the 20th anniversary of the BRR.
 
-If you have ideas for the next iteration of the HCC, add them to the `Ideas for next time` tab on the spreadsheet. This year, we made several changes based on last year, including more promotion before the event (even with a [YouTube video](https://youtu.be/9ygrF0aCjCw)!), hill segments closer to AOs, changing the point distribution to encourage other more participation, options for pax on travel or to self-organize events, and adding more cross-regional events.
-
-## SYITG
+## Tclaps
 
 Thanks to all the pax who participated, especially the following regional captains:
 * Peak City organizing: Flenderson, Clockwork, Zero Drop
