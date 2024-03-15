@@ -8,19 +8,23 @@ F3 is peer-led, and as part of that leadership, these PAX make up the Shared Lea
 
 ## Current SLT
 
-- **Nantan**: Red Ryder
+- **Nantan**: Hamm
 
   - The Q of the Peak City region. He’s the cheerleader. Lays down the 43 feet for the region and exemplifies the Peak City culture.
 
-- **1st F Qs**: Hamm, Triple Lindy, Earhart
+- **Weasel Shaker**: Clockwork
+
+  - The guy who has his finger on the pulse of everything Peak City. He "shakes the weasels" to make sure everyone is doing what they are supposed to do!
+
+- **1st F Qs**: Zero Drop, Triple Lindy, Earhart
 
   - Any questions about starting a workout or doing something new in Fitness? These are your guys!
 
-- **2nd F Qs**: Chicken Little, Cataracts
+- **2nd F Qs**: Chicken Little, Bumper Sticker
 
   - These guys execute our large fellowship events a few times a year. Lots of effort, little praise. If you have an ideas about fellowship, reach out to them if you need help.
 
-- **3rd F Qs**: Orphan, 16 Steves
+- **3rd F Qs**: Imp, Go Fasters
 
   - Lead a team of men planning and assisting guys to get Faith-based activities going like Bible studies, book studies, or service projects. Any questions in this area, get at them!
 
@@ -28,7 +32,7 @@ F3 is peer-led, and as part of that leadership, these PAX make up the Shared Lea
 
   - These are the men to help you promote your next great plan.
 
-- **Region Ambassador**: Rooney
+- **Region Ambassador**: Henny Penny
 
   - This role ensures we maintain intentional connections with the greater Carpex region.
 

@@ -27,7 +27,7 @@ Depending on what you want to do, you have a few options to contribute.
 ## Quick start
 
 1. Clone the repo.
-2. [Install Hugo](https://gohugo.io/installation/) version 0.119.0.
+2. [Install Hugo](https://gohugo.io/installation/) version 0.123.8.
 3. Navigate into the repo and run build the site locally.
    ```
    hugo server -D
