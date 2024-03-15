@@ -28,7 +28,7 @@ F3 is peer-led, and as part of that leadership, these PAX make up the Shared Lea
 
   - Lead a team of men planning and assisting guys to get Faith-based activities going like Bible studies, book studies, or service projects. Any questions in this area, get at them!
 
-- **Comz**: Wahoo (Comz Q), Clockwork (newsletter), Cataracts (Social Media):
+- **Comz**: Wahoo (Comz Q), Cataracts (Social Media):
 
   - These are the men to help you promote your next great plan.
 
