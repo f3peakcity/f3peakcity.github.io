@@ -23,6 +23,12 @@ He ran into Coco from Churham at the start.
 
 ![Start line group photo](/img/backblasts/mitchell/start-line.jpeg)
 
+## Map
+
+The event had a really great tracking system, including several apps and maps to help you see where you were. However, I had a hard time finding a Strava route or simple elevation profile.
+
+![Map of the Mt Mitchell race](/img/backblasts/mitchell/map.png)
+
 ## Station-by-station guide
 
 The race has the following aid stations, some of which have accompanying cutoff times. In the 50-mile, you have a total of 16.5 hrs, which averages out to roughly 19:40 min/mi pace. But that is a bit deceptive, because you won't be doing that pace for hardly any of the race, due to its up and down nature. This, in turn, can make planning what pace you need to hit to reach cutoff times more difficult.
