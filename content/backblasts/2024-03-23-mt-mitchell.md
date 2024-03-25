@@ -115,7 +115,7 @@ These brief notes come from Banjo:
 * To Blue Ridge toll road: This last climb was not bad, significantly less climb and nothing as technical as the first two.
 * To Jarrett Creek Rd: Another runnable downhill. You are just in finishing mode at this point. Good place to encourage and challenge other runners to push each other to finish.
 
-As is classic Banjo, he came in with a group, knew everybody, and was meeting their families at the end.
+As is classic Banjo, he came in with a group, knew everybody, and was meeting their families at the end. He made it in looking strong before it got dark around 8pm, about 2 hrs before the 10pm cutoff.
 
 ## Post-race
 
