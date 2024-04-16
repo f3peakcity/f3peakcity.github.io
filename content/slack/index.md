@@ -8,7 +8,7 @@ socialShare: false
 Slack is a group chat app that serves as our group's virtual space for all sorts of mumblechatter. You can access Slack from your phone, desktop, or browser.
 {{< column >}}
 <br>
-{{< button href="https://join.slack.com/t/f3peakcity/shared_invite/zt-1mjr2w8sg-ZA2bQ1ClRx70BHEqsuep1g" >}}Launch Slack{{< /button >}}
+{{< button href="https://join.slack.com/t/f3peakcity/shared_invite/zt-1mjr2w8sg-ZA2bQ1ClRx70BHEqsuep1g" >}}Join Slack{{< /button >}}
 {{< endcolumns >}}
 
 > **Need an invite?** Anyone already in the Slack can text you an invite link, or you can give them your email and they can send you a link via email. If needed, [contact us](/contact) for help.
@@ -46,19 +46,18 @@ Channels are often used to share interests or coordinate activities around a cer
 
 Don't see a channel you want? Ask in `#mumblechatter` to see if others are interested, too. You can even [create your own channel](https://slack.com/help/articles/201402297-Create-a-channel), such as for your Shield Lock or a one-time event! Here are some guidelines to help with naming the channel.
 
-* Search for an existing channel that might be similar, and see if it'd make sense to combine channels.
-* If applicable to your topic, use prefixes:
-  * `#1stf-`: For fitness-related topics.
-  * `#2ndf-`: For social, fellowship-related topics.
-  * `#3rdf-`: For service projects, faith-based, and similar topics.
-* Use keywords that people are likely to search for. For example, `#business-finance-career` covers a lot of bases.
+- Search for an existing channel that might be similar, and see if it'd make sense to combine channels.
+- If applicable to your topic, use prefixes:
+  - `#1stf-`: For fitness-related topics.
+  - `#2ndf-`: For social, fellowship-related topics.
+  - `#3rdf-`: For service projects, faith-based, and similar topics.
+- Use keywords that people are likely to search for. For example, `#business-finance-career` covers a lot of bases.
 
 ## Paxmate
 
 Paxmate is a tool to help summarize events, including who was there. This information helps us plan events and manage sites. You can also view the data yourself.
 
 For future enhancements to the tool, see the [`f3_bot` issues](https://github.com/f3peakcity/f3_bot/issues).
-
 
 {{< button relref="/articles/paxmate-user-guide" >}}Paxmate User Guide{{< /button >}} | {{< button relref="/paxmate-dashboard" >}}Paxmate Dashboard{{< /button >}}
 
