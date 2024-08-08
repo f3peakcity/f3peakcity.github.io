@@ -68,3 +68,15 @@ Here are some general techniques.
 * Foot at back, staggered, and spin around in a circle
 * 1-legged and paddle - same side
 * Move with at least two points (paddle in the water)
+
+## Games
+
+The following games have worked well for past Qs. Many require some prep, such as buoys, balls, or foam noodles to protect the paddles more.
+
+* Paddle hockey
+* Sharks & minnows, tag
+* Capture the flag
+* Polo
+* Scavenger hunt
+* Variations on racing
+* King of the Board
