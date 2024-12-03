@@ -21,10 +21,8 @@ Basic info to add or update:
 
 Please add any other details that are important.
 
-```[tasklist]
 ### Checklist for AO tasks
 - [ ] Q Sheet
 - [ ] Peak City Website 
 - [ ] Slack enablement for Backblasts (typically a Slack channel)
-- [ ] F3 Nation website - [map change request](https://f3nation.com/map-changes/)
-```
+- [ ] F3 Nation website - [Scroll down to section about map change request](https://f3nation.com/locations)
