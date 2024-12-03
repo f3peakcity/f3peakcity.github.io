@@ -1,0 +1,94 @@
+name: AO issue
+description: New, updated, or closed AOs
+title: "[AO] - <add/update/delete> AO - <name of AO>"
+labels: ["good first issue"]
+body:
+  - type: input
+    id: contact
+    attributes:
+      label: Contact
+      placeholder: Your F3 name
+    validations:
+      required: false
+  - type: checkboxes
+    id: request
+    attributes:
+      label: AO request
+      description: This request is to...
+      options:
+        - label: Add an AO
+        - label: Update an existing AO
+        - label: Close an AO
+    validations:
+      required: true
+  - type: input
+    id: name
+    attributes:
+      label: AO name
+      placeholder: e.g., Dante's Peak
+    validations:
+      required: true
+  - type: input
+    id: time
+    attributes:
+      label: Start and end time
+      placeholder: e.g., 0530 - 0615
+    validations:
+      required: true
+  - type: dropdown
+    id: day
+    attributes:
+      label: Day of the week
+      options:
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+        - Sunday
+      default: 0
+    validations:
+      required: true
+  - type: input
+    id: qs
+    attributes:
+      label: Site Qs
+      placeholder: e.g., Hamm and Clockwork
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: AO type
+      options:
+        - Boot Camp
+        - Limited Run / Strength
+        - Hi-tempo
+        - Run-only
+        - Ruck
+        - Other (comment below)
+      default: 0
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: Place name with Google Maps pin drop
+      placeholder: e.g., Apex Chamber of Commerce, https://maps.app.goo.gl/SsADoMyx52iRF1cV7
+    validations:
+      required: true
+  - type: textarea
+    id: other
+    attributes:
+      label: More info
+      description: Please add any other details that are important.
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        Tasklist for Comz to complete.
+        - [ ] Q Sheet
+        - [ ] Peak City Website 
+        - [ ] Slack enablement for Backblasts (typically a Slack channel)
+        - [ ] F3 Nation website - [Scroll down to section about map change request](https://f3nation.com/locations)
