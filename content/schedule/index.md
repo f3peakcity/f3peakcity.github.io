@@ -43,24 +43,27 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | Wednesday | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)                  | 0530 - 0615     | Tortoises                  | Limited Run Boot Camp                                                             |
 | Wednesday | [St. Mary Magdalene Church](https://goo.gl/maps/gDKAiqRS5dF2)                     | 0530 - 0615     | Lion's Den                 | Boot Camp                                                                         |
 | Wednesday | [Seagrove Park](https://goo.gl/maps/nrWfz9gTNBPqR829A)                            | 0530 - 0615     | 7th Inning Stretch         | Run/Yoga                                                                          |
+| Wednesday | [Harris Teeter at Sweetwater](https://maps.app.goo.gl/HG3QrYD7voWFif689)          | 0545 - 0630     | The Foundry                | Boot Camp                                                                         |
 | DAY       | LOCATION                                                                          | TIME            | WORKOUT                    | STYLE                                                                             |
 | Thursday  | [Lowes Foods at Hwy 55 & Apex Peakway](https://goo.gl/maps/44UHinjZif3FRPSaA)     | 0530 - 0615     | Half Dome                  | Hi Tempo Hills Boot Camp                                                          |
 | Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                       | 0530 - 0615     | Bounty Hunters             | Boot Camp                                                                         |
-| Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                       | \*0500 - 0615   | The Happy Dino             | Running – 8.7 Miles                                                               |
+| Thursday  | [Hunter Street Park](https://goo.gl/maps/bWPqxfs4iEfpjwFf9)                       | `*`0500 - 0615  | The Happy Dino             | Running – 8.7 Miles                                                               |
 | Thursday  | [Publix Parking Lot](https://maps.app.goo.gl/QoeHRiigUZDS2yjg7)                   | 0530 - 0615     | Hot For Teacher            | Boot Camp                                                                         |
 | DAY       | LOCATION                                                                          | TIME            | WORKOUT                    | STYLE                                                                             |
 | Friday    | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                            | 0530 - 0615     | Dante's Peak               | Boot Camp                                                                         |
 | Friday    | [Apex Community Park](https://maps.app.goo.gl/F9zeggictfcRsq4b9)                  | 0545 - 0630     | Moon Tower                 | Boot Camp                                                                         |
 | Friday    | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)                  | 0530 - 0615     | Tin2Iron                   | No Run Boot Camp                                                                  |
-| Friday    | [Jordan Lake - Bell's Church Fishing Pier](https://goo.gl/maps/YnhGZ7piukyddcus7) | \*\*0545 - 0630 | The Board Meeting          | Paddleboarding (Seasonal, open roughly Memorial Day - Labor Day)                  |
+| Friday    | [Jordan Lake - Bell's Church Fishing Pier](https://goo.gl/maps/YnhGZ7piukyddcus7) | `†`0545 - 0630  | The Board Meeting          | Paddleboarding (**Seasonal only**)                                                |
 | DAY       | LOCATION                                                                          | TIME            | WORKOUT                    | STYLE                                                                             |
-| Saturday  | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                            | 0700            | Das Boot                   | 3 choices weekly:<br/>6-mile run or<br/>60-minute boot camp or<br/>60-minute ruck |
+| Saturday  | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                            | `‡`0700         | Das Boot                   | 3 choices weekly:<br/>6-mile run or<br/>60-minute boot camp or<br/>60-minute ruck |
 | DAY       | LOCATION                                                                          | TIME            | WORKOUT                    | STYLE                                                                             |
 | Sunday    | [Starbucks - Hwy 55](https://goo.gl/maps/v82Apf8yVfP1T1Aw9)                       | 0700            | Sunday Slowzy              | Running – ~6 Miles – Varying Routes                                               |
 
-_\*Launch time may vary depending on pace. Intention is to be back at the Flag in time for COT at 0615._
+Notes:
 
-_\*\*Paddleboard start time varies with sunrise. Arrive 15 minutes early or so to inflate your paddleboard. Check Slack for EC options._
+* `*` Launch time may vary depending on pace. Intention is to be back at the Flag in time for COT at 0615.
+* `†` Paddleboard start time varies with sunrise. Arrive 15 minutes early or so to inflate your paddleboard. Check Slack for EC options. Open roughly Memorial Day - Labor Day.
+* `‡` Das Boot start time is 0630 in the summer and 0700 in the winter.
 
 ### <a name="2ndf"></a>2nd F – Fellowship
 
