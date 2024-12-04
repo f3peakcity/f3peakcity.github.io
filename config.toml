@@ -125,6 +125,12 @@ unsafe = true
     weight = 5
 
 [[menu.main]]
+    parent = "schedule"
+    name = "Calendar of Events"
+    url = "schedule/#events"
+    weight = 6
+
+[[menu.main]]
     identifier = "pax"
     name = "PAX"
     weight = 40
