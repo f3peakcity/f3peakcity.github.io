@@ -39,3 +39,7 @@ F3 is peer-led, and as part of that leadership, these PAX make up the Shared Lea
 - **FNG Q**: Open Concept
 
   - This role works with the SLT and Site Qs to make Peak City an even better place for friendly new guys (FNGs) to accelerate. He also follows up with FNGs to make sure they're getting plugged into the region across the 3Fs.
+
+- **Culture Q**: Theismann
+
+  - This role helps the Nantan and SLT preserve the unique culture of the region. He works especially with the 2nd F team on special events that invigorate male community leadership. He also works with the Comz team to make sure our digital assets such as the website, social media, and Slack reflect the culture of the local pax.
