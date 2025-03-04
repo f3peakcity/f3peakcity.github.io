@@ -85,7 +85,7 @@ As with everything in F3, you are "Freed to Lead," and can post mostly whatever 
 
 - 🙋 Ask for help in a way that is respectful and considerate of your fellow pax. We love sharing recommendations, advice, and encouragement.
 - 🤝 It's ok to share about your personal business, especially if a Pax asks for recommendations. But please don't spam the channels constantly.
-- 🤔 Please rethink using Slack to ask for things that might cross a boundary. Examples include out-of-the-blue requests for money, rides, or favors that are not related to the group, your past relationship with a person, or otherwise are inappropriate uses of the technology. If you are close enough to ask for such favors, you should probably call or text that person. 
+- 🤔 Please rethink using Slack to ask for things that might cross a boundary. Examples include out-of-the-blue requests for money, rides, or favors that are not related to the group, your past relationship with a person, or otherwise are inappropriate uses of the technology. If you are close enough to ask for such favors, you should probably call or text that person off Slack. 
 
 ### Moderation actions by Commz team
 
