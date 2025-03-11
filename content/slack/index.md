@@ -61,19 +61,6 @@ For future enhancements to the tool, see the [`f3_bot` issues](https://github.co
 
 {{< button relref="/articles/paxmate-user-guide" >}}Paxmate User Guide{{< /button >}} | {{< button relref="/paxmate-dashboard" >}}Paxmate Dashboard{{< /button >}}
 
-## Moderation
-
-As with everything in F3, you are "Freed to Lead," and can post mostly whatever you like, or even help the [Commz team](/leadership/) moderate.
-
-A few general guidelines:
-
-- 💪 We love a "hard commit" (`HC`) culture! If you plan to show up to a workout or event, throw an `HC` emoji reaction on that post.
-- <a href="/decal-says/">🙈</a> Try to keep content more PG-13 than R or NSFW.
-- 🔥 If you post about "hot button" topics like politics, please be considerate in your word choices and remember that we include men from all walks of life.
-- 🤑 It's ok to share about your personal business, especially if a Pax asks for recommendations. But please don't spam the channels constantly.
-- 🧹 Occassionally the Commz team or another Pax might suggest that a post would be better in a different channel or rename a channel. This is to help us keep Slack tidy, since things get lost very fast.
-- 🚨 Avoid using `@channel` or `@here` unless you _really_ need everyone to get a notification that very second.
-
 ## Profiles
 
 Here are some tips for filling out your profile.
@@ -82,3 +69,25 @@ Here are some tips for filling out your profile.
 - For your **Display Name**, use your F3 name. Some people from other regions might also add their region, like **Prodigal (Carpex)**.
 - In your title, feel free to add what you do in real life, or in the group, like if you're a Site Q.
 - Make sure to add a phone number to the **ICE**, or in case of emergency, field. You can also put this in your title if you want to add more details like a contact name. (Note: You can fill out the **ICE** field on desktop or browser only, unfortunately not on the mobile app yet due to a known Slack limitation.)
+
+## Moderation
+
+As with everything in F3, you are "Freed to Lead," and can post mostly whatever you like, or even help the [Commz team](/leadership/) moderate. We want to make sure that our digital community reflects the values of F3 and the spirit of the group that you get in person. The following guidelines are meant to help you understand the sort of things we look for.
+
+### General guidelines
+
+- 💪 We love a "hard commit" (`HC`) culture! If you plan to show up to a workout or event, throw an `HC` emoji reaction on that post.
+- <a href="/decal-says/">🙈</a> Try to keep content more PG than R or NSFW. Please avoid using disrespectful language, slurs, and excessive profanity.
+- 🔥 If you post about "hot button" topics like politics, please be considerate in your word choices and remember that we include men from all walks of life.
+- 🚨 Avoid using `@channel` or `@here` unless you _really_ need everyone to get a notification that very second.
+
+### Asking for things
+
+- 🙋 Ask for help in a way that is respectful and considerate of your fellow pax. We love sharing recommendations, advice, and encouragement.
+- 🤝 It's ok to share about your personal business, especially if a Pax asks for recommendations. But please don't spam the channels constantly.
+- 🤔 Please rethink using Slack to ask for things that might cross a boundary. Examples include out-of-the-blue requests for money, rides, or favors that are not related to the group, your past relationship with a person, or otherwise are inappropriate uses of the technology. If you are close enough to ask for such favors, you should probably call or text that person off Slack. 
+
+### Moderation actions by Commz team
+
+- 📂 We might suggest or move a post to a different channel, rename a channel, or otherwise tidy up Slack.
+- 🧹 Occassionally, we might delete content or accounts that violate our guidelines
