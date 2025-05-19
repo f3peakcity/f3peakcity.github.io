@@ -56,7 +56,7 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | Friday    | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)                  | 0530 - 0615     | Tin2Iron                   | No Run Boot Camp                                                                  |
 | Friday    | [Jordan Lake - Bell's Church Fishing Pier](https://goo.gl/maps/YnhGZ7piukyddcus7) | `†`0545 - 0630  | The Board Meeting          | Paddleboarding (**Seasonal only**)                                                |
 | DAY       | LOCATION                                                                          | TIME            | WORKOUT                    | STYLE                                                                             |
-| Saturday  | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                            | `‡`0700         | Das Boot                   | 3 choices weekly:<br/>6-mile run or<br/>60-minute boot camp or<br/>60-minute ruck |
+| Saturday  | [Downtown Apex](https://goo.gl/maps/AXfDGXbGRv2XyAbD8)                            | `‡`0630         | Das Boot                   | Choices weekly:<br/>6-mile run<br/>3 or 4-mile run (Das Fin)<br/>60-minute boot camp<br/>60-minute ruck |
 | DAY       | LOCATION                                                                          | TIME            | WORKOUT                    | STYLE                                                                             |
 | Sunday    | [Starbucks - Hwy 55](https://goo.gl/maps/v82Apf8yVfP1T1Aw9)                       | 0700            | Sunday Slowzy              | Running – ~6 Miles – Varying Routes                                               |
 
