@@ -37,7 +37,7 @@ F3 is peer-led, and as part of that leadership, these PAX make up the Shared Lea
 
 - **Comz**: Ramsay
 
-  - Our data and tech maestro, responsible for Slack oversight, website maintenance**,** and data tracking for Peak City. He takes feedback from PAX and seeks opportunities to update and improve our communication channels, while also collaborating with SLT to share data insights to help accelerate our region.
+  - Our data and tech maestro, responsible for Slack oversight, website maintenance, and data tracking for Peak City. He takes feedback from PAX and seeks opportunities to update and improve our communication channels, while also collaborating with SLT to share data insights to help accelerate our region.
 
 - **Region Ambassador**: Henny Penny
 
