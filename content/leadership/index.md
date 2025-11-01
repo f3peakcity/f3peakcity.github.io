@@ -47,6 +47,6 @@ F3 is peer-led, and as part of that leadership, these PAX make up the Shared Lea
 
   - Focused on the mission of F3 — developing leadership within Peak City. He leads weekly Q Source discussions, works with all SLT members to identify leadership opportunities among the PAX, and serves as the region’s leadership mentor.
 
-- **Culture Q**: Theismann
+<!-- - **Culture Q**: 
 
-  - This role looks at all three F’s from the lens of what makes us unique and how we can further embrace the spirit of Peak City in everything we do. He collaborates with the 1st, 2nd, and 3rd F Q’s to share ideas based on maintaining a strong regional identity.
+  - This role looks at all three F’s from the lens of what makes us unique and how we can further embrace the spirit of Peak City in everything we do. He collaborates with the 1st, 2nd, and 3rd F Q’s to share ideas based on maintaining a strong regional identity. -->
