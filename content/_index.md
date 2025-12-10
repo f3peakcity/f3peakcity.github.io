@@ -1,10 +1,29 @@
 ---
 ---
 
+{{< columns >}}
+
+<a href="articles/100-man-challenge" target="_blank">
+  <img src="https://neighborup.org/wp-content/uploads/neighburuplogo.png" alt="NeighborUp" width="auto">
+
+#### **Peak City 100 Man Challenge**
+</a>
+
+_Supporting the Peak City community in partnership with NeighborUp_
+
+{{< button href="https://givebutter.com/peakcity100manchallenge" >}} Become One of the One Hundred {{< /button >}}
+
+
+{{< column >}}
+
 <picture>
   <source srcset="/img/brand/f3-peak-city-white-on-transparent.png" media="(prefers-color-scheme:dark)">
-  <img height="200px" src="/img/brand/f3-peak-city-black-on-transparent.png">
+  <img height="285px" src="/img/brand/f3-peak-city-black-on-transparent.png">
 </picture>
+
+{{< endcolumns >}}
+
+---
 
 {{< columns >}}
 
@@ -26,10 +45,9 @@ The workouts are for men of all fitness levels and goals, and include running; c
 
 {{< endcolumns >}}
 
-</br>
-</br>
+---
 
-{{< columns >}}
+<!-- {{< columns >}} -->
 
 ## Dive deeper
 
@@ -39,14 +57,15 @@ Check out 2nd F (fellowship) and 3rd F (service) opportunities on the F3 Peak Ci
 
 {{< button href="https://calendar.google.com/calendar/u/3?cid=ZjNwZWFrY2l0eUBnbWFpbC5jb20" >}}📅 Add to Calendar{{< /button >}}
 
-{{< column >}}
+<!-- {{< column >}} -->
 
 <!-- Add specific events here -->
 
-{{< endcolumns >}}
+<!-- {{< endcolumns >}} -->
 
 </br>
-</br>
+
+---
 
 {{< columns >}}
 

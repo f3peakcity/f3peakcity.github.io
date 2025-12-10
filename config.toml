@@ -43,11 +43,24 @@ unsafe = true
 #  hideAuthor = true
 #  gcse = "012345678901234567890:abcdefghijk" # Get your code from google.com/cse. Make sure to go to "Look and Feel" and change Layout to "Full Width" and Theme to "Classic"
 
+# Header Carosel
 [[Params.bigimg]]
   src = "img/events/2023-peak-city-launch-water-tower-scaled_16x9.png"
-#[[Params.bigimg]]
-#  src = "img/sphere.jpg"
-#  desc = "Sphere"
+[[Params.bigimg]]
+  src = "img/events/coffeteria.PNG"
+  desc = "Common Grounds Coffeteria"
+[[Params.bigimg]]
+  src = "img/events/f3-dads-camp.PNG"
+  desc = "F3 Dads Camp - Hanging Rock"
+[[Params.bigimg]]
+  src = "img/events/das-boot-bday.PNG"
+  #desc = "Common Grounds Coffeteria"
+[[Params.bigimg]]
+  src = "img/events/the-board-meeting.PNG"
+  desc = "The Board Meeting"
+[[Params.bigimg]]
+  src = "img/events/das-boot.PNG"
+  #desc = "The Board Meeting"
 #  # position: see values of CSS background-position.
 #  position = "center top"
 #[[Params.bigimg]]

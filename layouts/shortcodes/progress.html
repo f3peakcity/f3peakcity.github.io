@@ -1,0 +1,76 @@
+<!-- progress.html -->
+<div class="progress-wrapper" style="margin: 2em 0;">
+
+  <table style="width: 100%; border-collapse: collapse; border: none;">
+    <tr>
+
+      <!-- Logo + Donate Button Column -->
+      <td style="width: 60%; text-align: center; vertical-align: center; padding: 1em; border: none;">
+
+        <!-- Logo -->
+        <img 
+          src="https://neighborup.org/wp-content/uploads/neighburuplogo.png"
+          alt="NeighborUp Logo"
+          style="height: auto; margin-bottom: 1em;"
+        >
+
+        <!-- Donate Button -->
+        <a href="/donate"
+        style="display:inline-block;
+                padding:12px 28px;
+                background: #ff771e;
+                font-size:2.0rem;
+                color: #f8f8f8;
+                font-weight:600;
+                width:auto;
+                text-align:center;
+                border-radius:6px;">
+        Become One of the One Hundred
+        </a>
+
+
+      </td>
+
+      <!-- Progress Badge Column -->
+      <td style="width: 40%; vertical-align: top; padding: 1em; border: none;">
+
+        <div style="
+          background: #f8f8f8;
+          border-radius: 8px;
+          padding: 1.25em;
+          text-align: center;
+        ">
+          
+          <h3 style="margin-top: 0;">💯 100 Men Challenge Progress</h3>
+
+          <p style="margin: 0.25em 0;">
+            <strong>Men Joined:</strong> {{ .Get "men" }} / {{ .Get "menGoal" }}
+          </p>
+
+          <p style="margin: 0.25em 0 1em;">
+            <strong>Raised:</strong> ${{ .Get "raised" }} / ${{ .Get "goal" }}
+          </p>
+
+          <!-- Progress Bar -->
+          {{ $raised := .Get "raised" | float }}
+          {{ $goal   := .Get "goal"   | float }}
+          {{ $pct    := mul (div $raised $goal) 100 }}
+
+          <table style="width: 100%; border-collapse: collapse; border: none; margin-bottom: 0.5em;">
+            <tr style="border: none;">
+              <td style="background: #2b7cff; height: 12px; width: {{ printf "%.0f" $pct }}%; border: none;"></td>
+              <td style="background: #e3e3e3; height: 12px; border: none;"></td>
+            </tr>
+          </table>
+
+          <small style="color: #555;">
+            Updated {{ now.Format "January 1, 2006" }}
+          </small>
+
+        </div>
+
+      </td>
+    </tr>
+  </table>
+
+</div>
