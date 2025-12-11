@@ -9,9 +9,9 @@ description: "Join 100 men supporting families in crisis through NeighborUp. ANY
 ## 🚀 OPERATION Rising Tide: 100 Man Challenge
 ### **ANY Amount. One Mission. Real Impact.**
 {{< progress 
-    men="28" 
+    men="32" 
     menGoal="100" 
-    raised="5150" 
+    raised="5500" 
     goal="10000" 
 >}}
 
