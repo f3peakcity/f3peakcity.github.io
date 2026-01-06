@@ -3,22 +3,21 @@
 
 {{< columns >}}
 
-<a href="articles/100-man-challenge" target="_blank">
+<a href="articles/100-bag-challenge" target="_blank">
   <img src="https://neighborup.org/wp-content/uploads/neighburuplogo.png" alt="NeighborUp" width="auto">
 
-#### **Peak City 100 Man Challenge**
+#### **Peak City 100 Bag Challenge**
 </a>
 
-_Supporting the Peak City community in partnership with NeighborUp_
+_Supporting the Peak City community in partnership with [NeighborUp](https://neighborup.org)_
 
-{{< button href="https://givebutter.com/peakcity100manchallenge" >}} Become One of the One Hundred {{< /button >}}
-
+From Sugar to Shampoo: The 🎒 100 Bag Challenge Kicks Off a Sustained Giving Campaign—Grab a Bag and Make an Impact!
 
 {{< column >}}
 
 <picture>
   <source srcset="/img/brand/f3-peak-city-white-on-transparent.png" media="(prefers-color-scheme:dark)">
-  <img height="285px" src="/img/brand/f3-peak-city-black-on-transparent.png">
+  <img height="320px" src="/img/brand/f3-peak-city-black-on-transparent.png">
 </picture>
 
 {{< endcolumns >}}

@@ -1,77 +1,83 @@
-<!-- progress.html -->
+<!-- progress.html - FINAL SUCCESS VERSION -->
 <div class="progress-wrapper" style="margin: 2em 0;">
-
   <table style="width: 100%; border-collapse: collapse; border: none;">
     <tr>
-
       <!-- Logo + Donate Button Column -->
       <td style="width: 60%; text-align: center; vertical-align: center; padding: 1em; border: none;">
-
         <!-- Logo -->
         <img 
           src="https://neighborup.org/wp-content/uploads/neighburuplogo.png"
           alt="NeighborUp Logo"
           style="height: auto; margin-bottom: 1em;"
         >
-
-        <!-- Donate Button -->
-        <a href="https://givebutter.com/peakcity100manchallenge" 
-        target="_blank"
-        style="display:inline-block;
-                padding:12px 28px;
-                background: #ff771e;
-                font-size:2.0rem;
-                color: #f8f8f8;
-                font-weight:600;
-                width:auto;
-                text-align:center;
-                border-radius:6px;">
-        Become One of the One Hundred
-        </a>
-
-
+        <!-- Success Message -->
+        <div style="
+          color: white;
+          padding: 1em;
+          border-radius: 8px;
+          margin-bottom: 1em;
+          font-size: 1.2em;
+          font-weight: 600;
+        ">
+          ✅ MISSION ACCOMPLISHED!
+        </div>
+        <!-- Optional: Keep donate button if still accepting -->
+        <!-- <a href="https://givebutter.com/peakcity100manchallenge" 
+           target="_blank"
+           style="display:inline-block;
+                  padding:12px 28px;
+                  background: #ff771e;
+                  font-size:1.5rem;
+                  color: #f8f8f8;
+                  font-weight:600;
+                  width:auto;
+                  text-align:center;
+                  border-radius:6px;">
+          Support NeighborUp
+        </a> -->
       </td>
 
       <!-- Progress Badge Column -->
       <td style="width: 40%; vertical-align: top; padding: 1em; border: none;">
-
         <div style="
-          background: #f8f8f8;
+          background: #6a7337;
           border-radius: 8px;
           padding: 1.25em;
           text-align: center;
-        ">
+        "> 
+          <h3 style="margin-top: 0;">🎉 100 Men Challenge COMPLETE!</h3>
           
-          <h3 style="margin-top: 0;">💯 100 Men Challenge Progress</h3>
-
-          <p style="margin: 0.25em 0;">
-            <strong>Men Joined:</strong> {{ .Get "men" }} / {{ .Get "menGoal" }}
+          <p style="margin: 0.25em 0 1em; font-size: 1.5em; font-weight: bold; color: #4CAF50;">
+            $11,100 Raised
           </p>
-
+          
           <p style="margin: 0.25em 0 1em;">
-            <strong>Raised:</strong> ${{ .Get "raised" }} / ${{ .Get "goal" }}
+            <strong>111% of $10,000 Goal!</strong>
           </p>
 
-          <!-- Progress Bar -->
-          {{ $raised := .Get "raised" | float }}
-          {{ $goal   := .Get "goal"   | float }}
-          {{ $pct    := mul (div $raised $goal) 100 }}
-
+          <!-- Progress Bar at 100%+ -->
           <table style="width: 100%; border-collapse: collapse; border: none; margin-bottom: 0.5em;">
             <tr style="border: none;">
-              <td style="background: #2b7cff; height: 12px; width: {{ printf "%.0f" $pct }}%; border: none;"></td>
-              <td style="background: #e3e3e3; height: 12px; border: none;"></td>
+              <td style="background: #4CAF50; height: 16px; width: 100%; border: none; border-radius: 8px;"></td>
             </tr>
           </table>
+          
+          <div style="
+            background: rgba(255,255,255,0.1);
+            padding: 0.75em;
+            border-radius: 6px;
+            margin-top: 1em;
+          ">
+            <p style="margin: 0; font-size: 0.9em;">
+              <strong>100+ men</strong> stepped up for their community
+            </p>
+          </div>
 
-          <small style="color: #555;">
-            Updated {{ now.Format "January 1, 2006" }}
+          <small style="color: #ddd; display: block; margin-top: 1em;">
+            Campaign completed December 2024
           </small>
-
         </div>
-
       </td>
     </tr>
   </table>
-
 </div>
