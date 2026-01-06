@@ -13,8 +13,6 @@ description: "Join 100 men supporting families in crisis through NeighborUp. ANY
     goal="10000" 
 >}}
 
----
-
 ## 🎯 The Mission
 
 We’re calling on **100 men** to step up and give **ANY amount** to support families in crisis right here in Peak City through **NeighborUp** — the unified force of Dorcas Ministries and Western Wake Crisis Ministry.
