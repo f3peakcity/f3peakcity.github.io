@@ -42,7 +42,7 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 | DAY       | LOCATION                                                                          | TIME            | WORKOUT                    | STYLE                                                                             |
 | Wednesday | [Cornerstone Fellowship Church](https://goo.gl/maps/AJKTycpLQHo)                  | 0530 - 0615     | Tortoises                  | Limited Run Boot Camp                                                             |
 | Wednesday | [St. Mary Magdalene Church](https://goo.gl/maps/gDKAiqRS5dF2)                     | 0530 - 0615     | Lion's Den                 | Boot Camp                                                                         |
-| Wednesday | [Seagrove Park](https://goo.gl/maps/nrWfz9gTNBPqR829A)                            | 0530 - 0615     | 7th Inning Stretch         | Run/Yoga                                                                          |
+| Wednesday | [Seagrove Park](https://goo.gl/maps/nrWfz9gTNBPqR829A)                            | 0530 - 0615     | 7th Inning Stretch         | Run/Yoga `§`                                                                      |
 | Wednesday | [Harris Teeter at Sweetwater](https://maps.app.goo.gl/HG3QrYD7voWFif689)          | 0530 - 0615     | The Foundry                | Boot Camp                                                                         |
 | DAY       | LOCATION                                                                          | TIME            | WORKOUT                    | STYLE                                                                             |
 | Thursday  | [Lowes Foods at Hwy 55 & Apex Peakway](https://goo.gl/maps/44UHinjZif3FRPSaA)     | 0530 - 0615     | Half Dome                  | Hi Tempo Hills Boot Camp                                                          |
@@ -60,6 +60,7 @@ Looking for a closer workout? Check out a surrounding Region:<br/><br/>
 
 Notes:
 
+* `§` 7th Inning is 10 min run/walk and 35 min yoga in the summer (Apr-Oct) and the reverse or run-only in the winter (Oct-Apr).
 * `*` Launch time may vary depending on pace. Intention is to be back at the Flag in time for COT at 0615.
 * `†` Paddleboard start time varies with sunrise. Arrive 15 minutes early or so to inflate your paddleboard. Check Slack for EC options. Open roughly Memorial Day - Labor Day.
 * `‡` Das Boot start time is 0630 in the summer (roughly May-Sept) and 0700 in the winter (roughly Oct-Apr).
@@ -76,9 +77,9 @@ Notes:
 
 | DAY             | LOCATION                                                                     | TIME        | WHAT         | DESCRIPTION                                                                              | SLACK                                                                    |
 | --------------- | ---------------------------------------------------------------------------- | ----------- | ------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| Thursday        | [Panera – Beaver Creek](https://goo.gl/maps/cYYpQzRSjtPEFtAx8)               | 0635 – 0710 | Infusion     | Read through books of the Bible and discuss                                              | [#3rdf-the-Infusion](https://f3carpex.slack.com/archives/C02UVAL9XA7)    |
-| Thursday        | [Lowes Food Apex](https://goo.gl/maps/XmZXzmJF2THXJTmj9)                     | Any         | WWCM         | Pickup food at Lowes & Deliver to WWCM Warehouse few miles away.                         | [#3rdf-WWCM-Support](https://f3carpex.slack.com/archives/C020LFW2GDV)    |
-| Every other Sun | Downtown Cary                                                                | 1400        | TCP Sawgrass | Landscape multiple homes in support of The Carying Place.                                | [#3rdf-carying-place-tcp](https://f3carpex.slack.com/archives/CB22XF46R) |
+| Thursday        | [Panera – Beaver Creek](https://goo.gl/maps/cYYpQzRSjtPEFtAx8)               | 0635 – 0710 | Infusion     | Read through books of the Bible and discuss                                              | `#3rdf`   |
+| Thursday        | [Lowes Food Apex](https://goo.gl/maps/XmZXzmJF2THXJTmj9)                     | Any         | WWCM         | Pickup food at Lowes & Deliver to WWCM Warehouse few miles away.                         | `#3rdf`   |
+| Every other Sun | Downtown Cary                                                                | 1400        | TCP Sawgrass | Landscape multiple homes in support of The Carying Place.                                | Carpex Slack [`#3rdf-carying-place-tcp`](https://f3carpex.slack.com/archives/CB22XF46R) |
 
 ### <a name="events"></a>Calendar of Events
 
