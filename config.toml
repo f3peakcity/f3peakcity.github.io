@@ -45,22 +45,36 @@ unsafe = true
 
 # Header Carosel
 [[Params.bigimg]]
-  src = "img/events/2023-peak-city-launch-water-tower-scaled_16x9.png"
-[[Params.bigimg]]
-  src = "img/events/coffeteria.PNG"
-  desc = "Common Grounds Coffeteria"
-[[Params.bigimg]]
-  src = "img/events/f3-dads-camp.PNG"
-  desc = "F3 Dads Camp - Hanging Rock"
-[[Params.bigimg]]
-  src = "img/events/das-boot-bday.PNG"
-  #desc = "Common Grounds Coffeteria"
-[[Params.bigimg]]
-  src = "img/events/the-board-meeting.PNG"
+  src = "img/events/the-board-meeting_scaled.png"
   desc = "The Board Meeting"
 [[Params.bigimg]]
-  src = "img/events/das-boot.PNG"
-  #desc = "The Board Meeting"
+  src = "img/events/New_Years_Day_2026_scaled.png"
+  desc = "2026 New Years"
+[[Params.bigimg]]
+  src = "img/events/july-4th_scaled.png"
+  #desc = "July 4th"
+[[Params.bigimg]]
+  src = "img/events/f3-dads-camp_scaled.png"
+  desc = "F3 Dads Camp - Hanging Rock"
+[[Params.bigimg]]
+  src = "img/events/das-boot-bday_scaled.png"
+  #desc = "Das Boot 5 Yr Anny"
+[[Params.bigimg]]
+  src = "img/events/das-boot_scaled.png"
+  #desc = "Das Boot at the depot"
+[[Params.bigimg]]
+  src = "img/events/coffeteria_scaled.png"
+  desc = "Common Grounds Coffeteria"
+[[Params.bigimg]]
+  src = "img/events/Christmas_Party_scaled.png"
+  desc = "Christmas Party 2025 at Oaklyn Springs"
+[[Params.bigimg]]
+  src = "img/events/2023-peak-city-launch-water-tower-scaled_16x9.png"
+
+
+
+
+
 #  # position: see values of CSS background-position.
 #  position = "center top"
 #[[Params.bigimg]]
