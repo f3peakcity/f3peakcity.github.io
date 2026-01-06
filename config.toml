@@ -162,8 +162,8 @@ unsafe = true
 
 [[menu.main]]
     parent = "pax"
-    name = "PaxMate Dashboard"
-    url = "https://lookerstudio.google.com/embed/reporting/877edeac-2d3b-48a5-b0f6-748b3e953533/page/WICTD"
+    name = "Region stats"
+    url = "https://pax-vault.f3nation.com/stats/region/40342"
     weight = 43
 
 [[menu.main]]
@@ -185,18 +185,12 @@ unsafe = true
 
 [[menu.main]]
     parent = "contact"
-    name = "Newsletter"
-    url = "https://mailchi.mp/8f0de69e0142/f3-greater-carpex-march-newsletter"
-    weight = 53
-
-[[menu.main]]
-    parent = "contact"
     name = "Articles"
     url = "articles/"
-    weight = 54
+    weight = 53
 
 [[menu.main]]
     parent = "contact"
     name = "Contact Us"
     url = "contact/"
-    weight = 55
+    weight = 54
