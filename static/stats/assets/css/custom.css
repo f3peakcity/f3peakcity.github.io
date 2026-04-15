@@ -1,0 +1,69 @@
+/* F3 Peak City — Tabler branding overrides */
+
+:root {
+  --f3-red: #e53935;
+  --f3-red-dark: #b71c1c;
+  --f3-black: #1a1a1a;
+}
+
+/* Navbar */
+.navbar {
+  background-color: var(--f3-black) !important;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #fff !important;
+  letter-spacing: 0.05em;
+}
+
+.navbar .nav-link {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--f3-red) !important;
+}
+
+/* Stat card accent */
+.card-stat-accent {
+  border-top: 3px solid var(--f3-red);
+}
+
+/* AO card grid */
+.ao-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* Sortable table headers */
+th[data-sort] {
+  cursor: pointer;
+  user-select: none;
+}
+
+th[data-sort]:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+th[data-sort]::after {
+  content: ' ⇅';
+  font-size: 0.75em;
+  opacity: 0.5;
+}
+
+th[data-sort].asc::after { content: ' ↑'; opacity: 1; }
+th[data-sort].desc::after { content: ' ↓'; opacity: 1; }
+
+/* Footer */
+.stats-footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.85rem;
+  color: #666;
+  border-top: 1px solid #eee;
+  margin-top: 2rem;
+}
