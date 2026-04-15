@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>#112 Leaderboard — F3 Peak City Stats</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <style>
+    .lb-heatmap td { text-align: center; font-size: 0.8rem; padding: 0.35rem 0.5rem; min-width: 52px; }
+    .lb-heatmap th { text-align: center; font-size: 0.75rem; }
+    .lb-cell-active { background-color: #e53935; color: #fff; border-radius: 4px; font-weight: 600; padding: 0.2rem 0.4rem; display: inline-block; min-width: 2rem; }
+    .lb-cell-none { color: #ccc; }
+  </style>
+</head>
+<body class="antialiased">
+<div class="wrapper">
+  <header class="navbar navbar-expand-md d-print-none" style="background-color:#1a1a1a;">
+    <div class="container-xl">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a href="index.html" class="navbar-brand" style="color:#fff;font-weight:700;">F3 Peak City Stats</a>
+      <div class="collapse navbar-collapse" id="navbar-menu">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="ao.html" style="color:rgba(255,255,255,0.85);">AO Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="pax.html" style="color:rgba(255,255,255,0.85);">PAX Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="fng.html" style="color:rgba(255,255,255,0.85);">FNG Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="leaderboard.html" style="color:#e53935 !important;font-weight:600;">#112 Leaderboard</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <div class="page-wrapper">
+    <div class="container-xl">
+
+      <div class="page-header d-print-none mt-4">
+        <div class="col">
+          <h2 class="page-title">#112 Leaderboard</h2>
+          <p class="text-muted">Monthly progress: 12 posts + 1 Peak City Q per month</p>
+        </div>
+      </div>
+
+      <!-- Stat cards -->
+      <div class="row row-cards mt-3">
+        <div class="col-sm-4">
+          <div class="card card-stat-accent">
+            <div class="card-body">
+              <div class="subheader">Total in Crew (Year)</div>
+              <div class="h1 mb-0" id="stat-total-crew">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card card-stat-accent">
+            <div class="card-body">
+              <div class="subheader">Current Month Completions</div>
+              <div class="h1 mb-0" id="stat-current-month">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card card-stat-accent">
+            <div class="card-body">
+              <div class="subheader">Active Streakers</div>
+              <div class="h1 mb-0" id="stat-streakers">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bar chart -->
+      <div class="card mt-4">
+        <div class="card-header"><h3 class="card-title">Completions Per Month</h3></div>
+        <div class="card-body" id="chart-monthly-completions"></div>
+      </div>
+
+      <!-- Heatmap grid -->
+      <div class="card mt-4">
+        <div class="card-header"><h3 class="card-title">PAX × Month Heatmap</h3></div>
+        <div class="card-body p-0" id="leaderboard-heatmap">
+          <div class="d-flex justify-content-center p-4">
+            <div class="spinner-border text-danger" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <footer class="stats-footer">
+      Data refreshes on page load from Google Sheets &nbsp;·&nbsp;
+      <a href="https://f3peakcity.com">f3peakcity.com</a>
+    </footer>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/leaderboard.js"></script>
+</body>
+</html>
