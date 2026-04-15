@@ -38,6 +38,10 @@ test('handles empty fields', () => {
   assert.deepStrictEqual(f3ParseCSVLine('foo,,baz'), ['foo', '', 'baz']);
 });
 
+test('strips Windows CR from last field', () => {
+  assert.deepStrictEqual(f3ParseCSVLine('foo,bar\r'), ['foo', 'bar']);
+});
+
 // --- f3ParseCSV ---
 console.log('\nf3ParseCSV');
 

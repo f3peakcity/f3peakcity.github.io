@@ -28,6 +28,7 @@ async function f3FetchCSV(tabKey) {
 }
 
 function f3ParseCSVLine(line) {
+  line = line.replace(/\r$/, '');
   const result = [];
   let inQuote = false;
   let current = '';
@@ -53,6 +54,9 @@ function f3ParseCSVLine(line) {
 
 // headerRowIndex: 0-based index of the row containing column headers.
 // All rows before headerRowIndex are skipped (metadata rows).
+// NOTE: Does not support quoted fields containing literal newlines (RFC 4180 §2.6).
+// Google Sheets "Publish to Web" CSV output does not emit embedded newlines
+// for the sheet tabs used by this dashboard.
 function f3ParseCSV(text, headerRowIndex) {
   const lines = text.trim().split('\n');
   const headers = f3ParseCSVLine(lines[headerRowIndex]).map(h => h.trim());
@@ -97,7 +101,8 @@ function f3ShowError(containerId, msg = 'Data unavailable — try refreshing the
 
 // Attaches click-to-sort behavior to all <th data-sort="colName"> elements
 // within the given table element.
-function f3MakeSortable(tableId, rows, renderFn) {
+// getRows: a function that returns the current rows to sort (enables live filtering)
+function f3MakeSortable(tableId, getRows, renderFn) {
   const table = document.getElementById(tableId);
   if (!table) return;
   let sortCol = null;
@@ -113,11 +118,12 @@ function f3MakeSortable(tableId, rows, renderFn) {
       }
       table.querySelectorAll('th[data-sort]').forEach(h => h.classList.remove('asc', 'desc'));
       th.classList.add(sortDir === 1 ? 'asc' : 'desc');
-      const sorted = [...rows].sort((a, b) => {
+      const sorted = [...getRows()].sort((a, b) => {
         const av = a[col] ?? '';
         const bv = b[col] ?? '';
         const an = parseFloat(av);
         const bn = parseFloat(bv);
+        // Both must be valid numbers for numeric sort; empty string falls to string sort
         if (!isNaN(an) && !isNaN(bn)) return (an - bn) * sortDir;
         return av.localeCompare(bv) * sortDir;
       });
