@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange } = require('../assets/js/data.js');
+const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -100,6 +100,26 @@ test('keeps rows with unparseable dates', () => {
   const rows = [{ Date: 'Never' }, { Date: '2026-01-01' }];
   const result = f3FilterByDateRange(rows, 'Date', '2025-01-01', '2026-12-31');
   assert.strictEqual(result.length, 2);
+});
+
+// --- f3Esc ---
+console.log('\nf3Esc');
+
+test('escapes HTML special characters', () => {
+  assert.strictEqual(f3Esc('<script>alert(1)</script>'), '&lt;script&gt;alert(1)&lt;/script&gt;');
+});
+
+test('escapes double quotes', () => {
+  assert.strictEqual(f3Esc('"hello"'), '&quot;hello&quot;');
+});
+
+test('escapes ampersands', () => {
+  assert.strictEqual(f3Esc('A&B'), 'A&amp;B');
+});
+
+test('handles null/undefined gracefully', () => {
+  assert.strictEqual(f3Esc(null), '');
+  assert.strictEqual(f3Esc(undefined), '');
 });
 
 // --- Summary ---

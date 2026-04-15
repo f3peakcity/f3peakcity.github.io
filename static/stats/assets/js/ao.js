@@ -72,7 +72,7 @@
       return `
         <div class="card card-stat-accent">
           <div class="card-header">
-            <h4 class="card-title">${r['Site']}</h4>
+            <h4 class="card-title">${f3Esc(r['Site'])}</h4>
           </div>
           <div class="card-body">
             <div class="row g-2 mb-2">
@@ -90,11 +90,11 @@
               </div>
               <div class="col-6">
                 <div class="text-muted small">Top Q</div>
-                <div class="fw-bold">${topQ}</div>
+                <div class="fw-bold">${f3Esc(topQ)}</div>
               </div>
             </div>
             <div class="text-muted small mb-1">Core PAX (Regulars)</div>
-            <div class="small">${cores}</div>
+            <div class="small">${f3Esc(cores)}</div>
           </div>
         </div>`;
     }).join('');
@@ -130,14 +130,14 @@
       const bench = parseFloat(r['Bench Strength']);
       const benchDisplay = isNaN(bench) ? (r['Bench Strength'] || '—') : (bench * 100).toFixed(1) + '%';
       return `<tr>
-        <td>${r['Site']}</td>
+        <td>${f3Esc(r['Site'])}</td>
         <td>${r['Total Attendees'] || '—'}</td>
         <td>${r['Weeks in Range'] || '—'}</td>
         <td>${parseFloat(r['Avg/Meeting']) ? parseFloat(r['Avg/Meeting']).toFixed(1) : '—'}</td>
         <td>${r['FNGs'] || '0'}</td>
         <td>${r['Unique Qs'] || '—'}</td>
         <td>${benchDisplay}</td>
-        <td class="text-muted small">${r['Core Names'] && r['Core Names'] !== '-' ? r['Core Names'] : '—'}</td>
+        <td class="text-muted small">${f3Esc(r['Core Names'] && r['Core Names'] !== '-' ? r['Core Names'] : '—')}</td>
       </tr>`;
     }).join('');
   }

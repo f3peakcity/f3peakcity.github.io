@@ -132,7 +132,17 @@ function f3MakeSortable(tableId, getRows, renderFn) {
   });
 }
 
+// Escapes a value for safe insertion into innerHTML.
+// Use on all string fields from CSV when rendering to the DOM.
+function f3Esc(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
-  module.exports = { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange };
+  module.exports = { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc };
 }
