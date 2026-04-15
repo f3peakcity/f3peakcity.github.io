@@ -1,24 +1,24 @@
 // F3 Peak City Stats — Shared Data Utilities
 // ============================================================
-// CONFIG: Replace these values with your actual Google Sheet ID
-// and GID for each published tab. Find GIDs in the sheet URL:
-// https://docs.google.com/spreadsheets/d/{SHEET_ID}/edit#gid={GID}
+// CONFIG: Google Sheets "Publish to Web" published ID and GIDs.
+// The published ID differs from the sheet's edit URL ID — it is
+// the long token in the /d/e/{PUBLISHED_ID}/pub URLs.
 // ============================================================
-const F3_SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';
+const F3_PUBLISHED_ID = '2PACX-1vR804eEdHprDZVLy23u5xzcvgdFodpwtIsMXLG20hTxYrV29DxwtBoPvR5W9V7r4-U2J1yKSs7XkM7M';
 
 const F3_TAB_GIDS = {
-  ao:          'YOUR_AO_STATS_GID_HERE',
-  pax:         'YOUR_PAX_STATS_GID_HERE',
-  fng:         'YOUR_FNG_STATS_GID_HERE',
-  leaderboard: 'YOUR_LEADERBOARD_GID_HERE',
+  ao:          '1516133009',
+  pax:         '731565815',
+  fng:         '146818903',
+  leaderboard: '740264345',
 };
 
 // ============================================================
 
 function f3CsvUrl(tabKey) {
-  const id = F3_SHEET_ID;
+  const id = F3_PUBLISHED_ID;
   const gid = F3_TAB_GIDS[tabKey];
-  return `https://docs.google.com/spreadsheets/d/${id}/pub?gid=${gid}&single=true&output=csv`;
+  return `https://docs.google.com/spreadsheets/d/e/${id}/pub?gid=${gid}&single=true&output=csv`;
 }
 
 async function f3FetchCSV(tabKey) {
