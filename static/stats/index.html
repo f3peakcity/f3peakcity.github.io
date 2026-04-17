@@ -4,106 +4,105 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>F3 Peak City Stats</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
   <link rel="stylesheet" href="assets/css/custom.css">
 </head>
 <body class="antialiased">
 <div class="wrapper">
-  <header class="navbar navbar-expand-md d-print-none" style="background-color:#1a1a1a;">
+
+  <div class="masthead-bar">
+    <span class="region">F3 Peak City</span>
+    <span class="dateline">Apex, NC &nbsp;·&nbsp; Live from Google Sheets</span>
+  </div>
+
+  <header class="navbar navbar-expand-md d-print-none">
     <div class="container-xl">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a href="index.html" class="navbar-brand" style="color:#fff;font-weight:700;">F3 Peak City Stats</a>
+      <a href="index.html" class="navbar-brand">Peak City Stats</a>
       <div class="collapse navbar-collapse" id="navbar-menu">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="ao.html" style="color:rgba(255,255,255,0.85);">AO Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="pax.html" style="color:rgba(255,255,255,0.85);">PAX Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="fng.html" style="color:rgba(255,255,255,0.85);">FNG Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="leaderboard.html" style="color:rgba(255,255,255,0.85);">#112 Leaderboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="ao.html">AO Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
         </ul>
       </div>
     </div>
   </header>
+
   <div class="page-wrapper">
-    <div class="container-xl">
+    <div class="landing-page">
 
-      <div class="page-header mt-4 mb-4 text-center">
-        <h1 style="font-size:2rem;font-weight:800;">F3 Peak City Stats</h1>
-        <p class="text-muted">Live attendance metrics from Google Sheets</p>
+      <div class="headline-section">
+        <div class="edition-label">All-time region total</div>
+        <div class="hero-number" id="hero-posts">—</div>
+        <div class="hero-label">Posts &amp; Counting ↑</div>
       </div>
 
-      <div class="row row-cards g-4">
-
-        <div class="col-md-6">
-          <a href="ao.html" class="text-decoration-none">
-            <div class="card card-stat-accent h-100" style="cursor:pointer;transition:box-shadow 0.15s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(229,57,53,0.2)'" onmouseout="this.style.boxShadow=''">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <div class="text-danger" style="font-size:2rem;margin-right:0.75rem;">📍</div>
-                  <div>
-                    <h3 class="card-title mb-0">AO Stats</h3>
-                    <div class="text-muted small">Site health for Site Qs</div>
-                  </div>
-                </div>
-                <div class="text-muted small" id="landing-ao-stat">Loading...</div>
-              </div>
-            </div>
-          </a>
+      <div class="stat-row">
+        <div class="stat-cell">
+          <div class="num" id="stat-pax">—</div>
+          <div class="lbl">Total PAX</div>
         </div>
-
-        <div class="col-md-6">
-          <a href="pax.html" class="text-decoration-none">
-            <div class="card card-stat-accent h-100" style="cursor:pointer;transition:box-shadow 0.15s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(229,57,53,0.2)'" onmouseout="this.style.boxShadow=''">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <div class="text-danger" style="font-size:2rem;margin-right:0.75rem;">👊</div>
-                  <div>
-                    <h3 class="card-title mb-0">PAX Stats</h3>
-                    <div class="text-muted small">Individual participation metrics</div>
-                  </div>
-                </div>
-                <div class="text-muted small" id="landing-pax-stat">Loading...</div>
-              </div>
-            </div>
-          </a>
+        <div class="stat-cell">
+          <div class="num" id="stat-aos">—</div>
+          <div class="lbl">Active AOs</div>
         </div>
-
-        <div class="col-md-6">
-          <a href="fng.html" class="text-decoration-none">
-            <div class="card card-stat-accent h-100" style="cursor:pointer;transition:box-shadow 0.15s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(229,57,53,0.2)'" onmouseout="this.style.boxShadow=''">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <div class="text-danger" style="font-size:2rem;margin-right:0.75rem;">🌱</div>
-                  <div>
-                    <h3 class="card-title mb-0">FNG Stats</h3>
-                    <div class="text-muted small">New guy retention tracking</div>
-                  </div>
-                </div>
-                <div class="text-muted small" id="landing-fng-stat">Loading...</div>
-              </div>
-            </div>
-          </a>
+        <div class="stat-cell">
+          <div class="num accent" id="stat-fngs">—</div>
+          <div class="lbl">FNGs This Year</div>
         </div>
+      </div>
 
-        <div class="col-md-6">
-          <a href="leaderboard.html" class="text-decoration-none">
-            <div class="card card-stat-accent h-100" style="cursor:pointer;transition:box-shadow 0.15s;" onmouseover="this.style.boxShadow='0 4px 16px rgba(229,57,53,0.2)'" onmouseout="this.style.boxShadow=''">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <div class="text-danger" style="font-size:2rem;margin-right:0.75rem;">⛰️</div>
-                  <div>
-                    <h3 class="card-title mb-0">#112 Leaderboard</h3>
-                    <div class="text-muted small">Monthly 12-post challenge progress</div>
-                  </div>
-                </div>
-                <div class="text-muted small" id="landing-lb-stat">Loading...</div>
-              </div>
-            </div>
-          </a>
-        </div>
+      <div class="section-flag">
+        <span class="flag-text">Dashboards</span>
+        <span class="flag-rule"></span>
+      </div>
+
+      <div class="dash-grid">
+
+        <a class="dash-card" href="ao.html">
+          <div class="card-title-tag">📍 AO Stats</div>
+          <div class="card-deck-text">Attendance trends, Q rotation frequency, and FNG count broken down by workout location.</div>
+          <div class="card-stat-line">
+            <span><span class="stat-num" id="landing-ao-stat">—</span> active AOs</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a class="dash-card" href="pax.html">
+          <div class="card-title-tag">👊 PAX Stats</div>
+          <div class="card-deck-text">Total posts, Q count, home AO, and last-seen date for every PAX in the region.</div>
+          <div class="card-stat-line">
+            <span><span class="stat-num" id="landing-pax-stat">—</span> PAX in the region</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a class="dash-card" href="fng.html">
+          <div class="card-title-tag">🌱 FNG Stats</div>
+          <div class="card-deck-text">Track every FNG from their first post through their first 60 days in the gloom.</div>
+          <div class="card-stat-line">
+            <span><span class="stat-num" id="landing-fng-stat">—</span> FNGs tracked this year</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+
+        <a class="dash-card" href="leaderboard.html">
+          <div class="card-title-tag">⛰️ #112 Leaderboard</div>
+          <div class="card-deck-text">12 posts per month. Who's leading the charge? Updated live from Google Sheets.</div>
+          <div class="card-stat-line">
+            <span><span class="stat-num" id="landing-lb-stat">—</span> PAX in the crew</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
 
       </div>
+
     </div>
     <footer class="stats-footer">
       Data refreshes on page load from Google Sheets &nbsp;·&nbsp;
@@ -114,38 +113,42 @@
 <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 <script src="assets/js/data.js"></script>
 <script>
-// Fetch one key stat per dashboard card on landing page load
 (async function() {
-  // AO Stats: total active AOs
-  try {
-    const csv = await f3FetchCSV('ao');
-    const rows = f3ParseCSV(csv, 2).filter(r => r['Site'] && r['Site'].trim());
-    document.getElementById('landing-ao-stat').textContent = `${rows.length} active AOs tracked`;
-  } catch { document.getElementById('landing-ao-stat').textContent = 'Unavailable'; }
-
-  // PAX Stats: total PAX
+  // Hero: total posts across all PAX
   try {
     const csv = await f3FetchCSV('pax');
     const rows = f3ParseCSV(csv, 2).filter(r => {
       const s = (r['Site'] || '').trim();
       return s !== '' && isNaN(Number(s));
     });
-    document.getElementById('landing-pax-stat').textContent = `${rows.length} PAX in the region`;
-  } catch { document.getElementById('landing-pax-stat').textContent = 'Unavailable'; }
+    const totalPosts = rows.reduce((sum, r) => sum + (parseInt(r['Total Post']) || 0), 0);
+    document.getElementById('hero-posts').textContent = totalPosts.toLocaleString();
+    document.getElementById('stat-pax').textContent = rows.length;
+    document.getElementById('landing-pax-stat').textContent = rows.length;
+  } catch { document.getElementById('hero-posts').textContent = '—'; }
 
-  // FNG Stats: total FNGs
+  // AOs
+  try {
+    const csv = await f3FetchCSV('ao');
+    const rows = f3ParseCSV(csv, 2).filter(r => r['Site'] && r['Site'].trim());
+    document.getElementById('stat-aos').textContent = rows.length;
+    document.getElementById('landing-ao-stat').textContent = rows.length;
+  } catch { document.getElementById('stat-aos').textContent = '—'; }
+
+  // FNGs
   try {
     const csv = await f3FetchCSV('fng');
     const rows = f3ParseCSV(csv, 0).filter(r => r['FNG Name'] && r['FNG Name'].trim());
-    document.getElementById('landing-fng-stat').textContent = `${rows.length} FNGs tracked this year`;
-  } catch { document.getElementById('landing-fng-stat').textContent = 'Unavailable'; }
+    document.getElementById('stat-fngs').textContent = rows.length;
+    document.getElementById('landing-fng-stat').textContent = rows.length;
+  } catch { document.getElementById('stat-fngs').textContent = '—'; }
 
-  // Leaderboard: PAX in the crew
+  // Leaderboard
   try {
     const csv = await f3FetchCSV('leaderboard');
     const rows = f3ParseCSV(csv, 1).filter(r => r['PAX'] && r['PAX'].trim());
-    document.getElementById('landing-lb-stat').textContent = `${rows.length} PAX in the #112 crew`;
-  } catch { document.getElementById('landing-lb-stat').textContent = 'Unavailable'; }
+    document.getElementById('landing-lb-stat').textContent = rows.length;
+  } catch { document.getElementById('landing-lb-stat').textContent = '—'; }
 })();
 </script>
 </body>
