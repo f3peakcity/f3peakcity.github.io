@@ -161,17 +161,46 @@ body,
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  border-radius: 0 !important;
 }
 .form-control,
 .form-control-sm {
   background: var(--paper) !important;
   border-color: var(--rule) !important;
   color: var(--text) !important;
+  border-radius: 0 !important;
 }
 .form-control:focus,
 .form-control-sm:focus {
   border-color: var(--green) !important;
   box-shadow: 0 0 0 2px var(--green-15) !important;
+}
+/* Date inputs need explicit override — webkit date pickers have their own chrome */
+input[type="date"].form-control,
+input[type="date"].form-control-sm,
+.input-group input[type="date"] {
+  background: var(--paper) !important;
+  border-color: var(--rule) !important;
+  color: var(--text) !important;
+  border-radius: 0 !important;
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.5rem;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  opacity: 0.55;
+  filter: invert(40%) sepia(10%) saturate(500%) hue-rotate(60deg);
+}
+input[type="date"]::-webkit-datetime-edit {
+  color: var(--text);
+}
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  background: transparent;
 }
 #filter-apply {
   background: var(--green) !important;
@@ -183,6 +212,19 @@ body,
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border-radius: 0 !important;
+}
+#filter-apply:hover {
+  background: #3a4d2d !important;
+  border-color: #3a4d2d !important;
+}
+.filter-result-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.35rem;
+  text-align: right;
 }
 
 /* ── Tables ── */

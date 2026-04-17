@@ -29,8 +29,29 @@
     const from = document.getElementById('filter-from').value;
     const to = document.getElementById('filter-to').value;
     filteredRows = f3FilterByDateRange(allRows, 'First Post', from, to);
+    updateFilterLabel(from, to);
     renderAll();
   });
+
+  document.getElementById('filter-clear').addEventListener('click', () => {
+    document.getElementById('filter-from').value = '';
+    document.getElementById('filter-to').value = '';
+    filteredRows = [...allRows];
+    updateFilterLabel('', '');
+    renderAll();
+  });
+
+  function updateFilterLabel(from, to) {
+    const lbl = document.getElementById('filter-result-label');
+    if (!lbl) return;
+    if (!from && !to) {
+      lbl.style.display = 'none';
+      lbl.textContent = '';
+    } else {
+      lbl.style.display = 'block';
+      lbl.textContent = `Showing ${filteredRows.length} of ${allRows.length} FNGs`;
+    }
+  }
 
   function renderAll() {
     renderStatCards(filteredRows);
