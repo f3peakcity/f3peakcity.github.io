@@ -125,7 +125,11 @@
     document.getElementById('hero-posts').textContent = totalPosts.toLocaleString();
     document.getElementById('stat-pax').textContent = rows.length;
     document.getElementById('landing-pax-stat').textContent = rows.length;
-  } catch { document.getElementById('hero-posts').textContent = '—'; }
+  } catch {
+    document.getElementById('hero-posts').textContent = '—';
+    document.getElementById('stat-pax').textContent = '—';
+    document.getElementById('landing-pax-stat').textContent = '—';
+  }
 
   // AOs
   try {
@@ -133,7 +137,10 @@
     const rows = f3ParseCSV(csv, 2).filter(r => r['Site'] && r['Site'].trim());
     document.getElementById('stat-aos').textContent = rows.length;
     document.getElementById('landing-ao-stat').textContent = rows.length;
-  } catch { document.getElementById('stat-aos').textContent = '—'; }
+  } catch {
+    document.getElementById('stat-aos').textContent = '—';
+    document.getElementById('landing-ao-stat').textContent = '—';
+  }
 
   // FNGs
   try {
@@ -141,7 +148,10 @@
     const rows = f3ParseCSV(csv, 0).filter(r => r['FNG Name'] && r['FNG Name'].trim());
     document.getElementById('stat-fngs').textContent = rows.length;
     document.getElementById('landing-fng-stat').textContent = rows.length;
-  } catch { document.getElementById('stat-fngs').textContent = '—'; }
+  } catch {
+    document.getElementById('stat-fngs').textContent = '—';
+    document.getElementById('landing-fng-stat').textContent = '—';
+  }
 
   // Leaderboard
   try {
