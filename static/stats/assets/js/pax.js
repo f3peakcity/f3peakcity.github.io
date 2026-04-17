@@ -27,13 +27,6 @@
   renderAll();
   f3MakeSortable('pax-full-table', () => filteredRows, renderTableBody);
 
-  document.getElementById('filter-apply').addEventListener('click', () => {
-    const from = document.getElementById('filter-from').value;
-    const to = document.getElementById('filter-to').value;
-    filteredRows = f3FilterByDateRange(allRows, 'Last Seen', from, to);
-    renderAll();
-  });
-
   function renderAll() {
     renderStatCards(filteredRows);
     renderBarChart(filteredRows);
