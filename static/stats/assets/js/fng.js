@@ -20,6 +20,7 @@
   filteredRows = [...allRows];
   let donutChart = null;
   let barChart = null;
+  let monthlyChart = null;
 
   renderAll();
   f3MakeSortable('fng-full-table', () => filteredRows, renderTableBody);
@@ -35,6 +36,7 @@
     renderStatCards(filteredRows);
     renderStatusDonut(filteredRows);
     renderDaysBar(filteredRows);
+    renderMonthlyTrend(filteredRows);
     renderTable(filteredRows);
   }
 
@@ -98,6 +100,37 @@
       barChart = new ApexCharts(document.getElementById('chart-days-to-return'), options);
       barChart.render();
     }
+  }
+
+  function renderMonthlyTrend(rows) {
+    const counts = {};
+    rows.forEach(r => {
+      const val = (r['First Post'] || '').trim();
+      if (!val) return;
+      const mdy = val.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+      if (!mdy) return;
+      const key = `${mdy[3]}-${String(mdy[1]).padStart(2,'0')}`;
+      counts[key] = (counts[key] || 0) + 1;
+    });
+    const months = Object.keys(counts).sort();
+    if (!months.length) return;
+    const options = {
+      chart: { type: 'bar', height: 280, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: [{ name: 'FNGs', data: months.map(m => counts[m]) }],
+      xaxis: {
+        categories: months.map(m => {
+          const [y, mo] = m.split('-');
+          return new Date(+y, +mo - 1).toLocaleString('default', { month: 'short', year: '2-digit' });
+        }),
+      },
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
+      plotOptions: { bar: { columnWidth: '60%' } },
+      dataLabels: { enabled: false },
+      yaxis: { title: { text: 'FNGs' }, min: 0, forceNiceScale: true },
+    };
+    if (monthlyChart) { monthlyChart.updateOptions(options); }
+    else { monthlyChart = new ApexCharts(document.getElementById('chart-fng-monthly'), options); monthlyChart.render(); }
   }
 
   function renderTable(rows) {
