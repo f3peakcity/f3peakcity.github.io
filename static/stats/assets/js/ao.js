@@ -6,6 +6,8 @@
 (async function () {
   let allRows = [];
   let filteredRows = [];
+  let attendanceChart = null;
+  let fngsByAoChart = null;
 
   try {
     const csv = await f3FetchCSV('ao');
@@ -36,6 +38,8 @@
 
   function renderAll() {
     renderStatCards(filteredRows);
+    renderAttendanceChart(filteredRows);
+    renderFngsByAoChart(filteredRows);
     renderAOCards(filteredRows);
     renderTable(filteredRows);
     setupSortable();
@@ -55,6 +59,43 @@
 
     const totalFngs = rows.reduce((sum, r) => sum + (parseInt(r['FNGs']) || 0), 0);
     document.getElementById('stat-total-fngs').textContent = totalFngs;
+  }
+
+  function renderAttendanceChart(rows) {
+    const sorted = [...rows]
+      .filter(r => parseFloat(r['Avg/Meeting']) > 0)
+      .sort((a, b) => parseFloat(b['Avg/Meeting']) - parseFloat(a['Avg/Meeting']));
+    const options = {
+      chart: { type: 'bar', height: Math.max(260, sorted.length * 28), toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: [{ name: 'Avg Attendance', data: sorted.map(r => parseFloat(r['Avg/Meeting']).toFixed(1)) }],
+      xaxis: { categories: sorted.map(r => r['Site']) },
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
+      plotOptions: { bar: { horizontal: true, barHeight: '65%' } },
+      dataLabels: { enabled: true, style: { fontSize: '11px' } },
+      yaxis: { labels: { style: { fontSize: '11px' } } },
+    };
+    if (attendanceChart) { attendanceChart.updateOptions(options); }
+    else { attendanceChart = new ApexCharts(document.getElementById('chart-ao-attendance'), options); attendanceChart.render(); }
+  }
+
+  function renderFngsByAoChart(rows) {
+    const sorted = [...rows]
+      .filter(r => parseInt(r['FNGs']) > 0)
+      .sort((a, b) => (parseInt(b['FNGs']) || 0) - (parseInt(a['FNGs']) || 0));
+    if (!sorted.length) return;
+    const options = {
+      chart: { type: 'bar', height: Math.max(260, sorted.length * 28), toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: [{ name: 'FNGs', data: sorted.map(r => parseInt(r['FNGs']) || 0) }],
+      xaxis: { categories: sorted.map(r => r['Site']) },
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
+      plotOptions: { bar: { horizontal: true, barHeight: '65%' } },
+      dataLabels: { enabled: true, style: { fontSize: '11px' } },
+      yaxis: { labels: { style: { fontSize: '11px' } } },
+    };
+    if (fngsByAoChart) { fngsByAoChart.updateOptions(options); }
+    else { fngsByAoChart = new ApexCharts(document.getElementById('chart-ao-fngs'), options); fngsByAoChart.render(); }
   }
 
   function renderAOCards(rows) {
