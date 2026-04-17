@@ -23,6 +23,9 @@
   filteredRows = [...allRows];
   let barChart = null;
   let donutChart = null;
+  let favDayChart = null;
+  let trajectoryChart = null;
+  let qpRatioChart = null;
 
   renderAll();
   f3MakeSortable('pax-full-table', () => filteredRows, renderTableBody);
@@ -31,6 +34,9 @@
     renderStatCards(filteredRows);
     renderBarChart(filteredRows);
     renderDonutChart(filteredRows);
+    renderFavDayChart(filteredRows);
+    renderTrajectoryChart(filteredRows);
+    renderQpRatioChart(filteredRows);
     renderTable(filteredRows);
   }
 
@@ -88,6 +94,75 @@
       donutChart = new ApexCharts(document.getElementById('chart-activity-donut'), options);
       donutChart.render();
     }
+  }
+
+  function renderFavDayChart(rows) {
+    const DAY_ORDER = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+    const counts = {};
+    DAY_ORDER.forEach(d => { counts[d] = 0; });
+    rows.forEach(r => {
+      const d = (r['Favorite Day of the week'] || '').trim();
+      if (counts[d] !== undefined) counts[d]++;
+    });
+    const options = {
+      chart: { type: 'bar', height: 260, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: [{ name: 'PAX', data: DAY_ORDER.map(d => counts[d]) }],
+      xaxis: { categories: DAY_ORDER.map(d => d.slice(0,3)) },
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
+      plotOptions: { bar: { columnWidth: '60%' } },
+      dataLabels: { enabled: false },
+      yaxis: { title: { text: 'PAX' }, min: 0, forceNiceScale: true },
+    };
+    if (favDayChart) { favDayChart.updateOptions(options); }
+    else { favDayChart = new ApexCharts(document.getElementById('chart-fav-day'), options); favDayChart.render(); }
+  }
+
+  function renderTrajectoryChart(rows) {
+    const labels = { '↑': 'Improving', '↓': 'Declining', '→': 'Stable', 'NEW': 'New', '-': 'Inactive' };
+    const counts = { '↑': 0, '↓': 0, '→': 0, 'NEW': 0, '-': 0 };
+    rows.forEach(r => {
+      const t = (r['Trajectory'] || '-').trim();
+      if (counts[t] !== undefined) counts[t]++;
+      else counts['-']++;
+    });
+    const keys = Object.keys(counts).filter(k => counts[k] > 0);
+    const options = {
+      chart: { type: 'donut', height: 260, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: keys.map(k => counts[k]),
+      labels: keys.map(k => labels[k] || k),
+      colors: ['#4a5e3a', '#8a7a60', '#c8bfa8', '#c8a840', '#1a1a1a'],
+      grid: { borderColor: '#c8bfa8' },
+      legend: { position: 'bottom' },
+      dataLabels: { enabled: true },
+    };
+    if (trajectoryChart) { trajectoryChart.updateOptions(options); }
+    else { trajectoryChart = new ApexCharts(document.getElementById('chart-trajectory'), options); trajectoryChart.render(); }
+  }
+
+  function renderQpRatioChart(rows) {
+    const buckets = { '0%': 0, '1–10%': 0, '11–20%': 0, '21%+': 0 };
+    rows.forEach(r => {
+      const v = parseFloat(r['Q/P Ratio']);
+      if (isNaN(v)) return;
+      const pct = v * 100;
+      if (pct === 0) buckets['0%']++;
+      else if (pct <= 10) buckets['1–10%']++;
+      else if (pct <= 20) buckets['11–20%']++;
+      else buckets['21%+']++;
+    });
+    const options = {
+      chart: { type: 'bar', height: 260, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: [{ name: 'PAX', data: Object.values(buckets) }],
+      xaxis: { categories: Object.keys(buckets) },
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
+      plotOptions: { bar: { columnWidth: '55%' } },
+      dataLabels: { enabled: false },
+      yaxis: { title: { text: 'PAX' }, min: 0, forceNiceScale: true },
+    };
+    if (qpRatioChart) { qpRatioChart.updateOptions(options); }
+    else { qpRatioChart = new ApexCharts(document.getElementById('chart-qp-ratio'), options); qpRatioChart.render(); }
   }
 
   function renderTable(rows) {
