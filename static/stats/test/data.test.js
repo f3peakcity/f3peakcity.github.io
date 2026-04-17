@@ -102,6 +102,13 @@ test('keeps rows with unparseable dates', () => {
   assert.strictEqual(result.length, 2);
 });
 
+test('filters M/D/YYYY dates from Google Sheets format', () => {
+  const rows = [{ Date: '1/15/2025' }, { Date: '6/1/2025' }, { Date: '12/31/2025' }];
+  const result = f3FilterByDateRange(rows, 'Date', '2025-03-01', '2025-09-01');
+  assert.strictEqual(result.length, 1);
+  assert.strictEqual(result[0]['Date'], '6/1/2025');
+});
+
 // --- f3Esc ---
 console.log('\nf3Esc');
 

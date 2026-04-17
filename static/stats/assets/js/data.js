@@ -69,16 +69,30 @@ function f3ParseCSV(text, headerRowIndex) {
     });
 }
 
-// Filters rows where row[field] falls within [from, to] date strings (ISO format).
+// Parse a date string as local midnight regardless of format.
+// Handles ISO (YYYY-MM-DD) and Google Sheets M/D/YYYY formats.
+function f3ParseLocalDate(str) {
+  if (!str) return null;
+  const iso = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (iso) return new Date(+iso[1], +iso[2] - 1, +iso[3]);
+  const mdy = str.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (mdy) return new Date(+mdy[3], +mdy[1] - 1, +mdy[2]);
+  const d = new Date(str);
+  return isNaN(d.getTime()) ? null : d;
+}
+
+// Filters rows where row[field] falls within [from, to] date strings.
 // Rows with unparseable dates are kept (never silently dropped).
 function f3FilterByDateRange(rows, field, from, to) {
+  const fromDate = from ? f3ParseLocalDate(from) : null;
+  const toDate   = to   ? f3ParseLocalDate(to)   : null;
   return rows.filter(row => {
     const val = row[field];
     if (!val) return true;
-    const d = new Date(val);
-    if (isNaN(d.getTime())) return true;
-    if (from && from !== '' && d < new Date(from)) return false;
-    if (to && to !== '' && d > new Date(to)) return false;
+    const d = f3ParseLocalDate(val);
+    if (!d) return true;
+    if (fromDate && d < fromDate) return false;
+    if (toDate   && d > toDate)   return false;
     return true;
   });
 }
@@ -144,5 +158,5 @@ function f3Esc(str) {
 
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
-  module.exports = { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc };
+  module.exports = { f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc };
 }
