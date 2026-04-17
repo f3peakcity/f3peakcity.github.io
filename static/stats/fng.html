@@ -4,27 +4,36 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>FNG Stats — F3 Peak City Stats</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
   <link rel="stylesheet" href="assets/css/custom.css">
 </head>
 <body class="antialiased">
 <div class="wrapper">
-  <header class="navbar navbar-expand-md d-print-none" style="background-color:#1a1a1a;">
+
+  <div class="masthead-bar">
+    <span class="region">F3 PEAK CITY</span>
+    <span class="dateline">Apex, NC &nbsp;·&nbsp; Live from Google Sheets</span>
+  </div>
+
+  <header class="navbar navbar-expand-md d-print-none">
     <div class="container-xl">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a href="index.html" class="navbar-brand" style="color:#fff;font-weight:700;">F3 Peak City Stats</a>
+      <a href="index.html" class="navbar-brand">Peak City Stats</a>
       <div class="collapse navbar-collapse" id="navbar-menu">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="ao.html" style="color:rgba(255,255,255,0.85);">AO Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="pax.html" style="color:rgba(255,255,255,0.85);">PAX Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="fng.html" style="color:#e53935 !important;font-weight:600;">FNG Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="leaderboard.html" style="color:rgba(255,255,255,0.85);">#112 Leaderboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="ao.html">AO Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
+          <li class="nav-item"><a class="nav-link active" href="fng.html">FNG Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
         </ul>
       </div>
     </div>
   </header>
+
   <div class="page-wrapper">
     <div class="container-xl">
 
@@ -40,13 +49,12 @@
               <input type="date" id="filter-from" class="form-control form-control-sm">
               <label for="filter-to" class="input-group-text">To</label>
               <input type="date" id="filter-to" class="form-control form-control-sm">
-              <button class="btn btn-sm btn-outline-secondary" id="filter-apply">Apply</button>
+              <button class="btn btn-sm" id="filter-apply">Apply</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Stat cards -->
       <div class="row row-cards mt-3">
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
@@ -82,7 +90,6 @@
         </div>
       </div>
 
-      <!-- Charts row -->
       <div class="row mt-4">
         <div class="col-lg-5">
           <div class="card">
@@ -98,12 +105,11 @@
         </div>
       </div>
 
-      <!-- Table -->
       <div class="card mt-4">
         <div class="card-header"><h3 class="card-title">All FNGs</h3></div>
         <div class="card-body p-0" id="fng-table-container">
           <div class="d-flex justify-content-center p-4">
-            <div class="spinner-border text-danger" role="status">
+            <div class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
           </div>
