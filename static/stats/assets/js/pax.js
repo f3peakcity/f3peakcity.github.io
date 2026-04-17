@@ -128,7 +128,7 @@
     });
     const keys = Object.keys(counts).filter(k => counts[k] > 0);
     const options = {
-      chart: { type: 'donut', height: 260, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      chart: { type: 'donut', height: 260, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
       series: keys.map(k => counts[k]),
       labels: keys.map(k => labels[k] || k),
       colors: ['#4a5e3a', '#8a7a60', '#c8bfa8', '#c8a840', '#1a1a1a'],
