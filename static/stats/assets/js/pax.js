@@ -57,10 +57,11 @@
       .slice(0, 15);
 
     const options = {
-      chart: { type: 'bar', height: 320, toolbar: { show: false } },
+      chart: { type: 'bar', height: 320, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
       series: [{ name: 'Total Posts', data: top15.map(r => parseInt(r['Total Post']) || 0) }],
       xaxis: { categories: top15.map(r => r['Site']) },
-      colors: ['#e53935'],
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
       plotOptions: { bar: { horizontal: false, columnWidth: '60%' } },
       dataLabels: { enabled: false },
       yaxis: { title: { text: 'Posts' } },
@@ -79,10 +80,11 @@
     const lapsed = rows.length - active;
 
     const options = {
-      chart: { type: 'donut', height: 320 },
+      chart: { type: 'donut', height: 320, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
       series: [active, lapsed],
       labels: ['Active (last 3 wks)', 'Lapsed'],
-      colors: ['#e53935', '#adb5bd'],
+      colors: ['#4a5e3a', '#c8bfa8'],
+      grid: { borderColor: '#c8bfa8' },
       legend: { position: 'bottom' },
       dataLabels: { enabled: true },
     };

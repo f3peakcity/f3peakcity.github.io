@@ -54,10 +54,11 @@
     const pending    = rows.filter(r => r['Status'] && r['Status'].includes('Pending')).length;
 
     const options = {
-      chart: { type: 'donut', height: 320 },
+      chart: { type: 'donut', height: 320, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
       series: [developing, ghosted, pending],
       labels: ['🌱 Developing', '👻 Ghosted', '⏳ Pending'],
-      colors: ['#43a047', '#757575', '#fb8c00'],
+      colors: ['#4a5e3a', '#8a7a60', '#c8a840'],
+      grid: { borderColor: '#c8bfa8' },
       legend: { position: 'bottom' },
     };
 
@@ -81,10 +82,11 @@
     });
 
     const options = {
-      chart: { type: 'bar', height: 320, toolbar: { show: false } },
+      chart: { type: 'bar', height: 320, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
       series: [{ name: 'FNGs', data: Object.values(buckets) }],
       xaxis: { categories: Object.keys(buckets) },
-      colors: ['#43a047'],
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
       plotOptions: { bar: { columnWidth: '50%' } },
       dataLabels: { enabled: false },
       yaxis: { title: { text: 'Count' }, min: 0, forceNiceScale: true },

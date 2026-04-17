@@ -62,10 +62,11 @@ const MONTHS = ['JAN 2026','FEB 2026','MAR 2026','APR 2026','MAY 2026','JUNE 202
   function renderBarChart() {
     const activeMonths = MONTHS.filter(m => monthlyTotals[m] !== undefined);
     const options = {
-      chart: { type: 'bar', height: 280, toolbar: { show: false } },
+      chart: { type: 'bar', height: 280, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
       series: [{ name: 'Completions', data: activeMonths.map(m => monthlyTotals[m] || 0) }],
       xaxis: { categories: activeMonths.map(m => m.replace(' 2026', '')) },
-      colors: ['#e53935'],
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
       plotOptions: { bar: { columnWidth: '60%' } },
       dataLabels: { enabled: true },
       yaxis: { min: 0, forceNiceScale: true },
