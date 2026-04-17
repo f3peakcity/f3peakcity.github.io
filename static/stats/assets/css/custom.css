@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* F3 Peak City Stats — Tabloid Punch / Newsprint Warm design system */
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
 
@@ -5,6 +6,8 @@
   --paper: #f5f0e4;
   --ink:   #1a1a1a;
   --green: #4a5e3a;
+  --green-05: rgba(74,94,58,0.05);
+  --green-15: rgba(74,94,58,0.15);
   --text:  #404040;
   --muted: #8a7a60;
   --rule:  #c8bfa8;
@@ -122,7 +125,6 @@ body,
 .ao-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 0;
   border: 2px solid var(--ink);
 }
 .ao-card-grid .card {
@@ -167,7 +169,7 @@ body,
 .form-control:focus,
 .form-control-sm:focus {
   border-color: var(--green) !important;
-  box-shadow: 0 0 0 2px rgba(74,94,58,0.15) !important;
+  box-shadow: 0 0 0 2px var(--green-15) !important;
 }
 #filter-apply {
   background: var(--green) !important;
@@ -202,7 +204,7 @@ body,
   background: var(--paper) !important;
 }
 .table-hover > tbody > tr:hover > * {
-  background: rgba(74,94,58,0.05) !important;
+  background: var(--green-05) !important;
 }
 .table tbody td {
   border-color: var(--rule) !important;
@@ -220,7 +222,6 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
 
 /* ── Loading spinner ── */
 .spinner-border { color: var(--green) !important; }
-.text-danger { color: var(--green) !important; }
 
 /* ── Landing page ── */
 .landing-page { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
@@ -325,9 +326,8 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
   transition: background 0.15s;
 }
 .dash-card:nth-child(2n) { border-right: none; }
-.dash-card:nth-child(3),
-.dash-card:nth-child(4)  { border-bottom: none; }
-.dash-card:hover { background: rgba(74,94,58,0.05); color: inherit; text-decoration: none; }
+.dash-grid > .dash-card:nth-last-child(-n+2) { border-bottom: none; }
+.dash-card:hover { background: var(--green-05); color: inherit; text-decoration: none; }
 
 .card-title-tag {
   font-family: 'Open Sans', sans-serif;
