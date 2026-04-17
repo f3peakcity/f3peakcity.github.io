@@ -133,7 +133,9 @@ body,
   border-bottom: 2px solid var(--ink) !important;
 }
 .ao-card-grid .card-header h4.card-title {
-  font-size: 0.9rem !important;
+  font-size: 1.15rem !important;
+  color: var(--green) !important;
+  letter-spacing: 0.04em !important;
 }
 
 /* ── Page header ── */
