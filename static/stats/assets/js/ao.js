@@ -66,7 +66,7 @@
     grid.innerHTML = rows.map(r => {
       const avg = parseFloat(r['Avg/Meeting']) || 0;
       const bench = parseFloat(r['Bench Strength']);
-      const benchDisplay = isNaN(bench) ? (r['Bench Strength'] || '—') : (bench * 100).toFixed(0) + '%';
+      const benchDisplay = isNaN(bench) ? (r['Bench Strength'] || '—') : bench.toFixed(1) + '%';
       const cores = r['Core Names'] && r['Core Names'] !== '-' ? r['Core Names'] : 'None listed';
       const topQ = r['Most Frequent Q'] || '—';
       return `
@@ -128,7 +128,7 @@
     if (!body) return;
     body.innerHTML = rows.map(r => {
       const bench = parseFloat(r['Bench Strength']);
-      const benchDisplay = isNaN(bench) ? (r['Bench Strength'] || '—') : (bench * 100).toFixed(1) + '%';
+      const benchDisplay = isNaN(bench) ? (r['Bench Strength'] || '—') : bench.toFixed(1) + '%';
       return `<tr>
         <td>${f3Esc(r['Site'])}</td>
         <td>${r['Total Attendees'] || '—'}</td>
