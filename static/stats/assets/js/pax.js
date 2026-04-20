@@ -20,7 +20,9 @@
     return;
   }
 
-  filteredRows = [...allRows];
+  // Default: show PC Regulars only
+  let showRegularsOnly = true;
+  filteredRows = allRows.filter(r => (r['PC Regular?'] || '').trim().toUpperCase() === 'TRUE');
   let barChart = null;
   let donutChart = null;
   let favDayChart = null;
@@ -29,6 +31,26 @@
 
   renderAll();
   f3MakeSortable('pax-full-table', () => filteredRows, renderTableBody);
+
+  document.getElementById('btn-regulars').addEventListener('click', () => {
+    if (showRegularsOnly) return;
+    showRegularsOnly = true;
+    filteredRows = allRows.filter(r => (r['PC Regular?'] || '').trim().toUpperCase() === 'TRUE');
+    document.getElementById('btn-regulars').classList.add('active');
+    document.getElementById('btn-all-pax').classList.remove('active');
+    document.getElementById('pax-table-title').textContent = 'PC Regulars';
+    renderAll();
+  });
+
+  document.getElementById('btn-all-pax').addEventListener('click', () => {
+    if (!showRegularsOnly) return;
+    showRegularsOnly = false;
+    filteredRows = [...allRows];
+    document.getElementById('btn-all-pax').classList.add('active');
+    document.getElementById('btn-regulars').classList.remove('active');
+    document.getElementById('pax-table-title').textContent = 'All PAX';
+    renderAll();
+  });
 
   function renderAll() {
     renderStatCards(filteredRows);
@@ -44,6 +66,9 @@
     document.getElementById('stat-total-pax').textContent = rows.length;
     const active3wk = rows.filter(r => parseInt(r['Last 3 wk']) > 0).length;
     document.getElementById('stat-active-3wk').textContent = active3wk;
+    // Update subheader label to reflect current filter
+    document.getElementById('stat-total-pax').closest('.card-body').querySelector('.subheader').textContent =
+      showRegularsOnly ? 'PC Regulars' : 'Total PAX';
     const totalPosts = rows.reduce((s, r) => s + (parseInt(r['Total Post']) || 0), 0);
     document.getElementById('stat-total-posts').textContent = totalPosts.toLocaleString();
     const totalQs = rows.reduce((s, r) => s + (parseInt(r['Total Q']) || 0), 0);
@@ -174,11 +199,13 @@
             <tr>
               <th data-sort="Site">PAX</th>
               <th data-sort="Last Seen">Last Seen</th>
-              <th data-sort="Last PC Q">Last PC Q</th>
               <th data-sort="Total Post">Posts</th>
               <th data-sort="Total Q">Qs</th>
               <th data-sort="Q/P Ratio">Q/P Ratio</th>
+              <th data-sort="Avg/Week">Avg/Wk</th>
+              <th data-sort="Avg/Last 3 Weeks">Avg/3Wk</th>
               <th data-sort="Last 3 wk">Last 3 Wks</th>
+              <th data-sort="Trajectory">Trajectory</th>
               <th data-sort="Favorite AO">Fav AO</th>
             </tr>
           </thead>
@@ -195,14 +222,20 @@
     if (!body) return;
     body.innerHTML = rows.map(r => {
       const qpRatio = parseFloat(r['Q/P Ratio']);
+      const avgWk = parseFloat(r['Avg/Week']);
+      const avg3Wk = parseFloat(r['Avg/Last 3 Weeks']);
+      const traj = (r['Trajectory'] || '').trim();
+      const trajLabel = { '↑': '↑ Up', '↓': '↓ Down', '→': '→ Stable', 'NEW': 'NEW', '-': '—' }[traj] || traj || '—';
       return `<tr>
         <td><strong>${f3Esc(r['Site'])}</strong></td>
         <td>${f3Esc(r['Last Seen'] || '—')}</td>
-        <td class="text-muted">${f3Esc(r['Last PC Q'] || '—')}</td>
         <td>${r['Total Post'] || '0'}</td>
         <td>${r['Total Q'] || '0'}</td>
         <td>${isNaN(qpRatio) ? '—' : (qpRatio * 100).toFixed(1) + '%'}</td>
+        <td>${isNaN(avgWk) ? '—' : avgWk.toFixed(1)}</td>
+        <td>${isNaN(avg3Wk) ? '—' : avg3Wk.toFixed(1)}</td>
         <td>${r['Last 3 wk'] || '0'}</td>
+        <td>${f3Esc(trajLabel)}</td>
         <td class="text-muted">${f3Esc(r['Favorite AO'] || '—')}</td>
       </tr>`;
     }).join('');

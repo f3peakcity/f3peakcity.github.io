@@ -23,13 +23,6 @@
   filteredRows = [...allRows];
   renderAll();
 
-  // Wire up date filter — AO Stats has no per-row date column so filter is visual only
-  document.getElementById('filter-apply').addEventListener('click', () => {
-    // Re-render with current allRows (date filter not applicable to pre-aggregated AO data)
-    filteredRows = [...allRows];
-    renderAll();
-  });
-
   // Set up sortable — must call AFTER table is first rendered
   // Uses getter so it always sorts the current filteredRows
   function setupSortable() {

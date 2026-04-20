@@ -152,6 +152,34 @@ body,
   font-size: 0.8rem;
 }
 
+/* ── Toggle filter buttons ── */
+.filter-toggle-group {
+  display: flex;
+}
+.filter-toggle-btn {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  margin-right: -2px;
+  transition: background 0.1s, color 0.1s;
+}
+.filter-toggle-btn:last-child { margin-right: 0; }
+.filter-toggle-btn.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+.filter-toggle-btn:hover:not(.active) {
+  background: var(--green-05);
+  color: var(--ink);
+}
+
 /* ── Filter controls ── */
 .input-group-text {
   background: var(--paper) !important;

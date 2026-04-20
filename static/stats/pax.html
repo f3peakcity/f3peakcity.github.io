@@ -43,6 +43,12 @@
             <h2 class="page-title">PAX Stats</h2>
             <p class="text-muted">Individual participation metrics</p>
           </div>
+          <div class="col-auto">
+            <div class="filter-toggle-group" role="group" aria-label="Filter PAX">
+              <button class="filter-toggle-btn active" id="btn-regulars">PC Regulars</button>
+              <button class="filter-toggle-btn" id="btn-all-pax">All PAX</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -118,7 +124,7 @@
       </div>
 
       <div class="card mt-4">
-        <div class="card-header"><h3 class="card-title">All PAX</h3></div>
+        <div class="card-header"><h3 class="card-title" id="pax-table-title">PC Regulars</h3></div>
         <div class="card-body p-0" id="pax-table-container">
           <div class="d-flex justify-content-center p-4">
             <div class="spinner-border" role="status">
