@@ -89,6 +89,7 @@
       plotOptions: { bar: { horizontal: false, columnWidth: '60%' } },
       dataLabels: { enabled: false },
       yaxis: { title: { text: 'Posts' } },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
 
     if (barChart) {
@@ -100,17 +101,28 @@
   }
 
   function renderDonutChart(rows) {
-    const active = rows.filter(r => parseInt(r['Last 3 wk']) > 0).length;
-    const lapsed = rows.length - active;
+    const buckets = { '1x/wk': 0, '2x/wk': 0, '3x/wk': 0, '4x/wk': 0, '5x/wk': 0, '6+x/wk': 0 };
+    rows.forEach(r => {
+      const avg = parseFloat(r['Avg/Week']);
+      if (isNaN(avg) || avg < 0.5) return;
+      const n = Math.round(avg);
+      if (n >= 6)      buckets['6+x/wk']++;
+      else if (n >= 1) buckets[`${n}x/wk`]++;
+    });
+
+    const activeKeys = Object.keys(buckets).filter(k => buckets[k] > 0);
+    const allColors  = ['#c8bfa8', '#9aad88', '#7a9a68', '#4a5e3a', '#3a4d2d', '#2a3d1d'];
+    const colorMap   = Object.fromEntries(Object.keys(buckets).map((k, i) => [k, allColors[i]]));
 
     const options = {
       chart: { type: 'donut', height: 320, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [active, lapsed],
-      labels: ['Active (last 3 wks)', 'Lapsed'],
-      colors: ['#4a5e3a', '#c8bfa8'],
+      series: activeKeys.map(k => buckets[k]),
+      labels: activeKeys,
+      colors: activeKeys.map(k => colorMap[k]),
       grid: { borderColor: '#c8bfa8' },
       legend: { position: 'bottom' },
       dataLabels: { enabled: true },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
 
     if (donutChart) {
@@ -138,56 +150,69 @@
       plotOptions: { bar: { columnWidth: '60%' } },
       dataLabels: { enabled: false },
       yaxis: { title: { text: 'PAX' }, min: 0, forceNiceScale: true },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
     if (favDayChart) { favDayChart.updateOptions(options); }
     else { favDayChart = new ApexCharts(document.getElementById('chart-fav-day'), options); favDayChart.render(); }
   }
 
   function renderTrajectoryChart(rows) {
-    const labels = { '↑': 'Improving', '↓': 'Declining', '→': 'Stable', 'NEW': 'New', '-': 'Inactive' };
-    const counts = { '↑': 0, '↓': 0, '→': 0, 'NEW': 0, '-': 0 };
+    // Actual sheet values: '🔥 Heating Up', '❄️ Cooling Off', '-' (no change)
+    const TRAJ_MAP = {
+      '🔥 Heating Up':  { label: 'Heating Up',  color: '#c8a840' },
+      '❄️ Cooling Off': { label: 'Cooling Off',  color: '#8a9aaf' },
+      '-':              { label: 'Steady',        color: '#c8bfa8' },
+    };
+    const counts = {};
     rows.forEach(r => {
       const t = (r['Trajectory'] || '-').trim();
-      if (counts[t] !== undefined) counts[t]++;
-      else counts['-']++;
+      const key = TRAJ_MAP[t] ? t : '-';
+      counts[key] = (counts[key] || 0) + 1;
     });
-    const keys = Object.keys(counts).filter(k => counts[k] > 0);
+    const keys = Object.keys(TRAJ_MAP).filter(k => counts[k] > 0);
     const options = {
       chart: { type: 'donut', height: 260, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
       series: keys.map(k => counts[k]),
-      labels: keys.map(k => labels[k] || k),
-      colors: ['#4a5e3a', '#8a7a60', '#c8bfa8', '#c8a840', '#1a1a1a'],
+      labels: keys.map(k => TRAJ_MAP[k].label),
+      colors: keys.map(k => TRAJ_MAP[k].color),
       grid: { borderColor: '#c8bfa8' },
       legend: { position: 'bottom' },
       dataLabels: { enabled: true },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
     if (trajectoryChart) { trajectoryChart.updateOptions(options); }
     else { trajectoryChart = new ApexCharts(document.getElementById('chart-trajectory'), options); trajectoryChart.render(); }
   }
 
   function renderQpRatioChart(rows) {
-    const buckets = { '0%': 0, '1–10%': 0, '11–20%': 0, '21%+': 0 };
-    rows.forEach(r => {
-      const v = parseFloat(r['Q/P Ratio']);
-      if (isNaN(v)) return;
-      const pct = v * 100;
-      if (pct === 0) buckets['0%']++;
-      else if (pct <= 10) buckets['1–10%']++;
-      else if (pct <= 20) buckets['11–20%']++;
-      else buckets['21%+']++;
-    });
-    const options = {
-      chart: { type: 'bar', height: 260, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'PAX', data: Object.values(buckets) }],
-      xaxis: { categories: Object.keys(buckets) },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { columnWidth: '55%' } },
-      dataLabels: { enabled: false },
-      yaxis: { title: { text: 'PAX' }, min: 0, forceNiceScale: true },
-    };
-    if (qpRatioChart) { qpRatioChart.updateOptions(options); }
-    else { qpRatioChart = new ApexCharts(document.getElementById('chart-qp-ratio'), options); qpRatioChart.render(); }
+    const top10 = [...rows]
+      .filter(r => {
+        const v = parseFloat(r['Q/P Ratio']);
+        const posts = parseInt(r['Total Post']) || 0;
+        return !isNaN(v) && v > 0 && posts >= 5;
+      })
+      .sort((a, b) => parseFloat(b['Q/P Ratio']) - parseFloat(a['Q/P Ratio']))
+      .slice(0, 5);
+
+    const container = document.getElementById('chart-qp-ratio');
+    if (!top10.length) { container.innerHTML = '<p class="text-muted p-3">No data</p>'; return; }
+
+    const maxRatio = parseFloat(top10[0]['Q/P Ratio']);
+    container.innerHTML = `<div class="qp-leader-list">${
+      top10.map((r, i) => {
+        const ratio = parseFloat(r['Q/P Ratio']);
+        const pct = (ratio * 100).toFixed(1);
+        const barW = Math.round((ratio / maxRatio) * 100);
+        return `<div class="qp-leader-row">
+          <div class="qp-leader-meta">
+            <span class="qp-rank">#${i + 1}</span>
+            <span class="qp-name">${f3Esc(r['Site'])}</span>
+            <span class="qp-pct">${pct}%</span>
+          </div>
+          <div class="qp-bar-track"><div class="qp-bar-fill" style="width:${barW}%"></div></div>
+        </div>`;
+      }).join('')
+    }</div>`;
   }
 
   function renderTable(rows) {
@@ -225,7 +250,7 @@
       const avgWk = parseFloat(r['Avg/Week']);
       const avg3Wk = parseFloat(r['Avg/Last 3 Weeks']);
       const traj = (r['Trajectory'] || '').trim();
-      const trajLabel = { '↑': '↑ Up', '↓': '↓ Down', '→': '→ Stable', 'NEW': 'NEW', '-': '—' }[traj] || traj || '—';
+      const trajLabel = { '🔥 Heating Up': 'Heating Up', '❄️ Cooling Off': 'Cooling Off', '-': '—' }[traj] || traj || '—';
       return `<tr>
         <td><strong>${f3Esc(r['Site'])}</strong></td>
         <td>${f3Esc(r['Last Seen'] || '—')}</td>

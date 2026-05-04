@@ -79,10 +79,11 @@
     const options = {
       chart: { type: 'donut', height: 320, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
       series: [developing, ghosted, pending],
-      labels: ['🌱 Developing', '👻 Ghosted', '⏳ Pending'],
+      labels: ['Developing', 'Ghosted', 'Pending'],
       colors: ['#4a5e3a', '#8a7a60', '#c8a840'],
       grid: { borderColor: '#c8bfa8' },
       legend: { position: 'bottom' },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
 
     if (donutChart) {
@@ -113,6 +114,7 @@
       plotOptions: { bar: { columnWidth: '50%' } },
       dataLabels: { enabled: false },
       yaxis: { title: { text: 'Count' }, min: 0, forceNiceScale: true },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
 
     if (barChart) {
@@ -149,6 +151,7 @@
       plotOptions: { bar: { columnWidth: '60%' } },
       dataLabels: { enabled: false },
       yaxis: { title: { text: 'FNGs' }, min: 0, forceNiceScale: true },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
     if (monthlyChart) { monthlyChart.updateOptions(options); }
     else { monthlyChart = new ApexCharts(document.getElementById('chart-fng-monthly'), options); monthlyChart.render(); }
