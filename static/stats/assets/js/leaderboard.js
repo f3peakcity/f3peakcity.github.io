@@ -1,8 +1,12 @@
 // #112 Leaderboard page logic
 // Source: 2026 Leaderboard tab
-//   Row 0: monthly completion totals (ignored — recomputed from filtered rows)
+//   Row 0: sheet-computed monthly completion totals (COUNTIF over full dataset)
 //   Row 1: headers — PAX, PC Reg., JAN 2026, ..., DEC 2026, Streakers
 //   Rows 2+: PAX data — post counts per month; Streakers = "X/Y" format
+//
+// NOTE: The published CSV only exports a subset of PAX rows. Row 0 totals come
+// from sheet COUNTIF formulas covering the full dataset and are always accurate.
+// Per-filter KPI counts are derived from the published rows only.
 
 const MONTHS = ['JAN 2026','FEB 2026','MAR 2026','APR 2026','MAY 2026','JUNE 2026',
                  'JULY 2026','AUG 2026','SEP 2026','OCT 2026','NOV 2026','DEC 2026'];
@@ -15,11 +19,20 @@ const POST_GOAL = 12;
   let barChart = null;
   let activeMonths = [];
   let currentMonth = '';
+  let sheetTotals = {};  // row 0 — accurate COUNTIF totals for the full dataset
 
   try {
     const csv = await f3FetchCSV('leaderboard');
     const lines = csv.trim().split('\n');
-    // Skip row 0 totals — we recompute from filtered rows
+
+    // Parse row 0 totals against row 1 headers
+    const totalsVals = f3ParseCSVLine(lines[0]);
+    const headerVals = f3ParseCSVLine(lines[1]);
+    headerVals.forEach((h, i) => {
+      const clean = h.trim();
+      if (MONTHS.includes(clean)) sheetTotals[clean] = parseInt(totalsVals[i]) || 0;
+    });
+
     allRows = f3ParseCSV(csv, 1);
     allRows = allRows.filter(r => r['PAX'] && r['PAX'].trim() !== '');
   } catch (e) {
@@ -28,8 +41,8 @@ const POST_GOAL = 12;
     return;
   }
 
-  // Months with any PAX data; currentMonth = most recent one
-  activeMonths = MONTHS.filter(m => allRows.some(r => r[m] && r[m].trim() !== ''));
+  // Months with any data in the sheet totals; currentMonth = most recent non-zero
+  activeMonths = MONTHS.filter(m => sheetTotals[m] > 0);
   currentMonth = activeMonths.length ? activeMonths[activeMonths.length - 1] : MONTHS[0];
 
   // Default: PC Regulars only
@@ -55,7 +68,7 @@ const POST_GOAL = 12;
     renderAll();
   });
 
-  function computeMonthlyTotals(rows) {
+  function computeFilteredTotals(rows) {
     const totals = {};
     MONTHS.forEach(m => {
       totals[m] = rows.filter(r => (parseInt(r[m]) || 0) >= POST_GOAL).length;
@@ -64,9 +77,11 @@ const POST_GOAL = 12;
   }
 
   function renderAll() {
-    const monthlyTotals = computeMonthlyTotals(filteredRows);
-    renderStatCards(monthlyTotals);
-    renderBarChart(monthlyTotals);
+    // Bar chart always uses sheet row 0 (full dataset COUNTIF — accurate)
+    // KPI stat card uses filtered rows for the current-month progress bar
+    const filteredTotals = computeFilteredTotals(filteredRows);
+    renderStatCards(filteredTotals);
+    renderBarChart(sheetTotals);
     renderHabitCards();
     renderYearGrid();
   }
