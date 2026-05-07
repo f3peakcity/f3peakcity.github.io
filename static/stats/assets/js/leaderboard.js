@@ -42,8 +42,11 @@ const POST_GOAL = 12;
   }
 
   // Months with any data in the sheet totals; currentMonth = most recent non-zero
-  activeMonths = MONTHS.filter(m => sheetTotals[m] > 0);
-  currentMonth = activeMonths.length ? activeMonths[activeMonths.length - 1] : MONTHS[0];
+  // Current month from today's date — MONTHS is ordered Jan–Dec so getMonth() maps directly
+  const todayMonthIdx = new Date().getMonth(); // 0=Jan … 11=Dec
+  currentMonth = MONTHS[todayMonthIdx] ?? MONTHS[0];
+  // Active months = Jan through current month (whether or not completions exist yet)
+  activeMonths = MONTHS.filter((_, i) => i <= todayMonthIdx);
 
   // Default: PC Regulars only
   filteredRows = allRows.filter(r => (r['PC Reg.'] || '').trim().toUpperCase() === 'TRUE');

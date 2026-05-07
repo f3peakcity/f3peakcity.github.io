@@ -80,6 +80,17 @@ body,
 .navbar-toggler-icon {
   filter: invert(1);
 }
+.navbar-f3-logo {
+  display: flex;
+  align-items: center;
+  margin-right: 0.75rem;
+  padding-right: 0.75rem;
+  border-right: 1px solid rgba(255,255,255,0.15);
+  opacity: 0.9;
+  transition: opacity 0.15s;
+}
+.navbar-f3-logo:hover { opacity: 1; }
+.navbar-f3-logo img { height: 26px; width: auto; display: block; }
 
 /* ── Cards ── */
 .card {
@@ -566,6 +577,15 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
 .lb-status-track  { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
 .lb-status-behind { background: #c8a840; color: var(--ink); }
 .lb-status-ghost  { background: transparent; color: var(--rule); border: 1.5px solid var(--rule); }
+
+/* ── AO Core PAX list ── */
+.ao-core-list {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.72rem;
+  color: var(--text);
+  line-height: 1.5;
+  margin-top: 2px;
+}
 
 /* ── Top Q Leaders ranked list ── */
 #chart-qp-ratio {
