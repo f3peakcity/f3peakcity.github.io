@@ -1,19 +1,36 @@
 // AO Stats page logic
 // Source: AO Stats tab, header at row index 2
 // Key columns: Site, Total Attendees, Avg/Meeting, FNGs, Unique Qs,
-//   Bench Strength, Active Core PAX, Most Frequent Q, Core Names, Weeks in Range
+//   Bench Strength, Active Core PAX, Most Frequent Q, Weeks in Range
+// Core PAX: cross-referenced from PAX tab via Favorite AO column
 
 (async function () {
   let allRows = [];
   let filteredRows = [];
+  let coreByAO = {};   // { aoSiteName: ['PAX1', 'PAX2', ...] }
   let attendanceChart = null;
   let fngsByAoChart = null;
 
   try {
-    const csv = await f3FetchCSV('ao');
-    allRows = f3ParseCSV(csv, 2);
-    // Remove rows where Site is blank (trailing sheet rows)
+    const [aoCsv, paxCsv] = await Promise.all([
+      f3FetchCSV('ao'),
+      f3FetchCSV('pax'),
+    ]);
+
+    allRows = f3ParseCSV(aoCsv, 2);
     allRows = allRows.filter(r => r['Site'] && r['Site'].trim() !== '');
+
+    // Build core PAX map: group PAX by their Favorite AO
+    const paxRows = f3ParseCSV(paxCsv, 2).filter(r => {
+      const s = (r['Site'] || '').trim();
+      return s !== '' && isNaN(Number(s));
+    });
+    paxRows.forEach(r => {
+      const ao = (r['Favorite AO'] || '').trim();
+      if (!ao || ao === '#downrange') return;
+      if (!coreByAO[ao]) coreByAO[ao] = [];
+      coreByAO[ao].push(r['Site'].trim());
+    });
   } catch (e) {
     f3ShowError('ao-table-container', e.message);
     f3ShowError('ao-cards-grid', e.message);
@@ -101,8 +118,11 @@
       const avg = parseFloat(r['Avg/Meeting']) || 0;
       const bench = parseFloat(r['Bench Strength']);
       const benchDisplay = isNaN(bench) ? (r['Bench Strength'] || '—') : bench.toFixed(1) + '%';
-      const cores = r['Core Names'] && r['Core Names'] !== '-' ? r['Core Names'] : 'None listed';
       const topQ = r['Most Frequent Q'] || '—';
+      const corePax = coreByAO[r['Site'].trim()] || [];
+      const coreHtml = corePax.length
+        ? corePax.map(name => f3Esc(name)).join(', ')
+        : '<em style="color:var(--muted);">None listed</em>';
       return `
         <div class="card card-stat-accent">
           <div class="card-header">
@@ -127,8 +147,8 @@
                 <div class="fw-bold">${f3Esc(topQ)}</div>
               </div>
             </div>
-            <div class="text-muted small mb-1">Core PAX (Regulars)</div>
-            <div class="small">${f3Esc(cores)}</div>
+            <div class="text-muted small mb-1">Core PAX (${corePax.length})</div>
+            <div class="ao-core-list">${coreHtml}</div>
           </div>
         </div>`;
     }).join('');

@@ -159,9 +159,9 @@
   function renderTrajectoryChart(rows) {
     // Actual sheet values: '🔥 Heating Up', '❄️ Cooling Off', '-' (no change)
     const TRAJ_MAP = {
-      '🔥 Heating Up':  { label: 'Heating Up',  color: '#c8a840' },
-      '❄️ Cooling Off': { label: 'Cooling Off',  color: '#8a9aaf' },
-      '-':              { label: 'Steady',        color: '#c8bfa8' },
+      '🔥 Heating Up':  { label: '🔥 Heating Up',     color: '#c8a840' },
+      '❄️ Cooling Off': { label: '❄️ Cooling Off',    color: '#8a9aaf' },
+      '-':              { label: '➡️ Holding Steady',  color: '#c8bfa8' },
     };
     const counts = {};
     rows.forEach(r => {
