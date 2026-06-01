@@ -15,10 +15,9 @@
   let rawRows = [];
 
   try {
-    const [aoCsv, paxCsv, rawCsv] = await Promise.all([
+    const [aoCsv, paxCsv] = await Promise.all([
       f3FetchCSV('ao'),
       f3FetchCSV('pax'),
-      f3FetchCSV('raw'),
     ]);
 
     allRows = f3ParseCSV(aoCsv, 2);
@@ -35,11 +34,6 @@
       if (!coreByAO[ao]) coreByAO[ao] = [];
       coreByAO[ao].push(r['Site'].trim());
     });
-
-    rawRows = f3ParseCSV(rawCsv, 0).filter(r =>
-      r['Date'] && r['Date'].match(/^\d{4}-\d{2}-\d{2}$/) &&
-      r['Site'] && r['Site'].trim() !== '' && r['Site'].trim() !== '#downrange'
-    );
   } catch (e) {
     f3ShowError('ao-table-container', e.message);
     f3ShowError('ao-cards-grid', e.message);
@@ -48,6 +42,15 @@
 
   filteredRows = [...allRows];
   renderAll();
+
+  // Fetch the heavy raw CSV after above-fold content is already rendered
+  f3FetchCSV('raw').then(rawCsv => {
+    rawRows = f3ParseCSV(rawCsv, 0).filter(r =>
+      r['Date'] && r['Date'].match(/^\d{4}-\d{2}-\d{2}$/) &&
+      r['Site'] && r['Site'].trim() !== '' && r['Site'].trim() !== '#downrange'
+    );
+    renderWeeklyAttendance(rawRows);
+  }).catch(() => {});
 
   // Set up sortable — must call AFTER table is first rendered
   // Uses getter so it always sorts the current filteredRows
