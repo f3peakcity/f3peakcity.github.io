@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* F3 Peak City Stats — Tabloid Punch / Newsprint Warm design system */
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+/* Fonts loaded via <link> in each HTML file; @import removed to eliminate render-blocking chain */
 
 :root {
   --paper: #f5f0e4;
@@ -98,6 +98,8 @@ body,
   border: 2px solid var(--ink) !important;
   border-radius: 0 !important;
   box-shadow: none !important;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
 }
 .card-header {
   background: var(--paper) !important;
@@ -666,3 +668,19 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
   margin-top: 2rem;
 }
 .stats-footer a { color: var(--green); text-decoration: none; }
+
+/* ── Chart container CLS prevention ── */
+/* Reserve space matching each chart's JS height before ApexCharts renders */
+#chart-top-pax,
+#chart-activity-donut       { min-height: 320px; }
+#chart-fav-day,
+#chart-trajectory           { min-height: 260px; }
+#chart-qp-ratio             { min-height: 400px; }
+#chart-fng-status,
+#chart-days-to-return       { min-height: 320px; }
+#chart-fng-monthly          { min-height: 280px; }
+#chart-monthly-completions  { min-height: 280px; }
+#chart-weekly-attendance    { min-height: 280px; }
+#chart-ao-attendance,
+#chart-ao-fngs              { min-height: 260px; }
+#leaderboard-heatmap        { min-height: 300px; }

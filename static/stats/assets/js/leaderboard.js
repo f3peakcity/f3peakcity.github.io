@@ -125,8 +125,10 @@ const POST_GOAL = 12;
     if (barChart) {
       barChart.updateOptions(options);
     } else {
-      barChart = new ApexCharts(document.getElementById('chart-monthly-completions'), options);
-      barChart.render();
+      f3LazyChart('chart-monthly-completions', () => {
+        barChart = new ApexCharts(document.getElementById('chart-monthly-completions'), options);
+        barChart.render();
+      });
     }
   }
 

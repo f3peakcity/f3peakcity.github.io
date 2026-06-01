@@ -95,8 +95,10 @@
     if (barChart) {
       barChart.updateOptions(options);
     } else {
-      barChart = new ApexCharts(document.getElementById('chart-top-pax'), options);
-      barChart.render();
+      f3LazyChart('chart-top-pax', () => {
+        barChart = new ApexCharts(document.getElementById('chart-top-pax'), options);
+        barChart.render();
+      });
     }
   }
 
@@ -128,8 +130,10 @@
     if (donutChart) {
       donutChart.updateOptions(options);
     } else {
-      donutChart = new ApexCharts(document.getElementById('chart-activity-donut'), options);
-      donutChart.render();
+      f3LazyChart('chart-activity-donut', () => {
+        donutChart = new ApexCharts(document.getElementById('chart-activity-donut'), options);
+        donutChart.render();
+      });
     }
   }
 
@@ -153,7 +157,7 @@
       tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
     if (favDayChart) { favDayChart.updateOptions(options); }
-    else { favDayChart = new ApexCharts(document.getElementById('chart-fav-day'), options); favDayChart.render(); }
+    else { f3LazyChart('chart-fav-day', () => { favDayChart = new ApexCharts(document.getElementById('chart-fav-day'), options); favDayChart.render(); }); }
   }
 
   function renderTrajectoryChart(rows) {
@@ -181,7 +185,7 @@
       tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
     if (trajectoryChart) { trajectoryChart.updateOptions(options); }
-    else { trajectoryChart = new ApexCharts(document.getElementById('chart-trajectory'), options); trajectoryChart.render(); }
+    else { f3LazyChart('chart-trajectory', () => { trajectoryChart = new ApexCharts(document.getElementById('chart-trajectory'), options); trajectoryChart.render(); }); }
   }
 
   function renderQpRatioChart(rows) {
