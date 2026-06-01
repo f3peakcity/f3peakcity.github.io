@@ -86,7 +86,7 @@
       yaxis: { labels: { style: { fontSize: '11px' } } },
     };
     if (attendanceChart) { attendanceChart.updateOptions(options); }
-    else { attendanceChart = new ApexCharts(document.getElementById('chart-ao-attendance'), options); attendanceChart.render(); }
+    else { f3LazyChart('chart-ao-attendance', () => { attendanceChart = new ApexCharts(document.getElementById('chart-ao-attendance'), options); attendanceChart.render(); }); }
   }
 
   function renderFngsByAoChart(rows) {
@@ -105,7 +105,7 @@
       yaxis: { labels: { style: { fontSize: '11px' } } },
     };
     if (fngsByAoChart) { fngsByAoChart.updateOptions(options); }
-    else { fngsByAoChart = new ApexCharts(document.getElementById('chart-ao-fngs'), options); fngsByAoChart.render(); }
+    else { f3LazyChart('chart-ao-fngs', () => { fngsByAoChart = new ApexCharts(document.getElementById('chart-ao-fngs'), options); fngsByAoChart.render(); }); }
   }
 
   function renderAOCards(rows) {

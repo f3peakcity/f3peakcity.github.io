@@ -89,8 +89,10 @@
     if (donutChart) {
       donutChart.updateOptions(options);
     } else {
-      donutChart = new ApexCharts(document.getElementById('chart-fng-status'), options);
-      donutChart.render();
+      f3LazyChart('chart-fng-status', () => {
+        donutChart = new ApexCharts(document.getElementById('chart-fng-status'), options);
+        donutChart.render();
+      });
     }
   }
 
@@ -120,8 +122,10 @@
     if (barChart) {
       barChart.updateOptions(options);
     } else {
-      barChart = new ApexCharts(document.getElementById('chart-days-to-return'), options);
-      barChart.render();
+      f3LazyChart('chart-days-to-return', () => {
+        barChart = new ApexCharts(document.getElementById('chart-days-to-return'), options);
+        barChart.render();
+      });
     }
   }
 
@@ -154,7 +158,7 @@
       tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
     if (monthlyChart) { monthlyChart.updateOptions(options); }
-    else { monthlyChart = new ApexCharts(document.getElementById('chart-fng-monthly'), options); monthlyChart.render(); }
+    else { f3LazyChart('chart-fng-monthly', () => { monthlyChart = new ApexCharts(document.getElementById('chart-fng-monthly'), options); monthlyChart.render(); }); }
   }
 
   function renderTable(rows) {

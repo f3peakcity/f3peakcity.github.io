@@ -98,6 +98,8 @@ body,
   border: 2px solid var(--ink) !important;
   border-radius: 0 !important;
   box-shadow: none !important;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
 }
 .card-header {
   background: var(--paper) !important;

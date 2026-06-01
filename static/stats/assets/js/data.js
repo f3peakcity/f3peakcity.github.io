@@ -156,6 +156,24 @@ function f3Esc(str) {
     .replace(/"/g, '&quot;');
 }
 
+// Lazily initializes a chart when its container scrolls near the viewport.
+// Stores the latest renderFn so re-renders before scroll always use fresh data.
+const _f3LazyPending = {};
+function f3LazyChart(containerId, renderFn) {
+  _f3LazyPending[containerId] = renderFn;
+  const el = document.getElementById(containerId);
+  if (!el || el.dataset.f3Lazy) return;
+  el.dataset.f3Lazy = '1';
+  const obs = new IntersectionObserver((entries, o) => {
+    if (!entries[0].isIntersecting) return;
+    o.disconnect();
+    el.removeAttribute('data-f3-lazy');
+    const fn = _f3LazyPending[containerId];
+    if (fn) { delete _f3LazyPending[containerId]; fn(); }
+  }, { rootMargin: '300px 0px' });
+  obs.observe(el);
+}
+
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
   module.exports = { f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc };
