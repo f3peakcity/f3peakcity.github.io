@@ -10,11 +10,15 @@
   let coreByAO = {};   // { aoSiteName: ['PAX1', 'PAX2', ...] }
   let attendanceChart = null;
   let fngsByAoChart = null;
+  let weeklyChart = null;
+
+  let rawRows = [];
 
   try {
-    const [aoCsv, paxCsv] = await Promise.all([
+    const [aoCsv, paxCsv, rawCsv] = await Promise.all([
       f3FetchCSV('ao'),
       f3FetchCSV('pax'),
+      f3FetchCSV('raw'),
     ]);
 
     allRows = f3ParseCSV(aoCsv, 2);
@@ -31,6 +35,11 @@
       if (!coreByAO[ao]) coreByAO[ao] = [];
       coreByAO[ao].push(r['Site'].trim());
     });
+
+    rawRows = f3ParseCSV(rawCsv, 0).filter(r =>
+      r['Date'] && r['Date'].match(/^\d{4}-\d{2}-\d{2}$/) &&
+      r['Site'] && r['Site'].trim() !== '' && r['Site'].trim() !== '#downrange'
+    );
   } catch (e) {
     f3ShowError('ao-table-container', e.message);
     f3ShowError('ao-cards-grid', e.message);
@@ -48,11 +57,67 @@
 
   function renderAll() {
     renderStatCards(filteredRows);
+    renderWeeklyAttendance(rawRows);
     renderAttendanceChart(filteredRows);
     renderFngsByAoChart(filteredRows);
     renderAOCards(filteredRows);
     renderTable(filteredRows);
     setupSortable();
+  }
+
+  function weekMonday(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    const day = d.getDay();
+    d.setDate(d.getDate() - (day === 0 ? 6 : day - 1));
+    return d.toISOString().slice(0, 10);
+  }
+
+  function renderWeeklyAttendance(rows) {
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 26 * 7);
+    const cutoffStr = cutoff.toISOString().slice(0, 10);
+
+    const weekCounts = {};
+    rows.forEach(r => {
+      if (r['Date'] < cutoffStr) return;
+      const wk = weekMonday(r['Date']);
+      weekCounts[wk] = (weekCounts[wk] || 0) + 1;
+    });
+
+    const weeks = Object.keys(weekCounts).sort();
+    if (!weeks.length) return;
+
+    const labels = weeks.map(w => {
+      const d = new Date(w + 'T00:00:00');
+      return d.toLocaleString('default', { month: 'short', day: 'numeric' });
+    });
+    const counts = weeks.map(w => weekCounts[w]);
+    const avg = Math.round(counts.reduce((a, b) => a + b, 0) / counts.length);
+
+    const rangeEl = document.getElementById('weekly-attendance-range');
+    if (rangeEl) rangeEl.textContent = `${labels[0]} – ${labels[labels.length - 1]} · ${weeks.length} weeks · avg ${avg}/wk`;
+
+    const options = {
+      chart: { type: 'bar', height: 280, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: [{ name: 'PAX', data: counts }],
+      xaxis: { categories: labels, labels: { rotate: -45, style: { fontSize: '10px' } }, tickAmount: 13 },
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
+      plotOptions: { bar: { columnWidth: '75%' } },
+      dataLabels: { enabled: false },
+      yaxis: { title: { text: 'PAX' }, min: 0, forceNiceScale: true },
+      annotations: { yaxis: [{ y: avg, borderColor: '#8a7a60', strokeDashArray: 4, label: { text: `avg ${avg}`, style: { fontFamily: "'Open Sans', sans-serif", fontSize: '11px', color: '#8a7a60', background: 'transparent' }, borderColor: 'transparent' } }] },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
+    };
+
+    if (weeklyChart) {
+      weeklyChart.updateOptions(options);
+    } else {
+      f3LazyChart('chart-weekly-attendance', () => {
+        weeklyChart = new ApexCharts(document.getElementById('chart-weekly-attendance'), options);
+        weeklyChart.render();
+      });
+    }
   }
 
   function renderStatCards(rows) {

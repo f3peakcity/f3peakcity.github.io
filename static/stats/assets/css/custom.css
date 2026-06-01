@@ -680,6 +680,7 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
 #chart-days-to-return       { min-height: 320px; }
 #chart-fng-monthly          { min-height: 280px; }
 #chart-monthly-completions  { min-height: 280px; }
+#chart-weekly-attendance    { min-height: 280px; }
 #chart-ao-attendance,
 #chart-ao-fngs              { min-height: 260px; }
 #leaderboard-heatmap        { min-height: 300px; }
