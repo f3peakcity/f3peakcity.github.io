@@ -3,29 +3,6 @@
 
 {{< columns >}}
 
-<a href="articles/100-bag-challenge" target="_blank">
-  <img src="https://neighborup.org/wp-content/uploads/neighburuplogo.png" alt="NeighborUp" width="auto">
-
-#### **Peak City 100 Bag Challenge**
-</a>
-
-_Supporting the Peak City community in partnership with [NeighborUp](https://neighborup.org)_
-
-From Sugar to Shampoo: The 🎒 100 Bag Challenge Kicks Off a Sustained Giving Campaign—Grab a Bag and Make an Impact!
-
-{{< column >}}
-
-<picture>
-  <source srcset="/img/brand/f3-peak-city-white-on-transparent.png" media="(prefers-color-scheme:dark)">
-  <img height="320px" src="/img/brand/f3-peak-city-black-on-transparent.png">
-</picture>
-
-{{< endcolumns >}}
-
----
-
-{{< columns >}}
-
 ## Always Free.</br>Always Outside.</br>Open to All Men.
 
 Join us for 20+ free workouts right here in the "Peak of Good Living" in Apex, NC and the surrounding areas of Friendship, New Hill, and Jordan Lake.
