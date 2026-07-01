@@ -19,7 +19,6 @@
   const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
   const now = new Date();
   const cutoff26w = new Date(now - 26 * MS_PER_WEEK);
-  const cutoff3w  = new Date(now - 3  * MS_PER_WEEK);
 
   let allRows = [];
   let filteredRows = [];
