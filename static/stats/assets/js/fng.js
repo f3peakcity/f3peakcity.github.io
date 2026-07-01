@@ -80,34 +80,6 @@
   renderAll();
   f3MakeSortable('fng-full-table', () => filteredRows, renderTableBody);
 
-  document.getElementById('filter-apply').addEventListener('click', () => {
-    const from = document.getElementById('filter-from').value;
-    const to = document.getElementById('filter-to').value;
-    filteredRows = f3FilterByDateRange(allRows, 'First Post', from, to);
-    updateFilterLabel(from, to);
-    renderAll();
-  });
-
-  document.getElementById('filter-clear').addEventListener('click', () => {
-    document.getElementById('filter-from').value = '';
-    document.getElementById('filter-to').value = '';
-    filteredRows = [...allRows];
-    updateFilterLabel('', '');
-    renderAll();
-  });
-
-  function updateFilterLabel(from, to) {
-    const lbl = document.getElementById('filter-result-label');
-    if (!lbl) return;
-    if (!from && !to) {
-      lbl.style.display = 'none';
-      lbl.textContent = '';
-    } else {
-      lbl.style.display = 'block';
-      lbl.textContent = `Showing ${filteredRows.length} of ${allRows.length} FNGs`;
-    }
-  }
-
   function renderAll() {
     renderStatCards(filteredRows);
     renderStatusDonut(filteredRows);
@@ -120,8 +92,6 @@
     document.getElementById('stat-total-fngs').textContent = rows.length;
     const retained = rows.filter(r => r['Status'] && r['Status'].includes('Developing')).length;
     document.getElementById('stat-retained').textContent = retained;
-    const ghosted = rows.filter(r => r['Status'] && r['Status'].includes('Ghosted')).length;
-    document.getElementById('stat-ghosted').textContent = ghosted;
     const pending = rows.filter(r => r['Status'] && r['Status'].includes('Pending')).length;
     document.getElementById('stat-pending').textContent = pending;
     const regular = rows.filter(r => r['Status'] && r['Status'].includes('Regular')).length;

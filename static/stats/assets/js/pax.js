@@ -88,7 +88,7 @@
       const trajectory =
         last3wkCount >= 2 && avg3w > avg26w ? '🔥 Heating Up' :
         avg3w < avg26w                       ? '❄️ Cooling Off' :
-        '-';
+        '➡️ Holding Steady';
 
       return {
         'Site': name,
@@ -254,14 +254,14 @@
 
   function renderTrajectoryChart(rows) {
     const TRAJ_MAP = {
-      '🔥 Heating Up':  { label: '🔥 Heating Up',     color: '#c8a840' },
-      '❄️ Cooling Off': { label: '❄️ Cooling Off',    color: '#8a9aaf' },
-      '-':              { label: '➡️ Holding Steady',  color: '#c8bfa8' },
+      '🔥 Heating Up':      { label: '🔥 Heating Up',      color: '#c8a840' },
+      '❄️ Cooling Off':     { label: '❄️ Cooling Off',     color: '#8a9aaf' },
+      '➡️ Holding Steady': { label: '➡️ Holding Steady', color: '#c8bfa8' },
     };
     const counts = {};
     rows.forEach(r => {
-      const t = (r['Trajectory'] || '-').trim();
-      const key = TRAJ_MAP[t] ? t : '-';
+      const t = (r['Trajectory'] || '➡️ Holding Steady').trim();
+      const key = TRAJ_MAP[t] ? t : '➡️ Holding Steady';
       counts[key] = (counts[key] || 0) + 1;
     });
     const keys = Object.keys(TRAJ_MAP).filter(k => counts[k] > 0);
@@ -345,8 +345,7 @@
       const qpRatio = parseFloat(r['Q/P Ratio']);
       const avgWk = parseFloat(r['Avg/Week']);
       const avg3Wk = parseFloat(r['Avg/Last 3 Weeks']);
-      const traj = (r['Trajectory'] || '').trim();
-      const trajLabel = { '🔥 Heating Up': 'Heating Up', '❄️ Cooling Off': 'Cooling Off', '-': '—' }[traj] || traj || '—';
+      const traj = (r['Trajectory'] || '➡️ Holding Steady').trim();
       const lastSeen = r['Last Seen'];
       return `<tr>
         <td><strong>${f3Esc(r['Site'])}</strong></td>
@@ -357,7 +356,7 @@
         <td>${isNaN(avgWk) ? '—' : avgWk.toFixed(1)}</td>
         <td>${isNaN(avg3Wk) ? '—' : avg3Wk.toFixed(1)}</td>
         <td>${r['Last 3 wk'] || '0'}</td>
-        <td>${f3Esc(trajLabel)}</td>
+        <td>${f3Esc(traj)}</td>
         <td class="text-muted">${f3Esc(r['Favorite AO'] || '—')}</td>
       </tr>`;
     }).join('');

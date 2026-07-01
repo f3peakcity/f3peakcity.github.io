@@ -265,15 +265,15 @@
                 <div class="fw-bold">${r['Total Attendees'] || '—'}</div>
               </div>
               <div class="col-6">
-                <div class="text-muted small">Bench Strength</div>
+                <div class="text-muted small" title="% of attendees who have Q'd at least once — higher means more Q depth (green ≥40%, amber 20–39%, red &lt;20%)">Bench Strength</div>
                 <div class="fw-bold">${benchHtml}</div>
               </div>
               <div class="col-6">
-                <div class="text-muted small">Top Q</div>
+                <div class="text-muted small" title="PAX who most frequently led workouts at this AO in 2026">Top Q</div>
                 <div class="fw-bold">${f3Esc(topQ)}</div>
               </div>
             </div>
-            <div class="text-muted small mb-1">Core PAX (${corePax.length})</div>
+            <div class="text-muted small mb-1" title="PAX who attend ≥70% of sessions in the last 26 weeks">Core PAX (${corePax.length})</div>
             <div class="ao-core-list">${coreHtml}</div>
           </div>
         </div>`;
