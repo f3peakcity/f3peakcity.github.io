@@ -1,16 +1,73 @@
 // FNG Stats page logic
-// Source: FNG Stats tab, header at row index 0
-// Status values: '👻 Ghosted', '⏳ Pending (Grace Period)', '🌱 Developing (Returned)'
+// Source: Raw/Master tab — computes FNG data from attendance records
+// Status values: '👻 Ghosted', '⏳ Pending (Grace Period)', '🌱 Developing (Returned)', '🛡️ Regular'
+
+const now = new Date();
+
+function isoToMdy(isoDate) {
+  const [y, m, d] = isoDate.split('-');
+  return `${parseInt(m)}/${parseInt(d)}/${y}`;
+}
+
+function fngStatus(totalPosts, firstPostDate) {
+  const daysSince = Math.floor((now - firstPostDate) / 86400000);
+  if (totalPosts >= 10)                        return '🛡️ Regular';
+  if (totalPosts > 1)                          return '🌱 Developing (Returned)';
+  if (totalPosts === 1 && daysSince > 14)      return '👻 Ghosted';
+  if (totalPosts === 1 && daysSince <= 14)     return '⏳ Pending (Grace Period)';
+  return 'Checking Data...';
+}
 
 (async function () {
   let allRows = [];
   let filteredRows = [];
 
   try {
-    const csv = await f3FetchCSV('fng');
-    allRows = f3ParseCSV(csv, 0);
-    // Remove rows where FNG Name is blank (trailing sheet rows or date-header col)
-    allRows = allRows.filter(r => r['FNG Name'] && r['FNG Name'].trim() !== '');
+    const rawCsv = await f3FetchCSV('raw');
+    const allRawRows = f3ParseCSV(rawCsv, 0)
+      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
+
+    // Group all raw rows by Name
+    const byName = {};
+    allRawRows.forEach(r => {
+      const name = r['Name'].trim();
+      if (!byName[name]) byName[name] = [];
+      byName[name].push(r);
+    });
+
+    // Build per-FNG rows: only names that have at least one Role='FNG' record
+    Object.entries(byName).forEach(([name, records]) => {
+      const fngRecord = records.find(r => r['Role'] === 'FNG');
+      if (!fngRecord) return;
+
+      // Sort all records by date ascending
+      const sorted = records.slice().sort((a, b) => a['Date'].localeCompare(b['Date']));
+      const firstPostIso = fngRecord['Date'];
+      const firstPostDate = f3ParseLocalDate(firstPostIso);
+      const firstPost = isoToMdy(firstPostIso);
+
+      const secondRecord = sorted.length >= 2 ? sorted[1] : null;
+      const secondPost = secondRecord ? isoToMdy(secondRecord['Date']) : '';
+      let daysTo2nd = '';
+      if (secondRecord) {
+        const secondDate = f3ParseLocalDate(secondRecord['Date']);
+        daysTo2nd = Math.floor((secondDate - firstPostDate) / 86400000);
+      }
+
+      const totalPosts = sorted.length;
+      const homeAO = fngRecord['Site'];
+      const status = fngStatus(totalPosts, firstPostDate);
+
+      allRows.push({
+        'FNG Name': name,
+        'First Post': firstPost,
+        '2nd Post': secondPost,
+        'Days to 2nd post': daysTo2nd,
+        'Total Posts to date': totalPosts,
+        'Home AO': homeAO,
+        'Status': status,
+      });
+    });
   } catch (e) {
     f3ShowError('fng-table-container', e.message);
     f3ShowError('chart-fng-status', e.message);
@@ -69,18 +126,21 @@
     document.getElementById('stat-ghosted').textContent = ghosted;
     const pending = rows.filter(r => r['Status'] && r['Status'].includes('Pending')).length;
     document.getElementById('stat-pending').textContent = pending;
+    const regular = rows.filter(r => r['Status'] && r['Status'].includes('Regular')).length;
+    document.getElementById('stat-regular').textContent = regular;
   }
 
   function renderStatusDonut(rows) {
+    const regular    = rows.filter(r => r['Status'] && r['Status'].includes('Regular')).length;
     const developing = rows.filter(r => r['Status'] && r['Status'].includes('Developing')).length;
     const ghosted    = rows.filter(r => r['Status'] && r['Status'].includes('Ghosted')).length;
     const pending    = rows.filter(r => r['Status'] && r['Status'].includes('Pending')).length;
 
     const options = {
       chart: { type: 'donut', height: 320, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [developing, ghosted, pending],
-      labels: ['Developing', 'Ghosted', 'Pending'],
-      colors: ['#4a5e3a', '#8a7a60', '#c8a840'],
+      series: [regular, developing, ghosted, pending],
+      labels: ['Regular', 'Developing', 'Ghosted', 'Pending'],
+      colors: ['#4a5e3a', '#7a9a68', '#8a7a60', '#c8a840'],
       grid: { borderColor: '#c8bfa8' },
       legend: { position: 'bottom' },
       tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
@@ -168,13 +228,13 @@
         <table class="table table-vcenter table-hover card-table" id="fng-full-table">
           <thead>
             <tr>
-              <th data-sort="FNG Name">FNG Name</th>
-              <th data-sort="First Post">First Post</th>
-              <th data-sort="2nd Post">2nd Post</th>
-              <th data-sort="Days to 2nd post">Days to Return</th>
-              <th data-sort="Total Posts to date">Total Posts</th>
-              <th data-sort="Status">Status</th>
-              <th data-sort="Home AO">Home AO</th>
+              <th data-sort="FNG Name" title="PAX F3 handle">FNG Name</th>
+              <th data-sort="First Post" title="Date of first attendance at Peak City">First Post</th>
+              <th data-sort="2nd Post" title="Date of second attendance">2nd Post</th>
+              <th data-sort="Days to 2nd post" title="Days between first and second post — lower is better retention signal">Days to Return</th>
+              <th data-sort="Total Posts to date" title="Total posts in 2026">Total Posts</th>
+              <th data-sort="Status" title="Retention status based on post count and days since first post">Status</th>
+              <th data-sort="Home AO" title="The AO where this PAX first attended">Home AO</th>
             </tr>
           </thead>
           <tbody id="fng-table-body"></tbody>

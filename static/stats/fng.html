@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
+  <link rel="icon" href="../img/favicon.ico">
   <link rel="stylesheet" href="assets/css/custom.css">
 </head>
 <body class="antialiased">
@@ -62,7 +63,7 @@
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader">Total FNGs</div>
+              <div class="subheader" title="Total first-time attendees in 2026 (within current date filter)">Total FNGs</div>
               <div class="h1 mb-0" id="stat-total-fngs">—</div>
             </div>
           </div>
@@ -70,7 +71,7 @@
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader">Developing / Retained</div>
+              <div class="subheader" title="FNGs who returned for a 2nd post but have fewer than 10 total posts">Developing / Retained</div>
               <div class="h1 mb-0" id="stat-retained">—</div>
             </div>
           </div>
@@ -78,7 +79,7 @@
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader">Ghosted</div>
+              <div class="subheader" title="FNGs with only 1 post and more than 14 days since their first post">Ghosted</div>
               <div class="h1 mb-0" id="stat-ghosted">—</div>
             </div>
           </div>
@@ -86,8 +87,16 @@
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader">Pending</div>
+              <div class="subheader" title="FNGs with only 1 post and 14 days or fewer since their first post — still in grace period">Pending</div>
               <div class="h1 mb-0" id="stat-pending">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="card card-stat-accent">
+            <div class="card-body">
+              <div class="subheader" title="FNGs who have posted 10+ times — they stuck around and became regulars">Graduated Regular</div>
+              <div class="h1 mb-0" id="stat-regular">—</div>
             </div>
           </div>
         </div>
