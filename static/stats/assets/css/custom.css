@@ -686,3 +686,8 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
 #leaderboard-heatmap        { min-height: 300px; }
 .lb-dot.filled-nq { background: #c8860a; }
 .lb-status-needsq { background: #fff3cd; color: #856404; border: 1.5px solid #ffc107; }
+
+/* ── Bench Strength coloring ── */
+.bench-high   { color: #4a5e3a; font-weight: 600; }
+.bench-mid    { color: #c8860a; }
+.bench-low    { color: #c0392b; font-weight: 600; }
