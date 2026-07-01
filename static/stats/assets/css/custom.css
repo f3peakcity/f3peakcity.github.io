@@ -685,4 +685,4 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
 #chart-ao-fngs              { min-height: 260px; }
 #leaderboard-heatmap        { min-height: 300px; }
 .lb-dot.filled-nq { background: #c8860a; }
-.lb-status-needsq { background: #fff3cd; color: #856404; border-color: #ffc107; }
+.lb-status-needsq { background: #fff3cd; color: #856404; border: 1.5px solid #ffc107; }
