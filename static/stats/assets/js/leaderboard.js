@@ -232,7 +232,7 @@ const POST_GOAL = 12;
       else
         { statusCls = 'lb-status-ghost';  statusText = 'Not Started'; }
 
-      const countCls = currentPosts >= POST_GOAL ? ' lb-complete' : currentPosts < 4 ? ' lb-behind' : '';
+      const countCls = (currentPosts >= POST_GOAL && qDoneCurrent) ? ' lb-complete' : currentPosts < 4 ? ' lb-behind' : '';
 
       return `<div class="lb-pax-card">
         <div class="lb-pax-name">${f3Esc(r['PAX'])}</div>
