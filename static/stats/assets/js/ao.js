@@ -5,6 +5,16 @@
 
 (async function () {
   const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+  const AO_DISPLAY_EXCLUSIONS = [
+    'Convergence',
+    'Raiders of the Locked Park',
+    'Who let the dogs out (possible new AO?) Hunter street',
+    'Shieldlock',
+    'Ruck the Hall',
+    'Q-Source Q',
+    'Floppy Ruck',
+  ];
+  const AO_EXCLUSIONS_LC = new Set(AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
   const CORE_PAX_THRESHOLD = 0.70;
   const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
   const now = new Date();
@@ -27,6 +37,7 @@
     allRawRows.forEach(r => {
       const site = r['Site'].trim();
       if (EXCLUDED_SITES.includes(site)) return;
+      if (AO_EXCLUSIONS_LC.has(site.toLowerCase())) return;
       if (!aoMap[site]) aoMap[site] = {
         dates: new Set(),
         weeks: new Set(),

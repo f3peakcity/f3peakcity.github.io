@@ -119,6 +119,7 @@
   let donutChart = null;
   let favDayChart = null;
   let trajectoryChart = null;
+  let qpChart = null;
 
   renderAll();
   f3MakeSortable('pax-full-table', () => filteredRows, renderTableBody);
@@ -283,30 +284,32 @@
       .filter(r => {
         const avgWk = parseFloat(r['Avg/Week']);
         const totalQ = parseInt(r['Total Q']) || 0;
-        return !isNaN(avgWk) && avgWk < 1.0 && avgWk > 0 && totalQ >= 1;
+        return !isNaN(avgWk) && avgWk > 1.0 && totalQ >= 1;
       })
       .sort((a, b) => parseFloat(b['Q/P Ratio']) - parseFloat(a['Q/P Ratio']))
       .slice(0, 10);
 
-    const container = document.getElementById('chart-qp-ratio');
-    if (!top10.length) { container.innerHTML = '<p class="text-muted p-3">No data</p>'; return; }
+    const options = {
+      chart: { type: 'bar', height: Math.max(200, top10.length * 32 + 60), toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: [{ name: 'Q/P %', data: top10.map(r => parseFloat((parseFloat(r['Q/P Ratio']) * 100).toFixed(1))) }],
+      xaxis: { categories: top10.map(r => r['Site']), labels: { formatter: v => `${v}%` } },
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
+      plotOptions: { bar: { horizontal: true, barHeight: '65%' } },
+      dataLabels: { enabled: true, style: { fontSize: '11px' }, formatter: v => `${v}%` },
+      yaxis: { labels: { style: { fontSize: '11px' } } },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" }, y: { formatter: v => `${v}%` } },
+      noData: { text: 'No qualifying PAX', align: 'center', verticalAlign: 'middle', style: { fontFamily: "'Open Sans', sans-serif", color: '#8a7a60' } },
+    };
 
-    const maxRatio = parseFloat(top10[0]['Q/P Ratio']);
-    container.innerHTML = `<div class="qp-leader-list">${
-      top10.map((r, i) => {
-        const ratio = parseFloat(r['Q/P Ratio']);
-        const pct = (ratio * 100).toFixed(1);
-        const barW = Math.round((ratio / maxRatio) * 100);
-        return `<div class="qp-leader-row">
-        <div class="qp-leader-meta">
-          <span class="qp-rank">#${i + 1}</span>
-          <span class="qp-name">${f3Esc(r['Site'])}</span>
-          <span class="qp-pct">${pct}%</span>
-        </div>
-        <div class="qp-bar-track"><div class="qp-bar-fill" style="width:${barW}%"></div></div>
-      </div>`;
-      }).join('')
-    }</div>`;
+    if (qpChart) {
+      qpChart.updateOptions(options);
+    } else {
+      f3LazyChart('chart-qp-ratio', () => {
+        qpChart = new ApexCharts(document.getElementById('chart-qp-ratio'), options);
+        qpChart.render();
+      });
+    }
   }
 
   function renderTable(rows) {

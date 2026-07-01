@@ -55,12 +55,8 @@
           <div class="lbl" title="Distinct AO sites with at least one 2026 workout (excludes #downrange and Shield Lock)">Active AOs</div>
         </div>
         <div class="stat-cell">
-          <div class="num accent" id="stat-fngs">—</div>
-          <div class="lbl" title="First-time attendees in 2026">FNGs This Year</div>
-        </div>
-        <div class="stat-cell">
           <div class="num accent" id="stat-fng-retention">—</div>
-          <div class="lbl" title="% of 2026 FNGs who reached 10+ total posts (🛡️ Regular status)">FNG → Regular</div>
+          <div class="lbl" title="Of 2026 FNGs, how many reached 10+ posts (🛡️ Regular status) — shown as count and retention %">FNG → Regular</div>
         </div>
       </div>
 
@@ -129,7 +125,7 @@
 
   function setAll(val) {
     ['hero-posts','stat-pax','landing-pax-stat','stat-aos','landing-ao-stat',
-     'stat-fngs','landing-fng-stat','landing-lb-stat','stat-fng-retention'].forEach(id => setEl(id, val));
+     'landing-fng-stat','landing-lb-stat','stat-fng-retention'].forEach(id => setEl(id, val));
   }
 
   try {
@@ -162,7 +158,6 @@
     setEl('landing-pax-stat', totalPax);
     setEl('stat-aos', activeAOs);
     setEl('landing-ao-stat', activeAOs);
-    setEl('stat-fngs', totalFngs);
     setEl('landing-fng-stat', totalFngs);
     setEl('landing-lb-stat', totalPax);
     setEl('stat-fng-retention', retentionText);
