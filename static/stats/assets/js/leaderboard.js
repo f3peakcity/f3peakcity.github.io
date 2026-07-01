@@ -1,52 +1,98 @@
 // #112 Leaderboard page logic
-// Source: 2026 Leaderboard tab
-//   Row 0: sheet-computed monthly completion totals (COUNTIF over full dataset)
-//   Row 1: headers — PAX, PC Reg., JAN 2026, ..., DEC 2026, Streakers
-//   Rows 2+: PAX data — post counts per month; Streakers = "X/Y" format
-//
-// NOTE: The published CSV only exports a subset of PAX rows. Row 0 totals come
-// from sheet COUNTIF formulas covering the full dataset and are always accurate.
-// Per-filter KPI counts are derived from the published rows only.
+// Source: Raw tab — computed in JS from attendance records
+//   Columns used: Date (YYYY-MM-DD), Name (PAX), Site, Role ("Q" or "P")
 
 const MONTHS = ['JAN 2026','FEB 2026','MAR 2026','APR 2026','MAY 2026','JUNE 2026',
                  'JULY 2026','AUG 2026','SEP 2026','OCT 2026','NOV 2026','DEC 2026'];
 const POST_GOAL = 12;
 
 (async function () {
+  const PC_REGULAR_WEEKS = 26;
+  const PC_REGULAR_RECENT_WEEKS = 3;
+  const PC_REGULAR_RECENT_MIN = 3;
+  const PC_REGULAR_EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+
   let allRows = [];
   let filteredRows = [];
   let showRegularsOnly = true;
   let barChart = null;
   let activeMonths = [];
   let currentMonth = '';
-  let sheetTotals = {};  // row 0 — accurate COUNTIF totals for the full dataset
 
   try {
-    const csv = await f3FetchCSV('leaderboard');
-    const lines = csv.trim().split('\n');
+    const rawCsv = await f3FetchCSV('raw');
 
-    // Parse row 0 totals against row 1 headers
-    const totalsVals = f3ParseCSVLine(lines[0]);
-    const headerVals = f3ParseCSVLine(lines[1]);
-    headerVals.forEach((h, i) => {
-      const clean = h.trim();
-      if (MONTHS.includes(clean)) sheetTotals[clean] = parseInt(totalsVals[i]) || 0;
+    const allRawRows = f3ParseCSV(rawCsv, 0)
+      .filter(r => r['Name'] && r['Name'].trim());
+
+    // Compute PC Regular status from rolling windows
+    const now = new Date();
+    const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
+    const cutoff26w = new Date(now - PC_REGULAR_WEEKS * MS_PER_WEEK);
+    const cutoff3w  = new Date(now - PC_REGULAR_RECENT_WEEKS * MS_PER_WEEK);
+
+    const pcWindowCounts = {};
+    allRawRows.forEach(r => {
+      const site = (r['Site'] || '').trim();
+      if (PC_REGULAR_EXCLUDED_SITES.includes(site)) return;
+      const d = f3ParseLocalDate(r['Date']);
+      if (!d || d < cutoff26w) return;
+      const name = r['Name'].trim();
+      if (!pcWindowCounts[name]) pcWindowCounts[name] = { w26: 0, w3: 0 };
+      pcWindowCounts[name].w26++;
+      if (d >= cutoff3w) pcWindowCounts[name].w3++;
     });
 
-    allRows = f3ParseCSV(csv, 1);
-    allRows = allRows.filter(r => r['PAX'] && r['PAX'].trim() !== '');
+    const pcRegMap = {};
+    Object.entries(pcWindowCounts).forEach(([name, c]) => {
+      pcRegMap[name] = c.w26 >= PC_REGULAR_WEEKS || c.w3 >= PC_REGULAR_RECENT_MIN;
+    });
+
+    // Determine active months
+    const todayMonthIdx = new Date().getMonth(); // 0=Jan … 11=Dec
+    currentMonth = MONTHS[todayMonthIdx] ?? MONTHS[0];
+    activeMonths = MONTHS.filter((_, i) => i <= todayMonthIdx);
+
+    function dateToMonthLabel(dateStr) {
+      if (!dateStr || !dateStr.startsWith('2026-')) return null;
+      return MONTHS[parseInt(dateStr.slice(5, 7)) - 1] ?? null;
+    }
+
+    // Aggregate 2026 records into per-PAX post+Q counts
+    const rawRows2026 = allRawRows.filter(r => (r['Date'] || '').startsWith('2026-'));
+
+    const paxAgg = {};
+    rawRows2026.forEach(r => {
+      const name = r['Name'].trim();
+      const month = dateToMonthLabel(r['Date']);
+      if (!month) return;
+      if (!paxAgg[name]) paxAgg[name] = { posts: {}, qs: {} };
+      paxAgg[name].posts[month] = (paxAgg[name].posts[month] || 0) + 1;
+      if ((r['Role'] || '').trim() === 'Q')
+        paxAgg[name].qs[month] = (paxAgg[name].qs[month] || 0) + 1;
+    });
+
+    allRows = Object.entries(paxAgg).map(([name, agg]) => {
+      const row = { 'PAX': name, 'PC Reg.': pcRegMap[name] ? 'TRUE' : 'FALSE' };
+      MONTHS.forEach(m => { row[m] = agg.posts[m] ? String(agg.posts[m]) : ''; });
+      row['_qs'] = agg.qs;
+
+      const completedMonths = activeMonths.map(m =>
+        (parseInt(row[m]) || 0) >= POST_GOAL && (agg.qs[m] || 0) >= 1
+      );
+      let streak = 0;
+      for (let i = completedMonths.length - 1; i >= 0; i--) {
+        if (completedMonths[i]) streak++;
+        else break;
+      }
+      row['Streakers'] = `${streak}/${completedMonths.filter(Boolean).length}`;
+      return row;
+    }).sort((a, b) => a['PAX'].localeCompare(b['PAX']));
   } catch (e) {
     f3ShowError('leaderboard-heatmap', e.message);
     f3ShowError('chart-monthly-completions', e.message);
     return;
   }
-
-  // Months with any data in the sheet totals; currentMonth = most recent non-zero
-  // Current month from today's date — MONTHS is ordered Jan–Dec so getMonth() maps directly
-  const todayMonthIdx = new Date().getMonth(); // 0=Jan … 11=Dec
-  currentMonth = MONTHS[todayMonthIdx] ?? MONTHS[0];
-  // Active months = Jan through current month (whether or not completions exist yet)
-  activeMonths = MONTHS.filter((_, i) => i <= todayMonthIdx);
 
   // Default: PC Regulars only
   filteredRows = allRows.filter(r => (r['PC Reg.'] || '').trim().toUpperCase() === 'TRUE');
@@ -74,17 +120,18 @@ const POST_GOAL = 12;
   function computeFilteredTotals(rows) {
     const totals = {};
     MONTHS.forEach(m => {
-      totals[m] = rows.filter(r => (parseInt(r[m]) || 0) >= POST_GOAL).length;
+      totals[m] = rows.filter(r =>
+        (parseInt(r[m]) || 0) >= POST_GOAL && (r['_qs']?.[m] || 0) >= 1
+      ).length;
     });
     return totals;
   }
 
   function renderAll() {
-    // Bar chart always uses sheet row 0 (full dataset COUNTIF — accurate)
-    // KPI stat card uses filtered rows for the current-month progress bar
     const filteredTotals = computeFilteredTotals(filteredRows);
+    const allTotals      = computeFilteredTotals(allRows);
     renderStatCards(filteredTotals);
-    renderBarChart(sheetTotals);
+    renderBarChart(allTotals);
     renderHabitCards();
     renderYearGrid();
   }
@@ -135,14 +182,16 @@ const POST_GOAL = 12;
   function renderHabitCards() {
     const container = document.getElementById('leaderboard-heatmap');
 
-    const sorted = [...filteredRows].sort((a, b) => {
-      const aPosts = parseInt(a[currentMonth]) || 0;
-      const bPosts = parseInt(b[currentMonth]) || 0;
-      const aDone = aPosts >= POST_GOAL ? 1 : 0;
-      const bDone = bPosts >= POST_GOAL ? 1 : 0;
-      if (bDone !== aDone) return bDone - aDone;
-      return bPosts - aPosts;
-    });
+    const rank = r => {
+      if ((parseInt(r[currentMonth]) || 0) >= POST_GOAL && (r['_qs']?.[currentMonth] || 0) >= 1) return 0;
+      if ((parseInt(r[currentMonth]) || 0) >= POST_GOAL) return 1;
+      return 2;
+    };
+    const sorted = [...filteredRows].sort((a, b) =>
+      rank(a) - rank(b) ||
+      (parseInt(b[currentMonth]) || 0) - (parseInt(a[currentMonth]) || 0) ||
+      a['PAX'].localeCompare(b['PAX'])
+    );
 
     const cards = sorted.map(r => {
       const currentPosts = parseInt(r[currentMonth]) || 0;
@@ -153,9 +202,11 @@ const POST_GOAL = 12;
         const val = parseInt(raw) || 0;
         const hasData = raw !== '';
         const isCurrent = m === currentMonth;
+        const qDone = (r['_qs']?.[m] || 0) >= 1;
         let cls = 'lb-dot';
-        if (hasData && val >= POST_GOAL) cls += ' filled';
-        else if (hasData && val > 0)     cls += ' partial';
+        if (hasData && val >= POST_GOAL && qDone) cls += ' filled';
+        else if (hasData && val >= POST_GOAL)     cls += ' filled-nq';
+        else if (hasData && val > 0)              cls += ' partial';
         const ringStyle = isCurrent ? 'outline:2px solid var(--green);outline-offset:2px;' : '';
         const label = hasData ? `${m.replace(' 2026','')}: ${val} posts` : `${m.replace(' 2026','')}: —`;
         return `<span class="${cls}" title="${label}" style="${ringStyle}"></span>`;
@@ -170,13 +221,20 @@ const POST_GOAL = 12;
           </div>`
         : '';
 
+      const qDoneCurrent = (r['_qs']?.[currentMonth] || 0) >= 1;
       let statusCls, statusText;
-      if (currentPosts >= POST_GOAL) { statusCls = 'lb-status-done';   statusText = 'Complete'; }
-      else if (currentPosts >= 7)    { statusCls = 'lb-status-track';  statusText = 'On Track'; }
-      else if (currentPosts > 0)     { statusCls = 'lb-status-behind'; statusText = `Need ${POST_GOAL - currentPosts}`; }
-      else                           { statusCls = 'lb-status-ghost';  statusText = 'Not Started'; }
+      if (currentPosts >= POST_GOAL && qDoneCurrent)
+        { statusCls = 'lb-status-done';   statusText = 'Complete'; }
+      else if (currentPosts >= POST_GOAL)
+        { statusCls = 'lb-status-needsq'; statusText = 'Needs Q'; }
+      else if (currentPosts >= 7)
+        { statusCls = 'lb-status-track';  statusText = 'On Track'; }
+      else if (currentPosts > 0)
+        { statusCls = 'lb-status-behind'; statusText = `Need ${POST_GOAL - currentPosts}`; }
+      else
+        { statusCls = 'lb-status-ghost';  statusText = 'Not Started'; }
 
-      const countCls = currentPosts >= POST_GOAL ? ' lb-complete' : currentPosts < 4 ? ' lb-behind' : '';
+      const countCls = (currentPosts >= POST_GOAL && qDoneCurrent) ? ' lb-complete' : currentPosts < 4 ? ' lb-behind' : '';
 
       return `<div class="lb-pax-card">
         <div class="lb-pax-name">${f3Esc(r['PAX'])}</div>
