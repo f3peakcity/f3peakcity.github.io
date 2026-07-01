@@ -182,14 +182,14 @@ const POST_GOAL = 12;
   function renderHabitCards() {
     const container = document.getElementById('leaderboard-heatmap');
 
-    const sorted = [...filteredRows].sort((a, b) => {
-      const aPosts = parseInt(a[currentMonth]) || 0;
-      const bPosts = parseInt(b[currentMonth]) || 0;
-      const aDone = aPosts >= POST_GOAL ? 1 : 0;
-      const bDone = bPosts >= POST_GOAL ? 1 : 0;
-      if (bDone !== aDone) return bDone - aDone;
-      return bPosts - aPosts;
-    });
+    const rank = r => {
+      if ((parseInt(r[currentMonth]) || 0) >= POST_GOAL && (r['_qs']?.[currentMonth] || 0) >= 1) return 0;
+      if ((parseInt(r[currentMonth]) || 0) >= POST_GOAL) return 1;
+      return 2;
+    };
+    const sorted = [...filteredRows].sort((a, b) =>
+      rank(a) - rank(b) || (parseInt(b[currentMonth]) || 0) - (parseInt(a[currentMonth]) || 0)
+    );
 
     const cards = sorted.map(r => {
       const currentPosts = parseInt(r[currentMonth]) || 0;
@@ -200,9 +200,11 @@ const POST_GOAL = 12;
         const val = parseInt(raw) || 0;
         const hasData = raw !== '';
         const isCurrent = m === currentMonth;
+        const qDone = (r['_qs']?.[m] || 0) >= 1;
         let cls = 'lb-dot';
-        if (hasData && val >= POST_GOAL) cls += ' filled';
-        else if (hasData && val > 0)     cls += ' partial';
+        if (hasData && val >= POST_GOAL && qDone) cls += ' filled';
+        else if (hasData && val >= POST_GOAL)     cls += ' filled-nq';
+        else if (hasData && val > 0)              cls += ' partial';
         const ringStyle = isCurrent ? 'outline:2px solid var(--green);outline-offset:2px;' : '';
         const label = hasData ? `${m.replace(' 2026','')}: ${val} posts` : `${m.replace(' 2026','')}: —`;
         return `<span class="${cls}" title="${label}" style="${ringStyle}"></span>`;
@@ -217,11 +219,18 @@ const POST_GOAL = 12;
           </div>`
         : '';
 
+      const qDoneCurrent = (r['_qs']?.[currentMonth] || 0) >= 1;
       let statusCls, statusText;
-      if (currentPosts >= POST_GOAL) { statusCls = 'lb-status-done';   statusText = 'Complete'; }
-      else if (currentPosts >= 7)    { statusCls = 'lb-status-track';  statusText = 'On Track'; }
-      else if (currentPosts > 0)     { statusCls = 'lb-status-behind'; statusText = `Need ${POST_GOAL - currentPosts}`; }
-      else                           { statusCls = 'lb-status-ghost';  statusText = 'Not Started'; }
+      if (currentPosts >= POST_GOAL && qDoneCurrent)
+        { statusCls = 'lb-status-done';   statusText = 'Complete'; }
+      else if (currentPosts >= POST_GOAL)
+        { statusCls = 'lb-status-needsq'; statusText = 'Needs Q'; }
+      else if (currentPosts >= 7)
+        { statusCls = 'lb-status-track';  statusText = 'On Track'; }
+      else if (currentPosts > 0)
+        { statusCls = 'lb-status-behind'; statusText = `Need ${POST_GOAL - currentPosts}`; }
+      else
+        { statusCls = 'lb-status-ghost';  statusText = 'Not Started'; }
 
       const countCls = currentPosts >= POST_GOAL ? ' lb-complete' : currentPosts < 4 ? ' lb-behind' : '';
 
