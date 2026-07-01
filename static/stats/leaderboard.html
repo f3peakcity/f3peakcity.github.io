@@ -55,7 +55,7 @@
 
       <div class="row row-cards mt-3">
         <div class="col-sm-4">
-          <div class="card card-stat-accent">
+          <div class="card card-stat-accent h-100">
             <div class="card-body">
               <div class="subheader">Total in Crew (Year)</div>
               <div class="h1 mb-0" id="stat-total-crew">—</div>
@@ -63,7 +63,7 @@
           </div>
         </div>
         <div class="col-sm-4">
-          <div class="card card-stat-accent">
+          <div class="card card-stat-accent h-100">
             <div class="card-body">
               <div class="subheader">Current Month Completions</div>
               <div class="h1 mb-0" id="stat-current-month">—</div>
@@ -75,9 +75,9 @@
           </div>
         </div>
         <div class="col-sm-4">
-          <div class="card card-stat-accent">
+          <div class="card card-stat-accent h-100">
             <div class="card-body">
-              <div class="subheader">Active Streakers</div>
+              <div class="subheader" id="stat-streakers-label">Active Streakers</div>
               <div class="h1 mb-0" id="stat-streakers">—</div>
             </div>
           </div>
@@ -93,7 +93,6 @@
         <span class="flag-text">Who's In The Crew</span>
         <span class="flag-rule"></span>
       </div>
-      <p style="font-family:'Open Sans',sans-serif;font-size:0.6rem;color:var(--muted);font-style:italic;margin:0.4rem 0 0.5rem;">* Current month post count only appears once you've completed a Q that month.</p>
       <div id="leaderboard-heatmap">
         <div class="d-flex justify-content-center p-4">
           <div class="spinner-border" role="status">
@@ -106,9 +105,10 @@
         <div class="card-header d-flex align-items-center justify-content-between">
           <h3 class="card-title">Year at a Glance</h3>
           <span style="font-family:'Open Sans',sans-serif;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;">
-            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(74,94,58,0.18);flex-shrink:0;"></span>1–5</span>
-            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(74,94,58,0.55);flex-shrink:0;"></span>6–11</span>
-            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#4a5e3a;flex-shrink:0;"></span>12+</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.10);border:1px solid rgba(0,0,0,0.18);flex-shrink:0;"></span>1–5</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.28);flex-shrink:0;"></span>6–11</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.45);flex-shrink:0;"></span>12+ no Q</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#4a5e3a;flex-shrink:0;"></span>12+ ✓</span>
           </span>
         </div>
         <div class="card-body p-0" id="leaderboard-table">

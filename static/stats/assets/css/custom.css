@@ -456,10 +456,13 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
 /* ── Leaderboard heatmap (Year at a Glance table) ── */
 .lb-heatmap td { text-align: center; font-size: 0.8rem; padding: 0.35rem 0.5rem; min-width: 52px; }
 .lb-heatmap th { text-align: center; font-size: 0.75rem; }
-.lb-cell-0    { color: var(--rule); }
-.lb-cell-low  { background: rgba(74,94,58,0.18); color: var(--green); border-radius: 2px; padding: 0.15rem 0.35rem; display: inline-block; min-width: 2rem; }
-.lb-cell-mid  { background: rgba(74,94,58,0.55); color: #fff; border-radius: 2px; padding: 0.15rem 0.35rem; font-weight: 600; display: inline-block; min-width: 2rem; }
-.lb-cell-done { background: var(--green); color: #fff; border-radius: 2px; padding: 0.15rem 0.35rem; font-weight: 700; display: inline-block; min-width: 2rem; }
+.lb-cell-0       { color: var(--rule); }
+.lb-cell-low     { background: rgba(0,0,0,0.10); color: var(--ink); border-radius: 2px; padding: 0.15rem 0.35rem; display: inline-block; min-width: 2rem; }
+.lb-cell-mid     { background: rgba(0,0,0,0.28); color: #fff; border-radius: 2px; padding: 0.15rem 0.35rem; font-weight: 600; display: inline-block; min-width: 2rem; }
+.lb-cell-done    { background: var(--green); color: #fff; border-radius: 2px; padding: 0.15rem 0.35rem; font-weight: 700; display: inline-block; min-width: 2rem; }
+.lb-cell-low-q   { background: rgba(74,94,58,0.22); color: var(--green); border-radius: 2px; padding: 0.15rem 0.35rem; display: inline-block; min-width: 2rem; }
+.lb-cell-mid-q   { background: rgba(74,94,58,0.60); color: #fff; border-radius: 2px; padding: 0.15rem 0.35rem; font-weight: 600; display: inline-block; min-width: 2rem; }
+.lb-cell-done-nq { background: rgba(0,0,0,0.45); color: #fff; border-radius: 2px; padding: 0.15rem 0.35rem; font-weight: 700; display: inline-block; min-width: 2rem; }
 
 /* ── #112 KPI month progress bar ── */
 .lb-month-bar-track {
