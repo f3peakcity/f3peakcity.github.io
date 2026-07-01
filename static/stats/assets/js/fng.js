@@ -2,25 +2,26 @@
 // Source: Raw/Master tab — computes FNG data from attendance records
 // Status values: '👻 Ghosted', '⏳ Pending (Grace Period)', '🌱 Developing (Returned)', '🛡️ Regular'
 
-const now = new Date();
-
-function isoToMdy(isoDate) {
-  const [y, m, d] = isoDate.split('-');
-  return `${parseInt(m)}/${parseInt(d)}/${y}`;
-}
-
-function fngStatus(totalPosts, firstPostDate) {
-  const daysSince = Math.floor((now - firstPostDate) / 86400000);
-  if (totalPosts >= 10)                        return '🛡️ Regular';
-  if (totalPosts > 1)                          return '🌱 Developing (Returned)';
-  if (totalPosts === 1 && daysSince > 14)      return '👻 Ghosted';
-  if (totalPosts === 1 && daysSince <= 14)     return '⏳ Pending (Grace Period)';
-  return 'Checking Data...';
-}
-
 (async function () {
   let allRows = [];
   let filteredRows = [];
+
+  const now = new Date();
+  const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+
+  function isoToMdy(isoDate) {
+    const [y, m, d] = isoDate.split('-');
+    return `${parseInt(m)}/${parseInt(d)}/${y}`;
+  }
+
+  function fngStatus(totalPosts, firstPostDate) {
+    const daysSince = Math.floor((now - firstPostDate) / 86400000);
+    if (totalPosts >= 10)                        return '🛡️ Regular';
+    if (totalPosts > 1)                          return '🌱 Developing (Returned)';
+    if (totalPosts === 1 && daysSince > 14)      return '👻 Ghosted';
+    if (totalPosts === 1 && daysSince <= 14)     return '⏳ Pending (Grace Period)';
+    return 'Checking Data...';
+  }
 
   try {
     const rawCsv = await f3FetchCSV('raw');
@@ -51,7 +52,7 @@ function fngStatus(totalPosts, firstPostDate) {
         daysTo2nd = Math.floor((secondDate - firstPostDate) / 86400000);
       }
 
-      const totalPosts = sorted.length;
+      const totalPosts = byName[name].filter(r => !EXCLUDED_SITES.includes((r['Site'] || '').trim())).length;
       const homeAO = fngRecord['Site'];
       const status = fngStatus(totalPosts, firstPostDate);
 

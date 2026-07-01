@@ -81,11 +81,8 @@
         ? Object.entries(dayCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0]
         : '—';
 
-      // Trajectory (second pass over allRawRows for 26w window)
-      const last26wPosts = allRawRows.filter(r2 =>
-        r2['Name'].trim() === name &&
-        f3ParseLocalDate(r2['Date']) >= cutoff26w
-      ).length;
+      // Trajectory (O(1) lookup — pcWindowCounts already computed 26w posts excluding EXCLUDED_SITES)
+      const last26wPosts = (pcWindowCounts[name] || { w26: 0 }).w26;
       const avg3w  = last3wkCount / 3;
       const avg26w = last26wPosts / 26;
       const trajectory =
