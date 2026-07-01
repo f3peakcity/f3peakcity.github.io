@@ -36,7 +36,7 @@
     });
 
     Object.entries(byName).forEach(([name, records]) => {
-      const fngRecord = records.find(r => r['Role'] === 'FNG');
+      const fngRecord = records.find(r => r['Role'] === 'FNG' && !EXCLUDED_SITES.includes((r['Site'] || '').trim()));
       if (!fngRecord) return;
 
       const sorted = records.slice().sort((a, b) => a['Date'].localeCompare(b['Date']));
