@@ -9,6 +9,7 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
   <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="icon" href="../img/favicon.ico">
 </head>
 <body class="antialiased">
 <div class="wrapper">
@@ -41,21 +42,21 @@
       <div class="headline-section">
         <div class="edition-label">All-time region total</div>
         <div class="hero-number" id="hero-posts">—</div>
-        <div class="hero-label">Posts &amp; Counting ↑</div>
+        <div class="hero-label" title="Total workout posts recorded in 2026">Posts &amp; Counting ↑</div>
       </div>
 
       <div class="stat-row">
         <div class="stat-cell">
           <div class="num" id="stat-pax">—</div>
-          <div class="lbl">Total PAX</div>
+          <div class="lbl" title="Distinct PAX who have posted at least once in 2026">Total PAX</div>
         </div>
         <div class="stat-cell">
           <div class="num" id="stat-aos">—</div>
-          <div class="lbl">Active AOs</div>
+          <div class="lbl" title="Distinct AO sites with at least one 2026 workout (excludes #downrange and Shield Lock)">Active AOs</div>
         </div>
         <div class="stat-cell">
-          <div class="num accent" id="stat-fngs">—</div>
-          <div class="lbl">FNGs This Year</div>
+          <div class="num accent" id="stat-fng-retention">—</div>
+          <div class="lbl" title="Of 2026 FNGs, how many reached 10+ posts (🛡️ Regular status) — shown as count and retention %">FNG → Regular</div>
         </div>
       </div>
 
@@ -115,51 +116,54 @@
 <script src="assets/js/data.js"></script>
 <script>
 (async function() {
-  // Hero: total posts across all PAX
+  const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+
+  function setEl(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  function setAll(val) {
+    ['hero-posts','stat-pax','landing-pax-stat','stat-aos','landing-ao-stat',
+     'landing-fng-stat','landing-lb-stat','stat-fng-retention'].forEach(id => setEl(id, val));
+  }
+
   try {
-    const csv = await f3FetchCSV('pax');
-    const rows = f3ParseCSV(csv, 2).filter(r => {
-      const s = (r['Site'] || '').trim();
-      return s !== '' && isNaN(Number(s));
+    const rawCsv = await f3FetchCSV('raw');
+    const allRawRows = f3ParseCSV(rawCsv, 0)
+      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
+
+    const totalPosts = allRawRows.length;
+    const paxSet = new Set(allRawRows.map(r => r['Name'].trim()));
+    const totalPax = paxSet.size;
+    const activeAOs = new Set(
+      allRawRows.filter(r => !EXCLUDED_SITES.includes((r['Site'] || '').trim())).map(r => r['Site'].trim())
+    ).size;
+    const totalFngs = allRawRows.filter(r => r['Role'] === 'FNG').length;
+
+    // FNG → Regular: FNGs whose total 2026 post count >= 10
+    const fngNames = new Set(allRawRows.filter(r => r['Role'] === 'FNG').map(r => r['Name'].trim()));
+    const postsByName = {};
+    allRawRows.forEach(r => {
+      const n = r['Name'].trim();
+      postsByName[n] = (postsByName[n] || 0) + 1;
     });
-    const totalPosts = rows.reduce((sum, r) => sum + (parseInt(r['Total Post']) || 0), 0);
-    document.getElementById('hero-posts').textContent = totalPosts.toLocaleString();
-    document.getElementById('stat-pax').textContent = rows.length;
-    document.getElementById('landing-pax-stat').textContent = rows.length;
-  } catch {
-    document.getElementById('hero-posts').textContent = '—';
-    document.getElementById('stat-pax').textContent = '—';
-    document.getElementById('landing-pax-stat').textContent = '—';
-  }
+    const regularCount = [...fngNames].filter(n => (postsByName[n] || 0) >= 10).length;
+    const fngCount = fngNames.size;
+    const retentionPct = fngCount > 0 ? Math.round((regularCount / fngCount) * 100) : 0;
+    const retentionText = `${regularCount} of ${fngCount} (${retentionPct}%)`;
 
-  // AOs
-  try {
-    const csv = await f3FetchCSV('ao');
-    const rows = f3ParseCSV(csv, 2).filter(r => r['Site'] && r['Site'].trim());
-    document.getElementById('stat-aos').textContent = rows.length;
-    document.getElementById('landing-ao-stat').textContent = rows.length;
-  } catch {
-    document.getElementById('stat-aos').textContent = '—';
-    document.getElementById('landing-ao-stat').textContent = '—';
+    setEl('hero-posts', totalPosts.toLocaleString());
+    setEl('stat-pax', totalPax);
+    setEl('landing-pax-stat', totalPax);
+    setEl('stat-aos', activeAOs);
+    setEl('landing-ao-stat', activeAOs);
+    setEl('landing-fng-stat', totalFngs);
+    setEl('landing-lb-stat', totalPax);
+    setEl('stat-fng-retention', retentionText);
+  } catch (e) {
+    setAll('—');
   }
-
-  // FNGs
-  try {
-    const csv = await f3FetchCSV('fng');
-    const rows = f3ParseCSV(csv, 0).filter(r => r['FNG Name'] && r['FNG Name'].trim());
-    document.getElementById('stat-fngs').textContent = rows.length;
-    document.getElementById('landing-fng-stat').textContent = rows.length;
-  } catch {
-    document.getElementById('stat-fngs').textContent = '—';
-    document.getElementById('landing-fng-stat').textContent = '—';
-  }
-
-  // Leaderboard
-  try {
-    const csv = await f3FetchCSV('leaderboard');
-    const rows = f3ParseCSV(csv, 1).filter(r => r['PAX'] && r['PAX'].trim());
-    document.getElementById('landing-lb-stat').textContent = rows.length;
-  } catch { document.getElementById('landing-lb-stat').textContent = '—'; }
 })();
 </script>
 </body>

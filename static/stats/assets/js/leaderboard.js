@@ -17,6 +17,7 @@ const POST_GOAL = 12;
   let showRegularsOnly = true;
   let barChart = null;
   let activeMonths = [];
+  let streakMonths = [];
   let currentMonth = '';
 
   try {
@@ -50,8 +51,14 @@ const POST_GOAL = 12;
 
     // Determine active months
     const todayMonthIdx = new Date().getMonth(); // 0=Jan … 11=Dec
+    const todayDate = now.getDate();
     currentMonth = MONTHS[todayMonthIdx] ?? MONTHS[0];
     activeMonths = MONTHS.filter((_, i) => i <= todayMonthIdx);
+    // For streak counting: use previous month until the 14th to avoid showing
+    // everyone as "0 streak" during the first two weeks of a new month.
+    streakMonths = (todayDate < 14 && activeMonths.length > 1)
+      ? activeMonths.slice(0, -1)
+      : activeMonths;
 
     function dateToMonthLabel(dateStr) {
       if (!dateStr || !dateStr.startsWith('2026-')) return null;
@@ -77,7 +84,7 @@ const POST_GOAL = 12;
       MONTHS.forEach(m => { row[m] = agg.posts[m] ? String(agg.posts[m]) : ''; });
       row['_qs'] = agg.qs;
 
-      const completedMonths = activeMonths.map(m =>
+      const completedMonths = streakMonths.map(m =>
         (parseInt(row[m]) || 0) >= POST_GOAL && (agg.qs[m] || 0) >= 1
       );
       let streak = 0;
@@ -154,6 +161,16 @@ const POST_GOAL = 12;
       return parseInt(s.split('/')[0]) > 0;
     }).length;
     document.getElementById('stat-streakers').textContent = streakers;
+
+    const streakersLabel = document.getElementById('stat-streakers-label');
+    if (streakersLabel) {
+      if (streakMonths.length < activeMonths.length && streakMonths.length > 0) {
+        const prevMonthShort = streakMonths[streakMonths.length - 1].replace(' 2026', '');
+        streakersLabel.textContent = `Active Streakers (thru ${prevMonthShort})`;
+      } else {
+        streakersLabel.textContent = 'Active Streakers';
+      }
+    }
   }
 
   function renderBarChart(monthlyTotals) {
@@ -208,7 +225,10 @@ const POST_GOAL = 12;
         else if (hasData && val >= POST_GOAL)     cls += ' filled-nq';
         else if (hasData && val > 0)              cls += ' partial';
         const ringStyle = isCurrent ? 'outline:2px solid var(--green);outline-offset:2px;' : '';
-        const label = hasData ? `${m.replace(' 2026','')}: ${val} posts` : `${m.replace(' 2026','')}: —`;
+        const qCount = r['_qs']?.[m] || 0;
+        const label = hasData
+          ? `${m.replace(' 2026','')}: ${val} post${val !== 1 ? 's' : ''} · ${qCount} Q${qCount !== 1 ? 's' : ''}`
+          : `${m.replace(' 2026','')}: —`;
         return `<span class="${cls}" title="${label}" style="${ringStyle}"></span>`;
       }).join('');
 
@@ -257,12 +277,13 @@ const POST_GOAL = 12;
     const container = document.getElementById('leaderboard-table');
     if (!container) return;
 
-    function cellClass(raw) {
+    function cellClass(raw, qCount) {
       const n = parseInt(raw) || 0;
+      const hasQ = (qCount || 0) >= 1;
       if (n === 0)          return 'lb-cell-0';
-      if (n < 6)            return 'lb-cell-low';
-      if (n < POST_GOAL)    return 'lb-cell-mid';
-      return 'lb-cell-done';
+      if (n < 6)            return hasQ ? 'lb-cell-low-q'  : 'lb-cell-low';
+      if (n < POST_GOAL)    return hasQ ? 'lb-cell-mid-q'  : 'lb-cell-mid';
+      return hasQ ? 'lb-cell-done' : 'lb-cell-done-nq';
     }
 
     const thead = `<thead><tr>
@@ -274,7 +295,8 @@ const POST_GOAL = 12;
     const tbody = filteredRows.map(r => {
       const cells = activeMonths.map(m => {
         const val = (r[m] || '').trim();
-        const cls = cellClass(val);
+        const qCount = r['_qs']?.[m] || 0;
+        const cls = cellClass(val, qCount);
         return `<td><span class="${cls}">${f3Esc(val || '—')}</span></td>`;
       }).join('');
       return `<tr>

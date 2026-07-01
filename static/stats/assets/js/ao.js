@@ -1,39 +1,104 @@
 // AO Stats page logic
-// Source: AO Stats tab, header at row index 2
-// Key columns: Site, Total Attendees, Avg/Meeting, FNGs, Unique Qs,
-//   Bench Strength, Active Core PAX, Most Frequent Q, Weeks in Range
-// Core PAX: cross-referenced from PAX tab via Favorite AO column
+// Computed from Raw/Master attendance tab (header at row 0)
+// Key columns from raw: Date, Name, Site, Role
+// All aggregation is performed client-side from the raw CSV.
 
 (async function () {
+  const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+  const AO_DISPLAY_EXCLUSIONS = [
+    'Convergence',
+    'Raiders of the Locked Park',
+    'Who let the dogs out (possible new AO?) Hunter street',
+    'Shieldlock',
+    'Ruck the Hall',
+    'Q-Source Q',
+    'Floppy Ruck',
+  ];
+  const AO_EXCLUSIONS_LC = new Set(AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
+  const CORE_PAX_THRESHOLD = 0.70;
+  const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
+  const now = new Date();
+  const cutoff26w = new Date(now - 26 * MS_PER_WEEK);
+
   let allRows = [];
   let filteredRows = [];
-  let coreByAO = {};   // { aoSiteName: ['PAX1', 'PAX2', ...] }
+  let allRawRows = [];
   let attendanceChart = null;
   let fngsByAoChart = null;
   let weeklyChart = null;
 
-  let rawRows = [];
-
   try {
-    const [aoCsv, paxCsv] = await Promise.all([
-      f3FetchCSV('ao'),
-      f3FetchCSV('pax'),
-    ]);
+    const rawCsv = await f3FetchCSV('raw');
+    allRawRows = f3ParseCSV(rawCsv, 0)
+      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
 
-    allRows = f3ParseCSV(aoCsv, 2);
-    allRows = allRows.filter(r => r['Site'] && r['Site'].trim() !== '');
+    const aoMap = {};
+    allRawRows.forEach(r => {
+      const site = r['Site'].trim();
+      if (EXCLUDED_SITES.includes(site)) return;
+      if (AO_EXCLUSIONS_LC.has(site.toLowerCase())) return;
+      if (!aoMap[site]) aoMap[site] = {
+        dates: new Set(),
+        weeks: new Set(),
+        names: new Set(),
+        qNames: new Set(),
+        qCounts: {},
+        fngCount: 0,
+        totalPosts: 0,
+        w26dates: new Set(),
+        w26byName: {},
+      };
+      const ao = aoMap[site];
+      ao.dates.add(r['Date']);
+      ao.weeks.add(weekMonday(r['Date']));
+      ao.names.add(r['Name'].trim());
+      ao.totalPosts++;
+      if (r['Role'] === 'Q') {
+        const n = r['Name'].trim();
+        ao.qNames.add(n);
+        ao.qCounts[n] = (ao.qCounts[n] || 0) + 1;
+      }
+      if (r['Role'] === 'FNG') ao.fngCount++;
 
-    // Build core PAX map: group PAX by their Favorite AO
-    const paxRows = f3ParseCSV(paxCsv, 2).filter(r => {
-      const s = (r['Site'] || '').trim();
-      return s !== '' && isNaN(Number(s));
+      const d = new Date(r['Date'] + 'T00:00:00');
+      if (d >= cutoff26w) {
+        ao.w26dates.add(r['Date']);
+        const n = r['Name'].trim();
+        ao.w26byName[n] = (ao.w26byName[n] || 0) + 1;
+      }
     });
-    paxRows.forEach(r => {
-      const ao = (r['Favorite AO'] || '').trim();
-      if (!ao || ao === '#downrange') return;
-      if (!coreByAO[ao]) coreByAO[ao] = [];
-      coreByAO[ao].push(r['Site'].trim());
+
+    allRows = Object.entries(aoMap).map(([site, ao]) => {
+      const distinctSessions = ao.dates.size;
+      const avgPerMeeting = distinctSessions > 0 ? ao.totalPosts / distinctSessions : 0;
+      const benchStrength = ao.names.size > 0 ? ao.qNames.size / ao.names.size * 100 : 0;
+
+      const entries = Object.entries(ao.qCounts);
+      const mostFreqQ = entries.length
+        ? entries.reduce((a, b) => b[1] > a[1] ? b : a)[0]
+        : '—';
+
+      const ao26sessions = ao.w26dates.size;
+      const corePax = ao26sessions > 0
+        ? Object.entries(ao.w26byName)
+            .filter(([, cnt]) => cnt / ao26sessions >= CORE_PAX_THRESHOLD)
+            .map(([name]) => name)
+            .sort()
+        : [];
+
+      return {
+        'Site': site,
+        'Total Attendees': ao.totalPosts,
+        'Weeks in Range': ao.weeks.size,
+        'Avg/Meeting': avgPerMeeting,
+        'FNGs': ao.fngCount,
+        'Unique Qs': ao.qNames.size,
+        'Bench Strength': benchStrength,
+        'Most Frequent Q': mostFreqQ,
+        '_corePax': corePax,
+      };
     });
+
   } catch (e) {
     f3ShowError('ao-table-container', e.message);
     f3ShowError('ao-cards-grid', e.message);
@@ -43,15 +108,6 @@
   filteredRows = [...allRows];
   renderAll();
 
-  // Fetch the heavy raw CSV after above-fold content is already rendered
-  f3FetchCSV('raw').then(rawCsv => {
-    rawRows = f3ParseCSV(rawCsv, 0).filter(r =>
-      r['Date'] && r['Date'].match(/^\d{4}-\d{2}-\d{2}$/) &&
-      r['Site'] && r['Site'].trim() !== '' && r['Site'].trim() !== '#downrange'
-    );
-    renderWeeklyAttendance(rawRows);
-  }).catch(() => {});
-
   // Set up sortable — must call AFTER table is first rendered
   // Uses getter so it always sorts the current filteredRows
   function setupSortable() {
@@ -60,7 +116,7 @@
 
   function renderAll() {
     renderStatCards(filteredRows);
-    renderWeeklyAttendance(rawRows);
+    renderWeeklyAttendance(allRawRows);
     renderAttendanceChart(filteredRows);
     renderFngsByAoChart(filteredRows);
     renderAOCards(filteredRows);
@@ -185,9 +241,10 @@
     grid.innerHTML = rows.map(r => {
       const avg = parseFloat(r['Avg/Meeting']) || 0;
       const bench = parseFloat(r['Bench Strength']);
-      const benchDisplay = isNaN(bench) ? (r['Bench Strength'] || '—') : bench.toFixed(1) + '%';
+      const benchCls = bench >= 40 ? 'bench-high' : bench >= 20 ? 'bench-mid' : 'bench-low';
+      const benchHtml = isNaN(bench) ? '—' : `<span class="${benchCls}">${bench.toFixed(1)}%</span>`;
       const topQ = r['Most Frequent Q'] || '—';
-      const corePax = coreByAO[r['Site'].trim()] || [];
+      const corePax = r['_corePax'] || [];
       const coreHtml = corePax.length
         ? corePax.map(name => f3Esc(name)).join(', ')
         : '<em style="color:var(--muted);">None listed</em>';
@@ -207,15 +264,15 @@
                 <div class="fw-bold">${r['Total Attendees'] || '—'}</div>
               </div>
               <div class="col-6">
-                <div class="text-muted small">Bench Strength</div>
-                <div class="fw-bold">${benchDisplay}</div>
+                <div class="text-muted small" title="% of attendees who have Q'd at least once — higher means more Q depth (green ≥40%, amber 20–39%, red &lt;20%)">Bench Strength</div>
+                <div class="fw-bold">${benchHtml}</div>
               </div>
               <div class="col-6">
-                <div class="text-muted small">Top Q</div>
+                <div class="text-muted small" title="PAX who most frequently led workouts at this AO in 2026">Top Q</div>
                 <div class="fw-bold">${f3Esc(topQ)}</div>
               </div>
             </div>
-            <div class="text-muted small mb-1">Core PAX (${corePax.length})</div>
+            <div class="text-muted small mb-1" title="PAX who attend ≥70% of sessions in the last 26 weeks">Core PAX (${corePax.length})</div>
             <div class="ao-core-list">${coreHtml}</div>
           </div>
         </div>`;
@@ -229,14 +286,14 @@
         <table class="table table-vcenter table-hover card-table" id="ao-full-table">
           <thead>
             <tr>
-              <th data-sort="Site">Site</th>
-              <th data-sort="Total Attendees">Total Posts</th>
-              <th data-sort="Weeks in Range">Weeks</th>
-              <th data-sort="Avg/Meeting">Avg/Meeting</th>
-              <th data-sort="FNGs">FNGs</th>
-              <th data-sort="Unique Qs">Unique Qs</th>
-              <th data-sort="Bench Strength">Bench Strength</th>
-              <th>Core Names</th>
+              <th data-sort="Site" title="AO name">Site</th>
+              <th data-sort="Total Attendees" title="Total individual posts at this AO in 2026">Total Posts</th>
+              <th data-sort="Weeks in Range" title="Number of distinct weeks this AO has run in 2026">Weeks</th>
+              <th data-sort="Avg/Meeting" title="Average PAX count per session (Total Posts ÷ Distinct Sessions)">Avg/Meeting</th>
+              <th data-sort="FNGs" title="Number of first-time attendees at this AO in 2026">FNGs</th>
+              <th data-sort="Unique Qs" title="Number of distinct PAX who have led a workout (Q) at this AO in 2026">Unique Qs</th>
+              <th data-sort="Bench Strength" title="% of attendees who have Q'd at least once — higher means more Q depth (green ≥40%, amber 20–39%, red &lt;20%)">Bench Strength</th>
+              <th title="PAX who attend ≥70% of sessions in the last 26 weeks">Core Names</th>
             </tr>
           </thead>
           <tbody id="ao-table-body"></tbody>
@@ -250,7 +307,9 @@
     if (!body) return;
     body.innerHTML = rows.map(r => {
       const bench = parseFloat(r['Bench Strength']);
-      const benchDisplay = isNaN(bench) ? (r['Bench Strength'] || '—') : bench.toFixed(1) + '%';
+      const benchCls = !isNaN(bench) ? (bench >= 40 ? 'bench-high' : bench >= 20 ? 'bench-mid' : 'bench-low') : '';
+      const benchDisplay = isNaN(bench) ? '—' : `<span class="${benchCls}">${bench.toFixed(1)}%</span>`;
+      const coreNames = (r['_corePax'] || []).join(', ') || '—';
       return `<tr>
         <td>${f3Esc(r['Site'])}</td>
         <td>${r['Total Attendees'] || '—'}</td>
@@ -259,7 +318,7 @@
         <td>${r['FNGs'] || '0'}</td>
         <td>${r['Unique Qs'] || '—'}</td>
         <td>${benchDisplay}</td>
-        <td class="text-muted small">${f3Esc(r['Core Names'] && r['Core Names'] !== '-' ? r['Core Names'] : '—')}</td>
+        <td class="text-muted small">${f3Esc(coreNames)}</td>
       </tr>`;
     }).join('');
   }
