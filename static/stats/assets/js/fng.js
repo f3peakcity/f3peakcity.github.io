@@ -27,7 +27,6 @@ function fngStatus(totalPosts, firstPostDate) {
     const allRawRows = f3ParseCSV(rawCsv, 0)
       .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
 
-    // Group all raw rows by Name
     const byName = {};
     allRawRows.forEach(r => {
       const name = r['Name'].trim();
@@ -35,12 +34,10 @@ function fngStatus(totalPosts, firstPostDate) {
       byName[name].push(r);
     });
 
-    // Build per-FNG rows: only names that have at least one Role='FNG' record
     Object.entries(byName).forEach(([name, records]) => {
       const fngRecord = records.find(r => r['Role'] === 'FNG');
       if (!fngRecord) return;
 
-      // Sort all records by date ascending
       const sorted = records.slice().sort((a, b) => a['Date'].localeCompare(b['Date']));
       const firstPostIso = fngRecord['Date'];
       const firstPostDate = f3ParseLocalDate(firstPostIso);

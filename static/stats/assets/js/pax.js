@@ -17,7 +17,6 @@
     const allRawRows = f3ParseCSV(rawCsv, 0)
       .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
 
-    // Step 2: PC Regular computation (rolling window, excl. EXCLUDED_SITES)
     const pcWindowCounts = {};
     allRawRows.forEach(r => {
       const site = (r['Site'] || '').trim();
@@ -34,7 +33,6 @@
       pcRegMap[name] = c.w26 >= 26 || c.w3 >= 3;
     });
 
-    // Step 3: Per-PAX aggregation — group records by Name
     const paxMap = {};
     allRawRows.forEach(r => {
       const name = r['Name'].trim();
@@ -42,35 +40,29 @@
       paxMap[name].records.push(r);
     });
 
-    // Step 4: Build allRows with computed metrics
     allRows = Object.entries(paxMap).map(([name, agg]) => {
       const paxRecords = agg.records;
       const totalPost = paxRecords.length;
       const totalQ = paxRecords.filter(r => r['Role'] === 'Q').length;
 
-      // Min/max dates
       const dates = paxRecords.map(r => r['Date']).sort();
       const minDate = dates[0];
       const maxDate = dates[dates.length - 1];
 
-      // Last Seen — store as integer (days ago)
       const lastSeenDate = f3ParseLocalDate(maxDate);
       const lastSeenDays = lastSeenDate
         ? Math.floor((now - lastSeenDate) / 86400000)
         : null;
 
-      // Last 3wk count
       const last3wkCount = paxRecords.filter(r => {
         const d = f3ParseLocalDate(r['Date']);
         return d && d >= cutoff3w;
       }).length;
 
-      // Avg/Week
       const firstDate = f3ParseLocalDate(minDate);
       const daysSinceFirstPost = firstDate ? (now - firstDate) / 86400000 : 0;
       const avgWeek = totalPost / (Math.max(1, daysSinceFirstPost) / 7);
 
-      // Favorite AO (MODE of Site, excl. EXCLUDED_SITES)
       const siteCounts = {};
       paxRecords.forEach(r => {
         const s = (r['Site'] || '').trim();
@@ -80,7 +72,6 @@
         ? Object.entries(siteCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0]
         : '—';
 
-      // Favorite Day of the week (MODE)
       const dayCounts = {};
       paxRecords.forEach(r => {
         const day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date(r['Date'] + 'T00:00:00').getDay()];
@@ -264,7 +255,6 @@
   }
 
   function renderTrajectoryChart(rows) {
-    // Computed values: '🔥 Heating Up', '❄️ Cooling Off', '-' (no change)
     const TRAJ_MAP = {
       '🔥 Heating Up':  { label: '🔥 Heating Up',     color: '#c8a840' },
       '❄️ Cooling Off': { label: '❄️ Cooling Off',    color: '#8a9aaf' },
@@ -291,7 +281,6 @@
     else { f3LazyChart('chart-trajectory', () => { trajectoryChart = new ApexCharts(document.getElementById('chart-trajectory'), options); trajectoryChart.render(); }); }
   }
 
-  // Quality over Quantity: PAX averaging < 1 post/week with the highest Q/P ratio
   function renderQpRatioChart(rows) {
     const top10 = [...rows]
       .filter(r => {
@@ -346,7 +335,6 @@
         </table>
       </div>`;
     renderTableBody(rows);
-    // Re-attach sortable after table rebuild
     f3MakeSortable('pax-full-table', () => filteredRows, renderTableBody);
   }
 

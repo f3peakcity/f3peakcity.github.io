@@ -23,7 +23,6 @@
     allRawRows = f3ParseCSV(rawCsv, 0)
       .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
 
-    // Build per-AO aggregation from raw rows
     const aoMap = {};
     allRawRows.forEach(r => {
       const site = r['Site'].trim();
@@ -51,7 +50,6 @@
       }
       if (r['Role'] === 'FNG') ao.fngCount++;
 
-      // 26-week window for Core PAX
       const d = new Date(r['Date'] + 'T00:00:00');
       if (d >= cutoff26w) {
         ao.w26dates.add(r['Date']);
@@ -60,7 +58,6 @@
       }
     });
 
-    // Build allRows array
     allRows = Object.entries(aoMap).map(([site, ao]) => {
       const distinctSessions = ao.dates.size;
       const avgPerMeeting = distinctSessions > 0 ? ao.totalPosts / distinctSessions : 0;
