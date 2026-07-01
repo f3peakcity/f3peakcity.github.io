@@ -87,7 +87,7 @@ const POST_GOAL = 12;
       }
       row['Streakers'] = `${streak}/${completedMonths.filter(Boolean).length}`;
       return row;
-    });
+    }).sort((a, b) => a['PAX'].localeCompare(b['PAX']));
   } catch (e) {
     f3ShowError('leaderboard-heatmap', e.message);
     f3ShowError('chart-monthly-completions', e.message);
@@ -188,7 +188,9 @@ const POST_GOAL = 12;
       return 2;
     };
     const sorted = [...filteredRows].sort((a, b) =>
-      rank(a) - rank(b) || (parseInt(b[currentMonth]) || 0) - (parseInt(a[currentMonth]) || 0)
+      rank(a) - rank(b) ||
+      (parseInt(b[currentMonth]) || 0) - (parseInt(a[currentMonth]) || 0) ||
+      a['PAX'].localeCompare(b['PAX'])
     );
 
     const cards = sorted.map(r => {
