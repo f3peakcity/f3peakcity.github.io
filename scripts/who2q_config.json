@@ -1,0 +1,19 @@
+{
+  "bq_project": "f3data",
+  "bq_dataset": "analytics",
+  "region_org_id": 40342,
+  "window_weeks": 16,
+  "regular_threshold": 0.5,
+  "stale_days": 60,
+  "max_never_qd": 10,
+  "excluded_aos": [
+    "Shieldlock 🛡️🔒",
+    "Raiders of the Locked Park",
+    "Moon Tower",
+    "#downrange",
+    "Umstead Trails Collaborative",
+    "Full Metal Jacket"
+  ],
+  "excluded_pax": [],
+  "name_aliases": {}
+}
