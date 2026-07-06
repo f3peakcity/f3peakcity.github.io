@@ -1,0 +1,43 @@
+name: Refresh Who2Q data
+
+on:
+  schedule:
+    - cron: '0 10 * * 0'   # Sundays 10:00 UTC (~6am ET)
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements-who2q.txt
+
+      - name: Run unit tests
+        run: python -m unittest discover -s scripts/tests -v
+
+      - name: Generate who2q.json
+        run: python scripts/who2q_export.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add static/stats/data/who2q.json
+          if git diff --cached --quiet; then
+            echo "No data changes."
+          else
+            git commit -m "chore(who2q): weekly data refresh"
+            git push
+          fi

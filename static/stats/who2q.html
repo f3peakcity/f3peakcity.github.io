@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Who to Q — F3 Peak City Stats</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="icon" href="../img/favicon.ico">
+</head>
+<body class="antialiased">
+<div class="wrapper">
+
+  <div class="masthead-bar">
+    <span class="region">F3 PEAK CITY</span>
+    <span class="dateline">Apex, NC &nbsp;·&nbsp; <span id="data-as-of">Loading…</span></span>
+  </div>
+
+  <header class="navbar navbar-expand-md d-print-none">
+    <div class="container-xl">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a href="https://f3peakcity.com" class="navbar-f3-logo" target="_blank" rel="noopener" aria-label="F3 Peak City"><img src="../img/brand/f3-peak-city-white-on-transparent.png" alt="F3 Peak City" width="26" height="26"></a><a href="index.html" class="navbar-brand">Peak City Stats</a>
+      <div class="collapse navbar-collapse" id="navbar-menu">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="ao.html">AO Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
+          <li class="nav-item"><a class="nav-link active" href="who2q.html">Who to Q</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+    <div class="container-xl">
+
+      <div class="page-header d-print-none mt-4">
+        <div class="row align-items-center">
+          <div class="col">
+            <h2 class="page-title">Who to Q</h2>
+            <p class="text-muted">Q candidates by AO — regulars who haven't led yet, and past Qs who are overdue</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-body">
+          <div class="row align-items-center g-3">
+            <div class="col-md-5">
+              <label class="form-label subheader" for="ao-select">Select an AO</label>
+              <select class="form-select" id="ao-select">
+                <option value="" selected disabled>Choose an AO…</option>
+              </select>
+            </div>
+            <div class="col-md-7">
+              <div class="text-muted" id="params-note" style="font-size:0.8rem;"></div>
+              <div class="text-muted" id="ao-workouts-note" style="font-size:0.8rem;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title" title="Regular attendees (last 16 weeks) with no recorded Q at this AO, ever">Never Q'd Here — Regulars <span class="text-muted" id="never-qd-count"></span></h3>
+            </div>
+            <div class="card-body p-0" id="never-qd-body">
+              <div class="p-3 text-muted">Select an AO above to see candidates.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title" title="Has Q'd this AO before, but not in the last 60 days; sorted by longest gap first">Overdue for a Q <span class="text-muted" id="stale-q-count"></span></h3>
+            </div>
+            <div class="card-body p-0" id="stale-q-body">
+              <div class="p-3 text-muted">Select an AO above to see candidates.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <footer class="stats-footer">
+      Data refreshes weekly from F3 Nation BigQuery &nbsp;·&nbsp;
+      <a href="https://f3peakcity.com">f3peakcity.com</a>
+    </footer>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/who2q.js"></script>
+</body>
+</html>
