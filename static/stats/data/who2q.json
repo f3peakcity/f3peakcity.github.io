@@ -865,44 +865,6 @@
    ]
   },
   {
-   "name": "Full Metal Jacket (FMJ)",
-   "workouts_in_window": 8,
-   "never_qd": [
-    {
-     "name": "Stella",
-     "attended": 6,
-     "rate": 0.75,
-     "last_attended": "2026-06-30"
-    },
-    {
-     "name": "Crockpot",
-     "attended": 5,
-     "rate": 0.625,
-     "last_attended": "2026-06-30"
-    }
-   ],
-   "stale_qs": [
-    {
-     "name": "Squeeze Bag",
-     "last_q": "2026-02-17",
-     "days_since": 139,
-     "attended_in_window": 0
-    },
-    {
-     "name": "Imp",
-     "last_q": "2026-03-03",
-     "days_since": 125,
-     "attended_in_window": 1
-    },
-    {
-     "name": "Jockey",
-     "last_q": "2026-04-21",
-     "days_since": 76,
-     "attended_in_window": 1
-    }
-   ]
-  },
-  {
    "name": "Half Dome",
    "workouts_in_window": 15,
    "never_qd": [
