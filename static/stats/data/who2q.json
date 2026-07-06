@@ -1,16 +1,23 @@
 {
  "generated_at": "2026-07-06",
  "params": {
-  "window_weeks": 16,
-  "regular_threshold": 0.5,
+  "window_weeks": 12,
+  "regular_threshold": 0.3,
   "stale_days": 60,
   "max_never_qd": 10
  },
  "aos": [
   {
    "name": "7th Inning Stretch",
-   "workouts_in_window": 16,
-   "never_qd": [],
+   "workouts_in_window": 12,
+   "never_qd": [
+    {
+     "name": "Hobbit",
+     "attended": 5,
+     "rate": 0.417,
+     "last_attended": "2026-07-01"
+    }
+   ],
    "stale_qs": [
     {
      "name": "Squeeze Bag",
@@ -64,25 +71,25 @@
      "name": "Sparks",
      "last_q": "2026-03-18",
      "days_since": 110,
-     "attended_in_window": 4
+     "attended_in_window": 2
     },
     {
      "name": "Jockey",
      "last_q": "2026-03-25",
      "days_since": 103,
-     "attended_in_window": 10
+     "attended_in_window": 7
     },
     {
      "name": "Spam",
      "last_q": "2026-04-01",
      "days_since": 96,
-     "attended_in_window": 3
+     "attended_in_window": 0
     },
     {
      "name": "I-Beam",
      "last_q": "2026-04-15",
      "days_since": 82,
-     "attended_in_window": 7
+     "attended_in_window": 4
     },
     {
      "name": "Earhart",
@@ -100,7 +107,7 @@
   },
   {
    "name": "Beaver Chase",
-   "workouts_in_window": 16,
+   "workouts_in_window": 12,
    "never_qd": [],
    "stale_qs": [
     {
@@ -125,7 +132,7 @@
      "name": "Sparks",
      "last_q": "2025-09-29",
      "days_since": 280,
-     "attended_in_window": 3
+     "attended_in_window": 2
     },
     {
      "name": "Theismann",
@@ -173,19 +180,19 @@
      "name": "Egon",
      "last_q": "2026-02-23",
      "days_since": 133,
-     "attended_in_window": 7
+     "attended_in_window": 4
     },
     {
      "name": "Zinfandel",
      "last_q": "2026-03-23",
      "days_since": 105,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Chalupa",
      "last_q": "2026-03-30",
      "days_since": 98,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Rooney",
@@ -209,8 +216,33 @@
   },
   {
    "name": "Bounty Hunters (BH)",
-   "workouts_in_window": 15,
-   "never_qd": [],
+   "workouts_in_window": 12,
+   "never_qd": [
+    {
+     "name": "Egon",
+     "attended": 5,
+     "rate": 0.417,
+     "last_attended": "2026-06-25"
+    },
+    {
+     "name": "Sethler Buransky",
+     "attended": 4,
+     "rate": 0.333,
+     "last_attended": "2026-07-02"
+    },
+    {
+     "name": "Daily Double",
+     "attended": 4,
+     "rate": 0.333,
+     "last_attended": "2026-06-11"
+    },
+    {
+     "name": "Traffic Cone",
+     "attended": 4,
+     "rate": 0.333,
+     "last_attended": "2026-05-14"
+    }
+   ],
    "stale_qs": [
     {
      "name": "Orphan",
@@ -234,37 +266,37 @@
      "name": "Charmin",
      "last_q": "2026-02-26",
      "days_since": 130,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Silver fox",
      "last_q": "2026-03-05",
      "days_since": 123,
-     "attended_in_window": 3
+     "attended_in_window": 2
     },
     {
      "name": "Kanki",
      "last_q": "2026-03-12",
      "days_since": 116,
-     "attended_in_window": 7
+     "attended_in_window": 6
     },
     {
      "name": "Malware",
      "last_q": "2026-03-19",
      "days_since": 109,
-     "attended_in_window": 12
+     "attended_in_window": 9
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-04-02",
      "days_since": 95,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Imp",
      "last_q": "2026-04-09",
      "days_since": 88,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Crimson",
@@ -276,7 +308,7 @@
      "name": "Firedog",
      "last_q": "2026-04-23",
      "days_since": 74,
-     "attended_in_window": 7
+     "attended_in_window": 4
     },
     {
      "name": "Jigglypuff (South Cary)",
@@ -288,12 +320,12 @@
   },
   {
    "name": "Cougar Town",
-   "workouts_in_window": 14,
+   "workouts_in_window": 11,
    "never_qd": [
     {
      "name": "Moline",
-     "attended": 11,
-     "rate": 0.786,
+     "attended": 9,
+     "rate": 0.818,
      "last_attended": "2026-06-30"
     }
    ],
@@ -314,7 +346,7 @@
      "name": "Cheap Trick",
      "last_q": "2025-08-27",
      "days_since": 313,
-     "attended_in_window": 6
+     "attended_in_window": 4
     },
     {
      "name": "Crimson",
@@ -332,7 +364,7 @@
      "name": "I-Beam",
      "last_q": "2025-09-23",
      "days_since": 286,
-     "attended_in_window": 5
+     "attended_in_window": 3
     },
     {
      "name": "Steaks",
@@ -398,7 +430,7 @@
      "name": "Henny Penny",
      "last_q": "2025-11-12",
      "days_since": 236,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Big Red",
@@ -434,7 +466,7 @@
      "name": "Ramsay",
      "last_q": "2025-12-24",
      "days_since": 194,
-     "attended_in_window": 11
+     "attended_in_window": 9
     },
     {
      "name": "Cataracts",
@@ -476,7 +508,7 @@
      "name": "Mr. Safety",
      "last_q": "2026-02-24",
      "days_since": 132,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Triple Lindy",
@@ -494,7 +526,7 @@
      "name": "Jockey",
      "last_q": "2026-04-07",
      "days_since": 90,
-     "attended_in_window": 4
+     "attended_in_window": 3
     },
     {
      "name": "Red Ryder",
@@ -512,25 +544,61 @@
      "name": "Egon",
      "last_q": "2026-05-05",
      "days_since": 62,
-     "attended_in_window": 2
+     "attended_in_window": 1
     }
    ]
   },
   {
    "name": "Dante's Peak",
-   "workouts_in_window": 17,
+   "workouts_in_window": 12,
    "never_qd": [
     {
      "name": "Maestro",
-     "attended": 11,
-     "rate": 0.647,
+     "attended": 9,
+     "rate": 0.75,
      "last_attended": "2026-06-26"
     },
     {
      "name": "Iceman",
-     "attended": 10,
-     "rate": 0.588,
+     "attended": 6,
+     "rate": 0.5,
      "last_attended": "2026-07-03"
+    },
+    {
+     "name": "Moline",
+     "attended": 5,
+     "rate": 0.417,
+     "last_attended": "2026-06-26"
+    },
+    {
+     "name": "Zero Drop",
+     "attended": 5,
+     "rate": 0.417,
+     "last_attended": "2026-06-19"
+    },
+    {
+     "name": "Poi",
+     "attended": 5,
+     "rate": 0.417,
+     "last_attended": "2026-05-25"
+    },
+    {
+     "name": "Green Eggs",
+     "attended": 4,
+     "rate": 0.333,
+     "last_attended": "2026-06-26"
+    },
+    {
+     "name": "Clockwork",
+     "attended": 4,
+     "rate": 0.333,
+     "last_attended": "2026-06-19"
+    },
+    {
+     "name": "Flenderson",
+     "attended": 4,
+     "rate": 0.333,
+     "last_attended": "2026-05-08"
     }
    ],
    "stale_qs": [
@@ -538,7 +606,7 @@
      "name": "Ramsay",
      "last_q": "2025-11-14",
      "days_since": 234,
-     "attended_in_window": 5
+     "attended_in_window": 4
     },
     {
      "name": "Chalupa",
@@ -550,7 +618,7 @@
      "name": "Decal",
      "last_q": "2025-11-26",
      "days_since": 222,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Silver fox",
@@ -568,126 +636,132 @@
      "name": "Franklin",
      "last_q": "2026-01-16",
      "days_since": 171,
-     "attended_in_window": 3
+     "attended_in_window": 2
     },
     {
      "name": "Hamm",
      "last_q": "2026-01-23",
      "days_since": 164,
-     "attended_in_window": 14
+     "attended_in_window": 10
     },
     {
      "name": "Malware",
      "last_q": "2026-01-30",
      "days_since": 157,
-     "attended_in_window": 4
+     "attended_in_window": 2
     },
     {
      "name": "Old Maid",
      "last_q": "2026-02-13",
      "days_since": 143,
-     "attended_in_window": 7
+     "attended_in_window": 4
     },
     {
      "name": "Rooney",
      "last_q": "2026-03-06",
      "days_since": 122,
-     "attended_in_window": 4
+     "attended_in_window": 3
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-03-13",
      "days_since": 115,
-     "attended_in_window": 5
+     "attended_in_window": 3
     },
     {
      "name": "Firedog",
      "last_q": "2026-03-20",
      "days_since": 108,
-     "attended_in_window": 3
+     "attended_in_window": 1
     },
     {
      "name": "Imp",
      "last_q": "2026-03-21",
      "days_since": 107,
-     "attended_in_window": 13
+     "attended_in_window": 10
     },
     {
      "name": "Yahoo",
      "last_q": "2026-03-27",
      "days_since": 101,
-     "attended_in_window": 6
+     "attended_in_window": 4
     },
     {
      "name": "16 Steves",
      "last_q": "2026-04-17",
      "days_since": 80,
-     "attended_in_window": 6
+     "attended_in_window": 3
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-04-24",
      "days_since": 73,
-     "attended_in_window": 6
+     "attended_in_window": 5
     }
    ]
   },
   {
    "name": "Das Boot",
-   "workouts_in_window": 16,
+   "workouts_in_window": 12,
    "never_qd": [
     {
      "name": "Chalupa",
-     "attended": 12,
-     "rate": 0.75,
-     "last_attended": "2026-07-04"
-    },
-    {
-     "name": "Old Maid",
-     "attended": 10,
-     "rate": 0.625,
-     "last_attended": "2026-06-20"
-    },
-    {
-     "name": "Clockwork",
-     "attended": 9,
-     "rate": 0.562,
+     "attended": 8,
+     "rate": 0.667,
      "last_attended": "2026-07-04"
     },
     {
      "name": "Cauliflower",
-     "attended": 9,
-     "rate": 0.562,
+     "attended": 8,
+     "rate": 0.667,
      "last_attended": "2026-06-27"
     },
     {
      "name": "Moline",
-     "attended": 9,
-     "rate": 0.562,
+     "attended": 8,
+     "rate": 0.667,
      "last_attended": "2026-06-27"
     },
     {
+     "name": "Spam",
+     "attended": 7,
+     "rate": 0.583,
+     "last_attended": "2026-06-27"
+    },
+    {
+     "name": "Old Maid",
+     "attended": 7,
+     "rate": 0.583,
+     "last_attended": "2026-06-20"
+    },
+    {
      "name": "Imp",
-     "attended": 9,
-     "rate": 0.562,
+     "attended": 7,
+     "rate": 0.583,
      "last_attended": "2026-06-06"
     },
     {
-     "name": "9-Lives",
-     "attended": 9,
-     "rate": 0.562,
-     "last_attended": "2026-05-30"
-    },
-    {
-     "name": "Yahoo",
-     "attended": 8,
+     "name": "Clockwork",
+     "attended": 6,
      "rate": 0.5,
      "last_attended": "2026-07-04"
     },
     {
-     "name": "Spam",
-     "attended": 8,
+     "name": "Zero Drop",
+     "attended": 6,
      "rate": 0.5,
+     "last_attended": "2026-07-04"
+    },
+    {
+     "name": "Yahoo",
+     "attended": 5,
+     "rate": 0.417,
+     "last_attended": "2026-07-04"
+    },
+    {
+     "name": "Brownout",
+     "attended": 5,
+     "rate": 0.417,
      "last_attended": "2026-06-27"
     }
    ],
@@ -696,19 +770,19 @@
      "name": "Cataracts",
      "last_q": "2026-01-17",
      "days_since": 170,
-     "attended_in_window": 13
+     "attended_in_window": 10
     },
     {
      "name": "Biner",
      "last_q": "2026-01-24",
      "days_since": 163,
-     "attended_in_window": 10
+     "attended_in_window": 7
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-02-07",
      "days_since": 149,
-     "attended_in_window": 4
+     "attended_in_window": 3
     },
     {
      "name": "Sour Mash",
@@ -720,7 +794,7 @@
      "name": "Earhart",
      "last_q": "2026-02-21",
      "days_since": 135,
-     "attended_in_window": 10
+     "attended_in_window": 8
     },
     {
      "name": "Hello Kitty",
@@ -738,25 +812,25 @@
      "name": "Franklin",
      "last_q": "2026-03-21",
      "days_since": 107,
-     "attended_in_window": 8
+     "attended_in_window": 5
     },
     {
      "name": "High School Musical (G/L)",
      "last_q": "2026-04-04",
      "days_since": 93,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Gump",
      "last_q": "2026-04-11",
      "days_since": 86,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Loom",
      "last_q": "2026-04-18",
      "days_since": 79,
-     "attended_in_window": 8
+     "attended_in_window": 5
     },
     {
      "name": "Sky Blue",
@@ -774,13 +848,25 @@
   },
   {
    "name": "Disturbing the Peace (DTP)",
-   "workouts_in_window": 15,
+   "workouts_in_window": 11,
    "never_qd": [
     {
      "name": "Piggly Wiggly",
-     "attended": 13,
-     "rate": 0.867,
+     "attended": 9,
+     "rate": 0.818,
      "last_attended": "2026-06-23"
+    },
+    {
+     "name": "Big Red",
+     "attended": 4,
+     "rate": 0.364,
+     "last_attended": "2026-06-16"
+    },
+    {
+     "name": "Bumper Sticker",
+     "attended": 4,
+     "rate": 0.364,
+     "last_attended": "2026-06-09"
     }
    ],
    "stale_qs": [
@@ -806,7 +892,7 @@
      "name": "Imp",
      "last_q": "2026-02-03",
      "days_since": 153,
-     "attended_in_window": 7
+     "attended_in_window": 6
     },
     {
      "name": "Hello Kitty",
@@ -836,25 +922,25 @@
      "name": "Chalupa",
      "last_q": "2026-03-31",
      "days_since": 97,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Soft Tail",
      "last_q": "2026-04-07",
      "days_since": 90,
-     "attended_in_window": 3
+     "attended_in_window": 2
     },
     {
      "name": "Headgear",
      "last_q": "2026-04-14",
      "days_since": 83,
-     "attended_in_window": 7
+     "attended_in_window": 6
     },
     {
      "name": "Old Maid",
      "last_q": "2026-04-21",
      "days_since": 76,
-     "attended_in_window": 3
+     "attended_in_window": 1
     },
     {
      "name": "Firedog",
@@ -866,13 +952,19 @@
   },
   {
    "name": "Half Dome",
-   "workouts_in_window": 15,
+   "workouts_in_window": 12,
    "never_qd": [
     {
      "name": "Sparks",
-     "attended": 9,
-     "rate": 0.6,
+     "attended": 6,
+     "rate": 0.5,
      "last_attended": "2026-05-28"
+    },
+    {
+     "name": "Zinfandel",
+     "attended": 4,
+     "rate": 0.333,
+     "last_attended": "2026-07-02"
     }
    ],
    "stale_qs": [
@@ -934,7 +1026,7 @@
      "name": "Mr. Safety",
      "last_q": "2026-01-08",
      "days_since": 179,
-     "attended_in_window": 5
+     "attended_in_window": 4
     },
     {
      "name": "Rooney",
@@ -952,7 +1044,7 @@
      "name": "Cataracts",
      "last_q": "2026-02-12",
      "days_since": 144,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Triple Lindy",
@@ -964,7 +1056,7 @@
      "name": "I-Beam",
      "last_q": "2026-03-19",
      "days_since": 109,
-     "attended_in_window": 8
+     "attended_in_window": 7
     },
     {
      "name": "Zero Drop",
@@ -988,25 +1080,67 @@
   },
   {
    "name": "Hell's Bells",
-   "workouts_in_window": 17,
+   "workouts_in_window": 14,
    "never_qd": [
     {
      "name": "Brutus",
-     "attended": 11,
-     "rate": 0.647,
+     "attended": 9,
+     "rate": 0.643,
      "last_attended": "2026-06-29"
     },
     {
      "name": "The Joker",
-     "attended": 11,
-     "rate": 0.647,
+     "attended": 9,
+     "rate": 0.643,
      "last_attended": "2026-06-29"
     },
     {
+     "name": "Bolton (Nomad)",
+     "attended": 8,
+     "rate": 0.571,
+     "last_attended": "2026-07-06"
+    },
+    {
      "name": "McEnroe",
-     "attended": 10,
-     "rate": 0.588,
+     "attended": 8,
+     "rate": 0.571,
      "last_attended": "2026-06-29"
+    },
+    {
+     "name": "Open Concept",
+     "attended": 7,
+     "rate": 0.5,
+     "last_attended": "2026-07-06"
+    },
+    {
+     "name": "Kindergarten Cop",
+     "attended": 6,
+     "rate": 0.429,
+     "last_attended": "2026-06-29"
+    },
+    {
+     "name": "Blindside",
+     "attended": 5,
+     "rate": 0.357,
+     "last_attended": "2026-07-06"
+    },
+    {
+     "name": "Moline",
+     "attended": 5,
+     "rate": 0.357,
+     "last_attended": "2026-06-29"
+    },
+    {
+     "name": "Biner",
+     "attended": 5,
+     "rate": 0.357,
+     "last_attended": "2026-06-22"
+    },
+    {
+     "name": "Ottoman",
+     "attended": 5,
+     "rate": 0.357,
+     "last_attended": "2026-06-01"
     }
    ],
    "stale_qs": [
@@ -1026,7 +1160,7 @@
      "name": "Theismann",
      "last_q": "2025-08-27",
      "days_since": 313,
-     "attended_in_window": 6
+     "attended_in_window": 7
     },
     {
      "name": "Maestro",
@@ -1038,49 +1172,43 @@
      "name": "WWW",
      "last_q": "2025-09-24",
      "days_since": 285,
-     "attended_in_window": 4
+     "attended_in_window": 5
     },
     {
      "name": "Poi",
      "last_q": "2025-09-29",
      "days_since": 280,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Ausfahrt",
      "last_q": "2025-10-13",
      "days_since": 266,
-     "attended_in_window": 1
-    },
-    {
-     "name": "Malware",
-     "last_q": "2025-10-15",
-     "days_since": 264,
-     "attended_in_window": 12
+     "attended_in_window": 0
     },
     {
      "name": "Rooney",
      "last_q": "2025-10-17",
      "days_since": 262,
-     "attended_in_window": 4
+     "attended_in_window": 3
     },
     {
      "name": "Adjacent",
      "last_q": "2025-10-20",
      "days_since": 259,
-     "attended_in_window": 5
+     "attended_in_window": 3
     },
     {
      "name": "Kanki",
      "last_q": "2025-10-22",
      "days_since": 257,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Decal",
      "last_q": "2025-10-29",
      "days_since": 250,
-     "attended_in_window": 2
+     "attended_in_window": 0
     },
     {
      "name": "Zamboni",
@@ -1134,25 +1262,25 @@
      "name": "Henny Penny",
      "last_q": "2025-12-22",
      "days_since": 196,
-     "attended_in_window": 2
+     "attended_in_window": 0
     },
     {
      "name": "Triple Lindy",
      "last_q": "2025-12-26",
      "days_since": 192,
-     "attended_in_window": 4
+     "attended_in_window": 3
     },
     {
      "name": "Go Fasters",
      "last_q": "2026-01-05",
      "days_since": 182,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-01-12",
      "days_since": 175,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Mama’s Boy",
@@ -1176,7 +1304,7 @@
      "name": "Cousin IT",
      "last_q": "2026-02-20",
      "days_since": 136,
-     "attended_in_window": 13
+     "attended_in_window": 10
     },
     {
      "name": "Cheap Trick",
@@ -1188,36 +1316,42 @@
      "name": "Firedog",
      "last_q": "2026-03-09",
      "days_since": 119,
-     "attended_in_window": 3
+     "attended_in_window": 2
     },
     {
      "name": "Traffic Cone",
      "last_q": "2026-03-13",
      "days_since": 115,
-     "attended_in_window": 12
+     "attended_in_window": 10
     },
     {
      "name": "Zinfandel",
      "last_q": "2026-03-16",
      "days_since": 112,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Wahoo",
      "last_q": "2026-04-27",
      "days_since": 70,
-     "attended_in_window": 13
+     "attended_in_window": 10
     }
    ]
   },
   {
    "name": "Hot for Teacher",
-   "workouts_in_window": 14,
+   "workouts_in_window": 10,
    "never_qd": [
     {
+     "name": "Quitter",
+     "attended": 4,
+     "rate": 0.4,
+     "last_attended": "2026-06-25"
+    },
+    {
      "name": "Buzzcut",
-     "attended": 7,
-     "rate": 0.5,
+     "attended": 3,
+     "rate": 0.3,
      "last_attended": "2026-06-18"
     }
    ],
@@ -1226,7 +1360,7 @@
      "name": "16 Steves",
      "last_q": "2025-08-14",
      "days_since": 326,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "The Chicken Little",
@@ -1238,13 +1372,13 @@
      "name": "9-Lives",
      "last_q": "2025-08-28",
      "days_since": 312,
-     "attended_in_window": 6
+     "attended_in_window": 5
     },
     {
      "name": "Moline",
      "last_q": "2025-09-04",
      "days_since": 305,
-     "attended_in_window": 8
+     "attended_in_window": 5
     },
     {
      "name": "Wahoo",
@@ -1262,7 +1396,7 @@
      "name": "Soft Tail",
      "last_q": "2025-10-23",
      "days_since": 256,
-     "attended_in_window": 3
+     "attended_in_window": 1
     },
     {
      "name": "Egon",
@@ -1286,7 +1420,7 @@
      "name": "Jockey",
      "last_q": "2025-11-20",
      "days_since": 228,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Brownout",
@@ -1304,7 +1438,7 @@
      "name": "Iceman",
      "last_q": "2026-01-15",
      "days_since": 172,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Kanki",
@@ -1322,7 +1456,7 @@
      "name": "QWERTY",
      "last_q": "2026-02-12",
      "days_since": 144,
-     "attended_in_window": 14
+     "attended_in_window": 10
     },
     {
      "name": "Red Ryder",
@@ -1340,31 +1474,31 @@
      "name": "Orphan",
      "last_q": "2026-03-19",
      "days_since": 109,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Henny Penny",
      "last_q": "2026-03-26",
      "days_since": 102,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "The Joker",
      "last_q": "2026-04-02",
      "days_since": 95,
-     "attended_in_window": 4
+     "attended_in_window": 2
     },
     {
      "name": "Rooney",
      "last_q": "2026-04-09",
      "days_since": 88,
-     "attended_in_window": 3
+     "attended_in_window": 1
     },
     {
      "name": "Hobbit",
      "last_q": "2026-04-16",
      "days_since": 81,
-     "attended_in_window": 12
+     "attended_in_window": 10
     },
     {
      "name": "Squeeze Bag",
@@ -1376,19 +1510,31 @@
      "name": "Yahoo",
      "last_q": "2026-04-30",
      "days_since": 67,
-     "attended_in_window": 3
+     "attended_in_window": 2
     }
    ]
   },
   {
    "name": "Lion's Den",
-   "workouts_in_window": 16,
+   "workouts_in_window": 12,
    "never_qd": [
     {
      "name": "Hotspot",
-     "attended": 10,
-     "rate": 0.625,
+     "attended": 8,
+     "rate": 0.667,
      "last_attended": "2026-06-24"
+    },
+    {
+     "name": "Old Maid",
+     "attended": 4,
+     "rate": 0.333,
+     "last_attended": "2026-07-01"
+    },
+    {
+     "name": "Sour Mash",
+     "attended": 4,
+     "rate": 0.333,
+     "last_attended": "2026-07-01"
     }
    ],
    "stale_qs": [
@@ -1396,7 +1542,7 @@
      "name": "Egon",
      "last_q": "2026-01-21",
      "days_since": 166,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Jockey",
@@ -1414,7 +1560,7 @@
      "name": "Red Ryder",
      "last_q": "2026-02-18",
      "days_since": 138,
-     "attended_in_window": 3
+     "attended_in_window": 2
     },
     {
      "name": "Zinfandel",
@@ -1444,31 +1590,31 @@
      "name": "QWERTY",
      "last_q": "2026-03-18",
      "days_since": 110,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Bumper Sticker",
      "last_q": "2026-03-25",
      "days_since": 103,
-     "attended_in_window": 14
+     "attended_in_window": 10
     },
     {
      "name": "Cataracts",
      "last_q": "2026-04-01",
      "days_since": 96,
-     "attended_in_window": 3
+     "attended_in_window": 2
     },
     {
      "name": "Kitty Litter",
      "last_q": "2026-04-08",
      "days_since": 89,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Ramsay",
      "last_q": "2026-04-15",
      "days_since": 82,
-     "attended_in_window": 4
+     "attended_in_window": 3
     },
     {
      "name": "Hamm",
@@ -1480,19 +1626,19 @@
      "name": "Decal",
      "last_q": "2026-04-29",
      "days_since": 68,
-     "attended_in_window": 11
+     "attended_in_window": 10
     },
     {
      "name": "Maestro",
      "last_q": "2026-05-06",
      "days_since": 61,
-     "attended_in_window": 11
+     "attended_in_window": 9
     }
    ]
   },
   {
    "name": "Off The Rails",
-   "workouts_in_window": 13,
+   "workouts_in_window": 11,
    "never_qd": [],
    "stale_qs": [
     {
@@ -1523,7 +1669,7 @@
      "name": "Cheap Trick",
      "last_q": "2025-10-20",
      "days_since": 259,
-     "attended_in_window": 7
+     "attended_in_window": 6
     },
     {
      "name": "Chalupa",
@@ -1565,7 +1711,7 @@
      "name": "Sour Mash",
      "last_q": "2025-12-01",
      "days_since": 217,
-     "attended_in_window": 12
+     "attended_in_window": 10
     },
     {
      "name": "Steaks",
@@ -1601,7 +1747,7 @@
      "name": "Sooey",
      "last_q": "2026-01-12",
      "days_since": 175,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Disco Duck (CARPEX)",
@@ -1613,7 +1759,7 @@
      "name": "Maestro",
      "last_q": "2026-01-19",
      "days_since": 168,
-     "attended_in_window": 10
+     "attended_in_window": 8
     },
     {
      "name": "Hello Kitty",
@@ -1655,13 +1801,13 @@
      "name": "Ramsay",
      "last_q": "2026-03-16",
      "days_since": 112,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Yahoo",
      "last_q": "2026-03-23",
      "days_since": 105,
-     "attended_in_window": 4
+     "attended_in_window": 3
     },
     {
      "name": "Traffic Cone",
@@ -1691,7 +1837,7 @@
   },
   {
    "name": "Pump Fiction",
-   "workouts_in_window": 15,
+   "workouts_in_window": 11,
    "never_qd": [],
    "stale_qs": [
     {
@@ -1716,7 +1862,7 @@
      "name": "Silver fox",
      "last_q": "2025-10-14",
      "days_since": 265,
-     "attended_in_window": 14
+     "attended_in_window": 10
     },
     {
      "name": "Bumper Sticker",
@@ -1770,13 +1916,13 @@
      "name": "Tiny Arms",
      "last_q": "2025-12-30",
      "days_since": 188,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Orphan",
      "last_q": "2026-01-06",
      "days_since": 181,
-     "attended_in_window": 9
+     "attended_in_window": 7
     },
     {
      "name": "Kwikstop",
@@ -1794,13 +1940,13 @@
      "name": "Egon",
      "last_q": "2026-02-03",
      "days_since": 153,
-     "attended_in_window": 10
+     "attended_in_window": 8
     },
     {
      "name": "Mama’s Boy",
      "last_q": "2026-02-10",
      "days_since": 146,
-     "attended_in_window": 12
+     "attended_in_window": 10
     },
     {
      "name": "Imp",
@@ -1830,19 +1976,19 @@
      "name": "Big Red",
      "last_q": "2026-03-17",
      "days_since": 111,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Zinfandel",
      "last_q": "2026-03-31",
      "days_since": 97,
-     "attended_in_window": 7
+     "attended_in_window": 4
     },
     {
      "name": "Hello Kitty",
      "last_q": "2026-04-07",
      "days_since": 90,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Pet Sounds",
@@ -1866,7 +2012,7 @@
   },
   {
    "name": "Ruck this Way",
-   "workouts_in_window": 15,
+   "workouts_in_window": 11,
    "never_qd": [],
    "stale_qs": [
     {
@@ -1909,7 +2055,7 @@
      "name": "Scott Thomas",
      "last_q": "2025-08-26",
      "days_since": 314,
-     "attended_in_window": 2
+     "attended_in_window": 0
     },
     {
      "name": "Big Red",
@@ -1993,7 +2139,7 @@
      "name": "Triple Lindy",
      "last_q": "2025-11-01",
      "days_since": 247,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Steaks",
@@ -2029,7 +2175,7 @@
      "name": "Wahoo",
      "last_q": "2025-11-18",
      "days_since": 230,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "I-Beam",
@@ -2077,7 +2223,7 @@
      "name": "Zero Drop",
      "last_q": "2025-12-20",
      "days_since": 198,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Piggly Wiggly",
@@ -2137,13 +2283,13 @@
      "name": "Shut-In",
      "last_q": "2026-03-24",
      "days_since": 104,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Old Maid",
      "last_q": "2026-03-31",
      "days_since": 97,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Franklin",
@@ -2155,14 +2301,39 @@
      "name": "Hobbit",
      "last_q": "2026-05-05",
      "days_since": 62,
-     "attended_in_window": 10
+     "attended_in_window": 7
     }
    ]
   },
   {
    "name": "Sunday Slowzy",
    "workouts_in_window": 3,
-   "never_qd": [],
+   "never_qd": [
+    {
+     "name": "Clockwork",
+     "attended": 1,
+     "rate": 0.333,
+     "last_attended": "2026-06-28"
+    },
+    {
+     "name": "Cadence",
+     "attended": 1,
+     "rate": 0.333,
+     "last_attended": "2026-05-24"
+    },
+    {
+     "name": "Sky Blue",
+     "attended": 1,
+     "rate": 0.333,
+     "last_attended": "2026-05-24"
+    },
+    {
+     "name": "Stolen Valor",
+     "attended": 1,
+     "rate": 0.333,
+     "last_attended": "2026-05-24"
+    }
+   ],
    "stale_qs": [
     {
      "name": "Scott Thomas",
@@ -2241,6 +2412,42 @@
      "attended": 3,
      "rate": 0.6,
      "last_attended": "2026-06-26"
+    },
+    {
+     "name": "Deuce",
+     "attended": 2,
+     "rate": 0.4,
+     "last_attended": "2026-07-03"
+    },
+    {
+     "name": "Lightswitch (GL)",
+     "attended": 2,
+     "rate": 0.4,
+     "last_attended": "2026-07-03"
+    },
+    {
+     "name": "Redenbacher",
+     "attended": 2,
+     "rate": 0.4,
+     "last_attended": "2026-07-03"
+    },
+    {
+     "name": "Silver fox",
+     "attended": 2,
+     "rate": 0.4,
+     "last_attended": "2026-07-03"
+    },
+    {
+     "name": "Flenderson",
+     "attended": 2,
+     "rate": 0.4,
+     "last_attended": "2026-06-26"
+    },
+    {
+     "name": "Hobbit",
+     "attended": 2,
+     "rate": 0.4,
+     "last_attended": "2026-06-26"
     }
    ],
    "stale_qs": [
@@ -2266,8 +2473,21 @@
   },
   {
    "name": "The Foundry",
-   "workouts_in_window": 16,
-   "never_qd": [],
+   "workouts_in_window": 12,
+   "never_qd": [
+    {
+     "name": "Ottoman",
+     "attended": 7,
+     "rate": 0.583,
+     "last_attended": "2026-06-17"
+    },
+    {
+     "name": "Mumbles",
+     "attended": 6,
+     "rate": 0.5,
+     "last_attended": "2026-06-24"
+    }
+   ],
    "stale_qs": [
     {
      "name": "Bumper Sticker",
@@ -2345,7 +2565,7 @@
      "name": "Earhart",
      "last_q": "2025-12-31",
      "days_since": 187,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Henny Penny",
@@ -2363,7 +2583,7 @@
      "name": "Boom Boom",
      "last_q": "2026-02-11",
      "days_since": 145,
-     "attended_in_window": 2
+     "attended_in_window": 1
     },
     {
      "name": "Zero Drop",
@@ -2387,37 +2607,37 @@
      "name": "Dewey Decimal",
      "last_q": "2026-03-18",
      "days_since": 110,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Maestro",
      "last_q": "2026-03-25",
      "days_since": 103,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Cheap Trick",
      "last_q": "2026-04-01",
      "days_since": 96,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Brownout",
      "last_q": "2026-04-08",
      "days_since": 89,
-     "attended_in_window": 9
+     "attended_in_window": 5
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-04-15",
      "days_since": 82,
-     "attended_in_window": 14
+     "attended_in_window": 12
     },
     {
      "name": "Shut-In",
      "last_q": "2026-04-22",
      "days_since": 75,
-     "attended_in_window": 11
+     "attended_in_window": 8
     },
     {
      "name": "Egon",
@@ -2429,42 +2649,72 @@
      "name": "Franklin",
      "last_q": "2026-05-06",
      "days_since": 61,
-     "attended_in_window": 6
+     "attended_in_window": 5
     }
    ]
   },
   {
    "name": "Tin2Iron",
-   "workouts_in_window": 12,
+   "workouts_in_window": 9,
    "never_qd": [
     {
      "name": "Brutus",
-     "attended": 9,
-     "rate": 0.75,
+     "attended": 6,
+     "rate": 0.667,
      "last_attended": "2026-05-29"
     },
     {
      "name": "The Joker",
-     "attended": 7,
-     "rate": 0.583,
+     "attended": 5,
+     "rate": 0.556,
      "last_attended": "2026-05-29"
     },
     {
-     "name": "The Count",
-     "attended": 6,
-     "rate": 0.5,
+     "name": "Headgear",
+     "attended": 3,
+     "rate": 0.333,
+     "last_attended": "2026-07-03"
+    },
+    {
+     "name": "Kindergarten Cop",
+     "attended": 3,
+     "rate": 0.333,
+     "last_attended": "2026-06-26"
+    },
+    {
+     "name": "Theismann",
+     "attended": 3,
+     "rate": 0.333,
+     "last_attended": "2026-06-26"
+    },
+    {
+     "name": "WWW",
+     "attended": 3,
+     "rate": 0.333,
+     "last_attended": "2026-06-05"
+    },
+    {
+     "name": "Moline",
+     "attended": 3,
+     "rate": 0.333,
      "last_attended": "2026-05-08"
     },
     {
-     "name": "Malware",
-     "attended": 6,
-     "rate": 0.5,
+     "name": "The Count",
+     "attended": 3,
+     "rate": 0.333,
+     "last_attended": "2026-05-08"
+    },
+    {
+     "name": "Bolton (Nomad)",
+     "attended": 3,
+     "rate": 0.333,
      "last_attended": "2026-05-01"
     },
     {
-     "name": "McEnroe",
-     "attended": 6,
-     "rate": 0.5,
+     "name": "Kubota",
+     "attended": 3,
+     "rate": 0.333,
      "last_attended": "2026-05-01"
     }
    ],
@@ -2473,60 +2723,84 @@
      "name": "Zinfandel",
      "last_q": "2026-01-30",
      "days_since": 157,
-     "attended_in_window": 1
+     "attended_in_window": 0
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-02-20",
      "days_since": 136,
-     "attended_in_window": 4
+     "attended_in_window": 2
     },
     {
      "name": "Cousin IT",
      "last_q": "2026-04-03",
      "days_since": 94,
-     "attended_in_window": 7
+     "attended_in_window": 4
     },
     {
      "name": "Wahoo",
      "last_q": "2026-05-01",
      "days_since": 66,
-     "attended_in_window": 7
+     "attended_in_window": 5
     }
    ]
   },
   {
    "name": "Tortoises",
-   "workouts_in_window": 15,
+   "workouts_in_window": 11,
    "never_qd": [
     {
-     "name": "Cousin IT",
-     "attended": 12,
-     "rate": 0.8,
+     "name": "The Joker",
+     "attended": 9,
+     "rate": 0.818,
      "last_attended": "2026-07-01"
     },
     {
-     "name": "The Joker",
-     "attended": 11,
-     "rate": 0.733,
+     "name": "Cousin IT",
+     "attended": 8,
+     "rate": 0.727,
+     "last_attended": "2026-07-01"
+    },
+    {
+     "name": "Brutus",
+     "attended": 7,
+     "rate": 0.636,
+     "last_attended": "2026-07-01"
+    },
+    {
+     "name": "Blindside",
+     "attended": 6,
+     "rate": 0.545,
      "last_attended": "2026-07-01"
     },
     {
      "name": "McEnroe",
-     "attended": 10,
-     "rate": 0.667,
+     "attended": 6,
+     "rate": 0.545,
      "last_attended": "2026-06-24"
     },
     {
-     "name": "Brutus",
-     "attended": 9,
-     "rate": 0.6,
+     "name": "Biner",
+     "attended": 5,
+     "rate": 0.455,
      "last_attended": "2026-07-01"
     },
     {
-     "name": "Biner",
-     "attended": 8,
-     "rate": 0.533,
+     "name": "Bolton (Nomad)",
+     "attended": 5,
+     "rate": 0.455,
+     "last_attended": "2026-07-01"
+    },
+    {
+     "name": "WWW",
+     "attended": 5,
+     "rate": 0.455,
+     "last_attended": "2026-07-01"
+    },
+    {
+     "name": "The Count",
+     "attended": 4,
+     "rate": 0.364,
      "last_attended": "2026-07-01"
     }
    ],
@@ -2535,7 +2809,7 @@
      "name": "Hobbit",
      "last_q": "2026-01-14",
      "days_since": 173,
-     "attended_in_window": 3
+     "attended_in_window": 1
     },
     {
      "name": "Kubota",
@@ -2547,13 +2821,13 @@
      "name": "Traffic Cone",
      "last_q": "2026-02-04",
      "days_since": 152,
-     "attended_in_window": 13
+     "attended_in_window": 10
     },
     {
      "name": "Crimson",
      "last_q": "2026-03-04",
      "days_since": 124,
-     "attended_in_window": 5
+     "attended_in_window": 2
     },
     {
      "name": "Disco Duck (CARPEX)",
@@ -2565,13 +2839,13 @@
      "name": "Zero Drop",
      "last_q": "2026-03-18",
      "days_since": 110,
-     "attended_in_window": 4
+     "attended_in_window": 1
     },
     {
      "name": "Malware",
      "last_q": "2026-05-06",
      "days_since": 61,
-     "attended_in_window": 10
+     "attended_in_window": 7
     }
    ]
   },
