@@ -141,3 +141,17 @@ def build_payload(q_rows, att_rows, today, config):
         },
         "aos": aos,
     }
+
+
+def plausibility_error(payload, att_rows, min_att_rows=50):
+    """Return an error string if the export result is implausibly small, else None.
+
+    Guards the committed artifact against a "successful but empty" BigQuery
+    run (revoked access, schema drift) silently replacing good data.
+    """
+    if len(att_rows) < min_att_rows:
+        return ("implausibly few attendance rows ({} < {})"
+                .format(len(att_rows), min_att_rows) + " — refusing to overwrite artifact")
+    if not payload.get("aos"):
+        return "payload contains no AOs — refusing to overwrite artifact"
+    return None

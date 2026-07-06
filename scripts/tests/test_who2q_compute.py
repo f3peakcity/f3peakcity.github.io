@@ -4,7 +4,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from who2q_compute import latest_names, never_qd_list, stale_q_list, build_payload
+from who2q_compute import latest_names, never_qd_list, stale_q_list, build_payload, plausibility_error
 
 CONFIG = {
     "region_org_id": 40342,
@@ -143,6 +143,23 @@ class TestBuildPayload(unittest.TestCase):
         self.assertEqual([p["name"] for p in alpha["never_qd"]], ["P2"])
         self.assertEqual([p["name"] for p in alpha["stale_qs"]], ["OldQ"])
         self.assertEqual(alpha["stale_qs"][0]["attended_in_window"], 0)
+
+
+class TestPlausibilityError(unittest.TestCase):
+    def test_ok_payload_returns_none(self):
+        att = [row(uid, f"P{uid}", "A", date(2026, 6, 1)) for uid in range(60)]
+        payload = {"aos": [{"name": "A"}]}
+        self.assertIsNone(plausibility_error(payload, att))
+
+    def test_too_few_attendance_rows(self):
+        att = [row(1, "P1", "A", date(2026, 6, 1))]
+        payload = {"aos": [{"name": "A"}]}
+        self.assertIn("attendance rows", plausibility_error(payload, att))
+
+    def test_no_aos(self):
+        att = [row(uid, f"P{uid}", "A", date(2026, 6, 1)) for uid in range(60)]
+        payload = {"aos": []}
+        self.assertIn("no AOs", plausibility_error(payload, att))
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@ from pathlib import Path
 from google.cloud import bigquery
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from who2q_compute import build_payload
+from who2q_compute import build_payload, plausibility_error
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 CONFIG_PATH = SCRIPT_DIR / "who2q_config.json"
@@ -72,6 +72,9 @@ def main():
           f"(last {config['window_weeks']} weeks)")
 
     payload = build_payload(q_rows, att_rows, date.today(), config)
+    problem = plausibility_error(payload, att_rows)
+    if problem:
+        sys.exit(f"Aborting export: {problem}")
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUT_PATH.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n")
     print(f"Wrote {OUT_PATH} — {len(payload['aos'])} AOs, generated_at {payload['generated_at']}")
