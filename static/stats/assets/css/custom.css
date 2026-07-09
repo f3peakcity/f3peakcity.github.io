@@ -151,6 +151,94 @@ body,
   letter-spacing: 0.04em !important;
 }
 
+/* PAX name links (table → detail page) — match the newsprint theme, not default blue */
+.pax-link {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+.pax-link:hover {
+  color: var(--green);
+  text-decoration: underline;
+}
+
+/* PAX detail — Posting Rhythm (weekly subway strip) */
+.rhythm-wrap { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; }
+.rhythm-month { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.rhythm-dots { display: flex; gap: 3px; }
+.rhythm-dot {
+  width: 15px; height: 15px; border-radius: 2px;
+  background: transparent; border: 1px solid #d8cfb8; box-sizing: border-box;
+}
+.rhythm-dot.p1 { background: #c8bfa8; border-color: #c8bfa8; }
+.rhythm-dot.p2 { background: #9aad88; border-color: #9aad88; }
+.rhythm-dot.p3 { background: #4a5e3a; border-color: #4a5e3a; }
+.rhythm-dot.has-q { outline: 2px solid #c8a840; outline-offset: 1px; }
+.rhythm-month-label {
+  font-family: 'Open Sans', sans-serif; font-size: 0.6rem;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+}
+.rhythm-legend {
+  display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;
+  font-family: 'Open Sans', sans-serif; font-size: 0.7rem; color: var(--muted); align-items: center;
+}
+.rhythm-legend .swatch {
+  display: inline-block; width: 12px; height: 12px; border-radius: 2px;
+  vertical-align: middle; margin-right: 5px; border: 1px solid #d8cfb8; box-sizing: border-box;
+}
+
+/* Info-dot (ⓘ) tooltip affordance — signals "there's an explanation here" */
+.info-dot {
+  display: inline-block;
+  margin-left: 0.3em;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.78em;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--muted);
+  cursor: help;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: color 0.12s;
+}
+.info-dot:hover,
+.info-dot:focus {
+  color: var(--green);
+  outline: none;
+}
+/* Keep the dot's weight/size independent of bold card titles */
+.card-title .info-dot,
+th .info-dot {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Themed tooltip popover — flat newsprint style to match the cards */
+.tooltip .tooltip-inner {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  text-align: left;
+  max-width: 260px;
+  border-radius: 0;
+  padding: 0.5rem 0.6rem;
+}
+.tooltip.bs-tooltip-top .tooltip-arrow::before,
+.tooltip.bs-tooltip-auto[data-popper-placement^="top"] .tooltip-arrow::before {
+  border-top-color: var(--ink);
+}
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before,
+.tooltip.bs-tooltip-auto[data-popper-placement^="bottom"] .tooltip-arrow::before {
+  border-bottom-color: var(--ink);
+}
+.tooltip { opacity: 1; }
+.tooltip.show { opacity: 1; }
+
 /* ── Page header ── */
 .page-title {
   font-family: 'Barlow Condensed', sans-serif !important;

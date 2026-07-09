@@ -9,7 +9,7 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="icon" href="../img/favicon.ico">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="stylesheet" href="assets/css/custom.css?v=20260709d">
 </head>
 <body class="antialiased">
 <div class="wrapper">
@@ -31,6 +31,7 @@
           <li class="nav-item"><a class="nav-link active" href="pax.html">PAX Stats</a></li>
           <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
           <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
         </ul>
       </div>
     </div>
@@ -58,7 +59,7 @@
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader" title="Number of PAX in current filter (PC Regulars or All PAX)">Total PAX</div>
+              <div class="subheader"><span class="subheader-label">Total PAX</span> <span class="info-dot" tabindex="0" role="button" aria-label="Number of PAX in current filter (PC Regulars or All PAX)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Number of PAX in current filter (PC Regulars or All PAX)">&#9432;</span></div>
               <div class="h1 mb-0" id="stat-total-pax">—</div>
             </div>
           </div>
@@ -66,7 +67,7 @@
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader" title="PAX who have posted at least once in the last 3 weeks">Active Last 3 Weeks</div>
+              <div class="subheader">Active Last 3 Weeks <span class="info-dot" tabindex="0" role="button" aria-label="PAX who have posted at least once in the last 3 weeks" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PAX who have posted at least once in the last 3 weeks">&#9432;</span></div>
               <div class="h1 mb-0" id="stat-active-3wk">—</div>
             </div>
           </div>
@@ -74,7 +75,7 @@
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader" title="Sum of all posts in 2026 for the current filter">Total Posts</div>
+              <div class="subheader">Total Posts <span class="info-dot" tabindex="0" role="button" aria-label="Sum of all posts in 2026 for the current filter" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sum of all posts in 2026 for the current filter">&#9432;</span></div>
               <div class="h1 mb-0" id="stat-total-posts">—</div>
             </div>
           </div>
@@ -82,7 +83,7 @@
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader" title="Sum of all Q-led workouts in 2026 for the current filter">Total Qs</div>
+              <div class="subheader">Total Qs <span class="info-dot" tabindex="0" role="button" aria-label="Sum of all Q-led workouts in 2026 for the current filter" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sum of all Q-led workouts in 2026 for the current filter">&#9432;</span></div>
               <div class="h1 mb-0" id="stat-total-qs">—</div>
             </div>
           </div>
@@ -105,22 +106,31 @@
       </div>
 
       <div class="row mt-4">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-header"><h3 class="card-title">Top Pax by Q to Post Ratio <span class="info-dot" tabindex="0" role="button" aria-label="Regular attendees (4+ posts in 2026) ranked by Q-to-Post ratio — how often they lead relative to how often they post" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Regular attendees (4+ posts in 2026) ranked by Q-to-Post ratio — how often they lead relative to how often they post">&#9432;</span></h3></div>
+            <div class="card-body" id="chart-qp-ratio"></div>
+          </div>
+        </div>
         <div class="col-lg-4">
           <div class="card">
             <div class="card-header"><h3 class="card-title">Favorite Post Day</h3></div>
             <div class="card-body" id="chart-fav-day"></div>
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">PAX Trajectory</h3></div>
-            <div class="card-body" id="chart-trajectory"></div>
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-lg-8">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">Most Popular AOs <span class="info-dot" tabindex="0" role="button" aria-label="AOs ranked by how many PAX in the current filter have posted there at least once in 2026" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="AOs ranked by how many PAX in the current filter have posted there at least once in 2026">&#9432;</span></h3></div>
+            <div class="card-body" id="chart-popular-ao"></div>
           </div>
         </div>
         <div class="col-lg-4">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title" title="PAX averaging more than 1 post/week in 2026 with the highest Q-to-Post ratio — high-volume contributors who also lead">Quality over Quantity</h3></div>
-            <div class="card-body" id="chart-qp-ratio"></div>
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">PAX Trajectory</h3></div>
+            <div class="card-body d-flex align-items-center" id="chart-trajectory"></div>
           </div>
         </div>
       </div>
@@ -145,7 +155,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/pax.js"></script>
+<script src="assets/js/data.js?v=20260709d"></script>
+<script src="assets/js/pax.js?v=20260709d"></script>
 </body>
 </html>

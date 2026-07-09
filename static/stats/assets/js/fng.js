@@ -86,6 +86,8 @@
     renderDaysBar(filteredRows);
     renderMonthlyTrend(filteredRows);
     renderTable(filteredRows);
+    // Init themed tooltips for static labels + freshly rendered headers.
+    f3InitTooltips();
   }
 
   function renderStatCards(rows) {
@@ -196,13 +198,13 @@
         <table class="table table-vcenter table-hover card-table" id="fng-full-table">
           <thead>
             <tr>
-              <th data-sort="FNG Name" title="PAX F3 handle">FNG Name</th>
-              <th data-sort="First Post" title="Date of first attendance at Peak City">First Post</th>
-              <th data-sort="2nd Post" title="Date of second attendance">2nd Post</th>
-              <th data-sort="Days to 2nd post" title="Days between first and second post — lower is better retention signal">Days to Return</th>
-              <th data-sort="Total Posts to date" title="Total posts in 2026">Total Posts</th>
-              <th data-sort="Status" title="Retention status based on post count and days since first post">Status</th>
-              <th data-sort="Home AO" title="The AO where this PAX first attended">Home AO</th>
+              <th data-sort="FNG Name">FNG Name ${f3InfoDot('PAX F3 handle')}</th>
+              <th data-sort="First Post">First Post ${f3InfoDot('Date of first attendance at Peak City')}</th>
+              <th data-sort="2nd Post">2nd Post ${f3InfoDot('Date of second attendance')}</th>
+              <th data-sort="Days to 2nd post">Days to Return ${f3InfoDot('Days between first and second post — lower is better retention signal')}</th>
+              <th data-sort="Total Posts to date">Total Posts ${f3InfoDot('Total posts in 2026')}</th>
+              <th data-sort="Status">Status ${f3InfoDot('Retention status based on post count and days since first post')}</th>
+              <th data-sort="Home AO">Home AO ${f3InfoDot('The AO where this PAX first attended')}</th>
             </tr>
           </thead>
           <tbody id="fng-table-body"></tbody>
