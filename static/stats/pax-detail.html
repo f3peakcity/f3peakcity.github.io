@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-  <title>FNG Stats — F3 Peak City Stats</title>
+  <title>PAX Detail — F3 Peak City Stats</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
   <link rel="icon" href="../img/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
   <link rel="stylesheet" href="assets/css/custom.css?v=20260709d">
 </head>
 <body class="antialiased">
@@ -28,8 +28,8 @@
       <div class="collapse navbar-collapse" id="navbar-menu">
         <ul class="navbar-nav">
           <li class="nav-item"><a class="nav-link" href="ao.html">AO Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
-          <li class="nav-item"><a class="nav-link active" href="fng.html">FNG Stats</a></li>
+          <li class="nav-item"><a class="nav-link active" href="pax.html">PAX Stats</a></li>
+          <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
           <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
           <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
         </ul>
@@ -43,8 +43,9 @@
       <div class="page-header d-print-none mt-4">
         <div class="row align-items-center">
           <div class="col">
-            <h2 class="page-title">FNG Stats</h2>
-            <p class="text-muted">Tracking how we're doing bringing in new guys and keeping them &mdash; all data from Jan 1, 2026</p>
+            <a href="pax.html" class="pax-link" style="font-family:'Open Sans',sans-serif;font-size:0.8rem;">&larr; All PAX</a>
+            <h2 class="page-title" id="detail-pax-name">PAX Detail</h2>
+            <p class="text-muted" id="detail-pax-sub">Per-AO participation &mdash; all data from Jan 1, 2026</p>
           </div>
         </div>
       </div>
@@ -53,69 +54,61 @@
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader">Total FNGs <span class="info-dot" tabindex="0" role="button" aria-label="Total first-time attendees in 2026 (within current date filter)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total first-time attendees in 2026 (within current date filter)">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-total-fngs">—</div>
+              <div class="subheader">Total Posts</div>
+              <div class="h1 mb-0" id="stat-posts">—</div>
             </div>
           </div>
         </div>
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader">Developing / Retained <span class="info-dot" tabindex="0" role="button" aria-label="FNGs who returned for a 2nd post but have fewer than 10 total posts" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FNGs who returned for a 2nd post but have fewer than 10 total posts">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-retained">—</div>
+              <div class="subheader">Total Qs</div>
+              <div class="h1 mb-0" id="stat-qs">—</div>
             </div>
           </div>
         </div>
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader">Pending <span class="info-dot" tabindex="0" role="button" aria-label="FNGs with only 1 post and 14 days or fewer since their first post — still in grace period" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FNGs with only 1 post and 14 days or fewer since their first post — still in grace period">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-pending">—</div>
+              <div class="subheader">AOs Visited <span class="info-dot" tabindex="0" role="button" aria-label="Number of distinct AOs this PAX has posted at in 2026" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Number of distinct AOs this PAX has posted at in 2026">&#9432;</span></div>
+              <div class="h1 mb-0" id="stat-aos">—</div>
             </div>
           </div>
         </div>
         <div class="col-sm-6 col-lg-3">
           <div class="card card-stat-accent">
             <div class="card-body">
-              <div class="subheader">Graduated Regular <span class="info-dot" tabindex="0" role="button" aria-label="FNGs who have posted 10+ times — they stuck around and became regulars" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FNGs who have posted 10+ times — they stuck around and became regulars">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-regular">—</div>
+              <div class="subheader">Q/P Ratio <span class="info-dot" tabindex="0" role="button" aria-label="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)">&#9432;</span></div>
+              <div class="h1 mb-0" id="stat-ratio">—</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row mt-4">
-        <div class="col-lg-5">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">FNG Status Breakdown</h3></div>
-            <div class="card-body" id="chart-fng-status"></div>
+      <div class="card mt-4" id="rhythm-card" hidden>
+        <div class="card-header"><h3 class="card-title">Posting Rhythm <span class="info-dot" tabindex="0" role="button" aria-label="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week." data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week.">&#9432;</span></h3></div>
+        <div class="card-body" id="pax-rhythm"></div>
+      </div>
+
+      <div class="row mt-4" id="detail-charts-row" hidden>
+        <div class="col-lg-8">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">Posts by Month</h3></div>
+            <div class="card-body" id="chart-detail-monthly"></div>
           </div>
         </div>
-        <div class="col-lg-7">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">Days to 2nd Post Distribution</h3></div>
-            <div class="card-body" id="chart-days-to-return"></div>
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-header"><h3 class="card-title">Weekly Fingerprint <span class="info-dot" tabindex="0" role="button" aria-label="Which days of the week this PAX tends to post" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Which days of the week this PAX tends to post">&#9432;</span></h3></div>
+            <div class="card-body" id="chart-detail-dow"></div>
           </div>
         </div>
       </div>
 
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">Monthly FNG Trend</h3></div>
-            <div class="card-body" id="chart-fng-monthly"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mt-4">
-        <div class="card-header"><h3 class="card-title">All FNGs</h3></div>
-        <div class="card-body p-0" id="fng-table-container">
-          <div class="d-flex justify-content-center p-4">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
+      <div class="mt-4">
+        <h3 class="mb-3" style="font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;">AO Breakdown</h3>
+        <div class="ao-card-grid" id="pax-ao-grid">
+          <div class="card"><div class="card-body text-muted">Loading...</div></div>
         </div>
       </div>
 
@@ -129,6 +122,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
 <script src="assets/js/data.js?v=20260709d"></script>
-<script src="assets/js/fng.js?v=20260709d"></script>
+<script src="assets/js/pax-detail.js?v=20260709d"></script>
 </body>
 </html>

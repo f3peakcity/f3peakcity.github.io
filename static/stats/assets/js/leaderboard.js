@@ -141,6 +141,9 @@ const POST_GOAL = 12;
     renderBarChart(allTotals);
     renderHabitCards();
     renderYearGrid();
+    // Init themed tooltips for the static stat-card / chart-title info-dots.
+    // (Heatmap dot hovers keep their native title — dense data cells, not labels.)
+    f3InitTooltips();
   }
 
   function renderStatCards(monthlyTotals) {

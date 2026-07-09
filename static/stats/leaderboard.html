@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="stylesheet" href="assets/css/custom.css?v=20260709d">
 </head>
 <body class="antialiased">
 <div class="wrapper">
@@ -30,6 +30,7 @@
           <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
           <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
           <li class="nav-item"><a class="nav-link active" href="leaderboard.html">#112 Leaderboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
         </ul>
       </div>
     </div>
@@ -57,7 +58,7 @@
         <div class="col-sm-4">
           <div class="card card-stat-accent h-100">
             <div class="card-body">
-              <div class="subheader">Total in Crew (Year)</div>
+              <div class="subheader">Total in Crew (Year) <span class="info-dot" tabindex="0" role="button" aria-label="PAX in the current view (PC Regulars or All Crew) with at least one 2026 post" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PAX in the current view (PC Regulars or All Crew) with at least one 2026 post">&#9432;</span></div>
               <div class="h1 mb-0" id="stat-total-crew">—</div>
             </div>
           </div>
@@ -65,7 +66,7 @@
         <div class="col-sm-4">
           <div class="card card-stat-accent h-100">
             <div class="card-body">
-              <div class="subheader">Current Month Completions</div>
+              <div class="subheader">Current Month Completions <span class="info-dot" tabindex="0" role="button" aria-label="Crew who have completed #112 this month — 12+ posts and at least one Peak City Q" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Crew who have completed #112 this month — 12+ posts and at least one Peak City Q">&#9432;</span></div>
               <div class="h1 mb-0" id="stat-current-month">—</div>
               <div class="lb-month-bar-track mt-2">
                 <div class="lb-month-bar-fill" id="stat-month-bar" style="width:0%"></div>
@@ -77,7 +78,7 @@
         <div class="col-sm-4">
           <div class="card card-stat-accent h-100">
             <div class="card-body">
-              <div class="subheader" id="stat-streakers-label">Active Streakers</div>
+              <div class="subheader"><span id="stat-streakers-label">Active Streakers</span> <span class="info-dot" tabindex="0" role="button" aria-label="Crew on an active run of consecutive months completing #112 (12 posts + 1 Q). Early in a new month this counts through the prior month." data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Crew on an active run of consecutive months completing #112 (12 posts + 1 Q). Early in a new month this counts through the prior month.">&#9432;</span></div>
               <div class="h1 mb-0" id="stat-streakers">—</div>
             </div>
           </div>
@@ -85,7 +86,7 @@
       </div>
 
       <div class="card mt-4">
-        <div class="card-header"><h3 class="card-title">Completions Per Month</h3></div>
+        <div class="card-header"><h3 class="card-title">Completions Per Month <span class="info-dot" tabindex="0" role="button" aria-label="Number of crew completing #112 each month — 12+ posts and at least one Q" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Number of crew completing #112 each month — 12+ posts and at least one Q">&#9432;</span></h3></div>
         <div class="card-body" id="chart-monthly-completions"></div>
       </div>
 
@@ -129,7 +130,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/leaderboard.js"></script>
+<script src="assets/js/data.js?v=20260709d"></script>
+<script src="assets/js/leaderboard.js?v=20260709d"></script>
 </body>
 </html>

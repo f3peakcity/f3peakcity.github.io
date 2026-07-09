@@ -4,6 +4,17 @@
 
 (async function () {
   const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+  // Non-AO sites that should not appear as "real" AOs (mirrors ao.js).
+  const AO_DISPLAY_EXCLUSIONS = [
+    'Convergence',
+    'Raiders of the Locked Park',
+    'Who let the dogs out (possible new AO?) Hunter street',
+    'Shieldlock',
+    'Ruck the Hall',
+    'Q-Source Q',
+    'Floppy Ruck',
+  ];
+  const AO_EXCLUSIONS_LC = new Set(AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
   const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
   const now = new Date();
   const cutoff26w = new Date(now - 26 * MS_PER_WEEK);
@@ -103,6 +114,9 @@
         'Favorite AO': favAO,
         'Favorite Day of the week': favDay,
         'Trajectory': trajectory,
+        // Per-AO post counts for this PAX (excludes EXCLUDED_SITES; AO_DISPLAY_EXCLUSIONS
+        // filtered at chart time). Non-display field used by renderPopularAoChart.
+        '_siteCounts': siteCounts,
       };
     }).sort((a, b) => a['Site'].localeCompare(b['Site']));
 
@@ -120,6 +134,7 @@
   let favDayChart = null;
   let trajectoryChart = null;
   let qpChart = null;
+  let popularAoChart = null;
 
   renderAll();
   f3MakeSortable('pax-full-table', () => filteredRows, renderTableBody);
@@ -151,15 +166,20 @@
     renderFavDayChart(filteredRows);
     renderTrajectoryChart(filteredRows);
     renderQpRatioChart(filteredRows);
+    renderPopularAoChart(filteredRows);
     renderTable(filteredRows);
+    // Init themed tooltips for static labels + freshly rendered table headers.
+    // Idempotent: already-initialized elements are skipped.
+    f3InitTooltips();
   }
 
   function renderStatCards(rows) {
     document.getElementById('stat-total-pax').textContent = rows.length;
     const active3wk = rows.filter(r => parseInt(r['Last 3 wk']) > 0).length;
     document.getElementById('stat-active-3wk').textContent = active3wk;
-    // Update subheader label to reflect current filter
-    document.getElementById('stat-total-pax').closest('.card-body').querySelector('.subheader').textContent =
+    // Update subheader label to reflect current filter (target the label span so
+    // the info-dot affordance beside it is preserved).
+    document.getElementById('stat-total-pax').closest('.card-body').querySelector('.subheader-label').textContent =
       showRegularsOnly ? 'PC Regulars' : 'Total PAX';
     const totalPosts = rows.reduce((s, r) => s + (parseInt(r['Total Post']) || 0), 0);
     document.getElementById('stat-total-posts').textContent = totalPosts.toLocaleString();
@@ -237,16 +257,22 @@
       const d = (r['Favorite Day of the week'] || '').trim();
       if (counts[d] !== undefined) counts[d]++;
     });
+    // Greens palette keyed to the fixed day order so a day keeps its color
+    // regardless of which days are present in the current filter.
+    const allColors = ['#c8bfa8', '#9aad88', '#7a9a68', '#5a7a48', '#4a5e3a', '#3a4d2d', '#2a3d1d'];
+    const colorMap  = Object.fromEntries(DAY_ORDER.map((d, i) => [d, allColors[i]]));
+    const activeDays = DAY_ORDER.filter(d => counts[d] > 0);
+
     const options = {
-      chart: { type: 'bar', height: 260, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'PAX', data: DAY_ORDER.map(d => counts[d]) }],
-      xaxis: { categories: DAY_ORDER.map(d => d.slice(0,3)) },
-      colors: ['#4a5e3a'],
+      chart: { type: 'donut', height: 320, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: activeDays.map(d => counts[d]),
+      labels: activeDays.map(d => d.slice(0, 3)),
+      colors: activeDays.map(d => colorMap[d]),
       grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { columnWidth: '60%' } },
-      dataLabels: { enabled: false },
-      yaxis: { title: { text: 'PAX' }, min: 0, forceNiceScale: true },
+      legend: { position: 'bottom' },
+      dataLabels: { enabled: true },
       tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
+      noData: { text: 'No data', align: 'center', verticalAlign: 'middle', style: { fontFamily: "'Open Sans', sans-serif", color: '#8a7a60' } },
     };
     if (favDayChart) { favDayChart.updateOptions(options); }
     else { f3LazyChart('chart-fav-day', () => { favDayChart = new ApexCharts(document.getElementById('chart-fav-day'), options); favDayChart.render(); }); }
@@ -266,7 +292,7 @@
     });
     const keys = Object.keys(TRAJ_MAP).filter(k => counts[k] > 0);
     const options = {
-      chart: { type: 'donut', height: 260, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      chart: { type: 'donut', height: 340, width: '100%', toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
       series: keys.map(k => counts[k]),
       labels: keys.map(k => TRAJ_MAP[k].label),
       colors: keys.map(k => TRAJ_MAP[k].color),
@@ -280,24 +306,22 @@
   }
 
   function renderQpRatioChart(rows) {
-    const top10 = [...rows]
-      .filter(r => {
-        const avgWk = parseFloat(r['Avg/Week']);
-        const totalQ = parseInt(r['Total Q']) || 0;
-        return !isNaN(avgWk) && avgWk > 1.0 && totalQ >= 1;
-      })
+    // Regular attendees only: require a minimum post count so a 1-post/1-Q PAX
+    // doesn't surface at 100%. Top 15 by Q-to-Post ratio.
+    const top15 = [...rows]
+      .filter(r => (parseInt(r['Total Post']) || 0) >= 4)
       .sort((a, b) => parseFloat(b['Q/P Ratio']) - parseFloat(a['Q/P Ratio']))
-      .slice(0, 10);
+      .slice(0, 15);
 
     const options = {
-      chart: { type: 'bar', height: Math.max(200, top10.length * 32 + 60), toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'Q/P %', data: top10.map(r => parseFloat((parseFloat(r['Q/P Ratio']) * 100).toFixed(1))) }],
-      xaxis: { categories: top10.map(r => r['Site']), labels: { formatter: v => `${v}%` } },
+      chart: { type: 'bar', height: 320, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: [{ name: 'Q/P %', data: top15.map(r => parseFloat((parseFloat(r['Q/P Ratio']) * 100).toFixed(1))) }],
+      xaxis: { categories: top15.map(r => r['Site']), labels: { rotate: -45, style: { fontSize: '11px' } } },
       colors: ['#4a5e3a'],
       grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { horizontal: true, barHeight: '65%' } },
-      dataLabels: { enabled: true, style: { fontSize: '11px' }, formatter: v => `${v}%` },
-      yaxis: { labels: { style: { fontSize: '11px' } } },
+      plotOptions: { bar: { horizontal: false, columnWidth: '60%' } },
+      dataLabels: { enabled: false },
+      yaxis: { title: { text: 'Q/P %' }, labels: { formatter: v => `${Math.round(v)}%` } },
       tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" }, y: { formatter: v => `${v}%` } },
       noData: { text: 'No qualifying PAX', align: 'center', verticalAlign: 'middle', style: { fontFamily: "'Open Sans', sans-serif", color: '#8a7a60' } },
     };
@@ -312,6 +336,47 @@
     }
   }
 
+  function renderPopularAoChart(rows) {
+    // Distinct PAX per AO: count each PAX once per AO where they have >=1 post,
+    // over the current filter (PC Regulars vs All). Reuses ao.js exclusion rules.
+    const aoCounts = {};
+    rows.forEach(r => {
+      const sc = r['_siteCounts'] || {};
+      Object.keys(sc).forEach(site => {
+        if (EXCLUDED_SITES.includes(site)) return;
+        if (AO_EXCLUSIONS_LC.has(site.toLowerCase())) return;
+        if ((sc[site] || 0) < 1) return;
+        aoCounts[site] = (aoCounts[site] || 0) + 1;
+      });
+    });
+
+    const top = Object.entries(aoCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 12);
+
+    const options = {
+      chart: { type: 'bar', height: Math.max(260, top.length * 28), toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series: [{ name: 'PAX', data: top.map(e => e[1]) }],
+      xaxis: { categories: top.map(e => e[0]) },
+      colors: ['#4a5e3a'],
+      grid: { borderColor: '#c8bfa8' },
+      plotOptions: { bar: { horizontal: true, barHeight: '65%' } },
+      dataLabels: { enabled: true, style: { fontSize: '11px' } },
+      yaxis: { labels: { style: { fontSize: '11px' } } },
+      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
+      noData: { text: 'No AO data', align: 'center', verticalAlign: 'middle', style: { fontFamily: "'Open Sans', sans-serif", color: '#8a7a60' } },
+    };
+
+    if (popularAoChart) {
+      popularAoChart.updateOptions(options);
+    } else {
+      f3LazyChart('chart-popular-ao', () => {
+        popularAoChart = new ApexCharts(document.getElementById('chart-popular-ao'), options);
+        popularAoChart.render();
+      });
+    }
+  }
+
   function renderTable(rows) {
     const container = document.getElementById('pax-table-container');
     container.innerHTML = `
@@ -319,16 +384,16 @@
         <table class="table table-vcenter table-hover card-table" id="pax-full-table">
           <thead>
             <tr>
-              <th data-sort="Site" title="PAX F3 handle">PAX</th>
-              <th data-sort="Last Seen" title="Days since last post — lower means more recently active">Last Seen</th>
-              <th data-sort="Total Post" title="Total posts in 2026">Posts</th>
-              <th data-sort="Total Q" title="Total workouts led (Q) in 2026">Qs</th>
-              <th data-sort="Q/P Ratio" title="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)">Q/P Ratio</th>
-              <th data-sort="Avg/Week" title="Average posts per week since first 2026 post">Avg/Wk</th>
-              <th data-sort="Avg/Last 3 Weeks" title="Average posts per week over the last 3 weeks">Avg/3Wk</th>
-              <th data-sort="Last 3 wk" title="Number of posts in the last 3 weeks">Last 3 Wks</th>
-              <th data-sort="Trajectory" title="Trend: compares avg posts per week in last 3 weeks vs last 26 weeks (requires ≥2 posts in last 3 weeks for Heating Up)">Trajectory</th>
-              <th data-sort="Favorite AO" title="Most frequently attended AO in 2026 (excludes #downrange and Shield Lock)">Fav AO</th>
+              <th data-sort="Site">PAX ${f3InfoDot('PAX F3 handle')}</th>
+              <th data-sort="Last Seen">Last Seen ${f3InfoDot('Days since last post — lower means more recently active')}</th>
+              <th data-sort="Total Post">Posts ${f3InfoDot('Total posts in 2026')}</th>
+              <th data-sort="Total Q">Qs ${f3InfoDot('Total workouts led (Q) in 2026')}</th>
+              <th data-sort="Q/P Ratio">Q/P Ratio ${f3InfoDot('Fraction of posts where this PAX led the workout (Q ÷ Total Posts)')}</th>
+              <th data-sort="Avg/Week">Avg/Wk ${f3InfoDot('Average posts per week since first 2026 post')}</th>
+              <th data-sort="Avg/Last 3 Weeks">Avg/3Wk ${f3InfoDot('Average posts per week over the last 3 weeks')}</th>
+              <th data-sort="Last 3 wk">Last 3 Wks ${f3InfoDot('Number of posts in the last 3 weeks')}</th>
+              <th data-sort="Trajectory">Trajectory ${f3InfoDot('Trend: compares avg posts per week in last 3 weeks vs last 26 weeks (requires ≥2 posts in last 3 weeks for Heating Up)')}</th>
+              <th data-sort="Favorite AO">Fav AO ${f3InfoDot('Most frequently attended AO in 2026 (excludes #downrange and Shield Lock)')}</th>
             </tr>
           </thead>
           <tbody id="pax-table-body"></tbody>
@@ -348,7 +413,7 @@
       const traj = (r['Trajectory'] || '➡️ Holding Steady').trim();
       const lastSeen = r['Last Seen'];
       return `<tr>
-        <td><strong>${f3Esc(r['Site'])}</strong></td>
+        <td><a class="pax-link" href="pax-detail.html?pax=${encodeURIComponent(r['Site'])}">${f3Esc(r['Site'])}</a></td>
         <td>${lastSeen != null ? `${lastSeen} days ago` : '—'}</td>
         <td>${r['Total Post'] || '0'}</td>
         <td>${r['Total Q'] || '0'}</td>

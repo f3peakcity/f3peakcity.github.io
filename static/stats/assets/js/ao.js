@@ -13,6 +13,8 @@
     'Ruck the Hall',
     'Q-Source Q',
     'Floppy Ruck',
+    'Disturbing the Peace (DTP)',
+    '#ao-mon-ateam'
   ];
   const AO_EXCLUSIONS_LC = new Set(AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
   const CORE_PAX_THRESHOLD = 0.70;
@@ -122,6 +124,8 @@
     renderAOCards(filteredRows);
     renderTable(filteredRows);
     setupSortable();
+    // Init themed tooltips for static labels + freshly rendered cards/headers.
+    f3InitTooltips();
   }
 
   function weekMonday(dateStr) {
@@ -132,41 +136,60 @@
   }
 
   function renderWeeklyAttendance(rows) {
+    // Earthy, newsprint-friendly palette cycled across AO segments.
+    const WEEKLY_AO_PALETTE = [
+      '#4a5e3a', '#8a7a60', '#c8a840', '#7a9a68', '#9a5a3a', '#5a7a8a',
+      '#b08a50', '#3a4d2d', '#a86a5a', '#6a8a4a', '#8a6a90', '#a0a080',
+      '#5a6a3a', '#9aad88', '#7a5a4a', '#4a6a6a', '#caa060', '#6a4a5a',
+      '#8aaa70', '#a89060', '#5a8a7a', '#9a8a4a', '#7a6a5a', '#aa8a6a',
+    ];
     const cutoff = new Date();
     cutoff.setDate(cutoff.getDate() - 26 * 7);
     const cutoffStr = cutoff.toISOString().slice(0, 10);
 
-    const weekCounts = {};
+    // Per-week, per-AO counts (real AOs only — mirrors the rest of the page).
+    const weekAo = {};       // week -> { ao -> count }
+    const aoTotals = {};     // ao -> total over range
     rows.forEach(r => {
       if (r['Date'] < cutoffStr) return;
+      const site = (r['Site'] || '').trim();
+      if (EXCLUDED_SITES.includes(site) || AO_EXCLUSIONS_LC.has(site.toLowerCase())) return;
       const wk = weekMonday(r['Date']);
-      weekCounts[wk] = (weekCounts[wk] || 0) + 1;
+      if (!weekAo[wk]) weekAo[wk] = {};
+      weekAo[wk][site] = (weekAo[wk][site] || 0) + 1;
+      aoTotals[site] = (aoTotals[site] || 0) + 1;
     });
 
-    const weeks = Object.keys(weekCounts).sort();
+    const weeks = Object.keys(weekAo).sort();
     if (!weeks.length) return;
 
     const labels = weeks.map(w => {
       const d = new Date(w + 'T00:00:00');
       return d.toLocaleString('default', { month: 'short', day: 'numeric' });
     });
-    const counts = weeks.map(w => weekCounts[w]);
-    const avg = Math.round(counts.reduce((a, b) => a + b, 0) / counts.length);
+
+    // Largest AOs first so the biggest blocks anchor the bottom of each stack.
+    const aos = Object.keys(aoTotals).sort((a, b) => aoTotals[b] - aoTotals[a]);
+    const series = aos.map(ao => ({ name: ao, data: weeks.map(w => weekAo[w][ao] || 0) }));
+    const colors = aos.map((_, i) => WEEKLY_AO_PALETTE[i % WEEKLY_AO_PALETTE.length]);
+
+    const weekTotals = weeks.map(w => Object.values(weekAo[w]).reduce((a, b) => a + b, 0));
+    const avg = Math.round(weekTotals.reduce((a, b) => a + b, 0) / weekTotals.length);
 
     const rangeEl = document.getElementById('weekly-attendance-range');
-    if (rangeEl) rangeEl.textContent = `${labels[0]} – ${labels[labels.length - 1]} · ${weeks.length} weeks · avg ${avg}/wk`;
+    if (rangeEl) rangeEl.textContent = `${labels[0]} – ${labels[labels.length - 1]} · ${weeks.length} weeks · ${aos.length} AOs · avg ${avg}/wk`;
 
     const options = {
-      chart: { type: 'bar', height: 280, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'PAX', data: counts }],
+      chart: { type: 'bar', stacked: true, height: 460, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
+      series,
       xaxis: { categories: labels, labels: { rotate: -45, style: { fontSize: '10px' } }, tickAmount: 13 },
-      colors: ['#4a5e3a'],
+      colors,
       grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { columnWidth: '75%' } },
+      plotOptions: { bar: { columnWidth: '80%' } },
       dataLabels: { enabled: false },
       yaxis: { title: { text: 'PAX' }, min: 0, forceNiceScale: true },
-      annotations: { yaxis: [{ y: avg, borderColor: '#8a7a60', strokeDashArray: 4, label: { text: `avg ${avg}`, style: { fontFamily: "'Open Sans', sans-serif", fontSize: '11px', color: '#8a7a60', background: 'transparent' }, borderColor: 'transparent' } }] },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
+      legend: { position: 'bottom', fontSize: '11px', fontFamily: "'Open Sans', sans-serif", itemMargin: { horizontal: 6, vertical: 2 } },
+      tooltip: { shared: false, intersect: true, theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
     };
 
     if (weeklyChart) {
@@ -264,15 +287,15 @@
                 <div class="fw-bold">${r['Total Attendees'] || '—'}</div>
               </div>
               <div class="col-6">
-                <div class="text-muted small" title="% of attendees who have Q'd at least once — higher means more Q depth (green ≥40%, amber 20–39%, red &lt;20%)">Bench Strength</div>
+                <div class="text-muted small">Bench Strength ${f3InfoDot("% of attendees who have Q'd at least once — higher means more Q depth (green ≥40%, amber 20–39%, red <20%)")}</div>
                 <div class="fw-bold">${benchHtml}</div>
               </div>
               <div class="col-6">
-                <div class="text-muted small" title="PAX who most frequently led workouts at this AO in 2026">Top Q</div>
+                <div class="text-muted small">Top Q ${f3InfoDot('PAX who most frequently led workouts at this AO in 2026')}</div>
                 <div class="fw-bold">${f3Esc(topQ)}</div>
               </div>
             </div>
-            <div class="text-muted small mb-1" title="PAX who attend ≥70% of sessions in the last 26 weeks">Core PAX (${corePax.length})</div>
+            <div class="text-muted small mb-1">Core PAX (${corePax.length}) ${f3InfoDot('PAX who attend ≥70% of sessions in the last 26 weeks')}</div>
             <div class="ao-core-list">${coreHtml}</div>
           </div>
         </div>`;
@@ -286,14 +309,14 @@
         <table class="table table-vcenter table-hover card-table" id="ao-full-table">
           <thead>
             <tr>
-              <th data-sort="Site" title="AO name">Site</th>
-              <th data-sort="Total Attendees" title="Total individual posts at this AO in 2026">Total Posts</th>
-              <th data-sort="Weeks in Range" title="Number of distinct weeks this AO has run in 2026">Weeks</th>
-              <th data-sort="Avg/Meeting" title="Average PAX count per session (Total Posts ÷ Distinct Sessions)">Avg/Meeting</th>
-              <th data-sort="FNGs" title="Number of first-time attendees at this AO in 2026">FNGs</th>
-              <th data-sort="Unique Qs" title="Number of distinct PAX who have led a workout (Q) at this AO in 2026">Unique Qs</th>
-              <th data-sort="Bench Strength" title="% of attendees who have Q'd at least once — higher means more Q depth (green ≥40%, amber 20–39%, red &lt;20%)">Bench Strength</th>
-              <th title="PAX who attend ≥70% of sessions in the last 26 weeks">Core Names</th>
+              <th data-sort="Site">Site ${f3InfoDot('AO name')}</th>
+              <th data-sort="Total Attendees">Total Posts ${f3InfoDot('Total individual posts at this AO in 2026')}</th>
+              <th data-sort="Weeks in Range">Weeks ${f3InfoDot('Number of distinct weeks this AO has run in 2026')}</th>
+              <th data-sort="Avg/Meeting">Avg/Meeting ${f3InfoDot('Average PAX count per session (Total Posts ÷ Distinct Sessions)')}</th>
+              <th data-sort="FNGs">FNGs ${f3InfoDot('Number of first-time attendees at this AO in 2026')}</th>
+              <th data-sort="Unique Qs">Unique Qs ${f3InfoDot('Number of distinct PAX who have led a workout (Q) at this AO in 2026')}</th>
+              <th data-sort="Bench Strength">Bench Strength ${f3InfoDot("% of attendees who have Q'd at least once — higher means more Q depth (green ≥40%, amber 20–39%, red <20%)")}</th>
+              <th>Core Names ${f3InfoDot('PAX who attend ≥70% of sessions in the last 26 weeks')}</th>
             </tr>
           </thead>
           <tbody id="ao-table-body"></tbody>

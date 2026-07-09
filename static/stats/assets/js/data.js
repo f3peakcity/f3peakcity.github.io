@@ -175,6 +175,34 @@ function f3LazyChart(containerId, renderFn) {
   obs.observe(el);
 }
 
+// Builds an info-dot (ⓘ) affordance carrying tooltip text. The dot is
+// keyboard-focusable and tap-friendly so tooltips are discoverable on both
+// desktop (hover/focus) and touch (tap → focus). Returns an HTML string for
+// use in template literals; escapes the tip text.
+function f3InfoDot(tip) {
+  return `<span class="info-dot" tabindex="0" role="button" aria-label="${f3Esc(tip)}"` +
+    ` data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="${f3Esc(tip)}">&#9432;</span>`;
+}
+
+// Initializes themed Bootstrap tooltips on any not-yet-initialized
+// [data-bs-toggle="tooltip"] elements within `root` (default: document).
+// Idempotent — safe to call after every re-render. Stops info-dot clicks from
+// bubbling (so clicking one inside a sortable <th> doesn't trigger a sort).
+function f3InitTooltips(root) {
+  const Tooltip = window.bootstrap && window.bootstrap.Tooltip;
+  if (!Tooltip) return;
+  const scope = (typeof root === 'string' ? document.querySelector(root) : root) || document;
+  if (!scope) return;
+  scope.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+    if (el._f3Tip) return;
+    el._f3Tip = true;
+    if (el.classList.contains('info-dot')) {
+      el.addEventListener('click', e => { e.stopPropagation(); e.preventDefault(); });
+    }
+    new Tooltip(el, { trigger: 'hover focus', container: 'body' });
+  });
+}
+
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
   module.exports = { f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc };
