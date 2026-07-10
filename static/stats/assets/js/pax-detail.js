@@ -4,16 +4,23 @@
 // Key columns from raw: Date, Name (PAX), Site (AO), Role (Q / P / FNG).
 
 (async function () {
-  // Mirror ao.js so only "real" AOs appear.
-  const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+  // Unlike ao.js / leaderboard (which exclude them from region-wide AO stats),
+  // this per-PAX drill-down INCLUDES #downrange and Shieldlock — on a single
+  // guy's page those posts are part of his story (travel / other-region posts).
+  // So EXCLUDED_SITES is empty here, and 'Shieldlock' is dropped from the
+  // display-exclusion list. NB: the data spells it "Shieldlock" (one word), which
+  // is why it lives in AO_DISPLAY_EXCLUSIONS on the region views, not the (unused,
+  // mis-spelled 'Shield Lock') EXCLUDED_SITES entry.
+  const EXCLUDED_SITES = [];
   const AO_DISPLAY_EXCLUSIONS = [
     'Convergence',
     'Raiders of the Locked Park',
     'Who let the dogs out (possible new AO?) Hunter street',
-    'Shieldlock',
     'Ruck the Hall',
     'Q-Source Q',
     'Floppy Ruck',
+    'Disturbing the Peace (DTP)',
+    '#ao-mon-ateam',
   ];
   const AO_EXCLUSIONS_LC = new Set(AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
   const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

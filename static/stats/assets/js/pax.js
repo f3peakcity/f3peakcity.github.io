@@ -13,6 +13,8 @@
     'Ruck the Hall',
     'Q-Source Q',
     'Floppy Ruck',
+    'Disturbing the Peace (DTP)',
+    '#ao-mon-ateam',
   ];
   const AO_EXCLUSIONS_LC = new Set(AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
   const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;

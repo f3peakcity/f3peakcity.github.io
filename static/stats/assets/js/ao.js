@@ -14,7 +14,8 @@
     'Q-Source Q',
     'Floppy Ruck',
     'Disturbing the Peace (DTP)',
-    '#ao-mon-ateam'
+    '#ao-mon-ateam',
+    '#AO-MON-ATEAM'
   ];
   const AO_EXCLUSIONS_LC = new Set(AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
   const CORE_PAX_THRESHOLD = 0.70;
