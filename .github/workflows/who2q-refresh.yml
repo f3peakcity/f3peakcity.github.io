@@ -13,10 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: google-github-actions/auth@v2
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -27,8 +23,20 @@ jobs:
       - name: Run unit tests
         run: python -m unittest discover -s scripts/tests -v
 
+      - name: Create BQ credentials
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+        run: echo "$GCP_SA_KEY" > bq_credentials.json
+
       - name: Generate who2q.json
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: bq_credentials.json
+          GOOGLE_CLOUD_PROJECT: f3data
         run: python scripts/who2q_export.py
+
+      - name: Clean up credentials
+        if: always()
+        run: rm -f bq_credentials.json
 
       - name: Commit if changed
         run: |
