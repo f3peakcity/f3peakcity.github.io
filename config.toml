@@ -176,9 +176,15 @@ unsafe = true
 
 [[menu.main]]
     parent = "pax"
-    name = "Region stats"
+    name = "F3 Nation Stats"
     url = "https://pax-vault.f3nation.com/stats/region/40342"
     weight = 43
+
+[[menu.main]]
+    parent = "pax"
+    name = "Peak City Stats"
+    url = "https://f3peakcity.com/stats/"
+    weight = 44
 
 [[menu.main]]
     identifier = "contact"
