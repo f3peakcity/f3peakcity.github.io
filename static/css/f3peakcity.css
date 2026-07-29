@@ -31,8 +31,13 @@ h1, h2, h3, h4, h5, h6,
   text-transform: uppercase;
 }
 p, li, .post-entry, .well {
-  font-family: 'Lora', serif;
+  font-family: 'Lora', serif !important;
   line-height: 1.65;
+}
+/* UI chrome inside those same containers stays on Open Sans, matching /stats'
+   split (Lora for narrative copy, Open Sans for labels/meta/buttons/nav). */
+.post-meta, .blog-tags a, footer p, footer .credits, footer .text-muted {
+  font-family: 'Open Sans', sans-serif !important;
 }
 a { color: var(--green); text-decoration: none; }
 a:hover { color: var(--green-dark); text-decoration: underline; }
@@ -109,16 +114,24 @@ a:hover { color: var(--green-dark); text-decoration: underline; }
   left: auto;
   right: 0;
 }
-.navbar-custom .navlinks-children a {
+/* The theme's own main.css paints each individual link rgb(245,245,245) (near white)
+   and sets a light border, at higher specificity than the container-level background
+   above — near-white text was landing on a near-white background per link. Overriding
+   background/border/color/visited explicitly on the link itself fixes it. */
+.navbar-custom .navlinks-children a,
+.navbar-custom .navlinks-children a:visited {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
+  background: transparent !important;
+  border: none !important;
   color: rgba(255, 255, 255, 0.85) !important;
 }
-.navbar-custom .navlinks-children a:hover {
-  background: var(--green);
+.navbar-custom .navlinks-children a:hover,
+.navbar-custom .navlinks-children a:active {
+  background: var(--green) !important;
   color: #fff !important;
 }
 .navbar-custom .navbar-toggle .icon-bar { background: #fff; }
@@ -147,7 +160,7 @@ a:hover { color: var(--green-dark); text-decoration: underline; }
 /* ── Content wells (Contact, Leadership, New to F3, Q, Schedule, homepage body) ── */
 .well {
   background: var(--paper);
-  border: 2px solid var(--ink);
+  border: none;
   border-radius: 0;
   box-shadow: none;
   padding: 2rem;
@@ -159,31 +172,43 @@ a:hover { color: var(--green-dark); text-decoration: underline; }
 }
 
 /* ── Buttons (button shortcode + homepage hero CTAs share .markdown-btn) ── */
-.markdown-btn {
-  display: inline-block;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.75rem 1.5rem;
-  border: 2px solid var(--ink);
+/* The theme's own main.css already styles a.markdown-btn (rounded, borderless,
+   from Beautiful Hugo's built-in button shortcode) at a higher specificity
+   (a.markdown-btn vs .markdown-btn) than a plain class selector, so every
+   property that must beat it is marked !important here. */
+a.markdown-btn {
+  display: inline-block !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 0.75rem 1.5rem !important;
+  border: 2px solid var(--ink) !important;
+  border-radius: 0 !important;
   color: var(--ink) !important;
-  background: transparent;
+  background: transparent !important;
+  background-color: transparent !important;
   text-decoration: none !important;
+  margin: 0 !important;
   transition: background 0.12s, color 0.12s;
 }
-.markdown-btn:hover {
-  background: var(--ink);
+a.markdown-btn:hover,
+a.markdown-btn:active {
+  background: var(--ink) !important;
+  background-color: var(--ink) !important;
   color: var(--paper) !important;
 }
-.markdown-btn.btn-solid {
-  background: var(--ink);
+a.markdown-btn.btn-solid {
+  background: var(--ink) !important;
+  background-color: var(--ink) !important;
   color: var(--paper) !important;
 }
-.markdown-btn.btn-solid:hover {
-  background: var(--green);
-  border-color: var(--green);
+a.markdown-btn.btn-solid:hover,
+a.markdown-btn.btn-solid:active {
+  background: var(--green) !important;
+  background-color: var(--green) !important;
+  border-color: var(--green) !important;
 }
 
 /* ── Backblasts / Articles post cards ── */
@@ -282,7 +307,7 @@ footer .fa-stack .fa-inverse { color: var(--paper); }
 .home-hero-eyebrow {
   font-family: 'Open Sans', sans-serif;
   font-weight: 700;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--green);
