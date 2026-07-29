@@ -101,12 +101,20 @@ a:hover { color: var(--green-dark); text-decoration: underline; }
   background: var(--ink);
   border: 2px solid var(--green);
   border-top: none;
+  min-width: 220px;
+}
+/* The rightmost menu (Stay in touch) would overflow past the viewport edge
+   opening left-aligned like the others, so it opens right-aligned instead. */
+.navbar-custom .nav .navlinks-container:last-child .navlinks-children {
+  left: auto;
+  right: 0;
 }
 .navbar-custom .navlinks-children a {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: rgba(255, 255, 255, 0.85) !important;
 }
 .navbar-custom .navlinks-children a:hover {
@@ -200,6 +208,13 @@ a:hover { color: var(--green-dark); text-decoration: underline; }
   text-transform: uppercase;
   color: var(--muted);
 }
+.post-preview .post-read-more {
+  color: var(--green) !important;
+  font-weight: 700;
+}
+.post-preview .post-read-more:hover {
+  color: var(--green-dark) !important;
+}
 .post-preview .img-title {
   border: 2px solid var(--ink);
   max-width: 100%;
@@ -234,13 +249,20 @@ footer .fa-stack .fa-circle { color: rgba(245, 240, 228, 0.1); }
 footer .fa-stack .fa-inverse { color: var(--paper); }
 
 /* ── Home hero (layouts/index.html) ── */
+/* The theme's <body> is display:flex;flex-direction:column (for its sticky-footer
+   layout). Flex items whose only content is position:absolute (the slides) don't
+   report any intrinsic size, so they need an explicit flex-basis/width instead of
+   relying on stretch/auto sizing, or they collapse to ~0. */
 .home-hero-carousel {
   position: relative;
   overflow: hidden;
+  flex: 0 0 auto;
+  width: 100%;
   height: min(62vh, 620px);
   border: 2px solid var(--ink);
   max-width: 1400px;
   margin: 1.5rem auto 0;
+  box-sizing: border-box;
 }
 .home-hero-slide {
   position: absolute;

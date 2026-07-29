@@ -1,4 +1,7 @@
-{{ define "header" }}{{ end }}
+{{/* Hugo treats a truly empty block override as "not overridden" and falls back
+     to baseof.html's default (partial "header.html"), so this comment is load-bearing —
+     it's what actually suppresses the theme's default title/subtitle banner on the home page. */}}
+{{ define "header" }}<!-- home hero (below) replaces the default page header -->{{ end }}
 
 {{ define "main" }}
   <div class="home-hero-carousel">
