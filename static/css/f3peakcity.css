@@ -282,7 +282,7 @@ footer .fa-stack .fa-inverse { color: var(--paper); }
 .home-hero-eyebrow {
   font-family: 'Open Sans', sans-serif;
   font-weight: 700;
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--green);
