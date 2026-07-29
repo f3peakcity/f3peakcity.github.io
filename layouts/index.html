@@ -1,0 +1,78 @@
+{{ define "header" }}{{ end }}
+
+{{ define "main" }}
+  <div class="home-hero-carousel">
+    {{ range $i, $img := .Site.Params.bigimg }}
+      <div class="home-hero-slide{{ if eq $i 0 }} active{{ end }}" style="background-image:url('{{ $img.src | absURL }}')"></div>
+    {{ end }}
+  </div>
+
+  <div class="home-hero-copy">
+    {{ with .Params.heroEyebrow }}<div class="home-hero-eyebrow">{{ . }}</div>{{ end }}
+    {{ with .Params.heroTitle }}<h1 class="home-hero-title">{{ . }}</h1>{{ end }}
+    {{ with .Params.heroSubtitle }}<p class="home-hero-subtitle">{{ . }}</p>{{ end }}
+    <div class="home-hero-ctas">
+      {{ if .Params.heroPrimaryText }}
+        <a href="{{ .Params.heroPrimaryHref | relLangURL }}" class="markdown-btn btn-solid">{{ .Params.heroPrimaryText }}</a>
+      {{ end }}
+      {{ if .Params.heroSecondaryText }}
+        <a href="{{ .Params.heroSecondaryHref | relLangURL }}" class="markdown-btn">{{ .Params.heroSecondaryText }}</a>
+      {{ end }}
+    </div>
+  </div>
+
+  <div class="fff-band">
+    <div class="fff-grid">
+      <div class="fff-item">
+        <div class="fff-title">Fitness</div>
+        <div class="fff-copy">Free, peer-led workouts &mdash; running, rucking, and bodyweight strength &mdash; rain or shine.</div>
+      </div>
+      <div class="fff-item">
+        <div class="fff-title">Fellowship</div>
+        <div class="fff-copy">Coffee after the workout. Slack channels. A crew of guys who show up for each other.</div>
+      </div>
+      <div class="fff-item">
+        <div class="fff-title">Faith</div>
+        <div class="fff-copy">No pressure, no dogma &mdash; just men encouraging men toward their third F, however they define it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div role="main" class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        {{ with .Content }}
+          <div class="well">
+            {{.}}
+          </div>
+        {{ end }}
+
+        <div class="posts-list">
+          {{ $pag := .Paginate (where site.RegularPages "Type" "in" site.Params.mainSections) }}
+          {{ range $pag.Pages }}
+            {{ partial "post_preview" . }}
+          {{ end }}
+        </div>
+
+        {{ if or (.Paginator.HasPrev) (.Paginator.HasNext) }}
+          <ul class="pager main-pager">
+            {{ if .Paginator.HasPrev }}
+              <li class="previous">
+                <a href="{{ .Permalink }}page/{{ .Paginator.Prev.PageNumber }}/">&larr; {{ i18n "newerPosts" }}</a>
+              </li>
+            {{ end }}
+            {{ if .Paginator.HasNext }}
+              <li class="next">
+                <a href="{{ .Permalink }}page/{{ .Paginator.Next.PageNumber }}/">{{ i18n "olderPosts" }} &rarr;</a>
+              </li>
+            {{ end }}
+          </ul>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+{{ end }}
+
+{{ define "footer" }}
+  <script src="{{ "js/hero-carousel.js" | absURL }}"></script>
+{{ end }}

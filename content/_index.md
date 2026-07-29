@@ -1,26 +1,15 @@
 ---
----
-
-{{< columns >}}
-
-## Always Free.</br>Always Outside.</br>Open to All Men.
-
-Join us for 20+ free workouts right here in the "Peak of Good Living" in Apex, NC and the surrounding areas of Friendship, New Hill, and Jordan Lake.
-
-The workouts are for men of all fitness levels and goals, and include running; cardio with total-body and body-weight exercises; limited run and strength-building with dumbells, kettleballs, and other toys; walking; rucking; recovery stretching and yoga; and even paddleboarding in warm months!
-
-{{< column >}}
-
-</br>
-
-{{< figure src="/img/workout-hill.jpeg" title="Example workout running up a hill" >}}
-
-{{< button relref="/schedule" >}}Find workouts{{< /button >}}
-</br>
-{{< button relref="/new-to-f3" >}}New to F3?{{< /button >}}
-
-{{< endcolumns >}}
-
+heroEyebrow: "Apex, NC · The Peak of Good Living"
+heroTitle: "Always Free. Always Outside. Open to All Men."
+heroSubtitle: >
+  Join us for 20+ free workouts right here in the "Peak of Good Living" in Apex, NC
+  and the surrounding areas of Friendship, New Hill, and Jordan Lake. Running, cardio,
+  limited-run strength with dumbbells and kettlebells, walking, rucking, recovery yoga
+  — and even paddleboarding in warm months — for men of every fitness level and goal.
+heroPrimaryText: "Find workouts"
+heroPrimaryHref: "/schedule/"
+heroSecondaryText: "New to F3?"
+heroSecondaryHref: "/new-to-f3/"
 ---
 
 <!-- {{< columns >}} -->
