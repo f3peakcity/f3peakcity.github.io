@@ -17,6 +17,15 @@
 }
 
 /* ── Base ── */
+/* The theme's self-hosted bootstrap.min.css hardcodes html{font-size:10px} (an old
+   "62.5%" rem-scaling convention). The theme's own CSS never uses rem (checked:
+   zero occurrences in main.css), so nothing actually depends on that 10px base —
+   it was just silently shrinking every rem value below to 62.5% of its intended
+   size. Resetting to the standard 16px root fixes every rem-sized element here
+   at once, rather than compensating each value individually. */
+html {
+  font-size: 16px !important;
+}
 html, body {
   background: var(--paper);
   color: var(--text);
@@ -307,7 +316,7 @@ footer .fa-stack .fa-inverse { color: var(--paper); }
 .home-hero-eyebrow {
   font-family: 'Open Sans', sans-serif;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--green);
