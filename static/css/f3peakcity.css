@@ -1,0 +1,333 @@
+@charset "UTF-8";
+/* F3 Peak City — Tabloid Punch / Newsprint Warm design system (main site) */
+/* Same palette/type system as /stats (static/stats/assets/css/custom.css). */
+/* Fonts are loaded via <link> in head_custom.html, not @import, to avoid a render-blocking chain. */
+
+:root {
+  --paper: #f5f0e4;
+  --paper-dim: #ece5d3;
+  --ink: #1a1a1a;
+  --green: #4a5e3a;
+  --green-dark: #3a4d2d;
+  --green-05: rgba(74, 94, 58, 0.05);
+  --green-15: rgba(74, 94, 58, 0.15);
+  --text: #404040;
+  --muted: #8a7a60;
+  --rule: #c8bfa8;
+}
+
+/* ── Base ── */
+html, body {
+  background: var(--paper);
+  color: var(--text);
+  font-family: 'Open Sans', sans-serif;
+}
+h1, h2, h3, h4, h5, h6,
+.post-title, .page-heading, .post-heading {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+p, li, .post-entry, .well {
+  font-family: 'Lora', serif;
+  line-height: 1.65;
+}
+a { color: var(--green); text-decoration: none; }
+a:hover { color: var(--green-dark); text-decoration: underline; }
+
+/* ── Masthead strip (rendered inside .navbar-custom by layouts/partials/nav.html) ── */
+.masthead-bar {
+  background: var(--green);
+  color: #fff;
+  padding: 0.4rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Open Sans', sans-serif;
+}
+.masthead-bar .region {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+.masthead-bar .dateline {
+  font-size: 0.65rem;
+  opacity: 0.9;
+  letter-spacing: 0.08em;
+}
+
+/* ── Navigation (Bootstrap 3 navbar-custom) ── */
+/* Flatten the theme's shrink-on-scroll animation and floating circular avatar —
+   both conflict with the newsprint system's "zero radius, no shadows, minimal
+   animation" rule — in favor of a fixed two-tier bar (masthead + nav). */
+.navbar-custom {
+  background: var(--ink) !important;
+  border: none !important;
+  border-bottom: 3px solid var(--green) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-bottom: 0;
+}
+.navbar-custom .avatar-container {
+  display: none !important;
+}
+.navbar-custom .navbar-brand {
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  color: #fff !important;
+}
+.navbar-custom .nav > li > a,
+.navbar-custom .navlinks-parent {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65) !important;
+  padding: 1.2rem 1rem;
+}
+.navbar-custom .nav > li > a:hover,
+.navbar-custom .nav > li > a:focus,
+.navbar-custom .navlinks-parent:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+.navbar-custom .navlinks-children {
+  background: var(--ink);
+  border: 2px solid var(--green);
+  border-top: none;
+}
+.navbar-custom .navlinks-children a {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+.navbar-custom .navlinks-children a:hover {
+  background: var(--green);
+  color: #fff !important;
+}
+.navbar-custom .navbar-toggle .icon-bar { background: #fff; }
+
+/* Fixed two-tier header height compensation (masthead ~28px + nav row ~50px) */
+.main-content { padding-top: 80px !important; }
+
+/* ── Page headers (Backblasts/Articles/Leadership/etc list & single) ── */
+.intro-header:not(.big-img) {
+  background: var(--ink);
+  padding: 2.5rem 0;
+}
+.intro-header:not(.big-img) h1,
+.intro-header:not(.big-img) .page-heading,
+.intro-header:not(.big-img) .post-heading {
+  color: var(--paper);
+}
+.intro-header:not(.big-img) .page-subheading,
+.intro-header:not(.big-img) .post-subheading {
+  color: rgba(245, 240, 228, 0.75);
+  font-family: 'Open Sans', sans-serif;
+  text-transform: none;
+}
+.intro-header hr.small { border-color: var(--green); }
+
+/* ── Content wells (Contact, Leadership, New to F3, Q, Schedule, homepage body) ── */
+.well {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
+  padding: 2rem;
+}
+.well img, .splitbox img, .post-entry img {
+  border: 2px solid var(--ink);
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Buttons (button shortcode + homepage hero CTAs share .markdown-btn) ── */
+.markdown-btn {
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--ink);
+  color: var(--ink) !important;
+  background: transparent;
+  text-decoration: none !important;
+  transition: background 0.12s, color 0.12s;
+}
+.markdown-btn:hover {
+  background: var(--ink);
+  color: var(--paper) !important;
+}
+.markdown-btn.btn-solid {
+  background: var(--ink);
+  color: var(--paper) !important;
+}
+.markdown-btn.btn-solid:hover {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+/* ── Backblasts / Articles post cards ── */
+.post-preview {
+  border: 2px solid var(--ink);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--paper);
+}
+.post-preview:hover { background: var(--green-05); }
+.post-preview .post-title { margin-top: 0; font-size: 1.6rem; }
+.post-preview .post-subtitle {
+  font-family: 'Lora', serif;
+  color: var(--muted);
+  text-transform: none;
+  font-size: 1rem;
+}
+.post-preview .post-meta {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.post-preview .img-title {
+  border: 2px solid var(--ink);
+  max-width: 100%;
+  margin: 1rem 0;
+}
+.post-preview .blog-tags a {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--rule);
+  padding: 0.15rem 0.5rem;
+  margin-right: 0.3rem;
+  display: inline-block;
+}
+
+/* ── Footer ── */
+footer {
+  background: var(--ink);
+  padding: 2rem 0;
+  margin-top: 2rem;
+}
+footer .credits, footer .text-muted, footer p {
+  color: rgba(245, 240, 228, 0.6);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+footer a { color: var(--green); }
+footer a:hover { color: #6a8555; }
+footer .fa-stack .fa-circle { color: rgba(245, 240, 228, 0.1); }
+footer .fa-stack .fa-inverse { color: var(--paper); }
+
+/* ── Home hero (layouts/index.html) ── */
+.home-hero-carousel {
+  position: relative;
+  overflow: hidden;
+  height: min(62vh, 620px);
+  border: 2px solid var(--ink);
+  max-width: 1400px;
+  margin: 1.5rem auto 0;
+}
+.home-hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.home-hero-slide.active { opacity: 1; }
+.home-hero-copy {
+  padding: 2.5rem 2rem 3rem;
+  max-width: 780px;
+  margin: 0 auto;
+  text-align: center;
+}
+.home-hero-eyebrow {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 0.75rem;
+}
+.home-hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 1.2rem;
+}
+.home-hero-subtitle {
+  font-family: 'Lora', serif;
+  color: var(--text);
+  margin: 0 auto 1.6rem;
+  max-width: 560px;
+}
+.home-hero-ctas {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.fff-band {
+  border-top: 4px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  background: var(--ink);
+}
+.fff-band .fff-grid {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2.2rem 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  color: var(--paper);
+}
+.fff-band .fff-item {
+  padding: 0 1.5rem;
+  border-left: 1px solid rgba(245, 240, 228, 0.2);
+}
+.fff-band .fff-item:first-child { border-left: none; }
+.fff-band .fff-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--paper);
+  margin-bottom: 0.5rem;
+}
+.fff-band .fff-copy {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: rgba(245, 240, 228, 0.75);
+}
+@media (max-width: 767px) {
+  .fff-band .fff-grid { grid-template-columns: 1fr; }
+  .fff-band .fff-item {
+    border-left: none;
+    border-top: 1px solid rgba(245, 240, 228, 0.2);
+    padding: 1.25rem 0.5rem 0;
+  }
+  .fff-band .fff-item:first-child { border-top: none; padding-top: 0; }
+  .home-hero-title { font-size: 2.1rem; }
+}
