@@ -29,7 +29,6 @@ unsafe = true
   mainSections = ["post","posts"]
   logo = "img/brand/f3-black-on-white-500x500.png" # Expecting square dimensions
   darkLogo = "img/brand/f3-white-on-black-500x500.png"
-  favicon = "img/cropped-cropped-F3-Nation-Logo-White-with-Black-background-32x32.jpg"
   dateFormat = "January 2, 2006"
   commit = false
   rss = false
