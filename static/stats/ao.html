@@ -8,8 +8,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css?v=20260710a">
-  <link rel="icon" href="../img/favicon.ico">
+  <link rel="stylesheet" href="assets/css/custom.css?v=20260824e">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+  <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#4a5e3a">
 </head>
 <body class="antialiased">
 <div class="wrapper">
@@ -86,6 +91,26 @@
 
       <div class="card mt-4">
         <div class="card-header">
+          <h3 class="card-title">Daily Attendance by AO</h3>
+          <div class="card-options text-muted" id="daily-attendance-range" style="font-size:0.72rem;letter-spacing:0.05em;"></div>
+        </div>
+        <div class="card-body">
+          <div class="filter-toggle-group mb-3" role="group" aria-label="Filter by day of the week" id="daily-day-filter">
+            <button type="button" class="filter-toggle-btn active" data-day="" aria-pressed="true">All</button>
+            <button type="button" class="filter-toggle-btn" data-day="Mon" aria-pressed="false">Mon</button>
+            <button type="button" class="filter-toggle-btn" data-day="Tue" aria-pressed="false">Tue</button>
+            <button type="button" class="filter-toggle-btn" data-day="Wed" aria-pressed="false">Wed</button>
+            <button type="button" class="filter-toggle-btn" data-day="Thu" aria-pressed="false">Thu</button>
+            <button type="button" class="filter-toggle-btn" data-day="Fri" aria-pressed="false">Fri</button>
+            <button type="button" class="filter-toggle-btn" data-day="Sat" aria-pressed="false">Sat</button>
+            <button type="button" class="filter-toggle-btn" data-day="Sun" aria-pressed="false">Sun</button>
+          </div>
+          <div id="chart-daily-attendance"></div>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-header">
           <h3 class="card-title">Weekly Attendance — Last 6 Months</h3>
           <div class="card-options text-muted" id="weekly-attendance-range" style="font-size:0.72rem;letter-spacing:0.05em;"></div>
         </div>
@@ -136,7 +161,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260710a"></script>
-<script src="assets/js/ao.js?v=20260710a"></script>
+<script src="assets/js/data.js?v=20260824e"></script>
+<script src="assets/js/ao.js?v=20260824e"></script>
 </body>
 </html>
