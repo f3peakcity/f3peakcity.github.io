@@ -11,6 +11,15 @@
   --text:  #404040;
   --muted: #8a7a60;
   --rule:  #c8bfa8;
+
+  /* Tone scale — color encodes HEALTH, never direction or magnitude alone.
+     good = healthy/growing, watch = holding or borderline,
+     alert = needs attention, none = not enough data to judge.
+     Every colored value on the page maps through these. */
+  --tone-good:  #4a5e3a;
+  --tone-watch: #a8801a;
+  --tone-alert: #9a5a3a;
+  --tone-none:  #8a7a60;
 }
 
 /* ── Base ── */
@@ -126,24 +135,35 @@ body,
   color: var(--muted);
   margin-bottom: 0.25rem;
 }
+/* These four are the page's headline. Nothing else on the page may out-weigh
+   them — chart titles, card stats and table figures all sit below this. */
 .card-stat-accent .h1 {
   font-family: 'Barlow Condensed', sans-serif !important;
   font-weight: 900 !important;
-  font-size: 2.25rem !important;
+  font-size: 3.75rem !important;
   color: var(--ink) !important;
-  line-height: 1 !important;
+  line-height: 0.9 !important;
+  letter-spacing: -0.02em;
+}
+.card-stat-accent {
+  border-top-width: 4px !important;
+}
+@media (max-width: 575.98px) {
+  .card-stat-accent .h1 { font-size: 3rem !important; }
 }
 
 /* ── AO card grid ── */
+/* Each card carries its own border rather than sharing a frame with the grid:
+   a short last row then simply ends, instead of leaving empty bordered cells. */
 .ao-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  border: 2px solid var(--ink);
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1rem;
+  align-items: start;
 }
 .ao-card-grid .card {
-  border: none !important;
-  border-right: 2px solid var(--ink) !important;
-  border-bottom: 2px solid var(--ink) !important;
+  border: 2px solid var(--ink) !important;
+  height: 100%;
 }
 .ao-card-grid .card-header h4.card-title {
   font-size: 1.15rem !important;
@@ -381,6 +401,23 @@ input[type="date"]::-webkit-datetime-edit-fields-wrapper {
 }
 .table tbody td {
   border-color: var(--rule) !important;
+}
+/* Numeric columns right-align on tabular figures so magnitudes line up and the
+   eye can run straight down the column. */
+.table th.num,
+.table td.num {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+.table th.num { padding-right: 1.1rem !important; }
+.table td.num { padding-right: 1.1rem !important; }
+/* Banding — 23 rows of near-identical text is hard to track across. */
+.table tbody tr:nth-child(odd) > * {
+  background: rgba(74, 94, 58, 0.035) !important;
+}
+.table-hover > tbody > tr:hover > * {
+  background: var(--green-15) !important;
 }
 
 /* Sortable table headers */
@@ -779,6 +816,62 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
 .lb-status-needsq { background: #fff3cd; color: #856404; border: 1.5px solid #ffc107; }
 
 /* ── Bench Strength coloring ── */
-.bench-high   { color: #4a5e3a; font-weight: 600; }
-.bench-mid    { color: #c8860a; }
-.bench-low    { color: #c0392b; font-weight: 600; }
+/* ── Tone scale (see :root) ── */
+.tone-good  { color: var(--tone-good);  font-weight: 600; }
+.tone-watch { color: var(--tone-watch); font-weight: 600; }
+.tone-alert { color: var(--tone-alert); font-weight: 600; }
+.tone-none  { color: var(--tone-none);  font-weight: 400; }
+
+/* Absence of data — deliberately quiet, so it reads as "nothing yet" rather
+   than as a value that failed to render. */
+.empty-state {
+  color: var(--muted);
+  font-style: italic;
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+/* ── AO card sparklines ── */
+.ao-spark-row {
+  border-top: 1px solid var(--rule);
+  padding-top: 0.5rem;
+}
+.ao-spark-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+/* Stretches to the card's full content width; the viewBox carries the shape. */
+/* Bars take their tone from the row, so the sparkline and its % chip always
+   carry the same colour — one glance tells you which way the AO is going. */
+.ao-spark {
+  display: block;
+  width: 100%;
+  height: 34px;
+  fill: currentColor;
+  opacity: 0.75;
+}
+.ao-spark-row .ao-spark-head .text-muted { color: var(--muted) !important; }
+.ao-trend {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+/* Legend entries isolate a single AO on click, so show they are actionable. */
+#chart-daily-attendance .apexcharts-legend-series {
+  cursor: pointer;
+}
+
+/* The day-of-week filter carries eight pills — let them wrap on narrow screens
+   rather than pushing the chart card sideways. */
+#daily-day-filter {
+  flex-wrap: wrap;
+  row-gap: 2px;
+}
