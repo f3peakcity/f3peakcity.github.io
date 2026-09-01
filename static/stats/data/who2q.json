@@ -399,18 +399,24 @@
   },
   {
    "name": "Cougar Town",
-   "workouts_in_window": 12,
+   "workouts_in_window": 13,
    "never_qd": [
     {
      "name": "Moline",
-     "attended": 10,
-     "rate": 0.833,
-     "last_attended": "2026-08-25"
+     "attended": 11,
+     "rate": 0.846,
+     "last_attended": "2026-09-01"
+    },
+    {
+     "name": "Hitchhiker",
+     "attended": 4,
+     "rate": 0.308,
+     "last_attended": "2026-09-01"
     },
     {
      "name": "9-Lives",
      "attended": 4,
-     "rate": 0.333,
+     "rate": 0.308,
      "last_attended": "2026-08-04"
     }
    ],
@@ -569,19 +575,13 @@
      "name": "Mr. Safety",
      "last_q": "2026-02-24",
      "days_since": 189,
-     "attended_in_window": 0
+     "attended_in_window": 1
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-03-03",
      "days_since": 182,
      "attended_in_window": 2
-    },
-    {
-     "name": "Jockey",
-     "last_q": "2026-04-07",
-     "days_since": 147,
-     "attended_in_window": 1
     },
     {
      "name": "Rooney",
