@@ -6,7 +6,79 @@ const MONTHS = ['JAN 2026','FEB 2026','MAR 2026','APR 2026','MAY 2026','JUNE 202
                  'JULY 2026','AUG 2026','SEP 2026','OCT 2026','NOV 2026','DEC 2026'];
 const POST_GOAL = 12;
 
-(async function () {
+// AOs that may be counted as an extra post on top of a Saturday workout.
+// Peak City allows double-downs on Saturdays only, and only when the second
+// post is one of these. Two regular AOs on one morning remain a single post.
+// F3 Dads has no Site rows in the sheet yet; it is listed so the rule already
+// holds the day that AO starts reporting.
+const LB_SECOND_POST_SITES = ['NeighborUp', 'WWCM', 'F3 Dads'];
+const LB_SECOND_POST_SITES_LC = new Set(LB_SECOND_POST_SITES.map(s => s.toLowerCase()));
+const LB_SATURDAY = 6;
+
+// The rule above is forward-looking: it applies from this month (YYYY-MM) on.
+// Earlier months keep the original one-post-per-record count so that nobody
+// loses a #112 month they had already finished under the old counting.
+const LB_DAY_CREDIT_FROM = '2026-08';
+
+// The MONTHS label a raw Date belongs to, or null when it falls outside 2026.
+function lbMonthLabel(dateStr) {
+  if (!dateStr || !dateStr.startsWith('2026-')) return null;
+  return MONTHS[parseInt(dateStr.slice(5, 7)) - 1] ?? null;
+}
+
+// Posts earned by one PAX on one calendar day, given that day's Site values.
+// A calendar day is worth one post however many records it carries, which
+// collapses both double-imported rows and two posts at the same AO. Saturdays
+// additionally earn one post per distinct qualifying AO (LB_SECOND_POST_SITES).
+function lbDayPostCredit(dateStr, sites) {
+  if (!sites || sites.length === 0) return 0;
+  const secondary = new Set();
+  let primary = 0;
+  sites.forEach(s => {
+    const key = String(s ?? '').trim().toLowerCase();
+    if (LB_SECOND_POST_SITES_LC.has(key)) secondary.add(key);
+    else primary++;
+  });
+  // f3ParseLocalDate reads YYYY-MM-DD as local midnight. new Date(str) would
+  // read it as UTC and land on Friday west of GMT, silently disabling every
+  // Saturday double-down.
+  const d = f3ParseLocalDate(dateStr);
+  if (!d || d.getDay() !== LB_SATURDAY) return 1;
+  return (primary > 0 ? 1 : 0) + secondary.size;
+}
+
+// Aggregates raw attendance rows into per-PAX, per-month post and Q counts.
+// Rows are grouped by PAX and calendar day before anything is summed, so the
+// day-level rules above decide what a day is worth. Qs stay a per-record tally:
+// #112 only asks whether a PAX led at least one workout during the month.
+function lbMonthlyPostCredit(rows) {
+  const agg = {};
+  const byPaxDay = {};
+  rows.forEach(r => {
+    const name = (r['Name'] || '').trim();
+    if (!name) return;
+    const date = (r['Date'] || '').trim();
+    const month = lbMonthLabel(date);
+    if (!month) return;
+    if (!agg[name]) agg[name] = { posts: {}, qs: {} };
+    if (!byPaxDay[name]) byPaxDay[name] = {};
+    if (!byPaxDay[name][date]) byPaxDay[name][date] = { month, sites: [] };
+    byPaxDay[name][date].sites.push(r['Site']);
+    if ((r['Role'] || '').trim() === 'Q')
+      agg[name].qs[month] = (agg[name].qs[month] || 0) + 1;
+  });
+  Object.entries(byPaxDay).forEach(([name, days]) => {
+    Object.entries(days).forEach(([date, day]) => {
+      const credit = date.slice(0, 7) >= LB_DAY_CREDIT_FROM
+        ? lbDayPostCredit(date, day.sites)
+        : day.sites.length;
+      agg[name].posts[day.month] = (agg[name].posts[day.month] || 0) + credit;
+    });
+  });
+  return agg;
+}
+
+async function lbInit() {
   const PC_REGULAR_WEEKS = 26;
   const PC_REGULAR_RECENT_WEEKS = 3;
   const PC_REGULAR_RECENT_MIN = 3;
@@ -60,24 +132,8 @@ const POST_GOAL = 12;
       ? activeMonths.slice(0, -1)
       : activeMonths;
 
-    function dateToMonthLabel(dateStr) {
-      if (!dateStr || !dateStr.startsWith('2026-')) return null;
-      return MONTHS[parseInt(dateStr.slice(5, 7)) - 1] ?? null;
-    }
-
     // Aggregate 2026 records into per-PAX post+Q counts
-    const rawRows2026 = allRawRows.filter(r => (r['Date'] || '').startsWith('2026-'));
-
-    const paxAgg = {};
-    rawRows2026.forEach(r => {
-      const name = r['Name'].trim();
-      const month = dateToMonthLabel(r['Date']);
-      if (!month) return;
-      if (!paxAgg[name]) paxAgg[name] = { posts: {}, qs: {} };
-      paxAgg[name].posts[month] = (paxAgg[name].posts[month] || 0) + 1;
-      if ((r['Role'] || '').trim() === 'Q')
-        paxAgg[name].qs[month] = (paxAgg[name].qs[month] || 0) + 1;
-    });
+    const paxAgg = lbMonthlyPostCredit(allRawRows);
 
     allRows = Object.entries(paxAgg).map(([name, agg]) => {
       const row = { 'PAX': name, 'PC Reg.': pcRegMap[name] ? 'TRUE' : 'FALSE' };
@@ -313,4 +369,17 @@ const POST_GOAL = 12;
       <table class="table table-sm lb-heatmap">${thead}<tbody>${tbody}</tbody></table>
     </div>`;
   }
-})();
+}
+
+// Browser only — requiring this file from a Node test must not start a fetch.
+if (typeof document !== 'undefined') {
+  lbInit();
+}
+
+// Export for Node.js tests
+if (typeof module !== 'undefined') {
+  module.exports = {
+    LB_SECOND_POST_SITES, LB_DAY_CREDIT_FROM,
+    lbMonthLabel, lbDayPostCredit, lbMonthlyPostCredit,
+  };
+}
