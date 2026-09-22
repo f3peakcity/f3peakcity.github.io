@@ -2,25 +2,124 @@
 // Source: Raw/Master attendance tab (single fetch, aggregated client-side)
 // Note: the "Site" field in allRows holds the PAX name (matches old PAX tab convention)
 
+const PAX_EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+// Non-AO sites that should not appear as "real" AOs (mirrors ao.js).
+const PAX_AO_DISPLAY_EXCLUSIONS = [
+  'Convergence',
+  'Raiders of the Locked Park',
+  'Who let the dogs out (possible new AO?) Hunter street',
+  'Shieldlock',
+  'Ruck the Hall',
+  'Q-Source Q',
+  'Floppy Ruck',
+  'Disturbing the Peace (DTP)',
+  '#ao-mon-ateam',
+];
+const PAX_AO_EXCLUSIONS_LC = new Set(PAX_AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
+const PAX_MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
+
+// Pure aggregation: allRawRows -> one row per PAX (PC Regular status, totals, trajectory).
+function paxBuildRows(allRawRows, now) {
+  const cutoff26w = new Date(now - 26 * PAX_MS_PER_WEEK);
+  const cutoff3w  = new Date(now - 3  * PAX_MS_PER_WEEK);
+
+  const pcWindowCounts = {};
+  allRawRows.forEach(r => {
+    const site = (r['Site'] || '').trim();
+    if (PAX_EXCLUDED_SITES.includes(site)) return;
+    const d = f3ParseLocalDate(r['Date']);
+    if (!d || d < cutoff26w) return;
+    const name = r['Name'].trim();
+    if (!pcWindowCounts[name]) pcWindowCounts[name] = { w26: 0, w3: 0 };
+    pcWindowCounts[name].w26++;
+    if (d >= cutoff3w) pcWindowCounts[name].w3++;
+  });
+  const pcRegMap = {};
+  Object.entries(pcWindowCounts).forEach(([name, c]) => {
+    pcRegMap[name] = c.w26 >= 26 || c.w3 >= 3;
+  });
+
+  const paxMap = {};
+  allRawRows.forEach(r => {
+    const name = r['Name'].trim();
+    if (!paxMap[name]) paxMap[name] = { records: [] };
+    paxMap[name].records.push(r);
+  });
+
+  return Object.entries(paxMap).map(([name, agg]) => {
+    const paxRecords = agg.records;
+    const totalPost = paxRecords.length;
+    const totalQ = paxRecords.filter(r => r['Role'] === 'Q').length;
+
+    const dates = paxRecords.map(r => r['Date']).sort();
+    const minDate = dates[0];
+    const maxDate = dates[dates.length - 1];
+
+    const lastSeenDate = f3ParseLocalDate(maxDate);
+    const lastSeenDays = lastSeenDate
+      ? Math.floor((now - lastSeenDate) / 86400000)
+      : null;
+
+    const last3wkCount = paxRecords.filter(r => {
+      const d = f3ParseLocalDate(r['Date']);
+      return d && d >= cutoff3w;
+    }).length;
+
+    const firstDate = f3ParseLocalDate(minDate);
+    const daysSinceFirstPost = firstDate ? (now - firstDate) / 86400000 : 0;
+    const avgWeek = totalPost / (Math.max(1, daysSinceFirstPost) / 7);
+
+    const siteCounts = {};
+    paxRecords.forEach(r => {
+      const s = (r['Site'] || '').trim();
+      if (s && !PAX_EXCLUDED_SITES.includes(s)) siteCounts[s] = (siteCounts[s] || 0) + 1;
+    });
+    const favAO = Object.entries(siteCounts).length
+      ? Object.entries(siteCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0]
+      : '—';
+
+    const dayCounts = {};
+    paxRecords.forEach(r => {
+      const day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date(r['Date'] + 'T00:00:00').getDay()];
+      dayCounts[day] = (dayCounts[day] || 0) + 1;
+    });
+    const favDay = Object.entries(dayCounts).length
+      ? Object.entries(dayCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0]
+      : '—';
+
+    // Trajectory (O(1) lookup — pcWindowCounts already computed 26w posts excluding PAX_EXCLUDED_SITES)
+    const last26wPosts = (pcWindowCounts[name] || { w26: 0 }).w26;
+    const avg3w  = last3wkCount / 3;
+    const avg26w = last26wPosts / 26;
+    const trajectory =
+      last3wkCount >= 2 && avg3w > avg26w ? '🔥 Heating Up' :
+      avg3w < avg26w                       ? '❄️ Cooling Off' :
+      '➡️ Holding Steady';
+
+    return {
+      'Site': name,
+      'PC Regular?': pcRegMap[name] ? 'TRUE' : 'FALSE',
+      'Total Post': totalPost,
+      'Total Q': totalQ,
+      'Q/P Ratio': totalPost > 0 ? totalQ / totalPost : 0,
+      'Last Seen': lastSeenDays,
+      'Last 3 wk': last3wkCount,
+      'Avg/Week': avgWeek,
+      'Avg/Last 3 Weeks': last3wkCount / 3,
+      'Favorite AO': favAO,
+      'Favorite Day of the week': favDay,
+      'Trajectory': trajectory,
+      // Per-AO post counts for this PAX (excludes PAX_EXCLUDED_SITES; PAX_AO_DISPLAY_EXCLUSIONS
+      // filtered at chart time). Non-display field used by renderPopularAoChart.
+      '_siteCounts': siteCounts,
+    };
+  }).sort((a, b) => a['Site'].localeCompare(b['Site']));
+}
+
 (async function () {
-  const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
-  // Non-AO sites that should not appear as "real" AOs (mirrors ao.js).
-  const AO_DISPLAY_EXCLUSIONS = [
-    'Convergence',
-    'Raiders of the Locked Park',
-    'Who let the dogs out (possible new AO?) Hunter street',
-    'Shieldlock',
-    'Ruck the Hall',
-    'Q-Source Q',
-    'Floppy Ruck',
-    'Disturbing the Peace (DTP)',
-    '#ao-mon-ateam',
-  ];
-  const AO_EXCLUSIONS_LC = new Set(AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
-  const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
+  const EXCLUDED_SITES = PAX_EXCLUDED_SITES;
+  const AO_EXCLUSIONS_LC = PAX_AO_EXCLUSIONS_LC;
   const now = new Date();
-  const cutoff26w = new Date(now - 26 * MS_PER_WEEK);
-  const cutoff3w  = new Date(now - 3  * MS_PER_WEEK);
 
   let allRows = [];
   let filteredRows = [];
@@ -30,97 +129,7 @@
     const allRawRows = f3ParseCSV(rawCsv, 0)
       .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
 
-    const pcWindowCounts = {};
-    allRawRows.forEach(r => {
-      const site = (r['Site'] || '').trim();
-      if (EXCLUDED_SITES.includes(site)) return;
-      const d = f3ParseLocalDate(r['Date']);
-      if (!d || d < cutoff26w) return;
-      const name = r['Name'].trim();
-      if (!pcWindowCounts[name]) pcWindowCounts[name] = { w26: 0, w3: 0 };
-      pcWindowCounts[name].w26++;
-      if (d >= cutoff3w) pcWindowCounts[name].w3++;
-    });
-    const pcRegMap = {};
-    Object.entries(pcWindowCounts).forEach(([name, c]) => {
-      pcRegMap[name] = c.w26 >= 26 || c.w3 >= 3;
-    });
-
-    const paxMap = {};
-    allRawRows.forEach(r => {
-      const name = r['Name'].trim();
-      if (!paxMap[name]) paxMap[name] = { records: [] };
-      paxMap[name].records.push(r);
-    });
-
-    allRows = Object.entries(paxMap).map(([name, agg]) => {
-      const paxRecords = agg.records;
-      const totalPost = paxRecords.length;
-      const totalQ = paxRecords.filter(r => r['Role'] === 'Q').length;
-
-      const dates = paxRecords.map(r => r['Date']).sort();
-      const minDate = dates[0];
-      const maxDate = dates[dates.length - 1];
-
-      const lastSeenDate = f3ParseLocalDate(maxDate);
-      const lastSeenDays = lastSeenDate
-        ? Math.floor((now - lastSeenDate) / 86400000)
-        : null;
-
-      const last3wkCount = paxRecords.filter(r => {
-        const d = f3ParseLocalDate(r['Date']);
-        return d && d >= cutoff3w;
-      }).length;
-
-      const firstDate = f3ParseLocalDate(minDate);
-      const daysSinceFirstPost = firstDate ? (now - firstDate) / 86400000 : 0;
-      const avgWeek = totalPost / (Math.max(1, daysSinceFirstPost) / 7);
-
-      const siteCounts = {};
-      paxRecords.forEach(r => {
-        const s = (r['Site'] || '').trim();
-        if (s && !EXCLUDED_SITES.includes(s)) siteCounts[s] = (siteCounts[s] || 0) + 1;
-      });
-      const favAO = Object.entries(siteCounts).length
-        ? Object.entries(siteCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0]
-        : '—';
-
-      const dayCounts = {};
-      paxRecords.forEach(r => {
-        const day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date(r['Date'] + 'T00:00:00').getDay()];
-        dayCounts[day] = (dayCounts[day] || 0) + 1;
-      });
-      const favDay = Object.entries(dayCounts).length
-        ? Object.entries(dayCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0]
-        : '—';
-
-      // Trajectory (O(1) lookup — pcWindowCounts already computed 26w posts excluding EXCLUDED_SITES)
-      const last26wPosts = (pcWindowCounts[name] || { w26: 0 }).w26;
-      const avg3w  = last3wkCount / 3;
-      const avg26w = last26wPosts / 26;
-      const trajectory =
-        last3wkCount >= 2 && avg3w > avg26w ? '🔥 Heating Up' :
-        avg3w < avg26w                       ? '❄️ Cooling Off' :
-        '➡️ Holding Steady';
-
-      return {
-        'Site': name,
-        'PC Regular?': pcRegMap[name] ? 'TRUE' : 'FALSE',
-        'Total Post': totalPost,
-        'Total Q': totalQ,
-        'Q/P Ratio': totalPost > 0 ? totalQ / totalPost : 0,
-        'Last Seen': lastSeenDays,
-        'Last 3 wk': last3wkCount,
-        'Avg/Week': avgWeek,
-        'Avg/Last 3 Weeks': last3wkCount / 3,
-        'Favorite AO': favAO,
-        'Favorite Day of the week': favDay,
-        'Trajectory': trajectory,
-        // Per-AO post counts for this PAX (excludes EXCLUDED_SITES; AO_DISPLAY_EXCLUSIONS
-        // filtered at chart time). Non-display field used by renderPopularAoChart.
-        '_siteCounts': siteCounts,
-      };
-    }).sort((a, b) => a['Site'].localeCompare(b['Site']));
+    allRows = paxBuildRows(allRawRows, now);
 
   } catch (e) {
     f3ShowError('pax-table-container', e.message);
@@ -429,3 +438,7 @@
     }).join('');
   }
 })();
+
+if (typeof module !== 'undefined') {
+  module.exports = { paxBuildRows };
+}
