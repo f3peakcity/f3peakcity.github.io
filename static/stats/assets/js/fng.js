@@ -2,70 +2,78 @@
 // Source: Raw/Master tab — computes FNG data from attendance records
 // Status values: '👻 Ghosted', '⏳ Pending (Grace Period)', '🌱 Developing (Returned)', '🛡️ Regular'
 
+const FNG_EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+
+function fngIsoToMdy(isoDate) {
+  const [y, m, d] = isoDate.split('-');
+  return `${parseInt(m)}/${parseInt(d)}/${y}`;
+}
+
+function fngStatus(totalPosts, firstPostDate, now) {
+  const daysSince = Math.floor((now - firstPostDate) / 86400000);
+  if (totalPosts >= 10)                        return '🛡️ Regular';
+  if (totalPosts > 1)                          return '🌱 Developing (Returned)';
+  if (totalPosts === 1 && daysSince > 14)      return '👻 Ghosted';
+  if (totalPosts === 1 && daysSince <= 14)     return '⏳ Pending (Grace Period)';
+  return 'Checking Data...';
+}
+
+// Pure aggregation: allRawRows -> one row per PAX who has ever been tagged FNG.
+function fngBuildRows(allRawRows, now) {
+  const byName = {};
+  allRawRows.forEach(r => {
+    const name = r['Name'].trim();
+    if (!byName[name]) byName[name] = [];
+    byName[name].push(r);
+  });
+
+  const rows = [];
+  Object.entries(byName).forEach(([name, records]) => {
+    const fngRecord = records.find(r => r['Role'] === 'FNG' && !FNG_EXCLUDED_SITES.includes((r['Site'] || '').trim()));
+    if (!fngRecord) return;
+
+    const sorted = records.slice().sort((a, b) => a['Date'].localeCompare(b['Date']));
+    const firstPostIso = fngRecord['Date'];
+    const firstPostDate = f3ParseLocalDate(firstPostIso);
+    const firstPost = fngIsoToMdy(firstPostIso);
+
+    const secondRecord = sorted.length >= 2 ? sorted[1] : null;
+    const secondPost = secondRecord ? fngIsoToMdy(secondRecord['Date']) : '';
+    let daysTo2nd = '';
+    if (secondRecord) {
+      const secondDate = f3ParseLocalDate(secondRecord['Date']);
+      daysTo2nd = Math.floor((secondDate - firstPostDate) / 86400000);
+    }
+
+    const totalPosts = byName[name].filter(r => !FNG_EXCLUDED_SITES.includes((r['Site'] || '').trim())).length;
+    const homeAO = fngRecord['Site'];
+    const status = fngStatus(totalPosts, firstPostDate, now);
+
+    rows.push({
+      'FNG Name': name,
+      'First Post': firstPost,
+      '2nd Post': secondPost,
+      'Days to 2nd post': daysTo2nd,
+      'Total Posts to date': totalPosts,
+      'Home AO': homeAO,
+      'Status': status,
+    });
+  });
+  return rows;
+}
+
 (async function () {
   let allRows = [];
   let filteredRows = [];
 
   const now = new Date();
-  const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
-
-  function isoToMdy(isoDate) {
-    const [y, m, d] = isoDate.split('-');
-    return `${parseInt(m)}/${parseInt(d)}/${y}`;
-  }
-
-  function fngStatus(totalPosts, firstPostDate) {
-    const daysSince = Math.floor((now - firstPostDate) / 86400000);
-    if (totalPosts >= 10)                        return '🛡️ Regular';
-    if (totalPosts > 1)                          return '🌱 Developing (Returned)';
-    if (totalPosts === 1 && daysSince > 14)      return '👻 Ghosted';
-    if (totalPosts === 1 && daysSince <= 14)     return '⏳ Pending (Grace Period)';
-    return 'Checking Data...';
-  }
 
   try {
     const rawCsv = await f3FetchCSV('raw');
     const allRawRows = f3ParseCSV(rawCsv, 0)
       .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
 
-    const byName = {};
-    allRawRows.forEach(r => {
-      const name = r['Name'].trim();
-      if (!byName[name]) byName[name] = [];
-      byName[name].push(r);
-    });
-
-    Object.entries(byName).forEach(([name, records]) => {
-      const fngRecord = records.find(r => r['Role'] === 'FNG' && !EXCLUDED_SITES.includes((r['Site'] || '').trim()));
-      if (!fngRecord) return;
-
-      const sorted = records.slice().sort((a, b) => a['Date'].localeCompare(b['Date']));
-      const firstPostIso = fngRecord['Date'];
-      const firstPostDate = f3ParseLocalDate(firstPostIso);
-      const firstPost = isoToMdy(firstPostIso);
-
-      const secondRecord = sorted.length >= 2 ? sorted[1] : null;
-      const secondPost = secondRecord ? isoToMdy(secondRecord['Date']) : '';
-      let daysTo2nd = '';
-      if (secondRecord) {
-        const secondDate = f3ParseLocalDate(secondRecord['Date']);
-        daysTo2nd = Math.floor((secondDate - firstPostDate) / 86400000);
-      }
-
-      const totalPosts = byName[name].filter(r => !EXCLUDED_SITES.includes((r['Site'] || '').trim())).length;
-      const homeAO = fngRecord['Site'];
-      const status = fngStatus(totalPosts, firstPostDate);
-
-      allRows.push({
-        'FNG Name': name,
-        'First Post': firstPost,
-        '2nd Post': secondPost,
-        'Days to 2nd post': daysTo2nd,
-        'Total Posts to date': totalPosts,
-        'Home AO': homeAO,
-        'Status': status,
-      });
-    });
+    allRows = fngBuildRows(allRawRows, now);
   } catch (e) {
     f3ShowError('fng-table-container', e.message);
     f3ShowError('chart-fng-status', e.message);
@@ -228,3 +236,8 @@
     </tr>`).join('');
   }
 })();
+
+if (typeof module !== 'undefined') {
+  module.exports = { fngStatus, fngBuildRows };
+}
+
