@@ -237,10 +237,41 @@ function f3IsRealAo(site, opts = {}) {
   return !F3_AO_DISPLAY_EXCLUSIONS_LC.has(s);
 }
 
+// PC Regular: 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks.
+// The single implementation of this rule — pax.js and leaderboard.js both call
+// it instead of each keeping their own copy of the thresholds and windows.
+const F3_PC_REGULAR_WEEKS = 26;
+const F3_PC_REGULAR_RECENT_WEEKS = 3;
+const F3_PC_REGULAR_RECENT_MIN = 3;
+const F3_MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
+
+function f3PcRegularMap(rows, now) {
+  const cutoff26w = new Date(now - F3_PC_REGULAR_WEEKS * F3_MS_PER_WEEK);
+  const cutoff3w  = new Date(now - F3_PC_REGULAR_RECENT_WEEKS * F3_MS_PER_WEEK);
+
+  const counts = {};
+  rows.forEach(r => {
+    const site = (r['Site'] || '').trim();
+    if (!f3CountsTowardAttendance(site)) return;
+    const d = f3ParseLocalDate(r['Date']);
+    if (!d || d < cutoff26w) return;
+    const name = r['Name'].trim();
+    if (!counts[name]) counts[name] = { w26: 0, w3: 0 };
+    counts[name].w26++;
+    if (d >= cutoff3w) counts[name].w3++;
+  });
+
+  const map = {};
+  Object.entries(counts).forEach(([name, c]) => {
+    map[name] = c.w26 >= F3_PC_REGULAR_WEEKS || c.w3 >= F3_PC_REGULAR_RECENT_MIN;
+  });
+  return map;
+}
+
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
-    f3CountsTowardAttendance, f3IsRealAo,
+    f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap,
   };
 }

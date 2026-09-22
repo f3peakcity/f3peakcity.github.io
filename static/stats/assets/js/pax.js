@@ -6,23 +6,22 @@ const PAX_MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
 
 // Pure aggregation: allRawRows -> one row per PAX (PC Regular status, totals, trajectory).
 function paxBuildRows(allRawRows, now) {
-  const cutoff26w = new Date(now - 26 * PAX_MS_PER_WEEK);
   const cutoff3w  = new Date(now - 3  * PAX_MS_PER_WEEK);
 
-  const pcWindowCounts = {};
+  const pcRegMap = f3PcRegularMap(allRawRows, now);
+
+  // Trajectory needs each PAX's raw 26-week post count, which f3PcRegularMap
+  // doesn't expose (it only returns the boolean). Recomputed here rather than
+  // widening that function's return shape for a single caller.
+  const cutoff26w = new Date(now - 26 * PAX_MS_PER_WEEK);
+  const last26wPostsByName = {};
   allRawRows.forEach(r => {
     const site = (r['Site'] || '').trim();
     if (!f3CountsTowardAttendance(site)) return;
     const d = f3ParseLocalDate(r['Date']);
     if (!d || d < cutoff26w) return;
     const name = r['Name'].trim();
-    if (!pcWindowCounts[name]) pcWindowCounts[name] = { w26: 0, w3: 0 };
-    pcWindowCounts[name].w26++;
-    if (d >= cutoff3w) pcWindowCounts[name].w3++;
-  });
-  const pcRegMap = {};
-  Object.entries(pcWindowCounts).forEach(([name, c]) => {
-    pcRegMap[name] = c.w26 >= 26 || c.w3 >= 3;
+    last26wPostsByName[name] = (last26wPostsByName[name] || 0) + 1;
   });
 
   const paxMap = {};
@@ -73,8 +72,8 @@ function paxBuildRows(allRawRows, now) {
       ? Object.entries(dayCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0]
       : '—';
 
-    // Trajectory (O(1) lookup — pcWindowCounts already excludes non-attendance sites)
-    const last26wPosts = (pcWindowCounts[name] || { w26: 0 }).w26;
+    // Trajectory (O(1) lookup — last26wPostsByName already excludes non-attendance sites)
+    const last26wPosts = last26wPostsByName[name] || 0;
     const avg3w  = last3wkCount / 3;
     const avg26w = last26wPosts / 26;
     const trajectory =

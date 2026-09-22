@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo } = require('../assets/js/data.js');
+const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -182,6 +182,49 @@ test('Shieldlock gets its own card when includeShieldlock is set', () => {
 
 test('junk-AO display names are still excluded even with both options set', () => {
   assert.strictEqual(f3IsRealAo('Convergence', { includeDownrange: true, includeShieldlock: true }), false);
+});
+
+console.log('\nf3PcRegularMap — the shared PC Regular rule');
+
+const row = (date, name, site) => ({ Date: date, Name: name, Site: site || 'Half Dome' });
+const NOW = new Date('2026-08-15T12:00:00');
+
+test('26+ posts in the trailing 26 weeks is PC Regular', () => {
+  const rows = [];
+  for (let i = 0; i < 26; i++) rows.push(row('2026-08-01', 'Jockey'));
+  assert.strictEqual(f3PcRegularMap(rows, NOW)['Jockey'], true);
+});
+
+test('3+ posts in the trailing 3 weeks is PC Regular even under 26 total', () => {
+  const rows = [
+    row('2026-08-05', 'Rooney'),
+    row('2026-08-08', 'Rooney'),
+    row('2026-08-11', 'Rooney'),
+  ];
+  assert.strictEqual(f3PcRegularMap(rows, NOW)['Rooney'], true);
+});
+
+test('below both thresholds is not PC Regular', () => {
+  const rows = [row('2026-08-01', 'Sooey')];
+  assert.strictEqual(f3PcRegularMap(rows, NOW)['Sooey'], false);
+});
+
+test('exactly 26 in the 26-week window is the inclusive boundary', () => {
+  // Dated outside the 3-week window so only the 26-week count is in play.
+  const rows = [];
+  for (let i = 0; i < 25; i++) rows.push(row('2026-06-01', 'Iceman'));
+  assert.strictEqual(f3PcRegularMap(rows, NOW)['Iceman'], false);
+  rows.push(row('2026-06-01', 'Iceman'));
+  assert.strictEqual(f3PcRegularMap(rows, NOW)['Iceman'], true);
+});
+
+test('#downrange does not count toward either window', () => {
+  const rows = [
+    row('2026-08-05', 'Cataracts', '#downrange'),
+    row('2026-08-08', 'Cataracts', '#downrange'),
+    row('2026-08-11', 'Cataracts', '#downrange'),
+  ];
+  assert.ok(!f3PcRegularMap(rows, NOW)['Cataracts']);
 });
 
 // --- Summary ---
