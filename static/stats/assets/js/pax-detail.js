@@ -3,26 +3,71 @@
 // attendance tab. The PAX handle comes from the ?pax= query parameter.
 // Key columns from raw: Date, Name (PAX), Site (AO), Role (Q / P / FNG).
 
+// Unlike ao.js / leaderboard (which exclude them from region-wide AO stats),
+// this per-PAX drill-down INCLUDES #downrange and Shieldlock — on a single
+// guy's page those posts are part of his story (travel / other-region posts).
+// So PAX_DETAIL_EXCLUDED_SITES is empty here, and 'Shieldlock' is dropped from
+// the display-exclusion list. NB: the data spells it "Shieldlock" (one word),
+// which is why it lives in PAX_DETAIL_AO_DISPLAY_EXCLUSIONS on the region
+// views, not the (unused, mis-spelled 'Shield Lock') excluded-sites entry.
+const PAX_DETAIL_EXCLUDED_SITES = [];
+const PAX_DETAIL_AO_DISPLAY_EXCLUSIONS = [
+  'Convergence',
+  'Raiders of the Locked Park',
+  'Who let the dogs out (possible new AO?) Hunter street',
+  'Ruck the Hall',
+  'Q-Source Q',
+  'Floppy Ruck',
+  'Disturbing the Peace (DTP)',
+  '#ao-mon-ateam',
+];
+const PAX_DETAIL_AO_EXCLUSIONS_LC = new Set(PAX_DETAIL_AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
+
+function paxDetailIsRealAo(site) {
+  return !!site && !PAX_DETAIL_EXCLUDED_SITES.includes(site) && !PAX_DETAIL_AO_EXCLUSIONS_LC.has(site.toLowerCase());
+}
+
+// Pure aggregation: allRawRows + a PAX name -> one row per real AO in the region
+// (attended or not), sorted attended-first (by posts desc) then alphabetically.
+function paxDetailBuildPerAo(allRawRows, paxName) {
+  const allAos = new Set();
+  allRawRows.forEach(r => {
+    const site = (r['Site'] || '').trim();
+    if (paxDetailIsRealAo(site)) allAos.add(site);
+  });
+
+  const paxRows = allRawRows.filter(r => r['Name'].trim() === paxName);
+
+  const perAo = {};
+  allAos.forEach(ao => { perAo[ao] = { posts: 0, qs: 0, lastPost: null, lastQ: null }; });
+  paxRows.forEach(r => {
+    const site = (r['Site'] || '').trim();
+    if (!paxDetailIsRealAo(site)) return;
+    const a = perAo[site];
+    if (!a) return; // site not in allAos (shouldn't happen, but guard)
+    a.posts++;
+    if (!a.lastPost || r['Date'] > a.lastPost) a.lastPost = r['Date'];
+    if (r['Role'] === 'Q') {
+      a.qs++;
+      if (!a.lastQ || r['Date'] > a.lastQ) a.lastQ = r['Date'];
+    }
+  });
+
+  return Array.from(allAos)
+    .sort((x, y) => {
+      const d = perAo[y].posts - perAo[x].posts;
+      return d !== 0 ? d : x.localeCompare(y);
+    })
+    .map(ao => ({
+      'AO': ao,
+      'Posts': perAo[ao].posts,
+      'Qs': perAo[ao].qs,
+      'Last Post': perAo[ao].lastPost,
+      'Last Q': perAo[ao].lastQ,
+    }));
+}
+
 (async function () {
-  // Unlike ao.js / leaderboard (which exclude them from region-wide AO stats),
-  // this per-PAX drill-down INCLUDES #downrange and Shieldlock — on a single
-  // guy's page those posts are part of his story (travel / other-region posts).
-  // So EXCLUDED_SITES is empty here, and 'Shieldlock' is dropped from the
-  // display-exclusion list. NB: the data spells it "Shieldlock" (one word), which
-  // is why it lives in AO_DISPLAY_EXCLUSIONS on the region views, not the (unused,
-  // mis-spelled 'Shield Lock') EXCLUDED_SITES entry.
-  const EXCLUDED_SITES = [];
-  const AO_DISPLAY_EXCLUSIONS = [
-    'Convergence',
-    'Raiders of the Locked Park',
-    'Who let the dogs out (possible new AO?) Hunter street',
-    'Ruck the Hall',
-    'Q-Source Q',
-    'Floppy Ruck',
-    'Disturbing the Peace (DTP)',
-    '#ao-mon-ateam',
-  ];
-  const AO_EXCLUSIONS_LC = new Set(AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
   const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   const grid = document.getElementById('pax-ao-grid');
@@ -54,17 +99,8 @@
     return;
   }
 
-  const isRealAo = (site) =>
-    site && !EXCLUDED_SITES.includes(site) && !AO_EXCLUSIONS_LC.has(site.toLowerCase());
-
-  // Full set of real AOs across the region (so we can show a card for every AO).
-  const allAos = new Set();
-  allRawRows.forEach(r => {
-    const site = (r['Site'] || '').trim();
-    if (isRealAo(site)) allAos.add(site);
-  });
-
-  // This PAX's rows (exact, trimmed handle match).
+  // This PAX's rows (exact, trimmed handle match) — only used to short-circuit
+  // the "no activity" state; the aggregation itself re-derives this internally.
   const paxRows = allRawRows.filter(r => r['Name'].trim() === paxName);
 
   if (!paxRows.length) {
@@ -75,26 +111,12 @@
     return;
   }
 
-  // Per-AO aggregation for this PAX.
-  const perAo = {};
-  allAos.forEach(ao => { perAo[ao] = { posts: 0, qs: 0, lastPost: null, lastQ: null }; });
-  paxRows.forEach(r => {
-    const site = (r['Site'] || '').trim();
-    if (!isRealAo(site)) return;
-    const a = perAo[site];
-    if (!a) return; // site not in allAos (shouldn't happen, but guard)
-    a.posts++;
-    if (!a.lastPost || r['Date'] > a.lastPost) a.lastPost = r['Date'];
-    if (r['Role'] === 'Q') {
-      a.qs++;
-      if (!a.lastQ || r['Date'] > a.lastQ) a.lastQ = r['Date'];
-    }
-  });
+  const perAoRows = paxDetailBuildPerAo(allRawRows, paxName);
 
   // Summary stats (real AOs only, matching the cards below).
-  const totalPosts = Object.values(perAo).reduce((s, a) => s + a.posts, 0);
-  const totalQs = Object.values(perAo).reduce((s, a) => s + a.qs, 0);
-  const aosVisited = Object.values(perAo).filter(a => a.posts > 0).length;
+  const totalPosts = perAoRows.reduce((s, a) => s + a['Posts'], 0);
+  const totalQs = perAoRows.reduce((s, a) => s + a['Qs'], 0);
+  const aosVisited = perAoRows.filter(a => a['Posts'] > 0).length;
   document.getElementById('stat-posts').textContent = totalPosts.toLocaleString();
   document.getElementById('stat-qs').textContent = totalQs.toLocaleString();
   document.getElementById('stat-aos').textContent = aosVisited;
@@ -104,42 +126,37 @@
     `${totalPosts.toLocaleString()} posts · ${totalQs.toLocaleString()} Qs · ${aosVisited} AOs in 2026`;
 
   // Timeline visuals (real-AO posts only, so counts match the summary above).
-  const realRows = paxRows.filter(r => isRealAo((r['Site'] || '').trim()));
+  const realRows = paxRows.filter(r => paxDetailIsRealAo((r['Site'] || '').trim()));
   renderRhythm(realRows);
   renderMonthlyChart(realRows);
   renderFingerprint(realRows);
 
-  // Cards: every real AO, attended ones first (by posts desc), then alphabetical.
-  const ordered = Array.from(allAos).sort((x, y) => {
-    const d = perAo[y].posts - perAo[x].posts;
-    return d !== 0 ? d : x.localeCompare(y);
-  });
-
-  grid.innerHTML = ordered.map(ao => {
-    const a = perAo[ao];
-    const dim = a.posts === 0 ? ' style="opacity:0.55;"' : '';
+  // Cards: every real AO, attended ones first (by posts desc), then alphabetical
+  // — perAoRows is already sorted that way.
+  grid.innerHTML = perAoRows.map(a => {
+    const dim = a['Posts'] === 0 ? ' style="opacity:0.55;"' : '';
     return `
       <div class="card card-stat-accent"${dim}>
         <div class="card-header">
-          <h4 class="card-title">${f3Esc(ao)}</h4>
+          <h4 class="card-title">${f3Esc(a['AO'])}</h4>
         </div>
         <div class="card-body">
           <div class="row g-2">
             <div class="col-6">
               <div class="text-muted small">Posts</div>
-              <div class="fw-bold">${a.posts}</div>
+              <div class="fw-bold">${a['Posts']}</div>
             </div>
             <div class="col-6">
               <div class="text-muted small">Qs</div>
-              <div class="fw-bold">${a.qs}</div>
+              <div class="fw-bold">${a['Qs']}</div>
             </div>
             <div class="col-6">
               <div class="text-muted small">Last Post</div>
-              <div class="fw-bold">${fmtDate(a.lastPost)}</div>
+              <div class="fw-bold">${fmtDate(a['Last Post'])}</div>
             </div>
             <div class="col-6">
               <div class="text-muted small">Last Q</div>
-              <div class="fw-bold">${fmtDate(a.lastQ)}</div>
+              <div class="fw-bold">${fmtDate(a['Last Q'])}</div>
             </div>
           </div>
         </div>
@@ -268,3 +285,8 @@
     new ApexCharts(document.getElementById('chart-detail-dow'), options).render();
   }
 })();
+
+if (typeof module !== 'undefined') {
+  module.exports = { paxDetailBuildPerAo };
+}
+
