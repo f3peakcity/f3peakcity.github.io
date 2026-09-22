@@ -2,20 +2,6 @@
 // Source: Raw/Master attendance tab (single fetch, aggregated client-side)
 // Note: the "Site" field in allRows holds the PAX name (matches old PAX tab convention)
 
-const PAX_EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
-// Non-AO sites that should not appear as "real" AOs (mirrors ao.js).
-const PAX_AO_DISPLAY_EXCLUSIONS = [
-  'Convergence',
-  'Raiders of the Locked Park',
-  'Who let the dogs out (possible new AO?) Hunter street',
-  'Shieldlock',
-  'Ruck the Hall',
-  'Q-Source Q',
-  'Floppy Ruck',
-  'Disturbing the Peace (DTP)',
-  '#ao-mon-ateam',
-];
-const PAX_AO_EXCLUSIONS_LC = new Set(PAX_AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
 const PAX_MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
 
 // Pure aggregation: allRawRows -> one row per PAX (PC Regular status, totals, trajectory).
@@ -26,7 +12,7 @@ function paxBuildRows(allRawRows, now) {
   const pcWindowCounts = {};
   allRawRows.forEach(r => {
     const site = (r['Site'] || '').trim();
-    if (PAX_EXCLUDED_SITES.includes(site)) return;
+    if (!f3CountsTowardAttendance(site)) return;
     const d = f3ParseLocalDate(r['Date']);
     if (!d || d < cutoff26w) return;
     const name = r['Name'].trim();
@@ -72,7 +58,7 @@ function paxBuildRows(allRawRows, now) {
     const siteCounts = {};
     paxRecords.forEach(r => {
       const s = (r['Site'] || '').trim();
-      if (s && !PAX_EXCLUDED_SITES.includes(s)) siteCounts[s] = (siteCounts[s] || 0) + 1;
+      if (s && f3CountsTowardAttendance(s)) siteCounts[s] = (siteCounts[s] || 0) + 1;
     });
     const favAO = Object.entries(siteCounts).length
       ? Object.entries(siteCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0]
@@ -87,7 +73,7 @@ function paxBuildRows(allRawRows, now) {
       ? Object.entries(dayCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0]
       : '—';
 
-    // Trajectory (O(1) lookup — pcWindowCounts already computed 26w posts excluding PAX_EXCLUDED_SITES)
+    // Trajectory (O(1) lookup — pcWindowCounts already excludes non-attendance sites)
     const last26wPosts = (pcWindowCounts[name] || { w26: 0 }).w26;
     const avg3w  = last3wkCount / 3;
     const avg26w = last26wPosts / 26;
@@ -109,16 +95,15 @@ function paxBuildRows(allRawRows, now) {
       'Favorite AO': favAO,
       'Favorite Day of the week': favDay,
       'Trajectory': trajectory,
-      // Per-AO post counts for this PAX (excludes PAX_EXCLUDED_SITES; PAX_AO_DISPLAY_EXCLUSIONS
-      // filtered at chart time). Non-display field used by renderPopularAoChart.
+      // Per-AO post counts for this PAX (excludes non-attendance sites; junk-AO
+      // names filtered at chart time via f3IsRealAo). Non-display field used by
+      // renderPopularAoChart.
       '_siteCounts': siteCounts,
     };
   }).sort((a, b) => a['Site'].localeCompare(b['Site']));
 }
 
 (async function () {
-  const EXCLUDED_SITES = PAX_EXCLUDED_SITES;
-  const AO_EXCLUSIONS_LC = PAX_AO_EXCLUSIONS_LC;
   const now = new Date();
 
   let allRows = [];
@@ -354,8 +339,7 @@ function paxBuildRows(allRawRows, now) {
     rows.forEach(r => {
       const sc = r['_siteCounts'] || {};
       Object.keys(sc).forEach(site => {
-        if (EXCLUDED_SITES.includes(site)) return;
-        if (AO_EXCLUSIONS_LC.has(site.toLowerCase())) return;
+        if (!f3IsRealAo(site)) return;
         if ((sc[site] || 0) < 1) return;
         aoCounts[site] = (aoCounts[site] || 0) + 1;
       });

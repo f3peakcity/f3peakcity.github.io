@@ -3,6 +3,7 @@
 
 const assert = require('assert');
 
+global.f3IsRealAo = require('../assets/js/data.js').f3IsRealAo;
 const { paxDetailBuildPerAo } = require('../assets/js/pax-detail.js');
 
 let passed = 0;

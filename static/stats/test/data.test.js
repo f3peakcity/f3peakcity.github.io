@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc } = require('../assets/js/data.js');
+const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -127,6 +127,61 @@ test('escapes ampersands', () => {
 test('handles null/undefined gracefully', () => {
   assert.strictEqual(f3Esc(null), '');
   assert.strictEqual(f3Esc(undefined), '');
+});
+
+console.log('\nf3CountsTowardAttendance');
+
+test('a normal AO counts toward attendance', () => {
+  assert.strictEqual(f3CountsTowardAttendance('Half Dome'), true);
+});
+
+test('#downrange does not count toward attendance', () => {
+  assert.strictEqual(f3CountsTowardAttendance('#downrange'), false);
+});
+
+test('Shield Lock does not count toward attendance', () => {
+  assert.strictEqual(f3CountsTowardAttendance('Shield Lock'), false);
+});
+
+test('a junk-AO display name still counts toward attendance (different concept)', () => {
+  assert.strictEqual(f3CountsTowardAttendance('Convergence'), true);
+});
+
+console.log('\nf3IsRealAo — defaults (ao.js / pax.js Popular-AO chart behavior)');
+
+test('a normal AO is real', () => {
+  assert.strictEqual(f3IsRealAo('Half Dome'), true);
+});
+
+test('#downrange is excluded by default', () => {
+  assert.strictEqual(f3IsRealAo('#downrange'), false);
+});
+
+test('Shieldlock is excluded by default', () => {
+  assert.strictEqual(f3IsRealAo('Shieldlock'), false);
+});
+
+test('a junk-AO display name is excluded by default', () => {
+  assert.strictEqual(f3IsRealAo('Convergence'), false);
+});
+
+test('matching ignores case and surrounding whitespace', () => {
+  assert.strictEqual(f3IsRealAo('  CONVERGENCE  '), false);
+  assert.strictEqual(f3IsRealAo('#DOWNRANGE'), false);
+});
+
+console.log('\nf3IsRealAo — pax-detail.js carve-out (includeDownrange + includeShieldlock)');
+
+test('#downrange gets its own card when includeDownrange is set', () => {
+  assert.strictEqual(f3IsRealAo('#downrange', { includeDownrange: true, includeShieldlock: true }), true);
+});
+
+test('Shieldlock gets its own card when includeShieldlock is set', () => {
+  assert.strictEqual(f3IsRealAo('Shieldlock', { includeDownrange: true, includeShieldlock: true }), true);
+});
+
+test('junk-AO display names are still excluded even with both options set', () => {
+  assert.strictEqual(f3IsRealAo('Convergence', { includeDownrange: true, includeShieldlock: true }), false);
 });
 
 // --- Summary ---

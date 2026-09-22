@@ -203,7 +203,44 @@ function f3InitTooltips(root) {
   });
 }
 
+// Two distinct questions get asked about a Site value across the stats pages —
+// keep them as two functions rather than one, since collapsing them changes
+// real PAX's numbers (see f3IsRealAo below).
+
+// "Should this post count toward attendance-based aggregates at all" — PC
+// Regular windows and a PAX's Favorite AO. Only #downrange and Shield Lock
+// are excluded; junk/administrative AO names still count here.
+const F3_ATTENDANCE_EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
+function f3CountsTowardAttendance(site) {
+  return !F3_ATTENDANCE_EXCLUDED_SITES.includes(String(site || '').trim());
+}
+
+// "Is this a distinct, currently-tracked AO worth its own chart bar or card."
+// Excludes #downrange/Shieldlock (spelled two ways across tabs; toggle with
+// includeDownrange/includeShieldlock) plus known junk/administrative names.
+const F3_AO_DISPLAY_EXCLUSIONS_LC = new Set([
+  'convergence',
+  'raiders of the locked park',
+  'who let the dogs out (possible new ao?) hunter street',
+  'ruck the hall',
+  'q-source q',
+  'floppy ruck',
+  'disturbing the peace (dtp)',
+  '#ao-mon-ateam',
+]);
+function f3IsRealAo(site, opts = {}) {
+  const { includeDownrange = false, includeShieldlock = false } = opts;
+  const s = String(site || '').trim().toLowerCase();
+  if (!s) return false;
+  if (!includeDownrange && s === '#downrange') return false;
+  if (!includeShieldlock && (s === 'shield lock' || s === 'shieldlock')) return false;
+  return !F3_AO_DISPLAY_EXCLUSIONS_LC.has(s);
+}
+
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
-  module.exports = { f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc };
+  module.exports = {
+    f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
+    f3CountsTowardAttendance, f3IsRealAo,
+  };
 }

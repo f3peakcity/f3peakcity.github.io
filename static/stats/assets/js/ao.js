@@ -22,23 +22,6 @@ function aoBuildColorMap(aos) {
   return map;
 }
 
-const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
-const AO_DISPLAY_EXCLUSIONS = [
-  'Convergence',
-  'Raiders of the Locked Park',
-  'Who let the dogs out (possible new AO?) Hunter street',
-  'Shieldlock',
-  'Ruck the Hall',
-  'Q-Source Q',
-  'Floppy Ruck',
-  'Disturbing the Peace (DTP)',
-  '#ao-mon-ateam',
-  '#AO-MON-ATEAM'
-];
-const AO_EXCLUSIONS_LC = new Set(
-  EXCLUDED_SITES.concat(AO_DISPLAY_EXCLUSIONS).map(s => s.toLowerCase())
-);
-
 // A Date's local calendar date as ISO. Not toISOString(), which converts to UTC
 // and rolls past midnight into the next day for most of the US evening.
 function aoIsoDate(d) {
@@ -67,7 +50,7 @@ function aoDailyCutoff(dayFilter, now) {
 // True when `site` is a real, currently-tracked AO. Trims and lowercases so
 // sheet-entry drift ("  Ruck the Hall  ", "#AO-MON-ATEAM") still matches.
 function aoIsRealSite(site) {
-  return !AO_EXCLUSIONS_LC.has(String(site || '').trim().toLowerCase());
+  return f3IsRealAo(site);
 }
 
 // 'Mon'..'Sun' for an ISO date. Parses at local midnight — a bare
