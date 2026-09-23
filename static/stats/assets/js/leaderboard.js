@@ -79,10 +79,6 @@ function lbMonthlyPostCredit(rows) {
 }
 
 async function lbInit() {
-  const PC_REGULAR_WEEKS = 26;
-  const PC_REGULAR_RECENT_WEEKS = 3;
-  const PC_REGULAR_RECENT_MIN = 3;
-
   let allRows = [];
   let filteredRows = [];
   let showRegularsOnly = true;
@@ -97,28 +93,8 @@ async function lbInit() {
     const allRawRows = f3ParseCSV(rawCsv, 0)
       .filter(r => r['Name'] && r['Name'].trim());
 
-    // Compute PC Regular status from rolling windows
     const now = new Date();
-    const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
-    const cutoff26w = new Date(now - PC_REGULAR_WEEKS * MS_PER_WEEK);
-    const cutoff3w  = new Date(now - PC_REGULAR_RECENT_WEEKS * MS_PER_WEEK);
-
-    const pcWindowCounts = {};
-    allRawRows.forEach(r => {
-      const site = (r['Site'] || '').trim();
-      if (!f3CountsTowardAttendance(site)) return;
-      const d = f3ParseLocalDate(r['Date']);
-      if (!d || d < cutoff26w) return;
-      const name = r['Name'].trim();
-      if (!pcWindowCounts[name]) pcWindowCounts[name] = { w26: 0, w3: 0 };
-      pcWindowCounts[name].w26++;
-      if (d >= cutoff3w) pcWindowCounts[name].w3++;
-    });
-
-    const pcRegMap = {};
-    Object.entries(pcWindowCounts).forEach(([name, c]) => {
-      pcRegMap[name] = c.w26 >= PC_REGULAR_WEEKS || c.w3 >= PC_REGULAR_RECENT_MIN;
-    });
+    const pcRegMap = f3PcRegularMap(allRawRows, now);
 
     // Determine active months
     const todayMonthIdx = new Date().getMonth(); // 0=Jan … 11=Dec

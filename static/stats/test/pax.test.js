@@ -7,6 +7,7 @@ const dataUtils = require('../assets/js/data.js');
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
 global.f3CountsTowardAttendance = dataUtils.f3CountsTowardAttendance;
 global.f3IsRealAo = dataUtils.f3IsRealAo;
+global.f3PcRegularMap = dataUtils.f3PcRegularMap;
 
 const { paxBuildRows } = require('../assets/js/pax.js');
 
