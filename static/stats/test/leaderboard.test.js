@@ -57,10 +57,6 @@ test('Saturday workout plus NeighborUp earns 2', () => {
   assert.strictEqual(lbDayPostCredit('2026-08-15', ['Umstead Trails Collaborative', 'NeighborUp']), 2);
 });
 
-test('Saturday workout plus WWCM earns 2', () => {
-  assert.strictEqual(lbDayPostCredit('2026-08-15', ['Das Boot', 'WWCM']), 2);
-});
-
 test('Saturday workout plus F3 Dads earns 2', () => {
   assert.strictEqual(lbDayPostCredit('2026-08-15', ['Das Boot', 'F3 Dads']), 2);
 });
@@ -86,7 +82,7 @@ test('the same pairing on a Sunday earns 1 — double-downs are Saturday-only', 
 });
 
 test('the same pairing on a Wednesday earns 1', () => {
-  assert.strictEqual(lbDayPostCredit('2026-08-12', ['7th Inning Stretch', 'WWCM']), 1);
+  assert.strictEqual(lbDayPostCredit('2026-08-12', ['7th Inning Stretch', 'NeighborUp']), 1);
 });
 
 test('qualifying-site matching ignores case and surrounding whitespace', () => {
@@ -106,8 +102,8 @@ console.log('\nlbDayPostCredit — local-date convention');
 test('the date string is read as a local calendar date, not UTC', () => {
   // new Date('2026-08-15') would be UTC midnight = Fri Aug 14 west of GMT,
   // which would silently disable Saturday double-downs for the whole region.
-  assert.strictEqual(lbDayPostCredit('2026-08-15', ['Das Boot', 'WWCM']), 2);
-  assert.strictEqual(lbDayPostCredit('2026-08-16', ['Sunday Slowzy', 'WWCM']), 1);
+  assert.strictEqual(lbDayPostCredit('2026-08-15', ['Das Boot', 'NeighborUp']), 2);
+  assert.strictEqual(lbDayPostCredit('2026-08-16', ['Sunday Slowzy', 'NeighborUp']), 1);
 });
 
 test('an unparseable date still earns 1 rather than being dropped', () => {

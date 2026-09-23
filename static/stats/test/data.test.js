@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap } = require('../assets/js/data.js');
+const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -225,6 +225,30 @@ test('#downrange does not count toward either window', () => {
     row('2026-08-11', 'Cataracts', '#downrange'),
   ];
   assert.ok(!f3PcRegularMap(rows, NOW)['Cataracts']);
+});
+
+console.log('\nf3CanonicalSite — WWCM merged into NeighborUp');
+
+test('WWCM historical posts attribute to NeighborUp', () => {
+  assert.strictEqual(f3CanonicalSite('WWCM'), 'NeighborUp');
+});
+
+test('matching ignores case and surrounding whitespace', () => {
+  assert.strictEqual(f3CanonicalSite('  wwcm  '), 'NeighborUp');
+  assert.strictEqual(f3CanonicalSite('Wwcm'), 'NeighborUp');
+});
+
+test('NeighborUp posts pass through unchanged', () => {
+  assert.strictEqual(f3CanonicalSite('NeighborUp'), 'NeighborUp');
+});
+
+test('an unrelated site passes through unchanged', () => {
+  assert.strictEqual(f3CanonicalSite('Half Dome'), 'Half Dome');
+});
+
+test('handles null/empty gracefully', () => {
+  assert.strictEqual(f3CanonicalSite(''), '');
+  assert.strictEqual(f3CanonicalSite(null), '');
 });
 
 // --- Summary ---

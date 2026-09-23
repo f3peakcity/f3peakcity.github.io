@@ -10,8 +10,11 @@ const POST_GOAL = 12;
 // Peak City allows double-downs on Saturdays only, and only when the second
 // post is one of these. Two regular AOs on one morning remain a single post.
 // F3 Dads has no Site rows in the sheet yet; it is listed so the rule already
-// holds the day that AO starts reporting.
-const LB_SECOND_POST_SITES = ['NeighborUp', 'WWCM', 'F3 Dads'];
+// holds the day that AO starts reporting. WWCM (Western Wake Crisis Ministry)
+// merged into NeighborUp in Aug 2026 — historical "WWCM" rows are rewritten to
+// "NeighborUp" by f3CanonicalSite before this list is ever checked, so WWCM
+// itself no longer needs an entry here.
+const LB_SECOND_POST_SITES = ['NeighborUp', 'F3 Dads'];
 const LB_SECOND_POST_SITES_LC = new Set(LB_SECOND_POST_SITES.map(s => s.toLowerCase()));
 const LB_SATURDAY = 6;
 
@@ -91,6 +94,7 @@ async function lbInit() {
     const rawCsv = await f3FetchCSV('raw');
 
     const allRawRows = f3ParseCSV(rawCsv, 0)
+      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
       .filter(r => r['Name'] && r['Name'].trim());
 
     const now = new Date();

@@ -76,6 +76,7 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
   try {
     const rawCsv = await f3FetchCSV('raw');
     allRawRows = f3ParseCSV(rawCsv, 0)
+      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
       .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
   } catch (e) {
     f3ShowError('pax-ao-grid', e.message);
