@@ -69,6 +69,17 @@ fixed, the raw count converges and both pages agree.
 
 [issue]: https://github.com/f3peakcity/Slack_Data_Collector/issues/48
 
+## Site-name migrations
+
+When a real-world AO renames or merges, historical rows in the sheet still
+carry the old name. Rather than editing history in the sheet, `data.js`'s
+`f3CanonicalSite` rewrites known old names to their current one for every
+page, right after parsing — so a rename only needs one entry, in one place.
+
+- **WWCM → NeighborUp** — Western Wake Crisis Ministry merged into NeighborUp
+  in Aug 2026. Rows before that date still say `WWCM`; every stats page reads
+  them as `NeighborUp`.
+
 ## Other definitions
 
 - **PC Regular** — 26+ posts in the trailing 26 weeks, *or* 3+ posts in the
