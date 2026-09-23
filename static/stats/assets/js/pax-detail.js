@@ -6,25 +6,8 @@
 // Unlike ao.js / leaderboard (which exclude them from region-wide AO stats),
 // this per-PAX drill-down INCLUDES #downrange and Shieldlock — on a single
 // guy's page those posts are part of his story (travel / other-region posts).
-// So PAX_DETAIL_EXCLUDED_SITES is empty here, and 'Shieldlock' is dropped from
-// the display-exclusion list. NB: the data spells it "Shieldlock" (one word),
-// which is why it lives in PAX_DETAIL_AO_DISPLAY_EXCLUSIONS on the region
-// views, not the (unused, mis-spelled 'Shield Lock') excluded-sites entry.
-const PAX_DETAIL_EXCLUDED_SITES = [];
-const PAX_DETAIL_AO_DISPLAY_EXCLUSIONS = [
-  'Convergence',
-  'Raiders of the Locked Park',
-  'Who let the dogs out (possible new AO?) Hunter street',
-  'Ruck the Hall',
-  'Q-Source Q',
-  'Floppy Ruck',
-  'Disturbing the Peace (DTP)',
-  '#ao-mon-ateam',
-];
-const PAX_DETAIL_AO_EXCLUSIONS_LC = new Set(PAX_DETAIL_AO_DISPLAY_EXCLUSIONS.map(s => s.toLowerCase()));
-
 function paxDetailIsRealAo(site) {
-  return !!site && !PAX_DETAIL_EXCLUDED_SITES.includes(site) && !PAX_DETAIL_AO_EXCLUSIONS_LC.has(site.toLowerCase());
+  return f3IsRealAo(site, { includeDownrange: true, includeShieldlock: true });
 }
 
 // Pure aggregation: allRawRows + a PAX name -> one row per real AO in the region

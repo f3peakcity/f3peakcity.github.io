@@ -4,7 +4,9 @@
 const assert = require('assert');
 
 // ao.js render helpers use the shared globals data.js installs in the browser.
-global.f3Esc = require('../assets/js/data.js').f3Esc;
+const dataUtils = require('../assets/js/data.js');
+global.f3Esc = dataUtils.f3Esc;
+global.f3IsRealAo = dataUtils.f3IsRealAo;
 const {
   AO_PALETTE, aoBuildColorMap, aoIsRealSite, aoDayOfWeek, aoBucketByDate,
   aoWeekMonday, aoWeeklySeriesBySite, aoTrendPct, aoSparkPoints, aoIsoDate,

@@ -82,7 +82,6 @@ async function lbInit() {
   const PC_REGULAR_WEEKS = 26;
   const PC_REGULAR_RECENT_WEEKS = 3;
   const PC_REGULAR_RECENT_MIN = 3;
-  const PC_REGULAR_EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
 
   let allRows = [];
   let filteredRows = [];
@@ -107,7 +106,7 @@ async function lbInit() {
     const pcWindowCounts = {};
     allRawRows.forEach(r => {
       const site = (r['Site'] || '').trim();
-      if (PC_REGULAR_EXCLUDED_SITES.includes(site)) return;
+      if (!f3CountsTowardAttendance(site)) return;
       const d = f3ParseLocalDate(r['Date']);
       if (!d || d < cutoff26w) return;
       const name = r['Name'].trim();
