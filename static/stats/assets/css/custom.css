@@ -434,149 +434,164 @@ th[data-sort].desc::after { content: ' ↓'; opacity: 1; color: var(--green); }
 .spinner-border { color: var(--green) !important; }
 
 /* ── Landing page ── */
+/* Redesign 2026-09-25 — designer handoff. Type scale is 184/56/40/28/18/16/15/11px,
+   nothing else; green marks exactly one thing at a time (kicker, accent KPI, arrows). */
 .landing-page { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
 
-.headline-section {
-  text-align: center;
-  padding-bottom: 1.5rem;
-  border-bottom: 4px solid var(--ink);
-  margin-bottom: 1.75rem;
-}
-.edition-label {
+/* Shared small-caps label style — every label on the landing page uses this. */
+.lbl {
   font-family: 'Open Sans', sans-serif;
-  font-size: 0.62rem;
-  letter-spacing: 0.3em;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 0.4rem;
+}
+
+.eyebrow {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  align-items: end;
+  gap: 8px 40px;
+  padding-bottom: 32px;
+  margin-bottom: 28px;
+  border-bottom: 4px solid var(--ink);
 }
 .hero-number {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
-  font-size: clamp(4rem, 14vw, 7.5rem);
-  line-height: 0.85;
+  font-size: clamp(96px, 20vw, 184px);
+  line-height: 0.8;
   color: var(--ink);
-  letter-spacing: -0.02em;
-  margin-bottom: 0.3rem;
+  letter-spacing: -0.03em;
 }
+.hero-side { padding-bottom: 6px; }
 .hero-label {
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.25em;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--green);
+}
+.hero-lede {
+  margin: 12px 0 0;
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text);
+  max-width: 34ch;
 }
 
 .stat-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-bottom: 3px solid var(--ink);
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 56px;
 }
-.stat-cell {
-  text-align: center;
-  padding: 1rem 0.5rem;
-  border-right: 1.5px solid var(--rule);
-}
-.stat-cell:last-child { border-right: none; }
+.stat-cell { padding: 24px; }
+.stat-cell:first-child { padding-left: 0; }
+.stat-cell:last-child { padding-right: 0; }
+.stat-cell + .stat-cell { border-left: 1px solid var(--rule); }
 .stat-cell .num {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 900;
-  font-size: 2.75rem;
-  line-height: 1;
-  color: var(--ink);
+  font-size: 56px;
+  line-height: 0.9;
   letter-spacing: -0.02em;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
 }
 .stat-cell .num.accent { color: var(--green); }
-.stat-cell .lbl {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.58rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
+.stat-cell .num small {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.06em;
   color: var(--muted);
-  margin-top: 0.2rem;
 }
+.stat-cell .lbl { margin-top: 10px; }
 
 .section-flag {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1rem;
+  gap: 12px;
 }
 .flag-text {
   font-family: 'Open Sans', sans-serif;
   font-weight: 700;
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
+  font-size: 11px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   background: var(--ink);
   color: var(--paper);
-  padding: 0.15rem 0.55rem;
+  padding: 5px 9px;
   white-space: nowrap;
 }
-.flag-rule {
-  flex: 1;
-  height: 2px;
-  background: var(--rule);
-}
+.flag-rule { flex: 1; height: 2px; background: var(--ink); }
 
-.dash-grid {
+.dash-list { list-style: none; margin: 56px 0 0; padding: 0; }
+.dash-item {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  border: 2px solid var(--ink);
-}
-.dash-card {
-  padding: 1.25rem 1.5rem;
-  border-right: 2px solid var(--ink);
-  border-bottom: 2px solid var(--ink);
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 6px 24px;
+  padding: 24px 8px 24px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
   text-decoration: none;
-  color: inherit;
-  display: block;
-  transition: background 0.15s;
+  transition: background 0.15s ease;
 }
-.dash-card:nth-child(2n) { border-right: none; }
-.dash-grid > .dash-card:nth-last-child(-n+2) { border-bottom: none; }
-.dash-card:hover { background: var(--green-05); color: inherit; text-decoration: none; }
-.dash-card { cursor: pointer; }
-
-.card-title-tag {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin-bottom: 0.5rem;
-}
-.card-deck-text {
-  font-family: 'Lora', serif;
-  font-size: 0.78rem;
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.6;
-  margin-bottom: 0.7rem;
-}
-.card-stat-line {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  border-top: 1px solid var(--rule);
-  padding-top: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.card-stat-line .stat-num {
+.dash-item:hover { background: var(--green-05); color: var(--ink); text-decoration: none; }
+.dash-idx {
   font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 1rem;
-  color: var(--ink);
-  letter-spacing: 0;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
-.card-arrow { color: var(--green); font-size: 1rem; }
+.dash-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(30px, 5vw, 40px);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.dash-desc {
+  margin: 10px 0 0;
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text);
+  max-width: 52ch;
+}
+.dash-meta { display: flex; align-items: baseline; gap: 14px; white-space: nowrap; }
+.dash-arrow { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 24px; color: var(--green); }
+
+@media (max-width: 560px) {
+  .dash-item { grid-template-columns: 28px minmax(0, 1fr); }
+  .dash-meta { grid-column: 2; }
+  .stat-cell:first-child, .stat-cell:last-child { padding-left: 0; padding-right: 0; }
+  .stat-cell + .stat-cell { border-left: 0; border-top: 1px solid var(--rule); }
+}
 
 /* ── Leaderboard heatmap (Year at a Glance table) ── */
 .lb-heatmap td { text-align: center; font-size: 0.8rem; padding: 0.35rem 0.5rem; min-width: 52px; }

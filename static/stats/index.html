@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css?v=20260710a">
+  <link rel="stylesheet" href="assets/css/custom.css?v=20260925a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -36,6 +36,7 @@
           <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
           <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
           <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
         </ul>
       </div>
     </div>
@@ -44,10 +45,17 @@
   <div class="page-wrapper">
     <div class="landing-page">
 
-      <div class="headline-section">
-        <div class="edition-label">All-time region total</div>
+      <div class="eyebrow lbl">
+        <span>All-time region total</span>
+        <span>Apex, NC</span>
+      </div>
+
+      <div class="hero">
         <div class="hero-number" id="hero-posts">—</div>
-        <div class="hero-label" title="Total workout posts recorded in 2026">Posts &amp; Counting ↑</div>
+        <div class="hero-side">
+          <div class="hero-label" title="Total workout posts recorded in 2026">Posts &amp; Counting ↑</div>
+          <p class="hero-lede">Every post in the gloom, logged. Pick a dashboard below to see where the region stands.</p>
+        </div>
       </div>
 
       <div class="stat-row">
@@ -60,8 +68,8 @@
           <div class="lbl" title="Distinct AO sites with at least one 2026 workout (excludes #downrange and Shield Lock)">Active AOs</div>
         </div>
         <div class="stat-cell">
-          <div class="num accent" id="stat-fng-retention">—</div>
-          <div class="lbl" title="Of 2026 FNGs, how many reached 10+ posts (🛡️ Regular status) — shown as count and retention %">FNG → Regular</div>
+          <div class="num accent"><span id="stat-fng-pct">—</span><small id="stat-fng-ratio"></small></div>
+          <div class="lbl" title="Of 2026 FNGs, how many reached 10+ posts (🛡️ Regular status)">FNG → Regular</div>
         </div>
       </div>
 
@@ -70,45 +78,43 @@
         <span class="flag-rule"></span>
       </div>
 
-      <div class="dash-grid">
-
-        <a class="dash-card" href="ao.html">
-          <div class="card-title-tag"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>AO Stats</div>
-          <div class="card-deck-text">Attendance trends, Q rotation frequency, and FNG count broken down by workout location.</div>
-          <div class="card-stat-line">
-            <span><span class="stat-num" id="landing-ao-stat">—</span> active AOs</span>
-            <span class="card-arrow">→</span>
+      <ul class="dash-list">
+        <li><a class="dash-item" href="ao.html">
+          <span class="dash-idx">01</span>
+          <div>
+            <div class="dash-title">AO Stats</div>
+            <p class="dash-desc">Attendance trends, Q rotation, and FNG count by workout location.</p>
           </div>
-        </a>
+          <div class="dash-meta"><span class="lbl" id="meta-aos">—</span><span class="dash-arrow">→</span></div>
+        </a></li>
 
-        <a class="dash-card" href="pax.html">
-          <div class="card-title-tag"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>PAX Stats</div>
-          <div class="card-deck-text">Total posts, Q count, home AO, and last-seen date for every PAX in the region.</div>
-          <div class="card-stat-line">
-            <span><span class="stat-num" id="landing-pax-stat">—</span> PAX in the region</span>
-            <span class="card-arrow">→</span>
+        <li><a class="dash-item" href="pax.html">
+          <span class="dash-idx">02</span>
+          <div>
+            <div class="dash-title">PAX Stats</div>
+            <p class="dash-desc">Posts, Qs, home AO, and last-seen date for every PAX in the region.</p>
           </div>
-        </a>
+          <div class="dash-meta"><span class="lbl" id="meta-pax">—</span><span class="dash-arrow">→</span></div>
+        </a></li>
 
-        <a class="dash-card" href="fng.html">
-          <div class="card-title-tag"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>FNG Stats</div>
-          <div class="card-deck-text">Track every FNG from their first post through their first 60 days in the gloom.</div>
-          <div class="card-stat-line">
-            <span><span class="stat-num" id="landing-fng-stat">—</span> FNGs tracked this year</span>
-            <span class="card-arrow">→</span>
+        <li><a class="dash-item" href="fng.html">
+          <span class="dash-idx">03</span>
+          <div>
+            <div class="dash-title">FNG Stats</div>
+            <p class="dash-desc">Every FNG from first post through their first 60 days in the gloom.</p>
           </div>
-        </a>
+          <div class="dash-meta"><span class="lbl" id="meta-fngs">—</span><span class="dash-arrow">→</span></div>
+        </a></li>
 
-        <a class="dash-card" href="leaderboard.html">
-          <div class="card-title-tag"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-1px;margin-right:4px"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>#112 Leaderboard</div>
-          <div class="card-deck-text">12 posts per month. Who's leading the charge? Updated live from Google Sheets.</div>
-          <div class="card-stat-line">
-            <span><span class="stat-num" id="landing-lb-stat">—</span> PAX in the crew</span>
-            <span class="card-arrow">→</span>
+        <li><a class="dash-item" href="leaderboard.html">
+          <span class="dash-idx">04</span>
+          <div>
+            <div class="dash-title">#112 Leaderboard</div>
+            <p class="dash-desc">12 posts a month. Who's leading the charge? Updated live.</p>
           </div>
-        </a>
-
-      </div>
+          <div class="dash-meta"><span class="lbl" id="meta-lb">—</span><span class="dash-arrow">→</span></div>
+        </a></li>
+      </ul>
 
     </div>
     <footer class="stats-footer">
@@ -129,8 +135,8 @@
   }
 
   function setAll(val) {
-    ['hero-posts','stat-pax','landing-pax-stat','stat-aos','landing-ao-stat',
-     'landing-fng-stat','landing-lb-stat','stat-fng-retention'].forEach(id => setEl(id, val));
+    ['hero-posts','stat-pax','stat-aos','stat-fng-pct','stat-fng-ratio',
+     'meta-aos','meta-pax','meta-fngs','meta-lb'].forEach(id => setEl(id, val));
   }
 
   try {
@@ -156,16 +162,16 @@
     const regularCount = [...fngNames].filter(n => (postsByName[n] || 0) >= 10).length;
     const fngCount = fngNames.size;
     const retentionPct = fngCount > 0 ? Math.round((regularCount / fngCount) * 100) : 0;
-    const retentionText = `${regularCount} of ${fngCount} (${retentionPct}%)`;
 
     setEl('hero-posts', totalPosts.toLocaleString());
     setEl('stat-pax', totalPax);
-    setEl('landing-pax-stat', totalPax);
     setEl('stat-aos', activeAOs);
-    setEl('landing-ao-stat', activeAOs);
-    setEl('landing-fng-stat', totalFngs);
-    setEl('landing-lb-stat', totalPax);
-    setEl('stat-fng-retention', retentionText);
+    setEl('stat-fng-pct', `${retentionPct}%`);
+    setEl('stat-fng-ratio', `${regularCount} of ${fngCount}`);
+    setEl('meta-aos', `${activeAOs} AOs`);
+    setEl('meta-pax', `${totalPax} PAX`);
+    setEl('meta-fngs', `${totalFngs} FNGs · 2026`);
+    setEl('meta-lb', `${totalPax} PAX`);
   } catch (e) {
     setAll('—');
   }
