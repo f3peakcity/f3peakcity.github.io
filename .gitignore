@@ -1,5 +1,7 @@
 /public/
 /resources/
+/_vendor/
+__pycache__/
 .hugo_build.lock
 .superpowers/
 
