@@ -140,7 +140,8 @@ function f3ApexOptions(over) {
   return f3Merge({
     chart: { toolbar: { show: false }, fontFamily: F3_UI_FONT, background: 'transparent', foreColor: F3_MUTED },
     colors: [F3_INK],
-    grid: { show: false, padding: { left: 0, right: 0 } },
+    grid: { show: false, padding: { left: 12, right: 0 } },
+    fill: { opacity: 1 },
     dataLabels: { enabled: false },
     plotOptions: { bar: { borderRadius: 0 } },
     states: { hover: { filter: { type: 'darken', value: 0.85 } } },

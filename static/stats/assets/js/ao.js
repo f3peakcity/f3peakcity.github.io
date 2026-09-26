@@ -372,8 +372,14 @@ async function aoInit() {
     });
 
   } catch (e) {
-    f3ShowError('ao-table-container', e.message);
-    f3ShowError('ao-cards-grid', e.message);
+    ['ao-table-container', 'ao-cards-grid', 'chart-daily-attendance', 'chart-weekly-attendance',
+      'chart-ao-attendance', 'chart-ao-fngs'].forEach(id => f3ShowError(id));
+    return;
+  }
+
+  if (!allRows.length) {
+    ['ao-table-container', 'ao-cards-grid', 'chart-daily-attendance', 'chart-weekly-attendance',
+      'chart-ao-attendance', 'chart-ao-fngs'].forEach(id => f3ShowEmpty(id, 'No 2026 workouts logged yet'));
     return;
   }
 
@@ -385,7 +391,8 @@ async function aoInit() {
   aoColorMap = aoBuildColorMap(rankedAos);
   weeklyBySite = aoWeeklySeriesBySite(allRawRows, { cutoffStr: rangeCutoffStr, todayStr }).bySite;
 
-  filteredRows = [...allRows];
+  // Busiest-per-workout first, so the table opens on the AOs that matter most.
+  filteredRows = [...allRows].sort((a, b) => b['Avg/Meeting'] - a['Avg/Meeting']);
   renderAll();
   setupDayFilter();
 
@@ -404,8 +411,6 @@ async function aoInit() {
     renderAOCards(filteredRows);
     renderTable(filteredRows);
     setupSortable();
-    // Init themed tooltips for static labels + freshly rendered cards/headers.
-    f3InitTooltips();
   }
 
   // Weekly totals only. The per-AO breakdown lives in the daily chart above;
@@ -425,35 +430,37 @@ async function aoInit() {
     });
 
     const weeks = Object.keys(weekTotals).sort();
-    if (!weeks.length) return;
+    if (!weeks.length) { f3ShowEmpty('chart-weekly-attendance', 'No completed weeks yet'); return; }
 
     const labels = weeks.map(shortDate);
     const data = weeks.map(w => weekTotals[w]);
     const avg = Math.round(data.reduce((a, b) => a + b, 0) / data.length);
+    const peak = f3MaxIndex(data);
 
     const rangeEl = document.getElementById('weekly-attendance-range');
     if (rangeEl) {
       rangeEl.textContent =
-        `${labels[0]} – ${labels[labels.length - 1]} · ${weeks.length} weeks · avg ${avg}/wk`;
+        `${labels[0]} – ${labels[labels.length - 1]} · avg ${avg}/wk · peak ${data[peak]}`;
     }
 
-    const options = {
-      chart: { type: 'bar', height: 340, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent', animations: { enabled: false } },
+    const options = f3ApexOptions({
+      chart: { type: 'bar', height: 300, animations: { enabled: false } },
       series: [{ name: 'PAX', data }],
-      xaxis: { categories: labels, labels: { rotate: -45, style: { fontSize: '10px' } }, tickAmount: 13 },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
+      xaxis: { categories: labels, labels: { rotate: -45, hideOverlappingLabels: true }, tickAmount: 13 },
+      // The peak week is the one green bar.
+      colors: f3HighlightAt(peak),
       plotOptions: { bar: { columnWidth: '70%', dataLabels: { position: 'top' } } },
       // The count above each bar is the point of this chart now.
       dataLabels: {
         enabled: true,
         offsetY: -18,
-        style: { fontSize: '10px', fontWeight: 700, colors: ['#1a1a1a'] },
+        style: { fontSize: '11px', fontFamily: F3_DISPLAY_FONT, fontWeight: 800, colors: [F3_INK] },
       },
-      yaxis: { title: { text: 'PAX' }, min: 0, forceNiceScale: true },
+      yaxis: { show: false, min: 0, forceNiceScale: true },
       legend: { show: false },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-    };
+      // 26 printed counts collide on a phone; the tooltip carries them there.
+      responsive: [{ breakpoint: 600, options: { dataLabels: { enabled: false } } }],
+    });
 
     if (weeklyChart) {
       weeklyChart.updateOptions(options);
@@ -491,8 +498,7 @@ async function aoInit() {
 
     if (!dates.length) {
       if (dailyChart) { dailyChart.destroy(); dailyChart = null; }
-      container.innerHTML =
-        '<p class="text-muted p-3 mb-0">No sessions on this day in the last 6 months.</p>';
+      f3ShowEmpty('chart-daily-attendance', 'No sessions on this day in the last 6 months');
       if (rangeEl) rangeEl.textContent = '';
       return;
     }
@@ -513,27 +519,26 @@ async function aoInit() {
 
     updateDailyReadout(dates, byDate);
 
-    const options = {
+    // The one chart on the site that keeps a multi-color palette: 20+ stacked
+    // AOs cannot be told apart in ink and green alone.
+    const options = f3ApexOptions({
       chart: {
-        type: 'bar', stacked: true, height: 460, toolbar: { show: false },
-        fontFamily: "'Open Sans', sans-serif", background: 'transparent',
+        type: 'bar', stacked: true, height: 460,
         animations: { enabled: false },
         events: { legendClick: onDailyLegendClick },
       },
       series,
       xaxis: {
         categories: labels,
-        labels: { rotate: -45, style: { fontSize: '10px' }, hideOverlappingLabels: true },
+        labels: { rotate: -45, hideOverlappingLabels: true },
         tickAmount: Math.min(13, dates.length),
         tickPlacement: 'on',
       },
       colors: aos.map(ao => aoColorMap[ao]),
-      grid: { borderColor: '#c8bfa8' },
       plotOptions: { bar: { columnWidth: dailyDay ? '80%' : '95%' } },
-      dataLabels: { enabled: false },
-      yaxis: { title: { text: 'PAX' }, min: 0, forceNiceScale: true },
+      yaxis: { min: 0, forceNiceScale: true },
       legend: {
-        position: 'bottom', fontSize: '11px', fontFamily: "'Open Sans', sans-serif",
+        position: 'bottom',
         itemMargin: { horizontal: 6, vertical: 2 },
         // We isolate on click instead of Apex's default toggle-one-off.
         onItemClick: { toggleDataSeries: false },
@@ -541,13 +546,11 @@ async function aoInit() {
       tooltip: {
         shared: false,
         intersect: true,
-        theme: 'light',
-        style: { fontFamily: "'Open Sans', sans-serif" },
         // Axis labels are abbreviated and repeat across months; the tooltip
         // carries the unambiguous date.
         x: { formatter: (val, opts) => (opts && fullLabels[opts.dataPointIndex]) || val },
       },
-    };
+    });
 
     const draw = () => {
       dailyChart = new ApexCharts(container, options);
@@ -612,17 +615,13 @@ async function aoInit() {
     const group = document.getElementById('daily-day-filter');
     if (!group) return;
     group.addEventListener('click', e => {
-      const btn = e.target.closest('.filter-toggle-btn');
+      const btn = e.target.closest('button');
       if (!btn || !group.contains(btn)) return;
       const day = btn.dataset.day || '';
       if (day === dailyDay) return;
       dailyDay = day;
       dailyIsolatedAo = null;
-      group.querySelectorAll('.filter-toggle-btn').forEach(b => {
-        const on = b === btn;
-        b.classList.toggle('active', on);
-        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-      });
+      f3SetPressed(btn);
       renderDailyAttendance();
     });
   }
@@ -647,16 +646,8 @@ async function aoInit() {
     const sorted = [...rows]
       .filter(r => parseFloat(r['Avg/Meeting']) > 0)
       .sort((a, b) => parseFloat(b['Avg/Meeting']) - parseFloat(a['Avg/Meeting']));
-    const options = {
-      chart: { type: 'bar', height: Math.max(260, sorted.length * 28), toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'Avg Attendance', data: sorted.map(r => parseFloat(r['Avg/Meeting']).toFixed(1)) }],
-      xaxis: { categories: sorted.map(r => r['Site']) },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { horizontal: true, barHeight: '65%' } },
-      dataLabels: { enabled: true, style: { fontSize: '11px' } },
-      yaxis: { labels: { style: { fontSize: '11px' } } },
-    };
+    const options = aoRankedBarOptions(sorted.map(r => r['Site']),
+      'Avg attendance', sorted.map(r => parseFloat(r['Avg/Meeting']).toFixed(1)));
     if (attendanceChart) { attendanceChart.updateOptions(options); }
     else { f3LazyChart('chart-ao-attendance', () => { attendanceChart = new ApexCharts(document.getElementById('chart-ao-attendance'), options); attendanceChart.render(); }); }
   }
@@ -665,27 +656,40 @@ async function aoInit() {
     const sorted = [...rows]
       .filter(r => parseInt(r['FNGs']) > 0)
       .sort((a, b) => (parseInt(b['FNGs']) || 0) - (parseInt(a['FNGs']) || 0));
-    if (!sorted.length) return;
-    const options = {
-      chart: { type: 'bar', height: Math.max(260, sorted.length * 28), toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'FNGs', data: sorted.map(r => parseInt(r['FNGs']) || 0) }],
-      xaxis: { categories: sorted.map(r => r['Site']) },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { horizontal: true, barHeight: '65%' } },
-      dataLabels: { enabled: true, style: { fontSize: '11px' } },
-      yaxis: { labels: { style: { fontSize: '11px' } } },
-    };
+    if (!sorted.length) { f3ShowEmpty('chart-ao-fngs', 'No FNGs yet this year'); return; }
+    const options = aoRankedBarOptions(sorted.map(r => r['Site']),
+      'FNGs', sorted.map(r => parseInt(r['FNGs']) || 0));
     if (fngsByAoChart) { fngsByAoChart.updateOptions(options); }
     else { f3LazyChart('chart-ao-fngs', () => { fngsByAoChart = new ApexCharts(document.getElementById('chart-ao-fngs'), options); fngsByAoChart.render(); }); }
   }
 
+  // Horizontal bars sorted high to low: the handoff's ranked list, with the
+  // leader in green and the value printed at the end of each bar.
+  function aoRankedBarOptions(names, seriesName, data) {
+    return f3ApexOptions({
+      chart: { type: 'bar', height: Math.max(260, names.length * 30) },
+      series: [{ name: seriesName, data }],
+      xaxis: { categories: names, labels: { show: false }, axisBorder: { show: false } },
+      colors: f3HighlightAt(0),
+      plotOptions: { bar: { horizontal: true, barHeight: '45%', dataLabels: { position: 'top' } } },
+      dataLabels: {
+        enabled: true, offsetX: 24, textAnchor: 'start',
+        style: { fontSize: '15px', fontFamily: F3_DISPLAY_FONT, fontWeight: 800, colors: [F3_INK] },
+      },
+      yaxis: {
+        // Headroom past the longest bar so its printed value is not clipped.
+        max: Math.max(...data.map(Number)) * 1.3,
+        labels: { maxWidth: 200, style: { colors: F3_INK, fontFamily: F3_DISPLAY_FONT, fontSize: '14px', fontWeight: 700 } },
+      },
+      grid: { padding: { right: 32 } },
+    });
+  }
+
   function renderAOCards(rows) {
     const grid = document.getElementById('ao-cards-grid');
-    if (!rows.length) {
-      grid.innerHTML = '<p class="text-muted">No AO data available.</p>';
-      return;
-    }
+    if (!rows.length) { f3ShowEmpty('ao-cards-grid', 'No AO data available'); return; }
+    const stat = (label, value, tip) =>
+      `<div><dt class="label"${tip ? ` title="${f3Esc(tip)}"` : ''}>${label}</dt><dd>${value}</dd></div>`;
     grid.innerHTML = rows.map(r => {
       const avg = parseFloat(r['Avg/Meeting']) || 0;
       const bench = parseFloat(r['Bench Strength']);
@@ -706,66 +710,50 @@ async function aoInit() {
       const spark = aoSparkSvg(weekly);
       // Label and chip share a row; the bars get the card's full width below.
       const sparkHtml = spark
-        ? `<div class="ao-spark-row mb-2 tone-${aoTrendTone(aoTrendPct(weekly))}">
+        ? `<div class="ao-spark-row tone-${aoTrendTone(aoTrendPct(weekly))}">
             <div class="ao-spark-head">
-              <span class="text-muted small">Weekly Trend ${f3InfoDot(TREND_TIP)}</span>
+              <span class="label" title="${f3Esc(TREND_TIP)}">Weekly trend</span>
               ${aoTrendChip(weekly)}
             </div>
             ${spark}
           </div>`
         : '';
       return `
-        <div class="card card-stat-accent">
-          <div class="card-header">
-            <h4 class="card-title">${f3Esc(r['Site'])}</h4>
-          </div>
-          <div class="card-body">
-            <div class="row g-2 mb-2">
-              <div class="col-6">
-                <div class="text-muted small">Avg Attendance</div>
-                <div class="fw-bold">${avg.toFixed(1)}</div>
-              </div>
-              <div class="col-6">
-                <div class="text-muted small">Total Posts</div>
-                <div class="fw-bold">${r['Total Attendees'] || 0}</div>
-              </div>
-              <div class="col-6">
-                <div class="text-muted small">Bench Strength ${f3InfoDot(BENCH_TIP)}</div>
-                <div class="fw-bold">${benchHtml}</div>
-              </div>
-              <div class="col-6">
-                <div class="text-muted small">Top Q ${f3InfoDot('PAX who most frequently led workouts at this AO in 2026')}</div>
-                <div class="fw-bold">${topQ}</div>
-              </div>
-            </div>
-            ${sparkHtml}
-            <div class="text-muted small mb-1">Core PAX (${corePax.length}) ${f3InfoDot(CORE_TIP)}</div>
-            <div class="ao-core-list">${coreHtml}</div>
-          </div>
-        </div>`;
+        <article class="ao-card">
+          <h3 class="ao-card-title">${f3Esc(r['Site'])}</h3>
+          <dl class="ao-card-stats">
+            ${stat('Avg attendance', avg.toFixed(1))}
+            ${stat('Total posts', r['Total Attendees'] || 0)}
+            ${stat('Bench strength', benchHtml, BENCH_TIP)}
+            ${stat('Top Q', topQ, 'PAX who most frequently led workouts at this AO in 2026')}
+          </dl>
+          ${sparkHtml}
+          <div class="label" title="${f3Esc(CORE_TIP)}">Core PAX (${corePax.length})</div>
+          <p class="ao-core-list">${coreHtml}</p>
+        </article>`;
     }).join('');
   }
 
   function renderTable(rows) {
     const container = document.getElementById('ao-table-container');
+    const th = (key, label, tip, num) =>
+      `<th data-sort="${key}"${num ? ' class="num"' : ''} title="${f3Esc(tip)}">${label}</th>`;
     container.innerHTML = `
-      <div class="table-responsive">
-        <table class="table table-vcenter table-hover card-table" id="ao-full-table">
+        <table class="table" id="ao-full-table">
           <thead>
             <tr>
-              <th data-sort="Site">Site ${f3InfoDot('AO name')}</th>
-              <th data-sort="Total Attendees" class="num">Total Posts ${f3InfoDot('Total individual posts at this AO in 2026')}</th>
-              <th data-sort="Weeks in Range" class="num">Weeks ${f3InfoDot('Number of distinct weeks this AO has run in 2026')}</th>
-              <th data-sort="Avg/Meeting" class="num">Avg/Meeting ${f3InfoDot('Average PAX count per session (Total Posts ÷ Distinct Sessions)')}</th>
-              <th data-sort="FNGs" class="num">FNGs ${f3InfoDot('Number of first-time attendees at this AO in 2026')}</th>
-              <th data-sort="Unique Qs" class="num">Unique Qs ${f3InfoDot('Number of distinct PAX who have led a workout (Q) at this AO in 2026')}</th>
-              <th data-sort="Bench Strength" class="num">Bench Strength ${f3InfoDot(BENCH_TIP)}</th>
-              <th>Core Names ${f3InfoDot(CORE_TIP)}</th>
+              ${th('Site', 'AO', 'AO name')}
+              ${th('Total Attendees', 'Posts', 'Total individual posts at this AO in 2026', true)}
+              ${th('Weeks in Range', 'Weeks', 'Number of distinct weeks this AO has run in 2026', true)}
+              ${th('Avg/Meeting', 'Avg', 'Average PAX count per session (Total Posts ÷ Distinct Sessions)', true)}
+              ${th('FNGs', 'FNGs', 'Number of first-time attendees at this AO in 2026', true)}
+              ${th('Unique Qs', 'Unique Qs', 'Number of distinct PAX who have led a workout (Q) at this AO in 2026', true)}
+              ${th('Bench Strength', 'Bench', BENCH_TIP, true)}
+              <th title="${f3Esc(CORE_TIP)}">Core PAX</th>
             </tr>
           </thead>
           <tbody id="ao-table-body"></tbody>
-        </table>
-      </div>`;
+        </table>`;
     renderTableBody(rows);
   }
 
@@ -790,7 +778,7 @@ async function aoInit() {
         <td class="num">${parseInt(r['FNGs']) ? r['FNGs'] : aoEmpty('none')}</td>
         <td class="num">${qs || aoEmpty('none')}</td>
         <td class="num">${benchDisplay}</td>
-        <td class="text-muted small">${core.length ? f3Esc(core.join(', ')) : aoEmpty('No regulars yet')}</td>
+        <td class="table-note">${core.length ? f3Esc(core.join(', ')) : aoEmpty('No regulars yet')}</td>
       </tr>`;
     }).join('');
   }
