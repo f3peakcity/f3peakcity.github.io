@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>#112 Leaderboard — F3 Peak City Stats</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css?v=20260904a">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260926a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -16,127 +15,87 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#4a5e3a">
 </head>
-<body class="antialiased">
-<div class="wrapper">
+<body>
 
-  <div class="masthead-bar">
-    <span class="region">F3 PEAK CITY</span>
-    <span class="dateline">Apex, NC &nbsp;·&nbsp; Live from Google Sheets</span>
-  </div>
-
-  <header class="navbar navbar-expand-md d-print-none">
-    <div class="container-xl">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a href="https://f3peakcity.com" class="navbar-f3-logo" target="_blank" rel="noopener" aria-label="F3 Peak City"><img src="../img/brand/f3-peak-city-white-on-transparent.png" alt="F3 Peak City" width="26" height="26"></a><a href="index.html" class="navbar-brand">Peak City Stats</a>
-      <div class="collapse navbar-collapse" id="navbar-menu">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="ao.html">AO Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
-          <li class="nav-item"><a class="nav-link active" href="leaderboard.html">#112 Leaderboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
-        </ul>
-      </div>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/img/logo-white-96.png" alt="" width="24" height="24">
+        <span>Peak City Stats</span>
+      </a>
+      <nav class="site-nav" aria-label="Dashboards">
+        <a href="ao.html">AO Stats</a>
+        <a href="pax.html">PAX Stats</a>
+        <a href="fng.html">FNG Stats</a>
+        <a href="leaderboard.html" aria-current="page">#112 Leaderboard</a>
+        <a href="who2q.html">Who to Q</a>
+      </nav>
     </div>
   </header>
 
-  <div class="page-wrapper">
-    <div class="container-xl">
-
-      <div class="page-header d-print-none mt-4">
-        <div class="row align-items-center">
-          <div class="col">
-            <h2 class="page-title">#112 Leaderboard</h2>
-            <p class="text-muted">Monthly progress: 12 posts + 1 Peak City Q per month <span class="info-dot" tabindex="0" role="button" aria-label="A calendar day counts as one post, however many records it carries. Saturdays can earn an extra post for NeighborUp, WWCM or F3 Dads. Applies from Aug 2026 on — earlier months keep their original counts." data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="A calendar day counts as one post, however many records it carries. Saturdays can earn an extra post for NeighborUp, WWCM or F3 Dads. Applies from Aug 2026 on — earlier months keep their original counts.">&#9432;</span></p>
-          </div>
-          <div class="col-auto">
-            <div class="filter-toggle-group" role="group" aria-label="Filter crew">
-              <button class="filter-toggle-btn active" id="btn-pc-reg">PC Regulars <span class="info-dot" tabindex="0" role="button" aria-label="PC Regular = 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks (#downrange and Shield Lock don't count toward it)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PC Regular = 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks (#downrange and Shield Lock don't count toward it)">&#9432;</span></button>
-              <button class="filter-toggle-btn" id="btn-all-crew">All Crew</button>
-            </div>
-          </div>
+  <main class="wrap">
+    <section class="page-head">
+      <div class="eyebrow label"><span>Dashboard 04</span><span>2026 season</span></div>
+      <h1 class="page-title">#112 Leaderboard</h1>
+      <div class="page-head-row">
+        <p class="page-sub" title="A calendar day counts as one post, however many records it carries. Saturdays can earn an extra post for NeighborUp, WWCM or F3 Dads. Applies from Aug 2026 on; earlier months keep their original counts.">12 posts and 1 Peak City Q, every month. That's the crew.</p>
+        <div class="toggle" role="group" aria-label="Which PAX to show">
+          <button type="button" id="btn-pc-reg" aria-pressed="true" title="PC Regular = 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks (#downrange and Shield Lock don't count toward it)">PC Regulars</button>
+          <button type="button" id="btn-all-crew" aria-pressed="false">All Crew</button>
         </div>
       </div>
+    </section>
 
-      <div class="row row-cards mt-3">
-        <div class="col-sm-4">
-          <div class="card card-stat-accent h-100">
-            <div class="card-body">
-              <div class="subheader">Total in Crew (Year) <span class="info-dot" tabindex="0" role="button" aria-label="PAX in the current view (PC Regulars or All Crew) with at least one 2026 post" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PAX in the current view (PC Regulars or All Crew) with at least one 2026 post">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-total-crew">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card card-stat-accent h-100">
-            <div class="card-body">
-              <div class="subheader">Current Month Completions <span class="info-dot" tabindex="0" role="button" aria-label="Crew who have completed #112 this month — 12+ posts and at least one Peak City Q" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Crew who have completed #112 this month — 12+ posts and at least one Peak City Q">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-current-month">—</div>
-              <div class="lb-month-bar-track mt-2">
-                <div class="lb-month-bar-fill" id="stat-month-bar" style="width:0%"></div>
-              </div>
-              <div class="lb-month-bar-label" id="stat-month-label">&nbsp;</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card card-stat-accent h-100">
-            <div class="card-body">
-              <div class="subheader"><span id="stat-streakers-label">Active Streakers</span> <span class="info-dot" tabindex="0" role="button" aria-label="Crew on an active run of consecutive months completing #112 (12 posts + 1 Q). Early in a new month this counts through the prior month." data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Crew on an active run of consecutive months completing #112 (12 posts + 1 Q). Early in a new month this counts through the prior month.">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-streakers">—</div>
-            </div>
-          </div>
+    <section class="kpis" aria-label="#112 totals">
+      <div class="kpi">
+        <div class="kpi-num" id="stat-total-crew">—</div>
+        <div class="label" title="PAX in the current view (PC Regulars or All Crew) with at least one 2026 post">In the crew this year</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num"><span id="stat-current-month">—</span><small id="stat-current-month-name"></small></div>
+        <div class="lb-month-bar" aria-hidden="true"><span id="stat-month-bar" style="width:0%"></span></div>
+        <div class="label" id="stat-month-label" title="Crew who have completed #112 this month: 12+ posts and at least one Peak City Q">Month completions</div>
+      </div>
+      <div class="kpi kpi--accent">
+        <div class="kpi-num" id="stat-streakers">—</div>
+        <div class="label" id="stat-streakers-label" title="Crew on an active run of consecutive months completing #112 (12 posts + 1 Q). Early in a new month this counts through the prior month.">Active streakers</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Completions per month</h2><span class="label" title="Crew completing #112 each month (12+ posts and at least one Q), all crew">All crew</span></div>
+      <div class="chart" id="chart-monthly-completions"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Who's in the crew</h2><span class="label">This month · sorted by progress</span></div>
+      <div id="leaderboard-heatmap"><div class="status label" role="status">Loading…</div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Year at a glance</h2>
+        <div class="heat-key label" aria-label="Key">
+          <span><i class="cell cell--low"></i>1–5</span>
+          <span><i class="cell cell--mid"></i>6–11</span>
+          <span><i class="cell cell--noq"></i>12+ no Q</span>
+          <span><i class="cell cell--done"></i>12+ &amp; Q</span>
+          <span><i class="cell cell--low has-q"></i>Q'd</span>
         </div>
       </div>
+      <div id="leaderboard-table"><div class="status label" role="status">Loading…</div></div>
+    </section>
+  </main>
 
-      <div class="card mt-4">
-        <div class="card-header"><h3 class="card-title">Completions Per Month <span class="info-dot" tabindex="0" role="button" aria-label="Number of crew completing #112 each month — 12+ posts and at least one Q" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Number of crew completing #112 each month — 12+ posts and at least one Q">&#9432;</span></h3></div>
-        <div class="card-body" id="chart-monthly-completions"></div>
-      </div>
-
-      <div class="section-flag mt-4">
-        <span class="flag-text">Who's In The Crew</span>
-        <span class="flag-rule"></span>
-      </div>
-      <div id="leaderboard-heatmap">
-        <div class="d-flex justify-content-center p-4">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card mt-4">
-        <div class="card-header d-flex align-items-center justify-content-between">
-          <h3 class="card-title">Year at a Glance</h3>
-          <span style="font-family:'Open Sans',sans-serif;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px;">
-            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.10);border:1px solid rgba(0,0,0,0.18);flex-shrink:0;"></span>1–5</span>
-            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.28);flex-shrink:0;"></span>6–11</span>
-            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(0,0,0,0.45);flex-shrink:0;"></span>12+ no Q</span>
-            <span style="display:inline-flex;align-items:center;gap:4px;"><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#4a5e3a;flex-shrink:0;"></span>12+ ✓</span>
-          </span>
-        </div>
-        <div class="card-body p-0" id="leaderboard-table">
-          <div class="d-flex justify-content-center p-4">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <footer class="stats-footer">
-      Data refreshes on page load from Google Sheets &nbsp;·&nbsp;
+  <footer class="site-footer">
+    <div class="wrap label">
+      <span>Refreshed on load from Google Sheets</span>
       <a href="https://f3peakcity.com">f3peakcity.com</a>
-    </footer>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+    </div>
+  </footer>
+
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260923a"></script>
-<script src="assets/js/leaderboard.js?v=20260923a"></script>
+<script src="assets/js/data.js?v=20260926a"></script>
+<script src="assets/js/leaderboard.js?v=20260926a"></script>
 </body>
 </html>

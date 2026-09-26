@@ -235,3 +235,42 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .stack--ghost{background:var(--rule)}
 .legend .swatch{vertical-align:-1px}
 .legend-num{margin-top:8px}
+
+/* Leaderboard: month progress under the KPI */
+.lb-month-bar{height:4px;background:var(--track);margin-top:12px}
+.lb-month-bar span{display:block;height:100%;background:var(--ink);transition:width .5s ease}
+
+/* Leaderboard: habit cards, one per PAX (kept beyond the handoff) */
+.lb-pax-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));column-gap:32px}
+.lb-pax-card{padding:16px 0;border-bottom:1px solid var(--rule)}
+.lb-pax-name{font:700 17px/1.1 var(--display);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.lb-dot-row{display:flex;gap:3px;margin-bottom:10px}
+.lb-dot{width:10px;height:10px;background:var(--track);border:1px solid var(--rule)}
+.lb-dot.partial{background:var(--rule)}
+.lb-dot.filled-nq{background:var(--gold);border-color:var(--gold)}
+.lb-dot.filled{background:var(--green);border-color:var(--green)}
+.lb-dot.is-current{outline:1.5px solid var(--ink);outline-offset:1px}
+.lb-mini-bar-track{height:4px;background:var(--track);margin-bottom:8px}
+.lb-mini-bar-fill{height:100%;max-width:100%;background:var(--ink);transition:width .5s ease}
+.lb-progress-line{display:flex;justify-content:space-between;align-items:center;gap:8px;font:600 11px/1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.lb-progress-count{font:800 16px/1 var(--display);letter-spacing:.02em;color:var(--ink)}
+.lb-progress-count.lb-complete{color:var(--green)}
+.lb-status-tag{font:700 11px/1 var(--ui);letter-spacing:.1em;text-transform:uppercase;padding:3px 6px;white-space:nowrap}
+.lb-status-done{background:var(--green);color:#fff}
+.lb-status-needsq{background:var(--gold);color:var(--ink)}
+.lb-status-track{border:1px solid var(--ink);color:var(--ink)}
+.lb-status-behind{border:1px solid var(--rule);color:var(--ink)}
+.lb-status-ghost{border:1px solid var(--rule);color:var(--muted)}
+.lb-streak-badge{display:inline-flex;align-items:center;gap:4px;margin-top:10px;font:700 11px/1 var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--green)}
+
+/* Leaderboard: year grid adds a streak column and a Q marker to the handoff's heat */
+.heat{margin-top:12px}
+.heat-inner{min-width:680px}
+.heat-row{grid-template-columns:120px repeat(12,minmax(0,1fr)) 52px}
+.heat-head .label{text-align:center;letter-spacing:.08em;padding-bottom:6px}
+.heat-head .label:first-child{text-align:left}
+.heat-streak{font:700 14px/28px var(--display);text-align:center;color:var(--muted)}
+.cell.has-q{box-shadow:inset 0 -3px 0 var(--green)}
+.heat-key{display:flex;flex-wrap:wrap;gap:6px 14px;letter-spacing:.08em}
+.heat-key span{display:inline-flex;align-items:center;gap:6px}
+.heat-key .cell{display:inline-block;width:12px;height:12px}
