@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>F3 Peak City Stats</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css?v=20260925a">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260926a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -16,115 +15,94 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#4a5e3a">
 </head>
-<body class="antialiased">
-<div class="wrapper">
+<body>
 
-  <div class="masthead-bar">
-    <span class="region">F3 PEAK CITY</span>
-    <span class="dateline">Apex, NC &nbsp;·&nbsp; Live from Google Sheets</span>
-  </div>
-
-  <header class="navbar navbar-expand-md d-print-none">
-    <div class="container-xl">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a href="https://f3peakcity.com" class="navbar-f3-logo" target="_blank" rel="noopener" aria-label="F3 Peak City"><img src="../img/brand/f3-peak-city-white-on-transparent.png" alt="F3 Peak City" width="26" height="26"></a><a href="index.html" class="navbar-brand">Peak City Stats</a>
-      <div class="collapse navbar-collapse" id="navbar-menu">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="ao.html">AO Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
-        </ul>
-      </div>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html" aria-current="page">
+        <img src="assets/img/logo-white-96.png" alt="" width="24" height="24">
+        <span>Peak City Stats</span>
+      </a>
+      <nav class="site-nav" aria-label="Dashboards">
+        <a href="ao.html">AO Stats</a>
+        <a href="pax.html">PAX Stats</a>
+        <a href="fng.html">FNG Stats</a>
+        <a href="leaderboard.html">#112 Leaderboard</a>
+        <a href="who2q.html">Who to Q</a>
+      </nav>
     </div>
   </header>
 
-  <div class="page-wrapper">
-    <div class="landing-page">
-
-      <div class="eyebrow lbl">
-        <span>All-time region total</span>
-        <span>Apex, NC</span>
-      </div>
-
-      <div class="hero">
-        <div class="hero-number" id="hero-posts">—</div>
-        <div class="hero-side">
-          <div class="hero-label" title="Total workout posts recorded in 2026">Posts &amp; Counting ↑</div>
-          <p class="hero-lede">Every post in the gloom, logged. Pick a dashboard below to see where the region stands.</p>
-        </div>
-      </div>
-
-      <div class="stat-row">
-        <div class="stat-cell">
-          <div class="num" id="stat-pax">—</div>
-          <div class="lbl" title="Distinct PAX who have posted at least once in 2026">Total PAX</div>
-        </div>
-        <div class="stat-cell">
-          <div class="num" id="stat-aos">—</div>
-          <div class="lbl" title="Distinct AO sites with at least one 2026 workout (excludes #downrange and Shield Lock)">Active AOs</div>
-        </div>
-        <div class="stat-cell">
-          <div class="num accent"><span id="stat-fng-pct">—</span><small id="stat-fng-ratio"></small></div>
-          <div class="lbl" title="Of 2026 FNGs, how many reached 10+ posts (🛡️ Regular status)">FNG → Regular</div>
-        </div>
-      </div>
-
-      <div class="section-flag">
-        <span class="flag-text">Dashboards</span>
-        <span class="flag-rule"></span>
-      </div>
-
-      <ul class="dash-list">
-        <li><a class="dash-item" href="ao.html">
-          <span class="dash-idx">01</span>
-          <div>
-            <div class="dash-title">AO Stats</div>
-            <p class="dash-desc">Attendance trends, Q rotation, and FNG count by workout location.</p>
-          </div>
-          <div class="dash-meta"><span class="lbl" id="meta-aos">—</span><span class="dash-arrow">→</span></div>
-        </a></li>
-
-        <li><a class="dash-item" href="pax.html">
-          <span class="dash-idx">02</span>
-          <div>
-            <div class="dash-title">PAX Stats</div>
-            <p class="dash-desc">Posts, Qs, home AO, and last-seen date for every PAX in the region.</p>
-          </div>
-          <div class="dash-meta"><span class="lbl" id="meta-pax">—</span><span class="dash-arrow">→</span></div>
-        </a></li>
-
-        <li><a class="dash-item" href="fng.html">
-          <span class="dash-idx">03</span>
-          <div>
-            <div class="dash-title">FNG Stats</div>
-            <p class="dash-desc">Every FNG from first post through their first 60 days in the gloom.</p>
-          </div>
-          <div class="dash-meta"><span class="lbl" id="meta-fngs">—</span><span class="dash-arrow">→</span></div>
-        </a></li>
-
-        <li><a class="dash-item" href="leaderboard.html">
-          <span class="dash-idx">04</span>
-          <div>
-            <div class="dash-title">#112 Leaderboard</div>
-            <p class="dash-desc">12 posts a month. Who's leading the charge? Updated live.</p>
-          </div>
-          <div class="dash-meta"><span class="lbl" id="meta-lb">—</span><span class="dash-arrow">→</span></div>
-        </a></li>
-      </ul>
-
+  <main class="wrap">
+    <div class="eyebrow label">
+      <span>All-time region total</span>
+      <span>Apex, NC</span>
     </div>
-    <footer class="stats-footer">
-      Data refreshes on page load from Google Sheets &nbsp;·&nbsp;
+
+    <section class="hero" aria-label="Region total">
+      <div class="hero-num" id="stat-total-posts">—</div>
+      <div class="hero-side">
+        <div class="hero-kicker" title="Total workout posts recorded in 2026">Posts &amp; counting ↑</div>
+        <p class="hero-lede">Every post in the gloom, logged. Pick a dashboard below to see where the region stands.</p>
+      </div>
+    </section>
+
+    <p class="status status--error label" id="load-error" role="alert" hidden>Stats unavailable — try refreshing the page</p>
+
+    <section class="kpis" aria-label="Region stats">
+      <div class="kpi">
+        <div class="kpi-num" id="stat-total-pax">—</div>
+        <div class="label" title="Distinct PAX who have posted at least once in 2026">Total PAX</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-active-aos">—</div>
+        <div class="label" title="Distinct AO sites with at least one 2026 workout (excludes #downrange and Shield Lock)">Active AOs</div>
+      </div>
+      <div class="kpi kpi--accent">
+        <div class="kpi-num"><span id="stat-fng-pct">—</span><small id="stat-fng-ratio"></small></div>
+        <div class="label" title="Of 2026 FNGs, how many reached 10+ posts (Regular status)">FNG → Regular</div>
+      </div>
+    </section>
+
+    <div class="flag"><span>Dashboards</span></div>
+
+    <ul class="dash-list">
+      <li><a class="dash" href="ao.html">
+        <span class="dash-idx">01</span>
+        <div><div class="dash-title">AO Stats</div><p class="dash-desc">Attendance trends, Q rotation, and FNG count by workout location.</p></div>
+        <div class="dash-meta"><span class="label" id="meta-aos">—</span><span class="arrow" aria-hidden="true">→</span></div>
+      </a></li>
+      <li><a class="dash" href="pax.html">
+        <span class="dash-idx">02</span>
+        <div><div class="dash-title">PAX Stats</div><p class="dash-desc">Posts, Qs, home AO, and last-seen date for every PAX in the region.</p></div>
+        <div class="dash-meta"><span class="label" id="meta-pax">—</span><span class="arrow" aria-hidden="true">→</span></div>
+      </a></li>
+      <li><a class="dash" href="fng.html">
+        <span class="dash-idx">03</span>
+        <div><div class="dash-title">FNG Stats</div><p class="dash-desc">Every FNG from first post through their first 60 days in the gloom.</p></div>
+        <div class="dash-meta"><span class="label" id="meta-fngs">—</span><span class="arrow" aria-hidden="true">→</span></div>
+      </a></li>
+      <li><a class="dash" href="leaderboard.html">
+        <span class="dash-idx">04</span>
+        <div><div class="dash-title">#112 Leaderboard</div><p class="dash-desc">12 posts a month. Who's leading the charge? Updated live.</p></div>
+        <div class="dash-meta"><span class="label" id="meta-lb">—</span><span class="arrow" aria-hidden="true">→</span></div>
+      </a></li>
+      <li><a class="dash" href="who2q.html">
+        <span class="dash-idx">05</span>
+        <div><div class="dash-title">Who to Q</div><p class="dash-desc">Q candidates by AO: regulars who haven't led yet, and past Qs who are overdue.</p></div>
+        <div class="dash-meta"><span class="label">By AO</span><span class="arrow" aria-hidden="true">→</span></div>
+      </a></li>
+    </ul>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap label">
+      <span>Refreshed on load from Google Sheets</span>
       <a href="https://f3peakcity.com">f3peakcity.com</a>
-    </footer>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
-<script src="assets/js/data.js?v=20260923a"></script>
+    </div>
+  </footer>
+
+<script src="assets/js/data.js?v=20260926a"></script>
 <script>
 (async function() {
   const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
@@ -134,15 +112,11 @@
     if (el) el.textContent = val;
   }
 
-  function setAll(val) {
-    ['hero-posts','stat-pax','stat-aos','stat-fng-pct','stat-fng-ratio',
-     'meta-aos','meta-pax','meta-fngs','meta-lb'].forEach(id => setEl(id, val));
-  }
-
   try {
     const rawCsv = await f3FetchCSV('raw');
     const allRawRows = f3ParseCSV(rawCsv, 0)
-      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
+      .filter(r => r['Name'] && r['Name'].trim() && (r['Date'] || '').startsWith('2026-'));
+    if (!allRawRows.length) throw new Error('no 2026 rows');
 
     const totalPosts = allRawRows.length;
     const paxSet = new Set(allRawRows.map(r => r['Name'].trim()));
@@ -163,9 +137,9 @@
     const fngCount = fngNames.size;
     const retentionPct = fngCount > 0 ? Math.round((regularCount / fngCount) * 100) : 0;
 
-    setEl('hero-posts', totalPosts.toLocaleString());
-    setEl('stat-pax', totalPax);
-    setEl('stat-aos', activeAOs);
+    setEl('stat-total-posts', totalPosts.toLocaleString());
+    setEl('stat-total-pax', totalPax);
+    setEl('stat-active-aos', activeAOs);
     setEl('stat-fng-pct', `${retentionPct}%`);
     setEl('stat-fng-ratio', `${regularCount} of ${fngCount}`);
     setEl('meta-aos', `${activeAOs} AOs`);
@@ -173,7 +147,7 @@
     setEl('meta-fngs', `${totalFngs} FNGs · 2026`);
     setEl('meta-lb', `${totalPax} PAX`);
   } catch (e) {
-    setAll('—');
+    document.getElementById('load-error').hidden = false;
   }
 })();
 </script>

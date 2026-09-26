@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite } = require('../assets/js/data.js');
+const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -249,6 +249,26 @@ test('an unrelated site passes through unchanged', () => {
 test('handles null/empty gracefully', () => {
   assert.strictEqual(f3CanonicalSite(''), '');
   assert.strictEqual(f3CanonicalSite(null), '');
+});
+
+// --- Apex theme helpers ---
+console.log('\nf3Merge / f3ApexOptions / f3MaxIndex');
+
+test('f3Merge deep-merges objects and replaces arrays', () => {
+  const m = f3Merge({ a: { b: 1, c: 2 }, arr: [1, 2] }, { a: { c: 3 }, arr: [9] });
+  assert.deepStrictEqual(m, { a: { b: 1, c: 3 }, arr: [9] });
+});
+
+test('f3ApexOptions keeps base keys a page does not override', () => {
+  const o = f3ApexOptions({ chart: { type: 'bar', height: 300 } });
+  assert.strictEqual(o.chart.type, 'bar');
+  assert.strictEqual(o.chart.toolbar.show, false);
+  assert.strictEqual(o.grid.show, false);
+});
+
+test('f3MaxIndex returns the first max, -1 when empty', () => {
+  assert.strictEqual(f3MaxIndex([3, 9, 9, 1]), 1);
+  assert.strictEqual(f3MaxIndex([]), -1);
 });
 
 // --- Summary ---

@@ -100,18 +100,69 @@ function f3FilterByDateRange(rows, field, from, to) {
 
 function f3ShowLoading(containerId) {
   const el = document.getElementById(containerId);
-  if (el) {
-    el.innerHTML = '<div class="d-flex justify-content-center align-items-center p-5">' +
-      '<div class="spinner-border text-danger" role="status"><span class="visually-hidden">Loading...</span></div>' +
-      '</div>';
-  }
+  if (el) el.innerHTML = '<div class="status label" role="status">Loading…</div>';
 }
 
 function f3ShowError(containerId, msg = 'Data unavailable — try refreshing the page') {
   const el = document.getElementById(containerId);
-  if (el) {
-    el.innerHTML = `<div class="alert alert-warning m-3"><strong>Oops.</strong> ${msg}</div>`;
-  }
+  if (el) el.innerHTML = `<div class="status status--error label" role="alert">${f3Esc(msg)}</div>`;
+}
+
+function f3ShowEmpty(containerId, msg = 'No data yet') {
+  const el = document.getElementById(containerId);
+  if (el) el.innerHTML = `<div class="status label empty-state">${f3Esc(msg)}</div>`;
+}
+
+// Marks `btn` as the pressed option within its .toggle group.
+function f3SetPressed(btn) {
+  btn.parentElement.querySelectorAll('button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b === btn)));
+}
+
+// ── ApexCharts theme ──
+// One shared base so every chart reads as the handoff's flat ink bars:
+// ink by default, green for exactly one bar, no grid, no toolbar.
+const F3_INK = '#1a1a1a', F3_GREEN = '#4a5e3a', F3_MUTED = '#8a7a60', F3_RULE = '#c8bfa8';
+const F3_UI_FONT = "'Open Sans', sans-serif", F3_DISPLAY_FONT = "'Barlow Condensed', sans-serif";
+
+function f3Merge(base, over) {
+  const out = { ...base };
+  Object.entries(over || {}).forEach(([k, v]) => {
+    const b = out[k];
+    out[k] = (v && b && typeof v === 'object' && typeof b === 'object' && !Array.isArray(v) && !Array.isArray(b))
+      ? f3Merge(b, v) : v;
+  });
+  return out;
+}
+
+function f3ApexOptions(over) {
+  const axisLabels = { style: { colors: F3_MUTED, fontFamily: F3_UI_FONT, fontSize: '11px', fontWeight: 600 } };
+  return f3Merge({
+    chart: { toolbar: { show: false }, fontFamily: F3_UI_FONT, background: 'transparent', foreColor: F3_MUTED },
+    colors: [F3_INK],
+    grid: { show: false, padding: { left: 0, right: 0 } },
+    dataLabels: { enabled: false },
+    plotOptions: { bar: { borderRadius: 0 } },
+    states: { hover: { filter: { type: 'darken', value: 0.85 } } },
+    stroke: { show: false },
+    legend: { fontFamily: F3_UI_FONT, fontSize: '11px', labels: { colors: F3_INK }, markers: { radius: 0 } },
+    xaxis: { axisBorder: { color: F3_INK }, axisTicks: { show: false }, labels: axisLabels },
+    yaxis: { labels: axisLabels },
+    tooltip: { theme: 'light', style: { fontFamily: F3_UI_FONT } },
+    noData: { text: 'No data yet', style: { fontFamily: F3_UI_FONT, color: F3_MUTED } },
+  }, over);
+}
+
+// Colors function for a single-series bar chart: green at `index`, ink elsewhere.
+function f3HighlightAt(index) {
+  return [({ dataPointIndex }) => (dataPointIndex === index ? F3_GREEN : F3_INK)];
+}
+
+// Index of the largest value (first one on ties); -1 for an empty list.
+function f3MaxIndex(values) {
+  let best = -1;
+  values.forEach((v, i) => { if (best < 0 || v > values[best]) best = i; });
+  return best;
 }
 
 // Attaches click-to-sort behavior to all <th data-sort="colName"> elements
@@ -283,5 +334,6 @@ if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
+    f3Merge, f3ApexOptions, f3MaxIndex,
   };
 }
