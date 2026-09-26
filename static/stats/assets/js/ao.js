@@ -646,7 +646,7 @@ async function aoInit() {
     const sorted = [...rows]
       .filter(r => parseFloat(r['Avg/Meeting']) > 0)
       .sort((a, b) => parseFloat(b['Avg/Meeting']) - parseFloat(a['Avg/Meeting']));
-    const options = aoRankedBarOptions(sorted.map(r => r['Site']),
+    const options = f3RankedBarOptions(sorted.map(r => r['Site']),
       'Avg attendance', sorted.map(r => parseFloat(r['Avg/Meeting']).toFixed(1)));
     if (attendanceChart) { attendanceChart.updateOptions(options); }
     else { f3LazyChart('chart-ao-attendance', () => { attendanceChart = new ApexCharts(document.getElementById('chart-ao-attendance'), options); attendanceChart.render(); }); }
@@ -657,32 +657,10 @@ async function aoInit() {
       .filter(r => parseInt(r['FNGs']) > 0)
       .sort((a, b) => (parseInt(b['FNGs']) || 0) - (parseInt(a['FNGs']) || 0));
     if (!sorted.length) { f3ShowEmpty('chart-ao-fngs', 'No FNGs yet this year'); return; }
-    const options = aoRankedBarOptions(sorted.map(r => r['Site']),
+    const options = f3RankedBarOptions(sorted.map(r => r['Site']),
       'FNGs', sorted.map(r => parseInt(r['FNGs']) || 0));
     if (fngsByAoChart) { fngsByAoChart.updateOptions(options); }
     else { f3LazyChart('chart-ao-fngs', () => { fngsByAoChart = new ApexCharts(document.getElementById('chart-ao-fngs'), options); fngsByAoChart.render(); }); }
-  }
-
-  // Horizontal bars sorted high to low: the handoff's ranked list, with the
-  // leader in green and the value printed at the end of each bar.
-  function aoRankedBarOptions(names, seriesName, data) {
-    return f3ApexOptions({
-      chart: { type: 'bar', height: Math.max(260, names.length * 30) },
-      series: [{ name: seriesName, data }],
-      xaxis: { categories: names, labels: { show: false }, axisBorder: { show: false } },
-      colors: f3HighlightAt(0),
-      plotOptions: { bar: { horizontal: true, barHeight: '45%', dataLabels: { position: 'top' } } },
-      dataLabels: {
-        enabled: true, offsetX: 24, textAnchor: 'start',
-        style: { fontSize: '15px', fontFamily: F3_DISPLAY_FONT, fontWeight: 800, colors: [F3_INK] },
-      },
-      yaxis: {
-        // Headroom past the longest bar so its printed value is not clipped.
-        max: Math.max(...data.map(Number)) * 1.3,
-        labels: { maxWidth: 200, style: { colors: F3_INK, fontFamily: F3_DISPLAY_FONT, fontSize: '14px', fontWeight: 700 } },
-      },
-      grid: { padding: { right: 32 } },
-    });
   }
 
   function renderAOCards(rows) {

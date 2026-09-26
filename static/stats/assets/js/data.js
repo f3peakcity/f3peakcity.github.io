@@ -159,6 +159,49 @@ function f3HighlightAt(index) {
   return [({ dataPointIndex }) => (dataPointIndex === index ? F3_GREEN : F3_INK)];
 }
 
+// Horizontal bars sorted high to low: the handoff's ranked list, with the
+// leader in green and the value printed past the end of each bar.
+// `fmt` formats the printed value (e.g. v => v + '%').
+function f3RankedBarOptions(names, seriesName, data, fmt) {
+  return f3ApexOptions({
+    chart: { type: 'bar', height: Math.max(260, names.length * 30) },
+    series: [{ name: seriesName, data }],
+    xaxis: { categories: names, labels: { show: false }, axisBorder: { show: false } },
+    colors: f3HighlightAt(0),
+    plotOptions: { bar: { horizontal: true, barHeight: '45%', dataLabels: { position: 'top' } } },
+    dataLabels: {
+      enabled: true, offsetX: 24, textAnchor: 'start',
+      formatter: fmt || (v => v),
+      style: { fontSize: '15px', fontFamily: F3_DISPLAY_FONT, fontWeight: 800, colors: [F3_INK] },
+    },
+    tooltip: { y: { formatter: fmt || (v => v) } },
+    yaxis: {
+      // Headroom past the longest bar so its printed value is not clipped.
+      max: Math.max(...data.map(Number)) * 1.3,
+      labels: { maxWidth: 200, style: { colors: F3_INK, fontFamily: F3_DISPLAY_FONT, fontSize: '14px', fontWeight: 700 } },
+    },
+    grid: { padding: { right: 32 } },
+  });
+}
+
+// Vertical columns (days, months, buckets) with the value printed on top.
+// `highlight` is the one green column's index (default: the tallest).
+function f3ColumnOptions(labels, seriesName, data, { highlight, fmt, height = 240 } = {}) {
+  return f3ApexOptions({
+    chart: { type: 'bar', height },
+    series: [{ name: seriesName, data }],
+    xaxis: { categories: labels, labels: { rotate: 0, hideOverlappingLabels: false } },
+    yaxis: { show: false, min: 0, max: Math.max(1, ...data.map(Number)) * 1.2 },
+    colors: f3HighlightAt(highlight === undefined ? f3MaxIndex(data) : highlight),
+    plotOptions: { bar: { columnWidth: '70%', dataLabels: { position: 'top' } } },
+    dataLabels: {
+      enabled: true, offsetY: -28, formatter: fmt || (v => v),
+      style: { fontSize: '16px', fontFamily: F3_DISPLAY_FONT, fontWeight: 800, colors: [F3_INK] },
+    },
+    tooltip: { y: { formatter: fmt || (v => v) } },
+  });
+}
+
 // Index of the largest value (first one on ties); -1 for an empty list.
 function f3MaxIndex(values) {
   let best = -1;

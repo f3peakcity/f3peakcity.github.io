@@ -5,162 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>PAX Stats — F3 Peak City Stats</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260926a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#4a5e3a">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css?v=20260710a">
 </head>
-<body class="antialiased">
-<div class="wrapper">
+<body>
 
-  <div class="masthead-bar">
-    <span class="region">F3 PEAK CITY</span>
-    <span class="dateline">Apex, NC &nbsp;·&nbsp; Live from Google Sheets</span>
-  </div>
-
-  <header class="navbar navbar-expand-md d-print-none">
-    <div class="container-xl">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a href="https://f3peakcity.com" class="navbar-f3-logo" target="_blank" rel="noopener" aria-label="F3 Peak City"><img src="../img/brand/f3-peak-city-white-on-transparent.png" alt="F3 Peak City" width="26" height="26"></a><a href="index.html" class="navbar-brand">Peak City Stats</a>
-      <div class="collapse navbar-collapse" id="navbar-menu">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="ao.html">AO Stats</a></li>
-          <li class="nav-item"><a class="nav-link active" href="pax.html">PAX Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
-        </ul>
-      </div>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/img/logo-white-96.png" alt="" width="24" height="24">
+        <span>Peak City Stats</span>
+      </a>
+      <nav class="site-nav" aria-label="Dashboards">
+        <a href="ao.html">AO Stats</a>
+        <a href="pax.html" aria-current="page">PAX Stats</a>
+        <a href="fng.html">FNG Stats</a>
+        <a href="leaderboard.html">#112 Leaderboard</a>
+        <a href="who2q.html">Who to Q</a>
+      </nav>
     </div>
   </header>
 
-  <div class="page-wrapper">
-    <div class="container-xl">
-
-      <div class="page-header d-print-none mt-4">
-        <div class="row align-items-center">
-          <div class="col">
-            <h2 class="page-title">PAX Stats</h2>
-            <p class="text-muted">Individual participation metrics &mdash; all data from Jan 1, 2026</p>
-          </div>
-          <div class="col-auto">
-            <div class="filter-toggle-group" role="group" aria-label="Filter PAX">
-              <button class="filter-toggle-btn active" id="btn-regulars">PC Regulars <span class="info-dot" tabindex="0" role="button" aria-label="PC Regular = 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks (#downrange and Shield Lock don't count toward it)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PC Regular = 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks (#downrange and Shield Lock don't count toward it)">&#9432;</span></button>
-              <button class="filter-toggle-btn" id="btn-all-pax">All PAX</button>
-            </div>
-          </div>
+  <main class="wrap">
+    <section class="page-head">
+      <div class="eyebrow label"><span>Dashboard 02</span><span>Since Jan 1, 2026</span></div>
+      <h1 class="page-title">PAX Stats</h1>
+      <div class="page-head-row">
+        <p class="page-sub">Individual participation: posts, Qs, and where and when every PAX shows up.</p>
+        <div class="toggle" role="group" aria-label="Which PAX to show">
+          <button type="button" id="btn-regulars" aria-pressed="true" title="PC Regular = 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks (#downrange and Shield Lock don't count toward it)">PC Regulars</button>
+          <button type="button" id="btn-all-pax" aria-pressed="false">All PAX</button>
         </div>
       </div>
+    </section>
 
-      <div class="row row-cards mt-3">
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader"><span class="subheader-label">Total PAX</span> <span class="info-dot" tabindex="0" role="button" aria-label="Number of PAX in current filter (PC Regulars or All PAX)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Number of PAX in current filter (PC Regulars or All PAX)">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-total-pax">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Active Last 3 Weeks <span class="info-dot" tabindex="0" role="button" aria-label="PAX who have posted at least once in the last 3 weeks" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="PAX who have posted at least once in the last 3 weeks">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-active-3wk">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Total Posts <span class="info-dot" tabindex="0" role="button" aria-label="Sum of all posts in 2026 for the current filter" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sum of all posts in 2026 for the current filter">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-total-posts">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Total Qs <span class="info-dot" tabindex="0" role="button" aria-label="Sum of all Q-led workouts in 2026 for the current filter" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sum of all Q-led workouts in 2026 for the current filter">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-total-qs">—</div>
-            </div>
-          </div>
-        </div>
+    <section class="kpis" aria-label="PAX totals">
+      <div class="kpi">
+        <div class="kpi-num" id="stat-total-pax">—</div>
+        <div class="label" id="stat-total-pax-label" title="Number of PAX in the current filter (PC Regulars or All PAX)">PC Regulars</div>
       </div>
-
-      <div class="row mt-4">
-        <div class="col-lg-8">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">Top 15 PAX by Total Posts</h3></div>
-            <div class="card-body" id="chart-top-pax"></div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">Weekly Avg Posts</h3></div>
-            <div class="card-body" id="chart-activity-donut"></div>
-          </div>
-        </div>
+      <div class="kpi kpi--accent">
+        <div class="kpi-num" id="stat-active-3wk">—</div>
+        <div class="label" title="PAX who have posted at least once in the last 3 weeks">Active last 3 wks</div>
       </div>
-
-      <div class="row mt-4">
-        <div class="col-lg-8">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">Top Pax by Q to Post Ratio <span class="info-dot" tabindex="0" role="button" aria-label="Regular attendees (4+ posts in 2026) ranked by Q-to-Post ratio — how often they lead relative to how often they post" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Regular attendees (4+ posts in 2026) ranked by Q-to-Post ratio — how often they lead relative to how often they post">&#9432;</span></h3></div>
-            <div class="card-body" id="chart-qp-ratio"></div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">Favorite Post Day</h3></div>
-            <div class="card-body" id="chart-fav-day"></div>
-          </div>
-        </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-total-posts">—</div>
+        <div class="label" title="Sum of all posts in 2026 for the current filter">Total posts</div>
       </div>
-
-      <div class="row mt-4">
-        <div class="col-lg-8">
-          <div class="card h-100">
-            <div class="card-header"><h3 class="card-title">Most Popular AOs <span class="info-dot" tabindex="0" role="button" aria-label="AOs ranked by how many PAX in the current filter have posted there at least once in 2026" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="AOs ranked by how many PAX in the current filter have posted there at least once in 2026">&#9432;</span></h3></div>
-            <div class="card-body" id="chart-popular-ao"></div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card h-100">
-            <div class="card-header"><h3 class="card-title">PAX Trajectory</h3></div>
-            <div class="card-body d-flex align-items-center" id="chart-trajectory"></div>
-          </div>
-        </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-total-qs">—</div>
+        <div class="label" title="Sum of all Q-led workouts in 2026 for the current filter">Total Qs</div>
       </div>
+    </section>
 
-      <div class="card mt-4">
-        <div class="card-header"><h3 class="card-title" id="pax-table-title">PC Regulars</h3></div>
-        <div class="card-body p-0" id="pax-table-container">
-          <div class="d-flex justify-content-center p-4">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section class="section">
+      <div class="section-head"><h2>Top 15 by posts</h2><span class="label">Year to date</span></div>
+      <div class="chart" id="chart-top-pax"></div>
+    </section>
 
+    <div class="pair">
+      <section class="section">
+        <div class="section-head"><h2>Weekly avg posts</h2><span class="label" title="Each PAX's average posts per week since their first 2026 post, rounded">PAX by posting rate</span></div>
+        <div class="chart" id="chart-activity-donut"></div>
+      </section>
+      <section class="section">
+        <div class="section-head"><h2>Favorite post day</h2><span class="label">Share of PAX</span></div>
+        <div class="chart" id="chart-fav-day"></div>
+      </section>
     </div>
-    <footer class="stats-footer">
-      Data refreshes on page load from Google Sheets &nbsp;·&nbsp;
+
+    <div class="pair">
+      <section class="section">
+        <div class="section-head"><h2>Q to post ratio</h2><span class="label" title="Regular attendees (4+ posts in 2026) ranked by Q-to-Post ratio: how often they lead relative to how often they post">Top 8 · 4+ posts</span></div>
+        <div class="chart" id="chart-qp-ratio"></div>
+      </section>
+      <section class="section">
+        <div class="section-head"><h2>Most popular AOs</h2><span class="label" title="AOs ranked by how many PAX in the current filter have posted there at least once in 2026">PAX who post there</span></div>
+        <div class="chart" id="chart-popular-ao"></div>
+      </section>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><h2>PAX trajectory</h2><span class="label" title="Compares avg posts per week in the last 3 weeks vs the last 26 weeks (Heating Up also needs 2+ posts in the last 3 weeks)">Last 3 wks vs 26 wks</span></div>
+      <div id="chart-trajectory"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2 id="pax-table-title">PC Regulars</h2><span class="label" id="pax-table-count"></span></div>
+      <div class="table-wrap" id="pax-table-container"><div class="status label" role="status">Loading…</div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap label">
+      <span>Refreshed on load from Google Sheets</span>
       <a href="https://f3peakcity.com">f3peakcity.com</a>
-    </footer>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+    </div>
+  </footer>
+
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260923a"></script>
-<script src="assets/js/pax.js?v=20260923a"></script>
+<script src="assets/js/data.js?v=20260926a"></script>
+<script src="assets/js/pax.js?v=20260926a"></script>
 </body>
 </html>

@@ -211,7 +211,8 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 /* PAX name links (table -> detail page) */
 .pax-link{color:var(--ink)}
 .pax-link:hover{color:var(--green);text-decoration:underline}
-.table td.table-note{font:400 14px/1.4 var(--ui);color:var(--text);min-width:200px}
+.table td{white-space:nowrap}
+.table td.table-note{font:400 14px/1.4 var(--ui);color:var(--text);min-width:200px;white-space:normal}
 
 /* AO page */
 #chart-daily-attendance{min-height:460px}
