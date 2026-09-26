@@ -274,3 +274,10 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .heat-key{display:flex;flex-wrap:wrap;gap:6px 14px;letter-spacing:.08em}
 .heat-key span{display:inline-flex;align-items:center;gap:6px}
 .heat-key .cell{display:inline-block;width:12px;height:12px}
+
+/* Who to Q: AO picker strip + selected AO */
+.ao-picker{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;padding:20px 0;border-bottom:2px solid var(--ink)}
+.select{font:700 15px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:transparent;border:2px solid var(--ink);border-radius:0;padding:8px 12px;min-width:min(100%,260px)}
+.ao-picker #params-note{margin-left:auto;letter-spacing:.1em}
+.w2q-ao{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 24px;margin-top:40px}
+.w2q-ao-name{margin:0;font:900 clamp(40px,7vw,64px)/.9 var(--display);letter-spacing:-.01em;text-transform:uppercase}
