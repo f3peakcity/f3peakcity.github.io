@@ -113,9 +113,7 @@
   }
 
   try {
-    const rawCsv = await f3FetchCSV('raw');
-    const allRawRows = f3ParseCSV(rawCsv, 0)
-      .filter(r => r['Name'] && r['Name'].trim() && (r['Date'] || '').startsWith('2026-'));
+    const allRawRows = await f3LoadRawRows({ year: '2026' });
     if (!allRawRows.length) throw new Error('no 2026 rows');
 
     const totalPosts = allRawRows.length;

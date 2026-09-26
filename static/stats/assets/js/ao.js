@@ -305,10 +305,7 @@ async function aoInit() {
   let weeklyBySite = {};    // AO -> weekly PAX counts, for card sparklines
 
   try {
-    const rawCsv = await f3FetchCSV('raw');
-    allRawRows = f3ParseCSV(rawCsv, 0)
-      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
-      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
+    allRawRows = await f3LoadRawRows({ year: '2026' });
 
     const aoMap = {};
     allRawRows.forEach(r => {

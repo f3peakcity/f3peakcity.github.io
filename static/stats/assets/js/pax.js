@@ -113,10 +113,7 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
   let filteredRows = [];
 
   try {
-    const rawCsv = await f3FetchCSV('raw');
-    const allRawRows = f3ParseCSV(rawCsv, 0)
-      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
-      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
+    const allRawRows = await f3LoadRawRows({ year: '2026' });
 
     allRows = paxBuildRows(allRawRows, now);
 

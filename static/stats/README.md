@@ -110,3 +110,27 @@ and backs the regression test for the August 2026 count.
 Stats pages pin their assets with a `?v=` token. **Bump it on the affected page
 whenever its CSS or JS changes**, or returning visitors get a stale asset against
 new markup.
+
+## Design system
+
+Every page links one stylesheet, `assets/css/stats.css` (designer handoff,
+Sep 2026). No Tabler/Bootstrap. The top half is the handoff verbatim; the
+**EXTENSIONS** section holds features kept beyond it (tone scale, AO cards,
+habit cards, posting rhythm, sortable headers, status states).
+
+Rules worth keeping:
+
+- **Three fonts, fixed roles.** Barlow Condensed for numbers and headings,
+  Lora for sentences, Open Sans for labels. Every small caps label is `.label`.
+- **One green per view.** One `.kpi--accent` per page, one green bar per chart
+  (`f3HighlightAt`). Everything else is ink. The AO daily chart is the one
+  multi-color exception (20+ stacked AOs).
+- **Charts go through `data.js`.** `f3ApexOptions` (base theme),
+  `f3RankedBarOptions` (horizontal, high to low), `f3ColumnOptions` (days,
+  months, buckets). Don't hand-roll Apex options.
+- **Explanations are native `title` text.** The old ⓘ info-dot tooltips needed
+  Bootstrap and are gone.
+- **Data loads through `f3LoadRawRows()`.** It checks the Raw tab's header
+  (`Date, Name, Site, Role`), applies `f3CanonicalSite`, and throws on a
+  wrong-shaped sheet so pages show an error instead of an empty page.
+  Loading/error/empty states come from `f3ShowLoading/f3ShowError/f3ShowEmpty`.

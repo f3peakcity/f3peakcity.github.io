@@ -91,10 +91,7 @@ const FNG_STATUSES = [
   let allRows = [];
 
   try {
-    const rawCsv = await f3FetchCSV('raw');
-    const allRawRows = f3ParseCSV(rawCsv, 0)
-      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
-      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
+    const allRawRows = await f3LoadRawRows({ year: '2026' });
 
     allRows = fngBuildRows(allRawRows, now);
   } catch (e) {

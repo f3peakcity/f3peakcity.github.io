@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex } = require('../assets/js/data.js');
+const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -269,6 +269,26 @@ test('f3ApexOptions keeps base keys a page does not override', () => {
 test('f3MaxIndex returns the first max, -1 when empty', () => {
   assert.strictEqual(f3MaxIndex([3, 9, 9, 1]), 1);
   assert.strictEqual(f3MaxIndex([]), -1);
+});
+
+// --- f3RawRowsFromCsv ---
+console.log('\nf3RawRowsFromCsv');
+
+test('keeps named rows, canonicalizes sites, filters by year', () => {
+  const csv = 'Date,Name,Site,Role\n2026-08-01,Imp,WWCM,Q\n2025-12-31,Imp,Das Boot,\n2026-08-02, ,Das Boot,\n';
+  const rows = f3RawRowsFromCsv(csv, { year: '2026' });
+  assert.strictEqual(rows.length, 1);
+  assert.strictEqual(rows[0].Site, 'NeighborUp');
+  assert.strictEqual(f3RawRowsFromCsv(csv).length, 2);
+});
+
+test('a header-only sheet is empty, not an error', () => {
+  assert.deepStrictEqual(f3RawRowsFromCsv('Date,Name,Site,Role\n'), []);
+});
+
+test('a sheet without the expected columns throws', () => {
+  assert.throws(() => f3RawRowsFromCsv('<html>not csv</html>\n'), /missing column/);
+  assert.throws(() => f3RawRowsFromCsv(''), /missing column/);
 });
 
 // --- Summary ---

@@ -122,7 +122,7 @@ function f3SetPressed(btn) {
 // ── ApexCharts theme ──
 // One shared base so every chart reads as the handoff's flat ink bars:
 // ink by default, green for exactly one bar, no grid, no toolbar.
-const F3_INK = '#1a1a1a', F3_GREEN = '#4a5e3a', F3_MUTED = '#8a7a60', F3_RULE = '#c8bfa8';
+const F3_INK = '#1a1a1a', F3_GREEN = '#4a5e3a', F3_MUTED = '#8a7a60';
 const F3_UI_FONT = "'Open Sans', sans-serif", F3_DISPLAY_FONT = "'Barlow Condensed', sans-serif";
 
 function f3Merge(base, over) {
@@ -270,34 +270,6 @@ function f3LazyChart(containerId, renderFn) {
   obs.observe(el);
 }
 
-// Builds an info-dot (ⓘ) affordance carrying tooltip text. The dot is
-// keyboard-focusable and tap-friendly so tooltips are discoverable on both
-// desktop (hover/focus) and touch (tap → focus). Returns an HTML string for
-// use in template literals; escapes the tip text.
-function f3InfoDot(tip) {
-  return `<span class="info-dot" tabindex="0" role="button" aria-label="${f3Esc(tip)}"` +
-    ` data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="${f3Esc(tip)}">&#9432;</span>`;
-}
-
-// Initializes themed Bootstrap tooltips on any not-yet-initialized
-// [data-bs-toggle="tooltip"] elements within `root` (default: document).
-// Idempotent — safe to call after every re-render. Stops info-dot clicks from
-// bubbling (so clicking one inside a sortable <th> doesn't trigger a sort).
-function f3InitTooltips(root) {
-  const Tooltip = window.bootstrap && window.bootstrap.Tooltip;
-  if (!Tooltip) return;
-  const scope = (typeof root === 'string' ? document.querySelector(root) : root) || document;
-  if (!scope) return;
-  scope.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
-    if (el._f3Tip) return;
-    el._f3Tip = true;
-    if (el.classList.contains('info-dot')) {
-      el.addEventListener('click', e => { e.stopPropagation(); e.preventDefault(); });
-    }
-    new Tooltip(el, { trigger: 'hover focus', container: 'body' });
-  });
-}
-
 // Two distinct questions get asked about a Site value across the stats pages —
 // keep them as two functions rather than one, since collapsing them changes
 // real PAX's numbers (see f3IsRealAo below).
@@ -373,11 +345,32 @@ function f3CanonicalSite(site) {
   return F3_SITE_ALIASES_LC[s.toLowerCase()] || s;
 }
 
+// ── Raw attendance tab: the one loader every stats page uses ──
+// Columns the pages read. A published tab missing any of them is the wrong
+// shape (a renamed column, an HTML error page served as 200), and should read
+// as an error, not as "no posts yet".
+const F3_RAW_COLUMNS = ['Date', 'Name', 'Site', 'Role'];
+
+// Parses the Raw tab: checks its header, rewrites migrated site names, drops
+// rows with no PAX name. `year` (e.g. '2026') keeps only that year's rows.
+function f3RawRowsFromCsv(text, { year } = {}) {
+  const header = f3ParseCSVLine((text || '').split('\n')[0] || '').map(h => h.trim());
+  const missing = F3_RAW_COLUMNS.filter(c => !header.includes(c));
+  if (missing.length) throw new Error(`Sheet is missing column(s): ${missing.join(', ')}`);
+  return f3ParseCSV(text, 0)
+    .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
+    .filter(r => r['Name'] && r['Name'].trim() && (!year || r['Date'].startsWith(year + '-')));
+}
+
+async function f3LoadRawRows(opts) {
+  return f3RawRowsFromCsv(await f3FetchCSV('raw'), opts);
+}
+
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
-    f3Merge, f3ApexOptions, f3MaxIndex,
+    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv,
   };
 }

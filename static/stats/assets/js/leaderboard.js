@@ -91,11 +91,7 @@ async function lbInit() {
   let currentMonth = '';
 
   try {
-    const rawCsv = await f3FetchCSV('raw');
-
-    const allRawRows = f3ParseCSV(rawCsv, 0)
-      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
-      .filter(r => r['Name'] && r['Name'].trim());
+    const allRawRows = await f3LoadRawRows();
 
     const now = new Date();
     const pcRegMap = f3PcRegularMap(allRawRows, now);
