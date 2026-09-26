@@ -227,3 +227,11 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .ao-spark{display:block;width:100%;height:34px;fill:currentColor;opacity:.8}
 .ao-trend{font:700 11px/1 var(--ui);letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
 .ao-core-list{margin:8px 0 0;font:400 14px/1.5 var(--ui);color:var(--text)}
+
+/* FNG status stack: segment + swatch colors */
+.stack--done{background:var(--green)}
+.stack--dev{background:var(--ink)}
+.stack--pending{background:var(--track)}
+.stack--ghost{background:var(--rule)}
+.legend .swatch{vertical-align:-1px}
+.legend-num{margin-top:8px}

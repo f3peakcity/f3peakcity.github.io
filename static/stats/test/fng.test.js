@@ -6,7 +6,7 @@ const assert = require('assert');
 const dataUtils = require('../assets/js/data.js');
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
 
-const { fngStatus, fngBuildRows } = require('../assets/js/fng.js');
+const { fngStatus, fngBuildRows, fngDaysBuckets } = require('../assets/js/fng.js');
 
 let passed = 0;
 let failed = 0;
@@ -83,6 +83,13 @@ test('2nd Post and Days to 2nd post come from the second chronological record', 
   const h = byName(fngBuildRows(rows, NOW), 'Hitchhiker');
   assert.strictEqual(h['2nd Post'], '8/6/2026');
   assert.strictEqual(h['Days to 2nd post'], 5);
+});
+
+console.log('\nfngDaysBuckets');
+
+test('buckets days-to-2nd at 3/7/14/30 and counts no-return as None', () => {
+  const b = fngDaysBuckets([0, 3, 4, 7, 8, 14, 15, 30, 31, ''].map(d => ({ 'Days to 2nd post': d })));
+  assert.deepStrictEqual(b, { '0–3 d': 2, '4–7 d': 2, '8–14 d': 2, '15–30 d': 2, '31+ d': 1, 'None': 1 });
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);
