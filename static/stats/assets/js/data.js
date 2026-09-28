@@ -409,6 +409,18 @@ function f3PcRegularMap(rows, now) {
   return map;
 }
 
+// Takeovers: days when another region's men led our workouts. Their Q records
+// are real posts (attendance, #112 and PAX totals keep them) but they are not
+// Peak City leadership, so every Q-depth metric skips them via f3IsVisitingQ.
+// Add a line per takeover; dates are inclusive.
+const F3_VISITING_Q_WINDOWS = [
+  { from: '2026-09-22', to: '2026-09-25', note: 'South Cary (SCary) takeover: their men Q\'d our workouts' },
+];
+function f3IsVisitingQ(r) {
+  const d = r['Date'] || '';
+  return r['Role'] === 'Q' && F3_VISITING_Q_WINDOWS.some(w => d >= w.from && d <= w.to);
+}
+
 // Q load per AO over the last `days`: Q-led records, unique Qs, and the share
 // led by the two busiest Qs. A high share is a succession risk, not a verdict:
 // if those two men step back, the AO has no one else in rotation.
@@ -420,7 +432,7 @@ function f3QLoadByAo(rows, now, days = 90) {
   const cutoff = new Date(now - days * 864e5);
   const bySite = {};
   rows.forEach(r => {
-    if (r['Role'] !== 'Q') return;
+    if (r['Role'] !== 'Q' || f3IsVisitingQ(r)) return;
     const site = (r['Site'] || '').trim();
     if (!f3CountsTowardAttendance(site)) return;
     const d = f3ParseLocalDate(r['Date']);
@@ -485,6 +497,6 @@ if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
-    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone,
+    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ,
   };
 }

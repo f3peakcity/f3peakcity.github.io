@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone } = require('../assets/js/data.js');
+const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -300,7 +300,7 @@ const QNOW = new Date(2026, 8, 28);
 test('top-2 share counts only Q records in the window, per AO', () => {
   const rows = [
     qRow('2026-09-01', 'A', 'Half Dome'), qRow('2026-09-08', 'A', 'Half Dome'),
-    qRow('2026-09-15', 'B', 'Half Dome'), qRow('2026-09-22', 'C', 'Half Dome'),
+    qRow('2026-09-15', 'B', 'Half Dome'), qRow('2026-09-19', 'C', 'Half Dome'),
     qRow('2026-01-05', 'Z', 'Half Dome'),                      // outside 90 days
     { Date: '2026-09-02', Name: 'D', Site: 'Half Dome', Role: 'P' }, // not a Q
     qRow('2026-09-03', 'E', '#downrange'),                     // not a Peak City Q
@@ -310,6 +310,14 @@ test('top-2 share counts only Q records in the window, per AO', () => {
   assert.strictEqual(load['Half Dome'].qLed, 4);
   assert.strictEqual(load['Half Dome'].uniqueQs, 3);
   assert.strictEqual(load['Half Dome'].top2Share, 0.75);
+});
+
+test('takeover Q records are skipped; posts and other dates are not', () => {
+  assert.strictEqual(f3IsVisitingQ({ Date: '2026-09-23', Role: 'Q' }), true);
+  assert.strictEqual(f3IsVisitingQ({ Date: '2026-09-23', Role: 'P' }), false);
+  assert.strictEqual(f3IsVisitingQ({ Date: '2026-09-26', Role: 'Q' }), false);
+  const load = f3QLoadByAo([qRow('2026-09-23', 'Visitor', 'Das Boot'), qRow('2026-09-10', 'Local', 'Das Boot')], QNOW);
+  assert.deepStrictEqual([load['Das Boot'].qLed, load['Das Boot'].uniqueQs], [1, 1]);
 });
 
 test('tone flags concentrated load but not a sample too small to judge', () => {

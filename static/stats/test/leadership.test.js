@@ -5,7 +5,7 @@ const assert = require('assert');
 const dataUtils = require('../assets/js/data.js');
 Object.assign(global, dataUtils);
 const {
-  ldQHistory, ldConcentration, ldFirstTimeQs, ldRepeatRate, ldPipeline, ldBench,
+  ldQHistory, ldVisitors, ldConcentration, ldFirstTimeQs, ldRepeatRate, ldPipeline, ldBench,
 } = require('../assets/js/leadership.js');
 
 let passed = 0;
@@ -93,6 +93,26 @@ test('pipeline narrows from PC Regulars to regular Qs', () => {
 test('bench is PC Regulars with no Q on record, with a home AO', () => {
   const b = ldBench(teamRows, ldQHistory(teamRows), NOW);
   assert.deepStrictEqual(b.map(x => [x.name, x.homeAo]), [['Bench', 'Half Dome']]);
+});
+
+console.log('\ntakeover (visiting Qs)');
+
+test('takeover Qs are not leadership; visitors stay off the bench and pipeline', () => {
+  const rows = [
+    ...teamRows,
+    // A visitor who posted enough that week to read as a PC Regular, and Q'd.
+    ...['2026-09-21', '2026-09-22', '2026-09-24'].map(d => r(d, 'Visitor', 'Tin2Iron')),
+    r('2026-09-23', 'Visitor', 'Tin2Iron', 'Q'),
+    // A local man who also Q'd during the takeover keeps his other Qs.
+    r('2026-09-24', 'Leader', 'Das Boot', 'Q'),
+  ];
+  const h = ldQHistory(rows);
+  assert.strictEqual(h.Visitor, undefined);
+  assert.strictEqual(h.Leader.length, 3, 'the takeover Q is dropped, his own three remain');
+  assert.deepStrictEqual([...ldVisitors(rows, h)], ['Visitor']);
+  assert.deepStrictEqual(ldBench(rows, h, NOW).map(b => b.name), ['Bench']);
+  assert.strictEqual(ldPipeline(rows, h, NOW)[0].n, 3, 'the visitor is not in the PC Regular base');
+  assert.deepStrictEqual(ldFirstTimeQs(h, '2026-01-01').map(f => f.name).includes('Visitor'), false);
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);

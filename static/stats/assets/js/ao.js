@@ -328,7 +328,7 @@ async function aoInit() {
       ao.weeks.add(aoWeekMonday(r['Date']));
       ao.names.add(r['Name'].trim());
       ao.totalPosts++;
-      if (r['Role'] === 'Q') {
+      if (r['Role'] === 'Q' && !f3IsVisitingQ(r)) {  // takeover Qs aren't our bench
         const n = r['Name'].trim();
         ao.qNames.add(n);
         ao.qCounts[n] = (ao.qCounts[n] || 0) + 1;

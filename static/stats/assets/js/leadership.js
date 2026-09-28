@@ -17,11 +17,12 @@ const ldInWindow = (iso, now, days) => {
   return d && d <= now && now - d <= days * LD_DAY_MS;
 };
 
-// Name -> that man's Q records, oldest first.
+// Name -> that man's Q records, oldest first. Takeover Qs (f3IsVisitingQ) are
+// left out: another region's men leading our workouts isn't our leadership.
 function ldQHistory(rows) {
   const out = {};
   rows.forEach(r => {
-    if (r['Role'] !== 'Q' || !f3CountsTowardAttendance(r['Site'])) return;
+    if (r['Role'] !== 'Q' || f3IsVisitingQ(r) || !f3CountsTowardAttendance(r['Site'])) return;
     (out[r['Name'].trim()] = out[r['Name'].trim()] || []).push({ date: r['Date'], site: r['Site'].trim() });
   });
   Object.values(out).forEach(list => list.sort((a, b) => a.date.localeCompare(b.date)));
@@ -63,9 +64,18 @@ function ldRepeatRate(firstTimers, now) {
   return { n: repeated.length, of: eligible.length };
 }
 
+// Men whose only Qs on record came during a takeover: visitors, not Peak City
+// regulars waiting for a first Q. Kept out of the pipeline and the bench.
+function ldVisitors(rows, history) {
+  const out = new Set();
+  rows.forEach(r => { if (f3IsVisitingQ(r) && !history[r['Name'].trim()]) out.add(r['Name'].trim()); });
+  return out;
+}
+
 // From PC Regulars to regular Qs. Every stage is a subset of the one before.
 function ldPipeline(rows, history, now) {
-  const regulars = Object.entries(f3PcRegularMap(rows, now)).filter(([, v]) => v).map(([n]) => n);
+  const visitors = ldVisitors(rows, history);
+  const regulars = Object.entries(f3PcRegularMap(rows, now)).filter(([n, v]) => v && !visitors.has(n)).map(([n]) => n);
   const recentQs = name => (history[name] || []).filter(q => ldInWindow(q.date, now, LD_WINDOW_DAYS)).length;
   const everQd = regulars.filter(n => history[n]);
   const recent = everQd.filter(n => recentQs(n) > 0);
@@ -82,10 +92,11 @@ function ldPipeline(rows, history, now) {
 // in the window; sorted by recent posts, most first.
 function ldBench(rows, history, now) {
   const regulars = f3PcRegularMap(rows, now);
+  const visitors = ldVisitors(rows, history);
   const recent = {};
   rows.forEach(r => {
     const name = r['Name'].trim();
-    if (!regulars[name] || history[name] || !f3CountsTowardAttendance(r['Site'])) return;
+    if (!regulars[name] || history[name] || visitors.has(name) || !f3CountsTowardAttendance(r['Site'])) return;
     if (!ldInWindow(r['Date'], now, LD_WINDOW_DAYS)) return;
     const m = recent[name] = recent[name] || { posts: 0, sites: {} };
     m.posts++;
@@ -190,6 +201,6 @@ function ldBench(rows, history, now) {
 
 if (typeof module !== 'undefined') {
   module.exports = {
-    LD_REPEAT_DAYS, ldQHistory, ldConcentration, ldFirstTimeQs, ldRepeatRate, ldPipeline, ldBench,
+    LD_REPEAT_DAYS, ldQHistory, ldVisitors, ldConcentration, ldFirstTimeQs, ldRepeatRate, ldPipeline, ldBench,
   };
 }

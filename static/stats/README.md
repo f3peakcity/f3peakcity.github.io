@@ -83,6 +83,19 @@ Records start Jan 2025, so a "first Q" is the first **on record**.
   Q-led workouts led by its two busiest Qs. Rust at 50%+, gold at 40%+,
   uncolored under 6 Q-led workouts (`F3_Q_LOAD_*` in `data.js`).
 
+### Takeovers (visiting Qs)
+
+When another region takes over our workouts, their men's Q records are real
+posts but not Peak City leadership. `F3_VISITING_Q_WINDOWS` in `data.js`
+lists those date ranges; `f3IsVisitingQ` keeps their Qs out of every Q-depth
+metric (Leadership page, AO unique Qs, bench strength, Q load). Men whose only
+Qs came during a takeover are treated as visitors and kept off the pipeline
+and bench. Attendance, PAX totals and #112 still count those posts.
+
+- **2026-09-22 to 2026-09-25**: South Cary (SCary) takeover.
+
+Add a line for each future takeover.
+
 ## Known upstream data issue
 
 Out-of-region BigQuery events discard the real AO name and are stored as
