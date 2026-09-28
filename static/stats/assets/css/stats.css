@@ -215,7 +215,7 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
    line, text cells wrap, and only numbers and dates hold to one line. */
 .table th{white-space:normal;vertical-align:bottom;line-height:1.35;letter-spacing:.06em;padding-right:8px}
 .table th .info-dot{margin-left:-2px}
-.table th .th-tail{white-space:nowrap}  /* last word + ⓘ + sort arrow never split (f3ThLabel) */
+.table th .th-tail,.tail{white-space:nowrap}  /* last word + ⓘ (+ sort arrow) never split: f3ThLabel in JS, .tail in HTML */
 .table td{padding-right:8px;vertical-align:top}
 .table td:first-child{min-width:7em}
 .table td.num,.table td.nowrap{white-space:nowrap}
@@ -337,3 +337,4 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .trio .row .row-name{overflow-wrap:anywhere}
 .trio .row .label{grid-column:1;grid-row:2}
 .trio .row .row-val{grid-column:2;grid-row:1/span 2;align-self:center}
+.kpi .label{line-height:1.45}  /* two-line KPI labels need air; the handoff .label is line-height 1 */

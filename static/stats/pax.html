@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20260928b">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260929a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -29,6 +29,7 @@
         <a href="fng.html">FNG Stats</a>
         <a href="leaderboard.html">#112 Leaderboard</a>
         <a href="who2q.html">Who to Q</a>
+        <a href="leadership.html">Leadership</a>
       </nav>
     </div>
   </header>
@@ -55,15 +56,15 @@
       </div>
       <div class="kpi kpi--accent">
         <div class="kpi-num" id="stat-active-3wk">—</div>
-        <div class="label">Active last 3 wks <button type="button" class="info-dot" data-tip="PAX who have posted at least once in the last 3 weeks" aria-label="PAX who have posted at least once in the last 3 weeks">&#9432;</button></div>
+        <div class="label">Active last 3 <span class="tail">wks&nbsp;<button type="button" class="info-dot" data-tip="PAX who have posted at least once in the last 3 weeks" aria-label="PAX who have posted at least once in the last 3 weeks">&#9432;</button></span></div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-total-posts">—</div>
-        <div class="label">Total posts <button type="button" class="info-dot" data-tip="Sum of all posts in 2026 for the current filter" aria-label="Sum of all posts in 2026 for the current filter">&#9432;</button></div>
+        <div class="label">Total <span class="tail">posts&nbsp;<button type="button" class="info-dot" data-tip="Sum of all posts in 2026 for the current filter" aria-label="Sum of all posts in 2026 for the current filter">&#9432;</button></span></div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-total-qs">—</div>
-        <div class="label">Total Qs <button type="button" class="info-dot" data-tip="Sum of all Q-led workouts in 2026 for the current filter" aria-label="Sum of all Q-led workouts in 2026 for the current filter">&#9432;</button></div>
+        <div class="label">Total <span class="tail">Qs&nbsp;<button type="button" class="info-dot" data-tip="Sum of all Q-led workouts in 2026 for the current filter" aria-label="Sum of all Q-led workouts in 2026 for the current filter">&#9432;</button></span></div>
       </div>
     </section>
 
@@ -74,7 +75,7 @@
 
     <div class="pair">
       <section class="section">
-        <div class="section-head"><h2>Weekly avg posts</h2><span class="label">PAX by posting rate <button type="button" class="info-dot" data-tip="Each PAX's average posts per week since their first 2026 post, rounded" aria-label="Each PAX's average posts per week since their first 2026 post, rounded">&#9432;</button></span></div>
+        <div class="section-head"><h2>Weekly avg posts</h2><span class="label">PAX by posting <span class="tail">rate&nbsp;<button type="button" class="info-dot" data-tip="Each PAX's average posts per week since their first 2026 post, rounded" aria-label="Each PAX's average posts per week since their first 2026 post, rounded">&#9432;</button></span></span></div>
         <div class="chart" id="chart-activity-donut"></div>
       </section>
       <section class="section">
@@ -85,17 +86,17 @@
 
     <div class="pair">
       <section class="section">
-        <div class="section-head"><h2>Q to post ratio</h2><span class="label">Top 8 · 4+ posts <button type="button" class="info-dot" data-tip="Regular attendees (4+ posts in 2026) ranked by Q-to-Post ratio: how often they lead relative to how often they post" aria-label="Regular attendees (4+ posts in 2026) ranked by Q-to-Post ratio: how often they lead relative to how often they post">&#9432;</button></span></div>
+        <div class="section-head"><h2>Q to post ratio</h2><span class="label">Top 8 · 4+ <span class="tail">posts&nbsp;<button type="button" class="info-dot" data-tip="Regular attendees (4+ posts in 2026) ranked by Q-to-Post ratio: how often they lead relative to how often they post" aria-label="Regular attendees (4+ posts in 2026) ranked by Q-to-Post ratio: how often they lead relative to how often they post">&#9432;</button></span></span></div>
         <div class="chart" id="chart-qp-ratio"></div>
       </section>
       <section class="section">
-        <div class="section-head"><h2>Most popular AOs</h2><span class="label">PAX who post there <button type="button" class="info-dot" data-tip="AOs ranked by how many PAX in the current filter have posted there at least once in 2026" aria-label="AOs ranked by how many PAX in the current filter have posted there at least once in 2026">&#9432;</button></span></div>
+        <div class="section-head"><h2>Most popular AOs</h2><span class="label">PAX who post <span class="tail">there&nbsp;<button type="button" class="info-dot" data-tip="AOs ranked by how many PAX in the current filter have posted there at least once in 2026" aria-label="AOs ranked by how many PAX in the current filter have posted there at least once in 2026">&#9432;</button></span></span></div>
         <div class="chart" id="chart-popular-ao"></div>
       </section>
     </div>
 
     <section class="section">
-      <div class="section-head"><h2>PAX trajectory</h2><span class="label">Last 3 wks vs 26 wks <button type="button" class="info-dot" data-tip="Compares avg posts per week in the last 3 weeks vs the last 26 weeks (Heating Up also needs 2+ posts in the last 3 weeks)" aria-label="Compares avg posts per week in the last 3 weeks vs the last 26 weeks (Heating Up also needs 2+ posts in the last 3 weeks)">&#9432;</button></span></div>
+      <div class="section-head"><h2>PAX trajectory</h2><span class="label">Last 3 wks vs 26 <span class="tail">wks&nbsp;<button type="button" class="info-dot" data-tip="Compares avg posts per week in the last 3 weeks vs the last 26 weeks (Heating Up also needs 2+ posts in the last 3 weeks)" aria-label="Compares avg posts per week in the last 3 weeks vs the last 26 weeks (Heating Up also needs 2+ posts in the last 3 weeks)">&#9432;</button></span></span></div>
       <div id="chart-trajectory"></div>
     </section>
 
@@ -113,7 +114,7 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260928b"></script>
-<script src="assets/js/pax.js?v=20260928b"></script>
+<script src="assets/js/data.js?v=20260929a"></script>
+<script src="assets/js/pax.js?v=20260929a"></script>
 </body>
 </html>
