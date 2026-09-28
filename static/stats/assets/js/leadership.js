@@ -145,9 +145,18 @@ function ldBench(rows, history, now) {
 
   // Pipeline
   const stages = ldPipeline(rows, history, now);
+  // The "Have Q'd" gap is exactly the Ready to Q list, so link to it.
+  const stageNote = (st, i) => {
+    if (!i) return 'The base';
+    const share = `${pct(st.n, st.of)}% of regulars`;
+    const notYet = st.of - st.n;
+    return i === 1 && notYet
+      ? `${share} · <a href="#ready-to-q">${notYet} haven't yet &darr;</a>`
+      : share;
+  };
   document.getElementById('ld-pipeline').innerHTML = stages.map((st, i) => `
     <div class="bar-row bar-row--wide${i === 0 ? ' is-top' : ''}">
-      <span class="bar-name">${st.label} ${f3InfoDot(st.tip)}<span class="label">${i ? `${pct(st.n, st.of)}% of regulars` : 'The base'}</span></span>
+      <span class="bar-name">${st.label} ${f3InfoDot(st.tip)}<span class="label">${stageNote(st, i)}</span></span>
       <span class="bar-track"><span class="bar-fill" style="width:${pct(st.n, st.of)}%"></span></span>
       <span class="bar-val">${st.n}</span>
     </div>`).join('');

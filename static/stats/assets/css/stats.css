@@ -338,3 +338,4 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .trio .row .label{grid-column:1;grid-row:2}
 .trio .row .row-val{grid-column:2;grid-row:1/span 2;align-self:center}
 .kpi .label{line-height:1.45}  /* two-line KPI labels need air; the handoff .label is line-height 1 */
+.bar-row--wide .bar-name .label a{color:var(--green)}

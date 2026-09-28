@@ -90,6 +90,12 @@ test('pipeline narrows from PC Regulars to regular Qs', () => {
   assert.deepStrictEqual(ldPipeline(teamRows, h, NOW).map(s => s.n), [3, 2, 1, 1]);
 });
 
+test("the pipeline's 'have Q'd' gap is exactly the bench (the page links one to the other)", () => {
+  const h = ldQHistory(teamRows);
+  const [base, qd] = ldPipeline(teamRows, h, NOW);
+  assert.strictEqual(ldBench(teamRows, h, NOW).length, base.n - qd.n);
+});
+
 test('bench is PC Regulars with no Q on record, with a home AO', () => {
   const b = ldBench(teamRows, ldQHistory(teamRows), NOW);
   assert.deepStrictEqual(b.map(x => [x.name, x.homeAo]), [['Bench', 'Half Dome']]);
