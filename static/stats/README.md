@@ -26,8 +26,10 @@ second AO earns an extra post for each distinct qualifying AO.
 
 Qualifying second-post AOs (`LB_SECOND_POST_SITES` in `assets/js/leaderboard.js`):
 
-- NeighborUp
-- WWCM
+- NeighborUp — WWCM was removed from this list when it merged into NeighborUp
+  (see [Site-name migrations](#site-name-migrations) below); historical `WWCM`
+  rows are rewritten before this list is ever checked, so it no longer needs a
+  separate entry.
 - F3 Dads — *no `Site` rows exist in the sheet yet; pre-listed so the rule works
   the day that AO starts reporting. If it gets logged under a different name,
   that constant needs the real string.*
@@ -95,8 +97,14 @@ Run from the repo root:
 ```bash
 node static/stats/test/leaderboard.test.js     # #112 counting rules
 node static/stats/test/ao.test.js
+node static/stats/test/pax.test.js
+node static/stats/test/fng.test.js
+node static/stats/test/pax-detail.test.js
 node static/stats/test/data.test.js
 node static/stats/test/who2q.test.js
+
+# or all at once:
+for f in static/stats/test/*.test.js; do node "$f"; done
 ```
 
 Browser tests need a server and headless Chrome — see the header comment in
