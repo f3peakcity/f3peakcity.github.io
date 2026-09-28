@@ -270,6 +270,62 @@ function f3LazyChart(containerId, renderFn) {
   obs.observe(el);
 }
 
+// ── Info-dot (ⓘ) tooltips ──
+// A focusable button carrying an explanation. One shared popover (appended to
+// <body>, so scrolling tables can't clip it) shows on hover, keyboard focus or
+// tap, and closes on Esc or an outside tap. Event delegation means
+// re-rendered markup needs no re-init.
+function f3InfoDot(tip) {
+  return `<button type="button" class="info-dot" data-tip="${f3Esc(tip)}" aria-label="${f3Esc(tip)}">&#9432;</button>`;
+}
+
+function f3InitInfoDots() {
+  const pop = document.createElement('div');
+  pop.className = 'tip-pop';
+  pop.setAttribute('role', 'tooltip');
+  pop.hidden = true;
+  document.body.appendChild(pop);
+  let current = null;
+
+  const dotOf = el => (el instanceof Element ? el.closest('.info-dot') : null);
+  const hide = () => { current = null; pop.hidden = true; };
+  const show = dot => {
+    current = dot;
+    pop.textContent = dot.dataset.tip;
+    pop.hidden = false;
+    const r = dot.getBoundingClientRect();
+    const p = pop.getBoundingClientRect();
+    const left = Math.min(Math.max(8, r.left + r.width / 2 - p.width / 2), innerWidth - p.width - 8);
+    const top = r.top - p.height - 8 >= 8 ? r.top - p.height - 8 : r.bottom + 8;
+    pop.style.left = `${left + scrollX}px`;
+    pop.style.top = `${top + scrollY}px`;
+  };
+
+  document.addEventListener('mouseover', e => { const d = dotOf(e.target); if (d && d !== current) show(d); });
+  document.addEventListener('mouseout', e => {
+    const d = dotOf(e.target);
+    if (d && dotOf(e.relatedTarget) !== d && document.activeElement !== d) hide();
+  });
+  document.addEventListener('focusin', e => { const d = dotOf(e.target); if (d) show(d); });
+  document.addEventListener('focusout', e => { if (dotOf(e.target)) hide(); });
+  // Capture phase: a dot inside a sortable <th> must not trigger the sort.
+  document.addEventListener('click', e => {
+    const d = dotOf(e.target);
+    if (!d) { hide(); return; }
+    e.stopPropagation();
+    e.preventDefault();
+    // Always open, never toggle: a tap fires hover + focus first, which have
+    // already opened it, and a toggle would close it again.
+    show(d);
+  }, true);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+  // Page coordinates survive a page scroll; a scrolled table moves the dot, so
+  // re-anchor rather than close (focus() scrolling a dot into view fires this).
+  addEventListener('scroll', () => { if (current) show(current); }, { passive: true, capture: true });
+}
+
+if (typeof document !== 'undefined') f3InitInfoDots();
+
 // Two distinct questions get asked about a Site value across the stats pages —
 // keep them as two functions rather than one, since collapsing them changes
 // real PAX's numbers (see f3IsRealAo below).

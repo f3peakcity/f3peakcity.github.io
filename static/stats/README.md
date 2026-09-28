@@ -128,8 +128,10 @@ Rules worth keeping:
 - **Charts go through `data.js`.** `f3ApexOptions` (base theme),
   `f3RankedBarOptions` (horizontal, high to low), `f3ColumnOptions` (days,
   months, buckets). Don't hand-roll Apex options.
-- **Explanations are native `title` text.** The old ⓘ info-dot tooltips needed
-  Bootstrap and are gone.
+- **Explanations are ⓘ info-dots.** `f3InfoDot(tip)` in JS, or the same
+  `<button class="info-dot" data-tip="…">` in HTML. One shared popover opens on
+  hover, keyboard focus or tap; no Bootstrap. Dense data cells (heat cells,
+  rhythm squares, Who to Q rows) keep native `title` hover text instead.
 - **Data loads through `f3LoadRawRows()`.** It checks the Raw tab's header
   (`Date, Name, Site, Role`), applies `f3CanonicalSite`, and throws on a
   wrong-shaped sheet so pages show an error instead of an empty page.

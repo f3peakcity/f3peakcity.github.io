@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20260926a">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260928a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -38,10 +38,12 @@
       <div class="eyebrow label"><span>Dashboard 04</span><span>2026 season</span></div>
       <h1 class="page-title">#112 Leaderboard</h1>
       <div class="page-head-row">
-        <p class="page-sub" title="A calendar day counts as one post, however many records it carries. Saturdays can earn an extra post for NeighborUp, WWCM or F3 Dads. Applies from Aug 2026 on; earlier months keep their original counts.">12 posts and 1 Peak City Q, every month. That's the crew.</p>
-        <div class="toggle" role="group" aria-label="Which PAX to show">
-          <button type="button" id="btn-pc-reg" aria-pressed="true" title="PC Regular = 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks (#downrange and Shield Lock don't count toward it)">PC Regulars</button>
+        <p class="page-sub">12 posts and 1 Peak City Q, every month. That's the crew. <button type="button" class="info-dot" data-tip="A calendar day counts as one post, however many records it carries. Saturdays can earn an extra post for NeighborUp, WWCM or F3 Dads. Applies from Aug 2026 on; earlier months keep their original counts." aria-label="A calendar day counts as one post, however many records it carries. Saturdays can earn an extra post for NeighborUp, WWCM or F3 Dads. Applies from Aug 2026 on; earlier months keep their original counts.">&#9432;</button></p>
+        <div class="tip-toggle"><div class="toggle" role="group" aria-label="Which PAX to show">
+          <button type="button" id="btn-pc-reg" aria-pressed="true">PC Regulars</button>
           <button type="button" id="btn-all-crew" aria-pressed="false">All Crew</button>
+        </div>
+          <button type="button" class="info-dot" data-tip="PC Regular = 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks (#downrange and Shield Lock don't count toward it)" aria-label="PC Regular = 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks (#downrange and Shield Lock don't count toward it)">&#9432;</button>
         </div>
       </div>
     </section>
@@ -49,21 +51,21 @@
     <section class="kpis" aria-label="#112 totals">
       <div class="kpi">
         <div class="kpi-num" id="stat-total-crew">—</div>
-        <div class="label" title="PAX in the current view (PC Regulars or All Crew) with at least one 2026 post">In the crew this year</div>
+        <div class="label">In the crew this year <button type="button" class="info-dot" data-tip="PAX in the current view (PC Regulars or All Crew) with at least one 2026 post" aria-label="PAX in the current view (PC Regulars or All Crew) with at least one 2026 post">&#9432;</button></div>
       </div>
       <div class="kpi">
         <div class="kpi-num"><span id="stat-current-month">—</span><small id="stat-current-month-name"></small></div>
         <div class="lb-month-bar" aria-hidden="true"><span id="stat-month-bar" style="width:0%"></span></div>
-        <div class="label" id="stat-month-label" title="Crew who have completed #112 this month: 12+ posts and at least one Peak City Q">Month completions</div>
+        <div class="label"><span id="stat-month-label">Month completions</span> <button type="button" class="info-dot" data-tip="Crew who have completed #112 this month: 12+ posts and at least one Peak City Q" aria-label="Crew who have completed #112 this month: 12+ posts and at least one Peak City Q">&#9432;</button></div>
       </div>
       <div class="kpi kpi--accent">
         <div class="kpi-num" id="stat-streakers">—</div>
-        <div class="label" id="stat-streakers-label" title="Crew on an active run of consecutive months completing #112 (12 posts + 1 Q). Early in a new month this counts through the prior month.">Active streakers</div>
+        <div class="label"><span id="stat-streakers-label">Active streakers</span> <button type="button" class="info-dot" data-tip="Crew on an active run of consecutive months completing #112 (12 posts + 1 Q). Early in a new month this counts through the prior month." aria-label="Crew on an active run of consecutive months completing #112 (12 posts + 1 Q). Early in a new month this counts through the prior month.">&#9432;</button></div>
       </div>
     </section>
 
     <section class="section">
-      <div class="section-head"><h2>Completions per month</h2><span class="label" title="Crew completing #112 each month (12+ posts and at least one Q), all crew">All crew</span></div>
+      <div class="section-head"><h2>Completions per month</h2><span class="label">All crew <button type="button" class="info-dot" data-tip="Crew completing #112 each month (12+ posts and at least one Q), all crew" aria-label="Crew completing #112 each month (12+ posts and at least one Q), all crew">&#9432;</button></span></div>
       <div class="chart" id="chart-monthly-completions"></div>
     </section>
 
@@ -95,7 +97,7 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260926a"></script>
-<script src="assets/js/leaderboard.js?v=20260926a"></script>
+<script src="assets/js/data.js?v=20260928a"></script>
+<script src="assets/js/leaderboard.js?v=20260928a"></script>
 </body>
 </html>

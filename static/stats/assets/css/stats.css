@@ -296,3 +296,9 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .rhythm-legend > span{display:inline-flex;align-items:center;gap:8px}
 .rhythm-legend .rhythm-dot{width:12px;height:12px}
 .table tr.is-muted td{color:var(--muted)}
+
+/* Info-dot (ⓘ) tooltips: f3InfoDot + f3InitInfoDots in data.js */
+.info-dot{display:inline-block;margin:-4px -4px -4px 2px;padding:4px;border:0;background:none;color:var(--muted);font:400 13px/1 var(--ui);letter-spacing:0;text-transform:none;vertical-align:middle;cursor:help}
+.info-dot:hover,.info-dot:focus-visible{color:var(--green)}
+.tip-pop{position:absolute;z-index:100;max-width:min(280px,calc(100vw - 16px));padding:8px 10px;background:var(--ink);color:var(--paper);font:400 13px/1.4 var(--ui);letter-spacing:.01em;text-transform:none;text-align:left;pointer-events:none}
+.tip-toggle{display:inline-flex;align-items:center;gap:6px}

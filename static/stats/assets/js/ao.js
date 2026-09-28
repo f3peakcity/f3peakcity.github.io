@@ -664,7 +664,7 @@ async function aoInit() {
     const grid = document.getElementById('ao-cards-grid');
     if (!rows.length) { f3ShowEmpty('ao-cards-grid', 'No AO data available'); return; }
     const stat = (label, value, tip) =>
-      `<div><dt class="label"${tip ? ` title="${f3Esc(tip)}"` : ''}>${label}</dt><dd>${value}</dd></div>`;
+      `<div><dt class="label">${label}${tip ? ` ${f3InfoDot(tip)}` : ''}</dt><dd>${value}</dd></div>`;
     grid.innerHTML = rows.map(r => {
       const avg = parseFloat(r['Avg/Meeting']) || 0;
       const bench = parseFloat(r['Bench Strength']);
@@ -687,7 +687,7 @@ async function aoInit() {
       const sparkHtml = spark
         ? `<div class="ao-spark-row tone-${aoTrendTone(aoTrendPct(weekly))}">
             <div class="ao-spark-head">
-              <span class="label" title="${f3Esc(TREND_TIP)}">Weekly trend</span>
+              <span class="label">Weekly trend ${f3InfoDot(TREND_TIP)}</span>
               ${aoTrendChip(weekly)}
             </div>
             ${spark}
@@ -703,7 +703,7 @@ async function aoInit() {
             ${stat('Top Q', topQ, 'PAX who most frequently led workouts at this AO in 2026')}
           </dl>
           ${sparkHtml}
-          <div class="label" title="${f3Esc(CORE_TIP)}">Core PAX (${corePax.length})</div>
+          <div class="label">Core PAX (${corePax.length}) ${f3InfoDot(CORE_TIP)}</div>
           <p class="ao-core-list">${coreHtml}</p>
         </article>`;
     }).join('');
@@ -712,7 +712,7 @@ async function aoInit() {
   function renderTable(rows) {
     const container = document.getElementById('ao-table-container');
     const th = (key, label, tip, num) =>
-      `<th data-sort="${key}"${num ? ' class="num"' : ''} title="${f3Esc(tip)}">${label}</th>`;
+      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${label} ${f3InfoDot(tip)}</th>`;
     container.innerHTML = `
         <table class="table" id="ao-full-table">
           <thead>
@@ -724,7 +724,7 @@ async function aoInit() {
               ${th('FNGs', 'FNGs', 'Number of first-time attendees at this AO in 2026', true)}
               ${th('Unique Qs', 'Unique Qs', 'Number of distinct PAX who have led a workout (Q) at this AO in 2026', true)}
               ${th('Bench Strength', 'Bench', BENCH_TIP, true)}
-              <th title="${f3Esc(CORE_TIP)}">Core PAX</th>
+              <th>Core PAX ${f3InfoDot(CORE_TIP)}</th>
             </tr>
           </thead>
           <tbody id="ao-table-body"></tbody>

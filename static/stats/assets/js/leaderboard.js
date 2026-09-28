@@ -316,7 +316,7 @@ async function lbInit() {
     const header = `<div class="heat-row heat-head">
       <span class="label">PAX</span>
       ${MONTHS.map(m => `<span class="label">${f3Esc(m.replace(' 2026', '').slice(0, 3))}</span>`).join('')}
-      <span class="label" title="Current streak / total months completed">Streak</span>
+      <span class="label">Streak ${f3InfoDot('Current streak / total months completed')}</span>
     </div>`;
 
     const rows = filteredRows.map(r => {

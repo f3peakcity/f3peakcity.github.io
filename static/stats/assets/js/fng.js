@@ -170,7 +170,7 @@ const FNG_STATUSES = [
   function renderTable(rows) {
     const container = document.getElementById('fng-table-container');
     const th = (key, label, tip, num) =>
-      `<th data-sort="${key}"${num ? ' class="num"' : ''} title="${f3Esc(tip)}">${label}</th>`;
+      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${label} ${f3InfoDot(tip)}</th>`;
     container.innerHTML = `
         <table class="table" id="fng-full-table">
           <thead>

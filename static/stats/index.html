@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20260926a">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260928a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -42,7 +42,7 @@
     <section class="hero" aria-label="Region total">
       <div class="hero-num" id="stat-total-posts">—</div>
       <div class="hero-side">
-        <div class="hero-kicker" title="Total workout posts recorded in 2026">Posts &amp; counting ↑</div>
+        <div class="hero-kicker">Posts &amp; counting ↑ <button type="button" class="info-dot" data-tip="Total workout posts recorded in 2026" aria-label="Total workout posts recorded in 2026">&#9432;</button></div>
         <p class="hero-lede">Every post in the gloom, logged. Pick a dashboard below to see where the region stands.</p>
       </div>
     </section>
@@ -52,15 +52,15 @@
     <section class="kpis" aria-label="Region stats">
       <div class="kpi">
         <div class="kpi-num" id="stat-total-pax">—</div>
-        <div class="label" title="Distinct PAX who have posted at least once in 2026">Total PAX</div>
+        <div class="label">Total PAX <button type="button" class="info-dot" data-tip="Distinct PAX who have posted at least once in 2026" aria-label="Distinct PAX who have posted at least once in 2026">&#9432;</button></div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-active-aos">—</div>
-        <div class="label" title="Distinct AO sites with at least one 2026 workout (excludes #downrange and Shield Lock)">Active AOs</div>
+        <div class="label">Active AOs <button type="button" class="info-dot" data-tip="Distinct AO sites with at least one 2026 workout (excludes #downrange and Shield Lock)" aria-label="Distinct AO sites with at least one 2026 workout (excludes #downrange and Shield Lock)">&#9432;</button></div>
       </div>
       <div class="kpi kpi--accent">
         <div class="kpi-num"><span id="stat-fng-pct">—</span><small id="stat-fng-ratio"></small></div>
-        <div class="label" title="Of 2026 FNGs, how many reached 10+ posts (Regular status)">FNG → Regular</div>
+        <div class="label">FNG → Regular <button type="button" class="info-dot" data-tip="Of 2026 FNGs, how many reached 10+ posts (Regular status)" aria-label="Of 2026 FNGs, how many reached 10+ posts (Regular status)">&#9432;</button></div>
       </div>
     </section>
 
@@ -102,7 +102,7 @@
     </div>
   </footer>
 
-<script src="assets/js/data.js?v=20260926a"></script>
+<script src="assets/js/data.js?v=20260928a"></script>
 <script>
 (async function() {
   const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];

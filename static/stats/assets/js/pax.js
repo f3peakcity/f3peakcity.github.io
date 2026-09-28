@@ -266,7 +266,7 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
     const container = document.getElementById('pax-table-container');
     document.getElementById('pax-table-count').textContent = `${rows.length} PAX`;
     const th = (key, label, tip, num) =>
-      `<th data-sort="${key}"${num ? ' class="num"' : ''} title="${f3Esc(tip)}">${label}</th>`;
+      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${label} ${f3InfoDot(tip)}</th>`;
     container.innerHTML = `
         <table class="table" id="pax-full-table">
           <thead>

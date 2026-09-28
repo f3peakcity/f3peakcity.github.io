@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20260926a">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260928a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -43,19 +43,19 @@
     <section class="kpis" aria-label="FNG totals">
       <div class="kpi">
         <div class="kpi-num" id="stat-total-fngs">—</div>
-        <div class="label" title="Total first-time attendees in 2026">Total FNGs</div>
+        <div class="label">Total FNGs <button type="button" class="info-dot" data-tip="Total first-time attendees in 2026" aria-label="Total first-time attendees in 2026">&#9432;</button></div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-retained">—</div>
-        <div class="label" title="FNGs who returned for a 2nd post but have fewer than 10 total posts">Developing</div>
+        <div class="label">Developing <button type="button" class="info-dot" data-tip="FNGs who returned for a 2nd post but have fewer than 10 total posts" aria-label="FNGs who returned for a 2nd post but have fewer than 10 total posts">&#9432;</button></div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-pending">—</div>
-        <div class="label" title="FNGs with only 1 post and 14 days or fewer since their first post: still in the grace period">Pending</div>
+        <div class="label">Pending <button type="button" class="info-dot" data-tip="FNGs with only 1 post and 14 days or fewer since their first post: still in the grace period" aria-label="FNGs with only 1 post and 14 days or fewer since their first post: still in the grace period">&#9432;</button></div>
       </div>
       <div class="kpi kpi--accent">
         <div class="kpi-num"><span id="stat-regular">—</span><small id="stat-regular-pct"></small></div>
-        <div class="label" title="FNGs who have posted 10+ times: they stuck around and became regulars">Graduated regular</div>
+        <div class="label">Graduated regular <button type="button" class="info-dot" data-tip="FNGs who have posted 10+ times: they stuck around and became regulars" aria-label="FNGs who have posted 10+ times: they stuck around and became regulars">&#9432;</button></div>
       </div>
     </section>
 
@@ -66,7 +66,7 @@
 
     <div class="pair">
       <section class="section">
-        <div class="section-head"><h2>Days to 2nd post</h2><span class="label" title="Days between an FNG's first and second post; None = no second post yet">FNGs</span></div>
+        <div class="section-head"><h2>Days to 2nd post</h2><span class="label">FNGs <button type="button" class="info-dot" data-tip="Days between an FNG's first and second post; None = no second post yet" aria-label="Days between an FNG's first and second post; None = no second post yet">&#9432;</button></span></div>
         <div class="chart" id="chart-days-to-return"></div>
       </section>
       <section class="section">
@@ -89,7 +89,7 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260926a"></script>
-<script src="assets/js/fng.js?v=20260926a"></script>
+<script src="assets/js/data.js?v=20260928a"></script>
+<script src="assets/js/fng.js?v=20260928a"></script>
 </body>
 </html>
