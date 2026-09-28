@@ -5,128 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>PAX Detail — F3 Peak City Stats</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260928b">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#4a5e3a">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css?v=20260710a">
 </head>
-<body class="antialiased">
-<div class="wrapper">
+<body>
 
-  <div class="masthead-bar">
-    <span class="region">F3 PEAK CITY</span>
-    <span class="dateline">Apex, NC &nbsp;·&nbsp; Live from Google Sheets</span>
-  </div>
-
-  <header class="navbar navbar-expand-md d-print-none">
-    <div class="container-xl">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a href="https://f3peakcity.com" class="navbar-f3-logo" target="_blank" rel="noopener" aria-label="F3 Peak City"><img src="../img/brand/f3-peak-city-white-on-transparent.png" alt="F3 Peak City" width="26" height="26"></a><a href="index.html" class="navbar-brand">Peak City Stats</a>
-      <div class="collapse navbar-collapse" id="navbar-menu">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="ao.html">AO Stats</a></li>
-          <li class="nav-item"><a class="nav-link active" href="pax.html">PAX Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
-        </ul>
-      </div>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/img/logo-white-96.png" alt="" width="24" height="24">
+        <span>Peak City Stats</span>
+      </a>
+      <nav class="site-nav" aria-label="Dashboards">
+        <a href="ao.html">AO Stats</a>
+        <a href="pax.html">PAX Stats</a>
+        <a href="fng.html">FNG Stats</a>
+        <a href="leaderboard.html">#112 Leaderboard</a>
+        <a href="who2q.html">Who to Q</a>
+      </nav>
     </div>
   </header>
 
-  <div class="page-wrapper">
-    <div class="container-xl">
+  <main class="wrap">
+    <section class="page-head">
+      <div class="eyebrow label"><a href="pax.html">&larr; All PAX</a><span>Since Jan 1, 2026</span></div>
+      <h1 class="page-title" id="detail-pax-name">PAX Detail</h1>
+      <p class="page-sub" id="detail-pax-sub">Per-AO participation.</p>
+    </section>
 
-      <div class="page-header d-print-none mt-4">
-        <div class="row align-items-center">
-          <div class="col">
-            <a href="pax.html" class="pax-link" style="font-family:'Open Sans',sans-serif;font-size:0.8rem;">&larr; All PAX</a>
-            <h2 class="page-title" id="detail-pax-name">PAX Detail</h2>
-            <p class="text-muted" id="detail-pax-sub">Per-AO participation &mdash; all data from Jan 1, 2026</p>
-          </div>
-        </div>
+    <section class="kpis" aria-label="PAX totals">
+      <div class="kpi kpi--accent">
+        <div class="kpi-num" id="stat-posts">—</div>
+        <div class="label">Total posts</div>
       </div>
-
-      <div class="row row-cards mt-3">
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Total Posts</div>
-              <div class="h1 mb-0" id="stat-posts">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Total Qs</div>
-              <div class="h1 mb-0" id="stat-qs">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">AOs Visited <span class="info-dot" tabindex="0" role="button" aria-label="Number of distinct AOs this PAX has posted at in 2026" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Number of distinct AOs this PAX has posted at in 2026">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-aos">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Q/P Ratio <span class="info-dot" tabindex="0" role="button" aria-label="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-ratio">—</div>
-            </div>
-          </div>
-        </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-qs">—</div>
+        <div class="label">Total Qs</div>
       </div>
-
-      <div class="card mt-4" id="rhythm-card" hidden>
-        <div class="card-header"><h3 class="card-title">Posting Rhythm <span class="info-dot" tabindex="0" role="button" aria-label="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week." data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week.">&#9432;</span></h3></div>
-        <div class="card-body" id="pax-rhythm"></div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-aos">—</div>
+        <div class="label">AOs visited <button type="button" class="info-dot" data-tip="Number of distinct AOs this PAX has posted at in 2026" aria-label="Number of distinct AOs this PAX has posted at in 2026">&#9432;</button></div>
       </div>
-
-      <div class="row mt-4" id="detail-charts-row" hidden>
-        <div class="col-lg-8">
-          <div class="card h-100">
-            <div class="card-header"><h3 class="card-title">Posts by Month</h3></div>
-            <div class="card-body" id="chart-detail-monthly"></div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card h-100">
-            <div class="card-header"><h3 class="card-title">Weekly Fingerprint <span class="info-dot" tabindex="0" role="button" aria-label="Which days of the week this PAX tends to post" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Which days of the week this PAX tends to post">&#9432;</span></h3></div>
-            <div class="card-body" id="chart-detail-dow"></div>
-          </div>
-        </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-ratio">—</div>
+        <div class="label">Q/P ratio <button type="button" class="info-dot" data-tip="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)" aria-label="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)">&#9432;</button></div>
       </div>
+    </section>
 
-      <div class="mt-4">
-        <h3 class="mb-3" style="font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;">AO Breakdown</h3>
-        <div class="ao-card-grid" id="pax-ao-grid">
-          <div class="card"><div class="card-body text-muted">Loading...</div></div>
-        </div>
-      </div>
+    <section class="section" id="rhythm-card" hidden>
+      <div class="section-head"><h2>Posting rhythm</h2><span class="label">One square per week <button type="button" class="info-dot" data-tip="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week." aria-label="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week.">&#9432;</button></span></div>
+      <div id="pax-rhythm"></div>
+    </section>
 
+    <div class="pair" id="detail-charts-row" hidden>
+      <section class="section">
+        <div class="section-head"><h2>Posts by month</h2><span class="label">This month in green</span></div>
+        <div class="chart" id="chart-detail-monthly"></div>
+      </section>
+      <section class="section">
+        <div class="section-head"><h2>Weekly fingerprint</h2><span class="label">Posts by day <button type="button" class="info-dot" data-tip="Which days of the week this PAX tends to post" aria-label="Which days of the week this PAX tends to post">&#9432;</button></span></div>
+        <div class="chart" id="chart-detail-dow"></div>
+      </section>
     </div>
-    <footer class="stats-footer">
-      Data refreshes on page load from Google Sheets &nbsp;·&nbsp;
+
+    <section class="section">
+      <div class="section-head"><h2>AO breakdown</h2><span class="label">Every AO in the region</span></div>
+      <div class="table-wrap" id="pax-ao-grid"><div class="status label" role="status">Loading…</div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap label">
+      <span>Refreshed on load from Google Sheets</span>
       <a href="https://f3peakcity.com">f3peakcity.com</a>
-    </footer>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+    </div>
+  </footer>
+
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260923a"></script>
-<script src="assets/js/pax-detail.js?v=20260923a"></script>
+<script src="assets/js/data.js?v=20260928b"></script>
+<script src="assets/js/pax-detail.js?v=20260928b"></script>
 </body>
 </html>

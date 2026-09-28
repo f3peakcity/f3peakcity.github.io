@@ -5,135 +5,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>FNG Stats — F3 Peak City Stats</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260928b">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#4a5e3a">
-  <link rel="stylesheet" href="assets/css/custom.css?v=20260710a">
 </head>
-<body class="antialiased">
-<div class="wrapper">
+<body>
 
-  <div class="masthead-bar">
-    <span class="region">F3 PEAK CITY</span>
-    <span class="dateline">Apex, NC &nbsp;·&nbsp; Live from Google Sheets</span>
-  </div>
-
-  <header class="navbar navbar-expand-md d-print-none">
-    <div class="container-xl">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a href="https://f3peakcity.com" class="navbar-f3-logo" target="_blank" rel="noopener" aria-label="F3 Peak City"><img src="../img/brand/f3-peak-city-white-on-transparent.png" alt="F3 Peak City" width="26" height="26"></a><a href="index.html" class="navbar-brand">Peak City Stats</a>
-      <div class="collapse navbar-collapse" id="navbar-menu">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="ao.html">AO Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
-          <li class="nav-item"><a class="nav-link active" href="fng.html">FNG Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
-        </ul>
-      </div>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/img/logo-white-96.png" alt="" width="24" height="24">
+        <span>Peak City Stats</span>
+      </a>
+      <nav class="site-nav" aria-label="Dashboards">
+        <a href="ao.html">AO Stats</a>
+        <a href="pax.html">PAX Stats</a>
+        <a href="fng.html" aria-current="page">FNG Stats</a>
+        <a href="leaderboard.html">#112 Leaderboard</a>
+        <a href="who2q.html">Who to Q</a>
+      </nav>
     </div>
   </header>
 
-  <div class="page-wrapper">
-    <div class="container-xl">
+  <main class="wrap">
+    <section class="page-head">
+      <div class="eyebrow label"><span>Dashboard 03</span><span>Since Jan 1, 2026</span></div>
+      <h1 class="page-title">FNG Stats</h1>
+      <p class="page-sub">How we're doing bringing in new guys, and keeping them.</p>
+    </section>
 
-      <div class="page-header d-print-none mt-4">
-        <div class="row align-items-center">
-          <div class="col">
-            <h2 class="page-title">FNG Stats</h2>
-            <p class="text-muted">Tracking how we're doing bringing in new guys and keeping them &mdash; all data from Jan 1, 2026</p>
-          </div>
-        </div>
+    <section class="kpis" aria-label="FNG totals">
+      <div class="kpi">
+        <div class="kpi-num" id="stat-total-fngs">—</div>
+        <div class="label">Total FNGs <button type="button" class="info-dot" data-tip="Total first-time attendees in 2026" aria-label="Total first-time attendees in 2026">&#9432;</button></div>
       </div>
-
-      <div class="row row-cards mt-3">
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Total FNGs <span class="info-dot" tabindex="0" role="button" aria-label="Total first-time attendees in 2026 (within current date filter)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total first-time attendees in 2026 (within current date filter)">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-total-fngs">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Developing / Retained <span class="info-dot" tabindex="0" role="button" aria-label="FNGs who returned for a 2nd post but have fewer than 10 total posts" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FNGs who returned for a 2nd post but have fewer than 10 total posts">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-retained">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Pending <span class="info-dot" tabindex="0" role="button" aria-label="FNGs with only 1 post and 14 days or fewer since their first post — still in grace period" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FNGs with only 1 post and 14 days or fewer since their first post — still in grace period">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-pending">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Graduated Regular <span class="info-dot" tabindex="0" role="button" aria-label="FNGs who have posted 10+ times — they stuck around and became regulars" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="FNGs who have posted 10+ times — they stuck around and became regulars">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-regular">—</div>
-            </div>
-          </div>
-        </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-retained">—</div>
+        <div class="label">Developing <button type="button" class="info-dot" data-tip="FNGs who returned for a 2nd post but have fewer than 10 total posts" aria-label="FNGs who returned for a 2nd post but have fewer than 10 total posts">&#9432;</button></div>
       </div>
-
-      <div class="row mt-4">
-        <div class="col-lg-5">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">FNG Status Breakdown</h3></div>
-            <div class="card-body" id="chart-fng-status"></div>
-          </div>
-        </div>
-        <div class="col-lg-7">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">Days to 2nd Post Distribution</h3></div>
-            <div class="card-body" id="chart-days-to-return"></div>
-          </div>
-        </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-pending">—</div>
+        <div class="label">Pending <button type="button" class="info-dot" data-tip="FNGs with only 1 post and 14 days or fewer since their first post: still in the grace period" aria-label="FNGs with only 1 post and 14 days or fewer since their first post: still in the grace period">&#9432;</button></div>
       </div>
-
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">Monthly FNG Trend</h3></div>
-            <div class="card-body" id="chart-fng-monthly"></div>
-          </div>
-        </div>
+      <div class="kpi kpi--accent">
+        <div class="kpi-num"><span id="stat-regular">—</span><small id="stat-regular-pct"></small></div>
+        <div class="label">Graduated regular <button type="button" class="info-dot" data-tip="FNGs who have posted 10+ times: they stuck around and became regulars" aria-label="FNGs who have posted 10+ times: they stuck around and became regulars">&#9432;</button></div>
       </div>
+    </section>
 
-      <div class="card mt-4">
-        <div class="card-header"><h3 class="card-title">All FNGs</h3></div>
-        <div class="card-body p-0" id="fng-table-container">
-          <div class="d-flex justify-content-center p-4">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section class="section">
+      <div class="section-head"><h2>Status breakdown</h2><span class="label" id="fng-status-total"></span></div>
+      <div id="chart-fng-status"></div>
+    </section>
 
+    <div class="pair">
+      <section class="section">
+        <div class="section-head"><h2>Days to 2nd post</h2><span class="label">FNGs <button type="button" class="info-dot" data-tip="Days between an FNG's first and second post; None = no second post yet" aria-label="Days between an FNG's first and second post; None = no second post yet">&#9432;</button></span></div>
+        <div class="chart" id="chart-days-to-return"></div>
+      </section>
+      <section class="section">
+        <div class="section-head"><h2>Monthly FNG trend</h2><span class="label">New FNGs per month</span></div>
+        <div class="chart" id="chart-fng-monthly"></div>
+      </section>
     </div>
-    <footer class="stats-footer">
-      Data refreshes on page load from Google Sheets &nbsp;·&nbsp;
+
+    <section class="section">
+      <div class="section-head"><h2>All FNGs</h2><span class="label">Newest first · click a header to sort</span></div>
+      <div class="table-wrap" id="fng-table-container"><div class="status label" role="status">Loading…</div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap label">
+      <span>Refreshed on load from Google Sheets</span>
       <a href="https://f3peakcity.com">f3peakcity.com</a>
-    </footer>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+    </div>
+  </footer>
+
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260923a"></script>
-<script src="assets/js/fng.js?v=20260923a"></script>
+<script src="assets/js/data.js?v=20260928b"></script>
+<script src="assets/js/fng.js?v=20260928b"></script>
 </body>
 </html>

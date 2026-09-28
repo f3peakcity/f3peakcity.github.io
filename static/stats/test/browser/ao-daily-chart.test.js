@@ -66,7 +66,7 @@ function check(name, cond, detail) {
       firstX: xl[0] || '',
       legend: [].map.call(root.querySelectorAll('.apexcharts-legend-text'), function(e){return e.textContent;}),
       readout: document.getElementById('daily-attendance-range').textContent,
-      activePill: document.querySelector('#daily-day-filter .active').dataset.day || ''
+      activePill: document.querySelector('#daily-day-filter [aria-pressed="true"]').dataset.day || ''
     };})()`);
   const legend = name => ev(`(function(){
       var els = [].slice.call(document.querySelectorAll('#chart-daily-attendance .apexcharts-legend-series'));

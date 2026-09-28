@@ -16,30 +16,41 @@ function who2qFmtDate(iso) {
     : '—';
 }
 
+// Month + day, adding the year only when it isn't this one.
+function who2qShortDate(iso, now = new Date()) {
+  const d = f3ParseLocalDate(iso);
+  if (!d) return '—';
+  const opts = { month: 'short', day: 'numeric' };
+  if (d.getFullYear() !== now.getFullYear()) opts.year = 'numeric';
+  return d.toLocaleDateString('en-US', opts);
+}
+
+// A past Q this long gone is the strongest ask, so it earns the one green.
+const WHO2Q_LONG_OVERDUE_DAYS = 120;
+
 function who2qNeverRowsHtml(list) {
   if (!list.length) {
-    return '<div class="p-3 text-muted">Everyone who attends regularly has already Q’d here. Deep bench.</div>';
+    return '<div class="status label empty-state">Everyone who attends regularly has already Q’d here. Deep bench.</div>';
   }
-  const rows = list.map((p, i) =>
-    `<tr><td class="text-muted">${i + 1}</td><td>${f3Esc(p.name)}</td>` +
-    `<td>${p.attended}x</td><td>${who2qFmtRate(p.rate)}</td>` +
-    `<td>${who2qFmtDate(p.last_attended)}</td></tr>`).join('');
-  return '<div class="table-responsive"><table class="table table-vcenter card-table">' +
-    '<thead><tr><th>#</th><th>Name</th><th>Attended</th><th>Rate</th><th>Last Seen</th></tr></thead>' +
-    `<tbody>${rows}</tbody></table></div>`;
+  return list.map(p => `<div class="row" title="Posted to ${who2qFmtRate(p.rate)} of this AO's recent workouts · last seen ${who2qFmtDate(p.last_attended)}">
+      <span class="row-name">${f3Esc(p.name)}</span>
+      <span class="label">Last ${who2qShortDate(p.last_attended)} · ${who2qFmtRate(p.rate)}</span>
+      <span class="row-val" aria-label="${p.attended} posts here">${p.attended}</span>
+    </div>`).join('');
 }
 
 function who2qStaleRowsHtml(list) {
   if (!list.length) {
-    return '<div class="p-3 text-muted">No overdue Qs — everyone who has led here has done so in the last 60 days.</div>';
+    return '<div class="status label empty-state">No overdue Qs: everyone who has led here has done so recently.</div>';
   }
-  const rows = list.map((p, i) =>
-    `<tr><td class="text-muted">${i + 1}</td><td>${f3Esc(p.name)}</td>` +
-    `<td>${who2qFmtDate(p.last_q)}</td><td>${p.days_since} days</td>` +
-    `<td>${p.attended_in_window > 0 ? p.attended_in_window + 'x' : '—'}</td></tr>`).join('');
-  return '<div class="table-responsive"><table class="table table-vcenter card-table">' +
-    '<thead><tr><th>#</th><th>Name</th><th>Last Q</th><th>Days Ago</th><th>Recent Posts</th></tr></thead>' +
-    `<tbody>${rows}</tbody></table></div>`;
+  return list.map(p => {
+    const recent = p.attended_in_window > 0 ? `${p.attended_in_window} recent posts` : 'no recent posts';
+    return `<div class="row" title="Last Q ${who2qFmtDate(p.last_q)} · ${p.days_since} days ago · ${recent}">
+      <span class="row-name">${f3Esc(p.name)}</span>
+      <span class="label">Q'd ${who2qShortDate(p.last_q)}</span>
+      <span class="row-val${p.days_since > WHO2Q_LONG_OVERDUE_DAYS ? ' is-good' : ''}" aria-label="${p.days_since} days since">${p.days_since}</span>
+    </div>`;
+  }).join('');
 }
 
 // ---- Page wiring (browser only) ----
@@ -54,11 +65,11 @@ async function who2qInit() {
     const data = await res.json();
 
     document.getElementById('data-as-of').textContent =
-      'Data as of ' + who2qFmtDate(data.generated_at);
+      'As of ' + who2qFmtDate(data.generated_at);
     const p = data.params;
     document.getElementById('params-note').textContent =
-      `Regular = posted to ≥${Math.round(p.regular_threshold * 100)}% of the last ` +
-      `${p.window_weeks} weeks' workouts · Overdue = last Q more than ${p.stale_days} days ago`;
+      `Regular: ${Math.round(p.regular_threshold * 100)}%+ of the last ${p.window_weeks} wks · ` +
+      `Overdue: no Q in ${p.stale_days}+ days`;
 
     const byName = {};
     data.aos.forEach(ao => {
@@ -73,10 +84,13 @@ async function who2qInit() {
       const ao = byName[sel.value];
       if (!ao) return;
       location.hash = 'ao=' + encodeURIComponent(ao.name);
-      document.getElementById('never-qd-count').textContent = ao.never_qd.length;
-      document.getElementById('stale-q-count').textContent = ao.stale_qs.length;
-      document.getElementById('ao-workouts-note').textContent =
-        `${ao.workouts_in_window} workouts in the last ${data.params.window_weeks} weeks`;
+      document.getElementById('w2q-ao').hidden = false;
+      document.getElementById('w2q-ao-name').textContent = ao.name;
+      document.getElementById('w2q-ao-summary').textContent =
+        `${ao.never_qd.length} never Q'd · ${ao.stale_qs.length} overdue · ` +
+        `${ao.workouts_in_window} workouts in ${data.params.window_weeks} wks`;
+      document.getElementById('never-qd-count').textContent = 'Regulars · posts here';
+      document.getElementById('stale-q-count').textContent = 'Days since';
       neverBody.innerHTML = who2qNeverRowsHtml(ao.never_qd);
       staleBody.innerHTML = who2qStaleRowsHtml(ao.stale_qs);
     }
@@ -89,9 +103,9 @@ async function who2qInit() {
     }
     sel.addEventListener('change', render);
   } catch (e) {
-    console.error(e);
-    f3ShowError('never-qd-body', 'Could not load Q candidate data — try refreshing the page.');
-    f3ShowError('stale-q-body', 'Could not load Q candidate data — try refreshing the page.');
+    f3ShowError('never-qd-body', 'Could not load Q candidate data — try refreshing the page');
+    f3ShowError('stale-q-body', 'Could not load Q candidate data — try refreshing the page');
+    document.getElementById('data-as-of').textContent = 'Unavailable';
   }
 }
 
@@ -101,5 +115,5 @@ if (typeof document !== 'undefined') {
 
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
-  module.exports = { who2qFmtRate, who2qFmtDate, who2qNeverRowsHtml, who2qStaleRowsHtml };
+  module.exports = { who2qFmtRate, who2qFmtDate, who2qShortDate, who2qNeverRowsHtml, who2qStaleRowsHtml };
 }

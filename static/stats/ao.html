@@ -5,10 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
   <title>AO Stats — F3 Peak City Stats</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/css/tabler.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css?v=20260824e">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260928b">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -16,152 +15,107 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#4a5e3a">
 </head>
-<body class="antialiased">
-<div class="wrapper">
+<body>
 
-  <div class="masthead-bar">
-    <span class="region">F3 PEAK CITY</span>
-    <span class="dateline">Apex, NC &nbsp;·&nbsp; Live from Google Sheets</span>
-  </div>
-
-  <header class="navbar navbar-expand-md d-print-none">
-    <div class="container-xl">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a href="https://f3peakcity.com" class="navbar-f3-logo" target="_blank" rel="noopener" aria-label="F3 Peak City"><img src="../img/brand/f3-peak-city-white-on-transparent.png" alt="F3 Peak City" width="26" height="26"></a><a href="index.html" class="navbar-brand">Peak City Stats</a>
-      <div class="collapse navbar-collapse" id="navbar-menu">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link active" href="ao.html">AO Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="pax.html">PAX Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="fng.html">FNG Stats</a></li>
-          <li class="nav-item"><a class="nav-link" href="leaderboard.html">#112 Leaderboard</a></li>
-          <li class="nav-item"><a class="nav-link" href="who2q.html">Who to Q</a></li>
-        </ul>
-      </div>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/img/logo-white-96.png" alt="" width="24" height="24">
+        <span>Peak City Stats</span>
+      </a>
+      <nav class="site-nav" aria-label="Dashboards">
+        <a href="ao.html" aria-current="page">AO Stats</a>
+        <a href="pax.html">PAX Stats</a>
+        <a href="fng.html">FNG Stats</a>
+        <a href="leaderboard.html">#112 Leaderboard</a>
+        <a href="who2q.html">Who to Q</a>
+      </nav>
     </div>
   </header>
 
-  <div class="page-wrapper">
-    <div class="container-xl">
+  <main class="wrap">
+    <section class="page-head">
+      <div class="eyebrow label"><span>Dashboard 01</span><span>Since Jan 1, 2026</span></div>
+      <h1 class="page-title">AO Stats</h1>
+      <p class="page-sub">Site health metrics for Site Qs: attendance, Q depth, and FNGs at every workout location.</p>
+    </section>
 
-      <div class="page-header d-print-none mt-4">
-        <div class="row align-items-center">
-          <div class="col">
-            <h2 class="page-title">AO Stats</h2>
-            <p class="text-muted">Site health metrics for Site Qs &mdash; all data from Jan 1, 2026</p>
-          </div>
+    <section class="kpis" aria-label="AO totals">
+      <div class="kpi">
+        <div class="kpi-num" id="stat-total-aos">—</div>
+        <div class="label">Active AOs <button type="button" class="info-dot" data-tip="Distinct AO sites with at least one workout in 2026 (excludes #downrange and Shield Lock)" aria-label="Distinct AO sites with at least one workout in 2026 (excludes #downrange and Shield Lock)">&#9432;</button></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-avg-attendance">—</div>
+        <div class="label">Avg attendance <button type="button" class="info-dot" data-tip="Average of each AO's per-session PAX count" aria-label="Average of each AO's per-session PAX count">&#9432;</button></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-total-qs">—</div>
+        <div class="label">Unique Qs <button type="button" class="info-dot" data-tip="Sum of unique Q leaders across all AOs in 2026" aria-label="Sum of unique Q leaders across all AOs in 2026">&#9432;</button></div>
+      </div>
+      <div class="kpi kpi--accent">
+        <div class="kpi-num" id="stat-total-fngs">—</div>
+        <div class="label">FNGs <button type="button" class="info-dot" data-tip="Total first-time attendees across all AOs in 2026" aria-label="Total first-time attendees across all AOs in 2026">&#9432;</button></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Daily attendance by AO</h2>
+        <div class="toggle" role="group" aria-label="Filter by day of the week" id="daily-day-filter">
+          <button type="button" data-day="" aria-pressed="true">All</button>
+          <button type="button" data-day="Mon" aria-pressed="false">Mon</button>
+          <button type="button" data-day="Tue" aria-pressed="false">Tue</button>
+          <button type="button" data-day="Wed" aria-pressed="false">Wed</button>
+          <button type="button" data-day="Thu" aria-pressed="false">Thu</button>
+          <button type="button" data-day="Fri" aria-pressed="false">Fri</button>
+          <button type="button" data-day="Sat" aria-pressed="false">Sat</button>
+          <button type="button" data-day="Sun" aria-pressed="false">Sun</button>
         </div>
       </div>
+      <p class="label section-note" id="daily-attendance-range" aria-live="polite"></p>
+      <div class="chart" id="chart-daily-attendance"></div>
+    </section>
 
-      <div class="row row-cards mt-3">
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Active AOs <span class="info-dot" tabindex="0" role="button" aria-label="Distinct AO sites with at least one workout in 2026 (excludes #downrange and Shield Lock)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Distinct AO sites with at least one workout in 2026 (excludes #downrange and Shield Lock)">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-total-aos">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Overall Avg Attendance <span class="info-dot" tabindex="0" role="button" aria-label="Average of each AO's per-session PAX count" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Average of each AO's per-session PAX count">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-avg-attendance">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Total Unique Qs <span class="info-dot" tabindex="0" role="button" aria-label="Sum of unique Q leaders across all AOs in 2026" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sum of unique Q leaders across all AOs in 2026">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-total-qs">—</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-          <div class="card card-stat-accent">
-            <div class="card-body">
-              <div class="subheader">Total FNGs <span class="info-dot" tabindex="0" role="button" aria-label="Total first-time attendees across all AOs in 2026" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Total first-time attendees across all AOs in 2026">&#9432;</span></div>
-              <div class="h1 mb-0" id="stat-total-fngs">—</div>
-            </div>
-          </div>
-        </div>
+    <section class="section">
+      <div class="section-head">
+        <h2>Weekly attendance</h2>
+        <span class="label" id="weekly-attendance-range"></span>
       </div>
+      <div class="chart" id="chart-weekly-attendance"></div>
+    </section>
 
-      <div class="card mt-4">
-        <div class="card-header">
-          <h3 class="card-title">Daily Attendance by AO</h3>
-          <div class="card-options text-muted" id="daily-attendance-range" style="font-size:0.72rem;letter-spacing:0.05em;"></div>
-        </div>
-        <div class="card-body">
-          <div class="filter-toggle-group mb-3" role="group" aria-label="Filter by day of the week" id="daily-day-filter">
-            <button type="button" class="filter-toggle-btn active" data-day="" aria-pressed="true">All</button>
-            <button type="button" class="filter-toggle-btn" data-day="Mon" aria-pressed="false">Mon</button>
-            <button type="button" class="filter-toggle-btn" data-day="Tue" aria-pressed="false">Tue</button>
-            <button type="button" class="filter-toggle-btn" data-day="Wed" aria-pressed="false">Wed</button>
-            <button type="button" class="filter-toggle-btn" data-day="Thu" aria-pressed="false">Thu</button>
-            <button type="button" class="filter-toggle-btn" data-day="Fri" aria-pressed="false">Fri</button>
-            <button type="button" class="filter-toggle-btn" data-day="Sat" aria-pressed="false">Sat</button>
-            <button type="button" class="filter-toggle-btn" data-day="Sun" aria-pressed="false">Sun</button>
-          </div>
-          <div id="chart-daily-attendance"></div>
-        </div>
-      </div>
-
-      <div class="card mt-4">
-        <div class="card-header">
-          <h3 class="card-title">Weekly Attendance — Last 6 Months</h3>
-          <div class="card-options text-muted" id="weekly-attendance-range" style="font-size:0.72rem;letter-spacing:0.05em;"></div>
-        </div>
-        <div class="card-body" id="chart-weekly-attendance"></div>
-      </div>
-
-      <div class="row mt-4">
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">Avg Attendance by AO</h3></div>
-            <div class="card-body" id="chart-ao-attendance"></div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="card-header"><h3 class="card-title">FNGs by AO</h3></div>
-            <div class="card-body" id="chart-ao-fngs"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-4">
-        <h3 class="mb-3" style="font-family:'Barlow Condensed',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;">AO Breakdown</h3>
-        <div class="ao-card-grid" id="ao-cards-grid">
-          <div class="card"><div class="card-body text-muted">Loading...</div></div>
-        </div>
-      </div>
-
-      <div class="card mt-4">
-        <div class="card-header">
-          <h3 class="card-title">All AOs</h3>
-        </div>
-        <div class="card-body p-0" id="ao-table-container">
-          <div class="d-flex justify-content-center p-4">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div class="pair">
+      <section class="section">
+        <div class="section-head"><h2>Avg attendance</h2><span class="label">Per workout</span></div>
+        <div class="chart" id="chart-ao-attendance"></div>
+      </section>
+      <section class="section">
+        <div class="section-head"><h2>FNGs by AO</h2><span class="label">Year to date</span></div>
+        <div class="chart" id="chart-ao-fngs"></div>
+      </section>
     </div>
-    <footer class="stats-footer">
-      Data refreshes on page load from Google Sheets &nbsp;·&nbsp;
+
+    <section class="section">
+      <div class="section-head"><h2>AO breakdown</h2><span class="label">Last 26 weeks</span></div>
+      <div class="ao-grid" id="ao-cards-grid"><div class="status label" role="status">Loading…</div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>All AOs</h2><span class="label">Sorted by avg · click a header to sort</span></div>
+      <div class="table-wrap" id="ao-table-container"><div class="status label" role="status">Loading…</div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap label">
+      <span>Refreshed on load from Google Sheets</span>
       <a href="https://f3peakcity.com">f3peakcity.com</a>
-    </footer>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta20/dist/js/tabler.min.js"></script>
+    </div>
+  </footer>
+
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260923a"></script>
-<script src="assets/js/ao.js?v=20260923a"></script>
+<script src="assets/js/data.js?v=20260928b"></script>
+<script src="assets/js/ao.js?v=20260928b"></script>
 </body>
 </html>

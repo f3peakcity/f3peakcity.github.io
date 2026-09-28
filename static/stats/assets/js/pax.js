@@ -102,57 +102,52 @@ function paxBuildRows(allRawRows, now) {
   }).sort((a, b) => a['Site'].localeCompare(b['Site']));
 }
 
+const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Cooling Off'];
+
 (async function () {
   const now = new Date();
+  const CHART_IDS = ['chart-top-pax', 'chart-activity-donut', 'chart-fav-day', 'chart-qp-ratio',
+    'chart-popular-ao', 'chart-trajectory', 'pax-table-container'];
 
   let allRows = [];
   let filteredRows = [];
 
   try {
-    const rawCsv = await f3FetchCSV('raw');
-    const allRawRows = f3ParseCSV(rawCsv, 0)
-      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
-      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
+    const allRawRows = await f3LoadRawRows({ year: '2026' });
 
     allRows = paxBuildRows(allRawRows, now);
 
   } catch (e) {
-    f3ShowError('pax-table-container', e.message);
-    f3ShowError('chart-top-pax', e.message);
+    CHART_IDS.forEach(id => f3ShowError(id));
     return;
   }
 
+  if (!allRows.length) {
+    CHART_IDS.forEach(id => f3ShowEmpty(id, 'No 2026 posts logged yet'));
+    return;
+  }
+
+  const isRegular = r => (r['PC Regular?'] || '').trim().toUpperCase() === 'TRUE';
+
   // Default: show PC Regulars only
   let showRegularsOnly = true;
-  filteredRows = allRows.filter(r => (r['PC Regular?'] || '').trim().toUpperCase() === 'TRUE');
-  let barChart = null;
-  let donutChart = null;
-  let favDayChart = null;
-  let trajectoryChart = null;
-  let qpChart = null;
-  let popularAoChart = null;
+  filteredRows = allRows.filter(isRegular);
+  const charts = {};
 
   renderAll();
-  f3MakeSortable('pax-full-table', () => filteredRows, renderTableBody);
 
-  document.getElementById('btn-regulars').addEventListener('click', () => {
-    if (showRegularsOnly) return;
-    showRegularsOnly = true;
-    filteredRows = allRows.filter(r => (r['PC Regular?'] || '').trim().toUpperCase() === 'TRUE');
-    document.getElementById('btn-regulars').classList.add('active');
-    document.getElementById('btn-all-pax').classList.remove('active');
-    document.getElementById('pax-table-title').textContent = 'PC Regulars';
-    renderAll();
-  });
-
-  document.getElementById('btn-all-pax').addEventListener('click', () => {
-    if (!showRegularsOnly) return;
-    showRegularsOnly = false;
-    filteredRows = [...allRows];
-    document.getElementById('btn-all-pax').classList.add('active');
-    document.getElementById('btn-regulars').classList.remove('active');
-    document.getElementById('pax-table-title').textContent = 'All PAX';
-    renderAll();
+  // One toggle re-scopes everything on the page: KPIs, every chart, the table.
+  ['btn-regulars', 'btn-all-pax'].forEach(id => {
+    const btn = document.getElementById(id);
+    btn.addEventListener('click', () => {
+      const regulars = id === 'btn-regulars';
+      if (regulars === showRegularsOnly) return;
+      showRegularsOnly = regulars;
+      filteredRows = regulars ? allRows.filter(isRegular) : [...allRows];
+      f3SetPressed(btn);
+      document.getElementById('pax-table-title').textContent = regulars ? 'PC Regulars' : 'All PAX';
+      renderAll();
+    });
   });
 
   function renderAll() {
@@ -160,23 +155,26 @@ function paxBuildRows(allRawRows, now) {
     renderBarChart(filteredRows);
     renderDonutChart(filteredRows);
     renderFavDayChart(filteredRows);
-    renderTrajectoryChart(filteredRows);
+    renderTrajectory(filteredRows);
     renderQpRatioChart(filteredRows);
     renderPopularAoChart(filteredRows);
     renderTable(filteredRows);
-    // Init themed tooltips for static labels + freshly rendered table headers.
-    // Idempotent: already-initialized elements are skipped.
-    f3InitTooltips();
+  }
+
+  // Draws a chart the first time it scrolls into view, then updates it in place.
+  function drawChart(id, options) {
+    if (charts[id]) { charts[id].updateOptions(options); return; }
+    f3LazyChart(id, () => {
+      charts[id] = new ApexCharts(document.getElementById(id), options);
+      charts[id].render();
+    });
   }
 
   function renderStatCards(rows) {
     document.getElementById('stat-total-pax').textContent = rows.length;
+    document.getElementById('stat-total-pax-label').textContent = showRegularsOnly ? 'PC Regulars' : 'Total PAX';
     const active3wk = rows.filter(r => parseInt(r['Last 3 wk']) > 0).length;
     document.getElementById('stat-active-3wk').textContent = active3wk;
-    // Update subheader label to reflect current filter (target the label span so
-    // the info-dot affordance beside it is preserved).
-    document.getElementById('stat-total-pax').closest('.card-body').querySelector('.subheader-label').textContent =
-      showRegularsOnly ? 'PC Regulars' : 'Total PAX';
     const totalPosts = rows.reduce((s, r) => s + (parseInt(r['Total Post']) || 0), 0);
     document.getElementById('stat-total-posts').textContent = totalPosts.toLocaleString();
     const totalQs = rows.reduce((s, r) => s + (parseInt(r['Total Q']) || 0), 0);
@@ -187,62 +185,22 @@ function paxBuildRows(allRawRows, now) {
     const top15 = [...rows]
       .sort((a, b) => (parseInt(b['Total Post']) || 0) - (parseInt(a['Total Post']) || 0))
       .slice(0, 15);
-
-    const options = {
-      chart: { type: 'bar', height: 320, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'Total Posts', data: top15.map(r => parseInt(r['Total Post']) || 0) }],
-      xaxis: { categories: top15.map(r => r['Site']) },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { horizontal: false, columnWidth: '60%' } },
-      dataLabels: { enabled: false },
-      yaxis: { title: { text: 'Posts' } },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-    };
-
-    if (barChart) {
-      barChart.updateOptions(options);
-    } else {
-      f3LazyChart('chart-top-pax', () => {
-        barChart = new ApexCharts(document.getElementById('chart-top-pax'), options);
-        barChart.render();
-      });
-    }
+    drawChart('chart-top-pax', f3RankedBarOptions(top15.map(r => r['Site']), 'Total posts',
+      top15.map(r => parseInt(r['Total Post']) || 0)));
   }
 
+  // How many PAX post at each weekly rate (avg posts/week since their first
+  // 2026 post, rounded).
   function renderDonutChart(rows) {
-    const buckets = { '1x/wk': 0, '2x/wk': 0, '3x/wk': 0, '4x/wk': 0, '5x/wk': 0, '6+x/wk': 0 };
+    const buckets = { '1x': 0, '2x': 0, '3x': 0, '4x': 0, '5x': 0, '6x+': 0 };
     rows.forEach(r => {
       const avg = parseFloat(r['Avg/Week']);
       if (isNaN(avg) || avg < 0.5) return;
       const n = Math.round(avg);
-      if (n >= 6)      buckets['6+x/wk']++;
-      else if (n >= 1) buckets[`${n}x/wk`]++;
+      if (n >= 6)      buckets['6x+']++;
+      else if (n >= 1) buckets[`${n}x`]++;
     });
-
-    const activeKeys = Object.keys(buckets).filter(k => buckets[k] > 0);
-    const allColors  = ['#c8bfa8', '#9aad88', '#7a9a68', '#4a5e3a', '#3a4d2d', '#2a3d1d'];
-    const colorMap   = Object.fromEntries(Object.keys(buckets).map((k, i) => [k, allColors[i]]));
-
-    const options = {
-      chart: { type: 'donut', height: 320, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: activeKeys.map(k => buckets[k]),
-      labels: activeKeys,
-      colors: activeKeys.map(k => colorMap[k]),
-      grid: { borderColor: '#c8bfa8' },
-      legend: { position: 'bottom' },
-      dataLabels: { enabled: true },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-    };
-
-    if (donutChart) {
-      donutChart.updateOptions(options);
-    } else {
-      f3LazyChart('chart-activity-donut', () => {
-        donutChart = new ApexCharts(document.getElementById('chart-activity-donut'), options);
-        donutChart.render();
-      });
-    }
+    drawChart('chart-activity-donut', f3ColumnOptions(Object.keys(buckets), 'PAX', Object.values(buckets)));
   }
 
   function renderFavDayChart(rows) {
@@ -253,83 +211,38 @@ function paxBuildRows(allRawRows, now) {
       const d = (r['Favorite Day of the week'] || '').trim();
       if (counts[d] !== undefined) counts[d]++;
     });
-    // Greens palette keyed to the fixed day order so a day keeps its color
-    // regardless of which days are present in the current filter.
-    const allColors = ['#c8bfa8', '#9aad88', '#7a9a68', '#5a7a48', '#4a5e3a', '#3a4d2d', '#2a3d1d'];
-    const colorMap  = Object.fromEntries(DAY_ORDER.map((d, i) => [d, allColors[i]]));
-    const activeDays = DAY_ORDER.filter(d => counts[d] > 0);
-
-    const options = {
-      chart: { type: 'donut', height: 320, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: activeDays.map(d => counts[d]),
-      labels: activeDays.map(d => d.slice(0, 3)),
-      colors: activeDays.map(d => colorMap[d]),
-      grid: { borderColor: '#c8bfa8' },
-      legend: { position: 'bottom' },
-      dataLabels: { enabled: true },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-      noData: { text: 'No data', align: 'center', verticalAlign: 'middle', style: { fontFamily: "'Open Sans', sans-serif", color: '#8a7a60' } },
-    };
-    if (favDayChart) { favDayChart.updateOptions(options); }
-    else { f3LazyChart('chart-fav-day', () => { favDayChart = new ApexCharts(document.getElementById('chart-fav-day'), options); favDayChart.render(); }); }
+    const total = Object.values(counts).reduce((a, b) => a + b, 0) || 1;
+    const shares = DAY_ORDER.map(d => Math.round(counts[d] / total * 100));
+    drawChart('chart-fav-day', f3ColumnOptions(DAY_ORDER.map(d => d.slice(0, 3)), 'Share of PAX', shares,
+      { fmt: v => `${v}%` }));
   }
 
-  function renderTrajectoryChart(rows) {
-    const TRAJ_MAP = {
-      '🔥 Heating Up':      { label: '🔥 Heating Up',      color: '#c8a840' },
-      '❄️ Cooling Off':     { label: '❄️ Cooling Off',     color: '#8a9aaf' },
-      '➡️ Holding Steady': { label: '➡️ Holding Steady', color: '#c8bfa8' },
-    };
-    const counts = {};
+  // Three text rows, not a chart: the counts are the whole story.
+  function renderTrajectory(rows) {
+    const counts = Object.fromEntries(PAX_TRAJECTORIES.map(t => [t, 0]));
     rows.forEach(r => {
-      const t = (r['Trajectory'] || '➡️ Holding Steady').trim();
-      const key = TRAJ_MAP[t] ? t : '➡️ Holding Steady';
-      counts[key] = (counts[key] || 0) + 1;
+      const t = (r['Trajectory'] || '').trim();
+      counts[PAX_TRAJECTORIES.includes(t) ? t : '➡️ Holding Steady']++;
     });
-    const keys = Object.keys(TRAJ_MAP).filter(k => counts[k] > 0);
-    const options = {
-      chart: { type: 'donut', height: 340, width: '100%', toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: keys.map(k => counts[k]),
-      labels: keys.map(k => TRAJ_MAP[k].label),
-      colors: keys.map(k => TRAJ_MAP[k].color),
-      grid: { borderColor: '#c8bfa8' },
-      legend: { position: 'bottom' },
-      dataLabels: { enabled: true },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-    };
-    if (trajectoryChart) { trajectoryChart.updateOptions(options); }
-    else { f3LazyChart('chart-trajectory', () => { trajectoryChart = new ApexCharts(document.getElementById('chart-trajectory'), options); trajectoryChart.render(); }); }
+    const total = rows.length || 1;
+    document.getElementById('chart-trajectory').innerHTML = PAX_TRAJECTORIES.map(t => `
+      <div class="row">
+        <span class="row-name">${t.replace(/^\S+\s/, '')}</span>
+        <span class="label">${Math.round(counts[t] / total * 100)}% of PAX</span>
+        <span class="row-val${t === PAX_TRAJECTORIES[0] ? ' is-good' : ''}">${counts[t]}</span>
+      </div>`).join('');
   }
 
   function renderQpRatioChart(rows) {
     // Regular attendees only: require a minimum post count so a 1-post/1-Q PAX
-    // doesn't surface at 100%. Top 15 by Q-to-Post ratio.
-    const top15 = [...rows]
+    // doesn't surface at 100%.
+    const top = [...rows]
       .filter(r => (parseInt(r['Total Post']) || 0) >= 4)
       .sort((a, b) => parseFloat(b['Q/P Ratio']) - parseFloat(a['Q/P Ratio']))
-      .slice(0, 15);
-
-    const options = {
-      chart: { type: 'bar', height: 320, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'Q/P %', data: top15.map(r => parseFloat((parseFloat(r['Q/P Ratio']) * 100).toFixed(1))) }],
-      xaxis: { categories: top15.map(r => r['Site']), labels: { rotate: -45, style: { fontSize: '11px' } } },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { horizontal: false, columnWidth: '60%' } },
-      dataLabels: { enabled: false },
-      yaxis: { title: { text: 'Q/P %' }, labels: { formatter: v => `${Math.round(v)}%` } },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" }, y: { formatter: v => `${v}%` } },
-      noData: { text: 'No qualifying PAX', align: 'center', verticalAlign: 'middle', style: { fontFamily: "'Open Sans', sans-serif", color: '#8a7a60' } },
-    };
-
-    if (qpChart) {
-      qpChart.updateOptions(options);
-    } else {
-      f3LazyChart('chart-qp-ratio', () => {
-        qpChart = new ApexCharts(document.getElementById('chart-qp-ratio'), options);
-        qpChart.render();
-      });
-    }
+      .slice(0, 8);
+    if (!top.length) { f3ShowEmpty('chart-qp-ratio', 'No PAX with 4+ posts yet'); return; }
+    drawChart('chart-qp-ratio', f3RankedBarOptions(top.map(r => r['Site']), 'Q/P',
+      top.map(r => Math.round(parseFloat(r['Q/P Ratio']) * 100)), v => `${v}%`));
   }
 
   function renderPopularAoChart(rows) {
@@ -344,56 +257,34 @@ function paxBuildRows(allRawRows, now) {
         aoCounts[site] = (aoCounts[site] || 0) + 1;
       });
     });
-
-    const top = Object.entries(aoCounts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 12);
-
-    const options = {
-      chart: { type: 'bar', height: Math.max(260, top.length * 28), toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'PAX', data: top.map(e => e[1]) }],
-      xaxis: { categories: top.map(e => e[0]) },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { horizontal: true, barHeight: '65%' } },
-      dataLabels: { enabled: true, style: { fontSize: '11px' } },
-      yaxis: { labels: { style: { fontSize: '11px' } } },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-      noData: { text: 'No AO data', align: 'center', verticalAlign: 'middle', style: { fontFamily: "'Open Sans', sans-serif", color: '#8a7a60' } },
-    };
-
-    if (popularAoChart) {
-      popularAoChart.updateOptions(options);
-    } else {
-      f3LazyChart('chart-popular-ao', () => {
-        popularAoChart = new ApexCharts(document.getElementById('chart-popular-ao'), options);
-        popularAoChart.render();
-      });
-    }
+    const top = Object.entries(aoCounts).sort((a, b) => b[1] - a[1]).slice(0, 12);
+    if (!top.length) { f3ShowEmpty('chart-popular-ao', 'No AO data'); return; }
+    drawChart('chart-popular-ao', f3RankedBarOptions(top.map(e => e[0]), 'PAX', top.map(e => e[1])));
   }
 
   function renderTable(rows) {
     const container = document.getElementById('pax-table-container');
+    document.getElementById('pax-table-count').textContent = `${rows.length} PAX`;
+    const th = (key, label, tip, num) =>
+      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${f3ThLabel(label, tip)}</th>`;
     container.innerHTML = `
-      <div class="table-responsive">
-        <table class="table table-vcenter table-hover card-table" id="pax-full-table">
+        <table class="table table--stack" id="pax-full-table">
           <thead>
             <tr>
-              <th data-sort="Site">PAX ${f3InfoDot('PAX F3 handle')}</th>
-              <th data-sort="Last Seen">Last Seen ${f3InfoDot('Days since last post — lower means more recently active')}</th>
-              <th data-sort="Total Post">Posts ${f3InfoDot('Total posts in 2026')}</th>
-              <th data-sort="Total Q">Qs ${f3InfoDot('Total workouts led (Q) in 2026')}</th>
-              <th data-sort="Q/P Ratio">Q/P Ratio ${f3InfoDot('Fraction of posts where this PAX led the workout (Q ÷ Total Posts)')}</th>
-              <th data-sort="Avg/Week">Avg/Wk ${f3InfoDot('Average posts per week since first 2026 post')}</th>
-              <th data-sort="Avg/Last 3 Weeks">Avg/3Wk ${f3InfoDot('Average posts per week over the last 3 weeks')}</th>
-              <th data-sort="Last 3 wk">Last 3 Wks ${f3InfoDot('Number of posts in the last 3 weeks')}</th>
-              <th data-sort="Trajectory">Trajectory ${f3InfoDot('Trend: compares avg posts per week in last 3 weeks vs last 26 weeks (requires ≥2 posts in last 3 weeks for Heating Up)')}</th>
-              <th data-sort="Favorite AO">Fav AO ${f3InfoDot('Most frequently attended AO in 2026 (excludes #downrange and Shield Lock)')}</th>
+              ${th('Site', 'PAX', 'PAX F3 handle')}
+              ${th('Total Post', 'Posts', 'Total posts in 2026', true)}
+              ${th('Total Q', 'Qs', 'Total workouts led (Q) in 2026', true)}
+              ${th('Q/P Ratio', 'Q/P', 'Fraction of posts where this PAX led the workout (Q ÷ Total Posts)', true)}
+              ${th('Avg/Week', 'Avg/wk', 'Average posts per week since first 2026 post', true)}
+              ${th('Avg/Last 3 Weeks', 'Avg/3wk', 'Average posts per week over the last 3 weeks', true)}
+              ${th('Last 3 wk', 'Last 3 wks', 'Number of posts in the last 3 weeks', true)}
+              ${th('Trajectory', 'Trajectory', 'Compares avg posts per week in the last 3 weeks vs the last 26 weeks')}
+              ${th('Favorite AO', 'Home AO', 'Most frequently attended AO in 2026 (excludes #downrange and Shield Lock)')}
+              ${th('Last Seen', 'Last seen', 'Days since last post; lower means more recently active', true)}
             </tr>
           </thead>
           <tbody id="pax-table-body"></tbody>
-        </table>
-      </div>`;
+        </table>`;
     renderTableBody(rows);
     f3MakeSortable('pax-full-table', () => filteredRows, renderTableBody);
   }
@@ -409,17 +300,18 @@ function paxBuildRows(allRawRows, now) {
       const lastSeen = r['Last Seen'];
       return `<tr>
         <td><a class="pax-link" href="pax-detail.html?pax=${encodeURIComponent(r['Site'])}">${f3Esc(r['Site'])}</a></td>
-        <td>${lastSeen != null ? `${lastSeen} days ago` : '—'}</td>
-        <td>${r['Total Post'] || '0'}</td>
-        <td>${r['Total Q'] || '0'}</td>
-        <td>${isNaN(qpRatio) ? '—' : (qpRatio * 100).toFixed(1) + '%'}</td>
-        <td>${isNaN(avgWk) ? '—' : avgWk.toFixed(1)}</td>
-        <td>${isNaN(avg3Wk) ? '—' : avg3Wk.toFixed(1)}</td>
-        <td>${r['Last 3 wk'] || '0'}</td>
-        <td>${f3Esc(traj)}</td>
-        <td class="text-muted">${f3Esc(r['Favorite AO'] || '—')}</td>
+        <td class="num">${r['Total Post'] || '0'}</td>
+        <td class="num">${r['Total Q'] || '0'}</td>
+        <td class="num">${isNaN(qpRatio) ? '—' : (qpRatio * 100).toFixed(1) + '%'}</td>
+        <td class="num">${isNaN(avgWk) ? '—' : avgWk.toFixed(1)}</td>
+        <td class="num">${isNaN(avg3Wk) ? '—' : avg3Wk.toFixed(1)}</td>
+        <td class="num">${r['Last 3 wk'] || '0'}</td>
+        <td class="nowrap">${f3Esc(traj)}</td>
+        <td>${f3Esc(r['Favorite AO'] || '—')}</td>
+        <td class="num">${lastSeen != null ? `${lastSeen}d ago` : '—'}</td>
       </tr>`;
     }).join('');
+    f3StackLabels(body.closest('table'));
   }
 })();
 

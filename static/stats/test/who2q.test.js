@@ -5,7 +5,7 @@ const assert = require('assert');
 const dataUtils = require('../assets/js/data.js');
 global.f3Esc = dataUtils.f3Esc;
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
-const { who2qFmtRate, who2qFmtDate, who2qNeverRowsHtml, who2qStaleRowsHtml } =
+const { who2qFmtRate, who2qFmtDate, who2qShortDate, who2qNeverRowsHtml, who2qStaleRowsHtml } =
   require('../assets/js/who2q.js');
 
 let passed = 0;
@@ -32,6 +32,12 @@ test('who2qFmtDate renders short date', () => {
   assert.strictEqual(who2qFmtDate(''), '—');
 });
 
+test('who2qShortDate adds the year only outside the current one', () => {
+  const now = new Date(2026, 8, 26);
+  assert.strictEqual(who2qShortDate('2026-05-04', now), 'May 4');
+  assert.strictEqual(who2qShortDate('2025-08-06', now), 'Aug 6, 2025');
+});
+
 test('never-qd table renders rows in order with rank', () => {
   const html = who2qNeverRowsHtml([
     { name: 'Blue Steel', attended: 12, rate: 0.75, last_attended: '2026-07-01' },
@@ -54,7 +60,9 @@ test('stale-q table shows days ago and window attendance', () => {
     { name: 'Bench', last_q: '2026-04-01', days_since: 96, attended_in_window: 0 },
   ]);
   assert.ok(html.indexOf('Mercy Rule') < html.indexOf('Bench'));
-  assert.ok(html.includes('172 days'));
+  assert.ok(html.includes('172 days ago'));
+  assert.ok(html.includes('is-good'), 'over 120 days is highlighted');
+  assert.strictEqual(html.split('is-good').length - 1, 1, 'only the long-overdue row is green');
   assert.ok(html.includes('Jan 15, 2026'));
 });
 

@@ -91,11 +91,7 @@ async function lbInit() {
   let currentMonth = '';
 
   try {
-    const rawCsv = await f3FetchCSV('raw');
-
-    const allRawRows = f3ParseCSV(rawCsv, 0)
-      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
-      .filter(r => r['Name'] && r['Name'].trim());
+    const allRawRows = await f3LoadRawRows();
 
     const now = new Date();
     const pcRegMap = f3PcRegularMap(allRawRows, now);
@@ -131,8 +127,13 @@ async function lbInit() {
       return row;
     }).sort((a, b) => a['PAX'].localeCompare(b['PAX']));
   } catch (e) {
-    f3ShowError('leaderboard-heatmap', e.message);
-    f3ShowError('chart-monthly-completions', e.message);
+    ['leaderboard-heatmap', 'chart-monthly-completions', 'leaderboard-table'].forEach(id => f3ShowError(id));
+    return;
+  }
+
+  if (!allRows.length) {
+    ['leaderboard-heatmap', 'chart-monthly-completions', 'leaderboard-table']
+      .forEach(id => f3ShowEmpty(id, 'No 2026 posts logged yet'));
     return;
   }
 
@@ -141,22 +142,18 @@ async function lbInit() {
 
   renderAll();
 
-  document.getElementById('btn-pc-reg').addEventListener('click', () => {
-    if (showRegularsOnly) return;
-    showRegularsOnly = true;
-    filteredRows = allRows.filter(r => (r['PC Reg.'] || '').trim().toUpperCase() === 'TRUE');
-    document.getElementById('btn-pc-reg').classList.add('active');
-    document.getElementById('btn-all-crew').classList.remove('active');
-    renderAll();
-  });
-
-  document.getElementById('btn-all-crew').addEventListener('click', () => {
-    if (!showRegularsOnly) return;
-    showRegularsOnly = false;
-    filteredRows = [...allRows];
-    document.getElementById('btn-all-crew').classList.add('active');
-    document.getElementById('btn-pc-reg').classList.remove('active');
-    renderAll();
+  ['btn-pc-reg', 'btn-all-crew'].forEach(id => {
+    const btn = document.getElementById(id);
+    btn.addEventListener('click', () => {
+      const regulars = id === 'btn-pc-reg';
+      if (regulars === showRegularsOnly) return;
+      showRegularsOnly = regulars;
+      filteredRows = regulars
+        ? allRows.filter(r => (r['PC Reg.'] || '').trim().toUpperCase() === 'TRUE')
+        : [...allRows];
+      f3SetPressed(btn);
+      renderAll();
+    });
   });
 
   function computeFilteredTotals(rows) {
@@ -176,23 +173,21 @@ async function lbInit() {
     renderBarChart(allTotals);
     renderHabitCards();
     renderYearGrid();
-    // Init themed tooltips for the static stat-card / chart-title info-dots.
-    // (Heatmap dot hovers keep their native title — dense data cells, not labels.)
-    f3InitTooltips();
   }
 
   function renderStatCards(monthlyTotals) {
     document.getElementById('stat-total-crew').textContent = filteredRows.length;
 
     const currentCount = monthlyTotals[currentMonth] || 0;
-    document.getElementById('stat-current-month').textContent =
-      `${currentCount} (${currentMonth.replace(' 2026', '')})`;
+    document.getElementById('stat-current-month').textContent = currentCount;
+    document.getElementById('stat-current-month-name').textContent =
+      `${currentMonth.replace(' 2026', '')}, so far`;
 
     const pct = filteredRows.length > 0 ? Math.round((currentCount / filteredRows.length) * 100) : 0;
     const barEl = document.getElementById('stat-month-bar');
     const lblEl = document.getElementById('stat-month-label');
     if (barEl) barEl.style.width = pct + '%';
-    if (lblEl) lblEl.textContent = `${currentCount} of ${filteredRows.length} in crew`;
+    if (lblEl) lblEl.textContent = `Month completions · ${currentCount} of ${filteredRows.length}`;
 
     const streakers = filteredRows.filter(r => {
       const s = (r['Streakers'] || '0/0').toString();
@@ -204,26 +199,18 @@ async function lbInit() {
     if (streakersLabel) {
       if (streakMonths.length < activeMonths.length && streakMonths.length > 0) {
         const prevMonthShort = streakMonths[streakMonths.length - 1].replace(' 2026', '');
-        streakersLabel.textContent = `Active Streakers (thru ${prevMonthShort})`;
+        streakersLabel.textContent = `Active streakers · thru ${prevMonthShort}`;
       } else {
-        streakersLabel.textContent = 'Active Streakers';
+        streakersLabel.textContent = 'Active streakers';
       }
     }
   }
 
+  // All 12 months: the current one is the green column, future months stay empty.
   function renderBarChart(monthlyTotals) {
-    const chartMonths = activeMonths;
-    const options = {
-      chart: { type: 'bar', height: 280, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'Completions', data: chartMonths.map(m => monthlyTotals[m] || 0) }],
-      xaxis: { categories: chartMonths.map(m => m.replace(' 2026', '')) },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { columnWidth: '60%' } },
-      dataLabels: { enabled: true },
-      yaxis: { min: 0, forceNiceScale: true },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-    };
+    const data = MONTHS.map(m => (activeMonths.includes(m) ? monthlyTotals[m] || 0 : null));
+    const options = f3ColumnOptions(MONTHS.map(m => m.replace(' 2026', '').slice(0, 3)), 'Completions', data,
+      { highlight: MONTHS.indexOf(currentMonth), fmt: v => (v === null ? '' : v) });
     if (barChart) {
       barChart.updateOptions(options);
     } else {
@@ -262,12 +249,12 @@ async function lbInit() {
         if (hasData && val >= POST_GOAL && qDone) cls += ' filled';
         else if (hasData && val >= POST_GOAL)     cls += ' filled-nq';
         else if (hasData && val > 0)              cls += ' partial';
-        const ringStyle = isCurrent ? 'outline:2px solid var(--green);outline-offset:2px;' : '';
+        if (isCurrent) cls += ' is-current';
         const qCount = r['_qs']?.[m] || 0;
         const label = hasData
           ? `${m.replace(' 2026','')}: ${val} post${val !== 1 ? 's' : ''} · ${qCount} Q${qCount !== 1 ? 's' : ''}`
           : `${m.replace(' 2026','')}: —`;
-        return `<span class="${cls}" title="${label}" style="${ringStyle}"></span>`;
+        return `<span class="${cls}" title="${label}"></span>`;
       }).join('');
 
       const streakStr = (r['Streakers'] || '0/0').toString();
@@ -311,6 +298,8 @@ async function lbInit() {
     container.innerHTML = `<div class="lb-pax-grid">${cards}</div>`;
   }
 
+  // The handoff's four-level key. A Q in a month that fell short of 12 posts
+  // keeps its old marker as `.has-q`, so the grid loses nothing it used to show.
   function renderYearGrid() {
     const container = document.getElementById('leaderboard-table');
     if (!container) return;
@@ -318,35 +307,34 @@ async function lbInit() {
     function cellClass(raw, qCount) {
       const n = parseInt(raw) || 0;
       const hasQ = (qCount || 0) >= 1;
-      if (n === 0)          return 'lb-cell-0';
-      if (n < 6)            return hasQ ? 'lb-cell-low-q'  : 'lb-cell-low';
-      if (n < POST_GOAL)    return hasQ ? 'lb-cell-mid-q'  : 'lb-cell-mid';
-      return hasQ ? 'lb-cell-done' : 'lb-cell-done-nq';
+      if (n === 0)       return 'cell';
+      if (n < 6)         return hasQ ? 'cell cell--low has-q' : 'cell cell--low';
+      if (n < POST_GOAL) return hasQ ? 'cell cell--mid has-q' : 'cell cell--mid';
+      return hasQ ? 'cell cell--done' : 'cell cell--noq';
     }
 
-    const thead = `<thead><tr>
-      <th style="text-align:left;padding:0.5rem 0.75rem;">PAX</th>
-      ${activeMonths.map(m => `<th>${f3Esc(m.replace(' 2026', ''))}</th>`).join('')}
-      <th>Streak</th>
-    </tr></thead>`;
+    const header = `<div class="heat-row heat-head">
+      <span class="label">PAX</span>
+      ${MONTHS.map(m => `<span class="label">${f3Esc(m.replace(' 2026', '').slice(0, 3))}</span>`).join('')}
+      <span class="label">Streak ${f3InfoDot('Current streak / total months completed')}</span>
+    </div>`;
 
-    const tbody = filteredRows.map(r => {
-      const cells = activeMonths.map(m => {
+    const rows = filteredRows.map(r => {
+      const cells = MONTHS.map(m => {
+        if (!activeMonths.includes(m)) return '<span class="cell cell--future"></span>';
         const val = (r[m] || '').trim();
         const qCount = r['_qs']?.[m] || 0;
-        const cls = cellClass(val, qCount);
-        return `<td><span class="${cls}">${f3Esc(val || '—')}</span></td>`;
+        const tip = `${m.replace(' 2026', '')}: ${val || 0} posts · ${qCount} Q${qCount === 1 ? '' : 's'}`;
+        return `<span class="${cellClass(val, qCount)}" title="${tip}">${f3Esc(val)}</span>`;
       }).join('');
-      return `<tr>
-        <td style="font-weight:600;padding:0.35rem 0.75rem;">${f3Esc(r['PAX'])}</td>
+      return `<div class="heat-row">
+        <span class="bar-name">${f3Esc(r['PAX'])}</span>
         ${cells}
-        <td style="text-align:center;font-size:0.8rem;">${f3Esc(r['Streakers'] || '—')}</td>
-      </tr>`;
+        <span class="heat-streak">${f3Esc(r['Streakers'] || '—')}</span>
+      </div>`;
     }).join('');
 
-    container.innerHTML = `<div class="table-responsive">
-      <table class="table table-sm lb-heatmap">${thead}<tbody>${tbody}</tbody></table>
-    </div>`;
+    container.innerHTML = `<div class="heat"><div class="heat-inner">${header}${rows}</div></div>`;
   }
 }
 

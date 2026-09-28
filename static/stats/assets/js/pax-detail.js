@@ -55,17 +55,14 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
 
   const grid = document.getElementById('pax-ao-grid');
 
-  // Themed tooltips for the static stat-card info-dots (present regardless of
-  // which render path runs below).
-  f3InitTooltips();
 
   // Read and validate the ?pax= parameter.
   const paxName = (new URLSearchParams(location.search).get('pax') || '').trim();
   if (!paxName) {
     document.getElementById('detail-pax-name').textContent = 'PAX not found';
     document.getElementById('detail-pax-sub').textContent = 'No PAX specified.';
-    grid.innerHTML = '<div class="card"><div class="card-body text-muted">Pick a PAX from the ' +
-      '<a class="pax-link" href="pax.html">PAX Stats</a> table to see their AO breakdown.</div></div>';
+    grid.innerHTML = '<div class="status label">Pick a PAX from the ' +
+      '<a href="pax.html">PAX Stats</a> table to see their AO breakdown</div>';
     return;
   }
 
@@ -74,12 +71,9 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
 
   let allRawRows = [];
   try {
-    const rawCsv = await f3FetchCSV('raw');
-    allRawRows = f3ParseCSV(rawCsv, 0)
-      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
-      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
+    allRawRows = await f3LoadRawRows({ year: '2026' });
   } catch (e) {
-    f3ShowError('pax-ao-grid', e.message);
+    f3ShowError('pax-ao-grid');
     return;
   }
 
@@ -89,9 +83,8 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
 
   if (!paxRows.length) {
     document.getElementById('detail-pax-sub').textContent = `No 2026 activity for ${paxName}.`;
-    grid.innerHTML = `<div class="card"><div class="card-body text-muted">No 2026 posts found for ` +
-      `<strong>${f3Esc(paxName)}</strong>. Check the name on the ` +
-      `<a class="pax-link" href="pax.html">PAX Stats</a> page.</div></div>`;
+    grid.innerHTML = `<div class="status label empty-state">No 2026 posts found for ` +
+      `${f3Esc(paxName)}. Check the name on the <a href="pax.html">PAX Stats</a> page</div>`;
     return;
   }
 
@@ -117,35 +110,17 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
 
   // Cards: every real AO, attended ones first (by posts desc), then alphabetical
   // — perAoRows is already sorted that way.
-  grid.innerHTML = perAoRows.map(a => {
-    const dim = a['Posts'] === 0 ? ' style="opacity:0.55;"' : '';
-    return `
-      <div class="card card-stat-accent"${dim}>
-        <div class="card-header">
-          <h4 class="card-title">${f3Esc(a['AO'])}</h4>
-        </div>
-        <div class="card-body">
-          <div class="row g-2">
-            <div class="col-6">
-              <div class="text-muted small">Posts</div>
-              <div class="fw-bold">${a['Posts']}</div>
-            </div>
-            <div class="col-6">
-              <div class="text-muted small">Qs</div>
-              <div class="fw-bold">${a['Qs']}</div>
-            </div>
-            <div class="col-6">
-              <div class="text-muted small">Last Post</div>
-              <div class="fw-bold">${fmtDate(a['Last Post'])}</div>
-            </div>
-            <div class="col-6">
-              <div class="text-muted small">Last Q</div>
-              <div class="fw-bold">${fmtDate(a['Last Q'])}</div>
-            </div>
-          </div>
-        </div>
-      </div>`;
-  }).join('');
+  grid.innerHTML = `<table class="table table--stack">
+      <thead><tr><th>AO</th><th class="num">Posts</th><th class="num">Qs</th><th>Last post</th><th>Last Q</th></tr></thead>
+      <tbody>${perAoRows.map(a => `<tr${a['Posts'] === 0 ? ' class="is-muted"' : ''}>
+        <td>${f3Esc(a['AO'])}</td>
+        <td class="num">${a['Posts']}</td>
+        <td class="num">${a['Qs']}</td>
+        <td class="nowrap">${fmtDate(a['Last Post'])}</td>
+        <td class="nowrap">${fmtDate(a['Last Q'])}</td>
+      </tr>`).join('')}</tbody>
+    </table>`;
+  f3StackLabels(grid.querySelector('table'));
 
   // Format an ISO date string as e.g. "Jul 1, 2026"; "—" when null.
   function fmtDate(str) {
@@ -199,22 +174,20 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
         `<div class="rhythm-month-label">${MONTH_ABBR[m]}</div></div>`;
     }).join('');
 
-    const legend = `<div class="rhythm-legend">
-      <span><span class="swatch"></span>quiet</span>
-      <span><span class="swatch" style="background:#c8bfa8;border-color:#c8bfa8;"></span>1 post</span>
-      <span><span class="swatch" style="background:#9aad88;border-color:#9aad88;"></span>2 posts</span>
-      <span><span class="swatch" style="background:#4a5e3a;border-color:#4a5e3a;"></span>3+ posts</span>
-      <span><span class="swatch" style="outline:2px solid #c8a840;outline-offset:1px;"></span>Q'd that week</span>
+    const legend = `<div class="rhythm-legend label">
+      <span><span class="rhythm-dot"></span>quiet</span>
+      <span><span class="rhythm-dot p1"></span>1 post</span>
+      <span><span class="rhythm-dot p2"></span>2 posts</span>
+      <span><span class="rhythm-dot p3"></span>3+ posts</span>
+      <span><span class="rhythm-dot has-q"></span>Q'd that week</span>
     </div>`;
 
     document.getElementById('pax-rhythm').innerHTML = `<div class="rhythm-wrap">${html}</div>${legend}`;
     document.getElementById('rhythm-card').hidden = false;
   }
 
-  // Posts by Month — total posts per month, each month its own earthy color.
-  // Q count per month is surfaced in the tooltip.
+  // Posts by Month — this month is the green column; Q count per month is in the tooltip.
   function renderMonthlyChart(rows) {
-    const MONTH_COLORS = ['#4a5e3a', '#7a9a68', '#c8a840', '#9a5a3a', '#5a7a8a', '#8a6a90', '#b08a50', '#3a4d2d', '#a86a5a', '#6a8a4a', '#8a7a60', '#5a8a7a'];
     const maxMonth = new Date().getMonth(); // 0-based, current month
     const total = new Array(maxMonth + 1).fill(0);
     const q = new Array(maxMonth + 1).fill(0);
@@ -227,23 +200,9 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
     const categories = MONTH_ABBR.slice(0, maxMonth + 1);
 
     document.getElementById('detail-charts-row').hidden = false;
-    const options = {
-      chart: { type: 'bar', height: 320, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'Posts', data: total }],
-      xaxis: { categories },
-      colors: MONTH_COLORS.slice(0, maxMonth + 1),
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { distributed: true, columnWidth: '60%' } },
-      dataLabels: { enabled: true, style: { fontSize: '11px', fontFamily: "'Open Sans', sans-serif", colors: ['#f5f0e4'] } },
-      yaxis: { title: { text: 'Posts' }, min: 0, forceNiceScale: true },
-      legend: { show: false },
-      tooltip: {
-        theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" },
-        custom: ({ dataPointIndex }) =>
-          `<div style="padding:6px 10px;font-family:'Open Sans',sans-serif;font-size:0.75rem;">` +
-          `<strong>${categories[dataPointIndex]}</strong><br>${total[dataPointIndex]} posts · ${q[dataPointIndex]} Q-led</div>`,
-      },
-    };
+    const options = f3Merge(f3ColumnOptions(categories, 'Posts', total, { highlight: maxMonth }), {
+      tooltip: { y: { formatter: (v, { dataPointIndex }) => `${v} posts · ${q[dataPointIndex]} Q-led` } },
+    });
     new ApexCharts(document.getElementById('chart-detail-monthly'), options).render();
   }
 
@@ -255,18 +214,8 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
       const dow = new Date(r['Date'] + 'T00:00:00').getDay(); // 0=Sun
       counts[order[(dow + 6) % 7]]++;
     });
-    const options = {
-      chart: { type: 'bar', height: 320, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'Posts', data: order.map(d => counts[d]) }],
-      xaxis: { categories: order },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { columnWidth: '55%' } },
-      dataLabels: { enabled: false },
-      yaxis: { title: { text: 'Posts' }, min: 0, forceNiceScale: true },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-    };
-    new ApexCharts(document.getElementById('chart-detail-dow'), options).render();
+    new ApexCharts(document.getElementById('chart-detail-dow'),
+      f3ColumnOptions(order, 'Posts', order.map(d => counts[d]))).render();
   }
 })();
 

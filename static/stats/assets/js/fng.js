@@ -18,6 +18,21 @@ function fngStatus(totalPosts, firstPostDate, now) {
   return 'Checking Data...';
 }
 
+// Days from first to second post, bucketed. "None" is an FNG with no second
+// post yet — the bucket that matters most for follow-up.
+const FNG_DAY_BUCKETS = [
+  ['0–3 d', 3], ['4–7 d', 7], ['8–14 d', 14], ['15–30 d', 30], ['31+ d', Infinity],
+];
+function fngDaysBuckets(rows) {
+  const counts = Object.fromEntries([...FNG_DAY_BUCKETS.map(b => b[0]), 'None'].map(k => [k, 0]));
+  rows.forEach(r => {
+    const d = parseInt(r['Days to 2nd post']);
+    if (isNaN(d)) { counts['None']++; return; }
+    counts[FNG_DAY_BUCKETS.find(([, max]) => d <= max)[0]]++;
+  });
+  return counts;
+}
+
 // Pure aggregation: allRawRows -> one row per PAX who has ever been tagged FNG.
 function fngBuildRows(allRawRows, now) {
   const byName = {};
@@ -62,163 +77,115 @@ function fngBuildRows(allRawRows, now) {
   return rows;
 }
 
-(async function () {
-  let allRows = [];
-  let filteredRows = [];
+const FNG_STATUSES = [
+  // key matched against Status, legend label, CSS modifier
+  ['Regular', 'Graduated', 'done'],
+  ['Developing', 'Developing', 'dev'],
+  ['Pending', 'Pending', 'pending'],
+  ['Ghosted', 'Ghosted', 'ghost'],
+];
 
+(async function () {
   const now = new Date();
+  const IDS = ['chart-fng-status', 'chart-days-to-return', 'chart-fng-monthly', 'fng-table-container'];
+  let allRows = [];
 
   try {
-    const rawCsv = await f3FetchCSV('raw');
-    const allRawRows = f3ParseCSV(rawCsv, 0)
-      .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
-      .filter(r => r['Name'] && r['Name'].trim() && r['Date'].startsWith('2026-'));
+    const allRawRows = await f3LoadRawRows({ year: '2026' });
 
     allRows = fngBuildRows(allRawRows, now);
   } catch (e) {
-    f3ShowError('fng-table-container', e.message);
-    f3ShowError('chart-fng-status', e.message);
+    IDS.forEach(id => f3ShowError(id));
     return;
   }
 
-  filteredRows = [...allRows];
-  let donutChart = null;
-  let barChart = null;
-  let monthlyChart = null;
-
-  renderAll();
-  f3MakeSortable('fng-full-table', () => filteredRows, renderTableBody);
-
-  function renderAll() {
-    renderStatCards(filteredRows);
-    renderStatusDonut(filteredRows);
-    renderDaysBar(filteredRows);
-    renderMonthlyTrend(filteredRows);
-    renderTable(filteredRows);
-    // Init themed tooltips for static labels + freshly rendered headers.
-    f3InitTooltips();
+  if (!allRows.length) {
+    IDS.forEach(id => f3ShowEmpty(id, 'No FNGs yet this year'));
+    return;
   }
+
+  // Newest first.
+  const firstPostTime = r => (f3ParseLocalDate(r['First Post']) || 0).valueOf();
+  const filteredRows = [...allRows].sort((a, b) => firstPostTime(b) - firstPostTime(a));
+  const countStatus = (rows, key) => rows.filter(r => (r['Status'] || '').includes(key)).length;
+
+  renderStatCards(filteredRows);
+  renderStatusStack(filteredRows);
+  renderDaysBar(filteredRows);
+  renderMonthlyTrend(filteredRows);
+  renderTable(filteredRows);
 
   function renderStatCards(rows) {
+    const regular = countStatus(rows, 'Regular');
     document.getElementById('stat-total-fngs').textContent = rows.length;
-    const retained = rows.filter(r => r['Status'] && r['Status'].includes('Developing')).length;
-    document.getElementById('stat-retained').textContent = retained;
-    const pending = rows.filter(r => r['Status'] && r['Status'].includes('Pending')).length;
-    document.getElementById('stat-pending').textContent = pending;
-    const regular = rows.filter(r => r['Status'] && r['Status'].includes('Regular')).length;
+    document.getElementById('stat-retained').textContent = countStatus(rows, 'Developing');
+    document.getElementById('stat-pending').textContent = countStatus(rows, 'Pending');
     document.getElementById('stat-regular').textContent = regular;
+    document.getElementById('stat-regular-pct').textContent = `${Math.round(regular / rows.length * 100)}%`;
   }
 
-  function renderStatusDonut(rows) {
-    const regular    = rows.filter(r => r['Status'] && r['Status'].includes('Regular')).length;
-    const developing = rows.filter(r => r['Status'] && r['Status'].includes('Developing')).length;
-    const ghosted    = rows.filter(r => r['Status'] && r['Status'].includes('Ghosted')).length;
-    const pending    = rows.filter(r => r['Status'] && r['Status'].includes('Pending')).length;
-
-    const options = {
-      chart: { type: 'donut', height: 320, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [regular, developing, ghosted, pending],
-      labels: ['Regular', 'Developing', 'Ghosted', 'Pending'],
-      colors: ['#4a5e3a', '#7a9a68', '#8a7a60', '#c8a840'],
-      grid: { borderColor: '#c8bfa8' },
-      legend: { position: 'bottom' },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-    };
-
-    if (donutChart) {
-      donutChart.updateOptions(options);
-    } else {
-      f3LazyChart('chart-fng-status', () => {
-        donutChart = new ApexCharts(document.getElementById('chart-fng-status'), options);
-        donutChart.render();
-      });
-    }
+  // One stacked bar plus a legend: the four statuses always add to 100%.
+  function renderStatusStack(rows) {
+    const total = rows.length;
+    const parts = FNG_STATUSES.map(([key, label, mod]) => {
+      const n = countStatus(rows, key);
+      return { label, mod, n, pct: Math.round(n / total * 100) };
+    });
+    document.getElementById('fng-status-total').textContent = `${total} FNGs`;
+    document.getElementById('chart-fng-status').innerHTML = `
+      <div class="stack" role="img" aria-label="${parts.map(p => `${p.label} ${p.n}`).join(', ')}">
+        ${parts.filter(p => p.n).map(p => `<span class="stack--${p.mod}" style="width:${p.n / total * 100}%" title="${p.label}: ${p.n}"></span>`).join('')}
+      </div>
+      <div class="legend">
+        ${parts.map(p => `<div>
+          <div><span class="swatch stack--${p.mod}"></span> <span class="label">${p.label}</span></div>
+          <div class="legend-num">${p.n} <small>${p.pct}%</small></div>
+        </div>`).join('')}
+      </div>`;
   }
 
   function renderDaysBar(rows) {
-    const buckets = { '1-7 days': 0, '8-14 days': 0, '15-30 days': 0, '31+ days': 0 };
-    rows.forEach(r => {
-      const d = parseInt(r['Days to 2nd post']);
-      if (isNaN(d)) return;
-      if (d <= 7) buckets['1-7 days']++;
-      else if (d <= 14) buckets['8-14 days']++;
-      else if (d <= 30) buckets['15-30 days']++;
-      else buckets['31+ days']++;
-    });
-
-    const options = {
-      chart: { type: 'bar', height: 320, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'FNGs', data: Object.values(buckets) }],
-      xaxis: { categories: Object.keys(buckets) },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { columnWidth: '50%' } },
-      dataLabels: { enabled: false },
-      yaxis: { title: { text: 'Count' }, min: 0, forceNiceScale: true },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-    };
-
-    if (barChart) {
-      barChart.updateOptions(options);
-    } else {
-      f3LazyChart('chart-days-to-return', () => {
-        barChart = new ApexCharts(document.getElementById('chart-days-to-return'), options);
-        barChart.render();
-      });
-    }
+    const buckets = fngDaysBuckets(rows);
+    f3LazyChart('chart-days-to-return', () => new ApexCharts(document.getElementById('chart-days-to-return'),
+      f3ColumnOptions(Object.keys(buckets), 'FNGs', Object.values(buckets))).render());
   }
 
   function renderMonthlyTrend(rows) {
     const counts = {};
     rows.forEach(r => {
-      const val = (r['First Post'] || '').trim();
-      if (!val) return;
-      const mdy = val.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
-      if (!mdy) return;
-      const key = `${mdy[3]}-${String(mdy[1]).padStart(2,'0')}`;
+      const d = f3ParseLocalDate(r['First Post']);
+      if (!d) return;
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
       counts[key] = (counts[key] || 0) + 1;
     });
     const months = Object.keys(counts).sort();
-    if (!months.length) return;
-    const options = {
-      chart: { type: 'bar', height: 280, toolbar: { show: false }, fontFamily: "'Open Sans', sans-serif", background: 'transparent' },
-      series: [{ name: 'FNGs', data: months.map(m => counts[m]) }],
-      xaxis: {
-        categories: months.map(m => {
-          const [y, mo] = m.split('-');
-          return new Date(+y, +mo - 1).toLocaleString('default', { month: 'short', year: '2-digit' });
-        }),
-      },
-      colors: ['#4a5e3a'],
-      grid: { borderColor: '#c8bfa8' },
-      plotOptions: { bar: { columnWidth: '60%' } },
-      dataLabels: { enabled: false },
-      yaxis: { title: { text: 'FNGs' }, min: 0, forceNiceScale: true },
-      tooltip: { theme: 'light', style: { fontFamily: "'Open Sans', sans-serif" } },
-    };
-    if (monthlyChart) { monthlyChart.updateOptions(options); }
-    else { f3LazyChart('chart-fng-monthly', () => { monthlyChart = new ApexCharts(document.getElementById('chart-fng-monthly'), options); monthlyChart.render(); }); }
+    const labels = months.map(m => {
+      const [y, mo] = m.split('-');
+      return new Date(+y, +mo - 1).toLocaleString('default', { month: 'short' });
+    });
+    f3LazyChart('chart-fng-monthly', () => new ApexCharts(document.getElementById('chart-fng-monthly'),
+      f3ColumnOptions(labels, 'FNGs', months.map(m => counts[m]))).render());
   }
 
   function renderTable(rows) {
     const container = document.getElementById('fng-table-container');
+    const th = (key, label, tip, num) =>
+      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${f3ThLabel(label, tip)}</th>`;
     container.innerHTML = `
-      <div class="table-responsive">
-        <table class="table table-vcenter table-hover card-table" id="fng-full-table">
+        <table class="table table--stack" id="fng-full-table">
           <thead>
             <tr>
-              <th data-sort="FNG Name">FNG Name ${f3InfoDot('PAX F3 handle')}</th>
-              <th data-sort="First Post">First Post ${f3InfoDot('Date of first attendance at Peak City')}</th>
-              <th data-sort="2nd Post">2nd Post ${f3InfoDot('Date of second attendance')}</th>
-              <th data-sort="Days to 2nd post">Days to Return ${f3InfoDot('Days between first and second post — lower is better retention signal')}</th>
-              <th data-sort="Total Posts to date">Total Posts ${f3InfoDot('Total posts in 2026')}</th>
-              <th data-sort="Status">Status ${f3InfoDot('Retention status based on post count and days since first post')}</th>
-              <th data-sort="Home AO">Home AO ${f3InfoDot('The AO where this PAX first attended')}</th>
+              ${th('FNG Name', 'FNG', 'PAX F3 handle')}
+              ${th('First Post', 'First post', 'Date of first attendance at Peak City')}
+              ${th('Home AO', 'AO', 'The AO where this PAX first attended')}
+              ${th('Total Posts to date', 'Posts', 'Total posts in 2026', true)}
+              ${th('2nd Post', '2nd post', 'Date of second attendance')}
+              ${th('Days to 2nd post', 'Days to 2nd', 'Days between first and second post; lower is a better retention signal', true)}
+              ${th('Status', 'Status', 'Retention status based on post count and days since first post')}
             </tr>
           </thead>
           <tbody id="fng-table-body"></tbody>
-        </table>
-      </div>`;
+        </table>`;
     renderTableBody(rows);
     f3MakeSortable('fng-full-table', () => filteredRows, renderTableBody);
   }
@@ -227,18 +194,19 @@ function fngBuildRows(allRawRows, now) {
     const body = document.getElementById('fng-table-body');
     if (!body) return;
     body.innerHTML = rows.map(r => `<tr>
-      <td><strong>${f3Esc(r['FNG Name'])}</strong></td>
-      <td>${f3Esc(r['First Post'] || '—')}</td>
-      <td>${f3Esc(r['2nd Post'] || '—')}</td>
-      <td>${r['Days to 2nd post'] || '—'}</td>
-      <td>${r['Total Posts to date'] || '—'}</td>
-      <td>${f3Esc(r['Status'] || '—')}</td>
-      <td class="text-muted">${f3Esc(r['Home AO'] || '—')}</td>
+      <td>${f3Esc(r['FNG Name'])}</td>
+      <td class="nowrap">${f3Esc(r['First Post'] || '—')}</td>
+      <td>${f3Esc(r['Home AO'] || '—')}</td>
+      <td class="num">${r['Total Posts to date'] || '—'}</td>
+      <td class="nowrap">${f3Esc(r['2nd Post'] || '—')}</td>
+      <td class="num">${r['Days to 2nd post'] === '' ? '—' : r['Days to 2nd post']}</td>
+      <td class="nowrap">${f3Esc(r['Status'] || '—')}</td>
     </tr>`).join('');
+    f3StackLabels(body.closest('table'));
   }
 })();
 
 if (typeof module !== 'undefined') {
-  module.exports = { fngStatus, fngBuildRows };
+  module.exports = { fngStatus, fngBuildRows, fngDaysBuckets };
 }
 

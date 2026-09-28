@@ -100,18 +100,113 @@ function f3FilterByDateRange(rows, field, from, to) {
 
 function f3ShowLoading(containerId) {
   const el = document.getElementById(containerId);
-  if (el) {
-    el.innerHTML = '<div class="d-flex justify-content-center align-items-center p-5">' +
-      '<div class="spinner-border text-danger" role="status"><span class="visually-hidden">Loading...</span></div>' +
-      '</div>';
-  }
+  if (el) el.innerHTML = '<div class="status label" role="status">Loading…</div>';
 }
 
 function f3ShowError(containerId, msg = 'Data unavailable — try refreshing the page') {
   const el = document.getElementById(containerId);
-  if (el) {
-    el.innerHTML = `<div class="alert alert-warning m-3"><strong>Oops.</strong> ${msg}</div>`;
-  }
+  if (el) el.innerHTML = `<div class="status status--error label" role="alert">${f3Esc(msg)}</div>`;
+}
+
+function f3ShowEmpty(containerId, msg = 'No data yet') {
+  const el = document.getElementById(containerId);
+  if (el) el.innerHTML = `<div class="status label empty-state">${f3Esc(msg)}</div>`;
+}
+
+// Marks `btn` as the pressed option within its .toggle group.
+function f3SetPressed(btn) {
+  btn.parentElement.querySelectorAll('button').forEach(b =>
+    b.setAttribute('aria-pressed', String(b === btn)));
+}
+
+// ── ApexCharts theme ──
+// One shared base so every chart reads as the handoff's flat ink bars:
+// ink by default, green for exactly one bar, no grid, no toolbar.
+const F3_INK = '#1a1a1a', F3_GREEN = '#4a5e3a', F3_MUTED = '#8a7a60';
+const F3_UI_FONT = "'Open Sans', sans-serif", F3_DISPLAY_FONT = "'Barlow Condensed', sans-serif";
+
+function f3Merge(base, over) {
+  const out = { ...base };
+  Object.entries(over || {}).forEach(([k, v]) => {
+    const b = out[k];
+    out[k] = (v && b && typeof v === 'object' && typeof b === 'object' && !Array.isArray(v) && !Array.isArray(b))
+      ? f3Merge(b, v) : v;
+  });
+  return out;
+}
+
+function f3ApexOptions(over) {
+  const axisLabels = { style: { colors: F3_MUTED, fontFamily: F3_UI_FONT, fontSize: '11px', fontWeight: 600 } };
+  return f3Merge({
+    chart: { toolbar: { show: false }, fontFamily: F3_UI_FONT, background: 'transparent', foreColor: F3_MUTED },
+    colors: [F3_INK],
+    grid: { show: false, padding: { left: 12, right: 0 } },
+    fill: { opacity: 1 },
+    dataLabels: { enabled: false },
+    plotOptions: { bar: { borderRadius: 0 } },
+    states: { hover: { filter: { type: 'darken', value: 0.85 } } },
+    stroke: { show: false },
+    legend: { fontFamily: F3_UI_FONT, fontSize: '11px', labels: { colors: F3_INK }, markers: { radius: 0 } },
+    xaxis: { axisBorder: { color: F3_INK }, axisTicks: { show: false }, labels: axisLabels },
+    yaxis: { labels: axisLabels },
+    tooltip: { theme: 'light', style: { fontFamily: F3_UI_FONT } },
+    noData: { text: 'No data yet', style: { fontFamily: F3_UI_FONT, color: F3_MUTED } },
+  }, over);
+}
+
+// Colors function for a single-series bar chart: green at `index`, ink elsewhere.
+function f3HighlightAt(index) {
+  return [({ dataPointIndex }) => (dataPointIndex === index ? F3_GREEN : F3_INK)];
+}
+
+// Horizontal bars sorted high to low: the handoff's ranked list, with the
+// leader in green and the value printed past the end of each bar.
+// `fmt` formats the printed value (e.g. v => v + '%').
+function f3RankedBarOptions(names, seriesName, data, fmt) {
+  return f3ApexOptions({
+    chart: { type: 'bar', height: Math.max(260, names.length * 30) },
+    series: [{ name: seriesName, data }],
+    xaxis: { categories: names, labels: { show: false }, axisBorder: { show: false } },
+    colors: f3HighlightAt(0),
+    plotOptions: { bar: { horizontal: true, barHeight: '45%', dataLabels: { position: 'top' } } },
+    dataLabels: {
+      enabled: true, offsetX: 24, textAnchor: 'start',
+      formatter: fmt || (v => v),
+      style: { fontSize: '15px', fontFamily: F3_DISPLAY_FONT, fontWeight: 800, colors: [F3_INK] },
+    },
+    tooltip: { y: { formatter: fmt || (v => v) } },
+    yaxis: {
+      // Headroom past the longest bar so its printed value is not clipped.
+      max: Math.max(...data.map(Number)) * 1.3,
+      labels: { maxWidth: 200, style: { colors: F3_INK, fontFamily: F3_DISPLAY_FONT, fontSize: '14px', fontWeight: 700 } },
+    },
+    grid: { padding: { right: 32 } },
+  });
+}
+
+// Vertical columns (days, months, buckets) with the value printed on top.
+// `highlight` is the one green column's index (default: the tallest).
+function f3ColumnOptions(labels, seriesName, data, { highlight, fmt, height = 240 } = {}) {
+  return f3ApexOptions({
+    chart: { type: 'bar', height },
+    series: [{ name: seriesName, data }],
+    xaxis: { categories: labels, labels: { rotate: 0, hideOverlappingLabels: false } },
+    yaxis: { show: false, min: 0, max: Math.max(1, ...data.map(Number)) * 1.2 },
+    colors: f3HighlightAt(highlight === undefined ? f3MaxIndex(data) : highlight),
+    plotOptions: { bar: { columnWidth: '70%', dataLabels: { position: 'top' } } },
+    dataLabels: {
+      enabled: true, offsetY: -28, formatter: fmt || (v => v),
+      style: { fontSize: '16px', fontFamily: F3_DISPLAY_FONT, fontWeight: 800, colors: [F3_INK] },
+    },
+    tooltip: { y: { formatter: fmt || (v => v) } },
+  });
+}
+
+// Index of the largest value (first one on ties); -1 for an empty list.
+function f3MaxIndex(values) {
+  let best = -1;
+  values.forEach((v, i) => { if (best < 0 || v > values[best]) best = i; });
+  return best;
 }
 
 // Attaches click-to-sort behavior to all <th data-sort="colName"> elements
@@ -175,33 +270,79 @@ function f3LazyChart(containerId, renderFn) {
   obs.observe(el);
 }
 
-// Builds an info-dot (ⓘ) affordance carrying tooltip text. The dot is
-// keyboard-focusable and tap-friendly so tooltips are discoverable on both
-// desktop (hover/focus) and touch (tap → focus). Returns an HTML string for
-// use in template literals; escapes the tip text.
+// ── Info-dot (ⓘ) tooltips ──
+// A focusable button carrying an explanation. One shared popover (appended to
+// <body>, so scrolling tables can't clip it) shows on hover, keyboard focus or
+// tap, and closes on Esc or an outside tap. Event delegation means
+// re-rendered markup needs no re-init.
 function f3InfoDot(tip) {
-  return `<span class="info-dot" tabindex="0" role="button" aria-label="${f3Esc(tip)}"` +
-    ` data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="${f3Esc(tip)}">&#9432;</span>`;
+  return `<button type="button" class="info-dot" data-tip="${f3Esc(tip)}" aria-label="${f3Esc(tip)}">&#9432;</button>`;
 }
 
-// Initializes themed Bootstrap tooltips on any not-yet-initialized
-// [data-bs-toggle="tooltip"] elements within `root` (default: document).
-// Idempotent — safe to call after every re-render. Stops info-dot clicks from
-// bubbling (so clicking one inside a sortable <th> doesn't trigger a sort).
-function f3InitTooltips(root) {
-  const Tooltip = window.bootstrap && window.bootstrap.Tooltip;
-  if (!Tooltip) return;
-  const scope = (typeof root === 'string' ? document.querySelector(root) : root) || document;
-  if (!scope) return;
-  scope.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
-    if (el._f3Tip) return;
-    el._f3Tip = true;
-    if (el.classList.contains('info-dot')) {
-      el.addEventListener('click', e => { e.stopPropagation(); e.preventDefault(); });
-    }
-    new Tooltip(el, { trigger: 'hover focus', container: 'body' });
-  });
+// Table header text. Headers may wrap, but the last word, the ⓘ and the sort
+// arrow (drawn on .th-tail) stay together so icons never strand on a line.
+function f3ThLabel(label, tip) {
+  const words = f3Esc(label).split(' ');
+  const last = words.pop();
+  const dot = tip ? `&nbsp;${f3InfoDot(tip)}` : '';
+  return `${words.length ? words.join(' ') + ' ' : ''}<span class="th-tail">${last}${dot}</span>`;
 }
+
+// Stacked-card tables (.table--stack, under 800px): each cell shows its
+// column's header as a label. Call after every body render (sorting re-renders).
+function f3StackLabels(table) {
+  if (!table) return;
+  const labels = [...table.querySelectorAll('thead th')].map(th => th.textContent.replace('\u24D8', '').trim());
+  table.querySelectorAll('tbody tr').forEach(tr =>
+    [...tr.children].forEach((td, i) => { if (labels[i]) td.dataset.label = labels[i]; }));
+}
+
+function f3InitInfoDots() {
+  const pop = document.createElement('div');
+  pop.className = 'tip-pop';
+  pop.setAttribute('role', 'tooltip');
+  pop.hidden = true;
+  document.body.appendChild(pop);
+  let current = null;
+
+  const dotOf = el => (el instanceof Element ? el.closest('.info-dot') : null);
+  const hide = () => { current = null; pop.hidden = true; };
+  const show = dot => {
+    current = dot;
+    pop.textContent = dot.dataset.tip;
+    pop.hidden = false;
+    const r = dot.getBoundingClientRect();
+    const p = pop.getBoundingClientRect();
+    const left = Math.min(Math.max(8, r.left + r.width / 2 - p.width / 2), innerWidth - p.width - 8);
+    const top = r.top - p.height - 8 >= 8 ? r.top - p.height - 8 : r.bottom + 8;
+    pop.style.left = `${left + scrollX}px`;
+    pop.style.top = `${top + scrollY}px`;
+  };
+
+  document.addEventListener('mouseover', e => { const d = dotOf(e.target); if (d && d !== current) show(d); });
+  document.addEventListener('mouseout', e => {
+    const d = dotOf(e.target);
+    if (d && dotOf(e.relatedTarget) !== d && document.activeElement !== d) hide();
+  });
+  document.addEventListener('focusin', e => { const d = dotOf(e.target); if (d) show(d); });
+  document.addEventListener('focusout', e => { if (dotOf(e.target)) hide(); });
+  // Capture phase: a dot inside a sortable <th> must not trigger the sort.
+  document.addEventListener('click', e => {
+    const d = dotOf(e.target);
+    if (!d) { hide(); return; }
+    e.stopPropagation();
+    e.preventDefault();
+    // Always open, never toggle: a tap fires hover + focus first, which have
+    // already opened it, and a toggle would close it again.
+    show(d);
+  }, true);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+  // Page coordinates survive a page scroll; a scrolled table moves the dot, so
+  // re-anchor rather than close (focus() scrolling a dot into view fires this).
+  addEventListener('scroll', () => { if (current) show(current); }, { passive: true, capture: true });
+}
+
+if (typeof document !== 'undefined') f3InitInfoDots();
 
 // Two distinct questions get asked about a Site value across the stats pages —
 // keep them as two functions rather than one, since collapsing them changes
@@ -278,10 +419,32 @@ function f3CanonicalSite(site) {
   return F3_SITE_ALIASES_LC[s.toLowerCase()] || s;
 }
 
+// ── Raw attendance tab: the one loader every stats page uses ──
+// Columns the pages read. A published tab missing any of them is the wrong
+// shape (a renamed column, an HTML error page served as 200), and should read
+// as an error, not as "no posts yet".
+const F3_RAW_COLUMNS = ['Date', 'Name', 'Site', 'Role'];
+
+// Parses the Raw tab: checks its header, rewrites migrated site names, drops
+// rows with no PAX name. `year` (e.g. '2026') keeps only that year's rows.
+function f3RawRowsFromCsv(text, { year } = {}) {
+  const header = f3ParseCSVLine((text || '').split('\n')[0] || '').map(h => h.trim());
+  const missing = F3_RAW_COLUMNS.filter(c => !header.includes(c));
+  if (missing.length) throw new Error(`Sheet is missing column(s): ${missing.join(', ')}`);
+  return f3ParseCSV(text, 0)
+    .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
+    .filter(r => r['Name'] && r['Name'].trim() && (!year || r['Date'].startsWith(year + '-')));
+}
+
+async function f3LoadRawRows(opts) {
+  return f3RawRowsFromCsv(await f3FetchCSV('raw'), opts);
+}
+
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
+    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv,
   };
 }
