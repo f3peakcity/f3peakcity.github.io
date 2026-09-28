@@ -324,3 +324,16 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
   .table--stack td.table-note{grid-column:1/-1;min-width:0}
   .table--stack tr:hover td{background:none}
 }
+
+/* Mission metrics: journey bars, three-list follow-ups */
+.bar-row--wide{grid-template-columns:minmax(0,1.3fr) minmax(60px,1fr) 56px;align-items:center}
+.bar-row--wide .bar-name{text-transform:none;letter-spacing:.02em;font-size:17px}
+.bar-row--wide .bar-name .label{display:block;margin-top:4px}
+.trio{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:32px 40px;margin-top:8px}
+.list-head{margin:16px 0 4px;font:800 18px/1.1 var(--display);letter-spacing:.06em;text-transform:uppercase}
+.row .row-val{white-space:nowrap}
+/* Narrow follow-up columns: the label drops under the name so long names never collide */
+.trio .row{grid-template-columns:minmax(0,1fr) auto;row-gap:4px}
+.trio .row .row-name{overflow-wrap:anywhere}
+.trio .row .label{grid-column:1;grid-row:2}
+.trio .row .row-val{grid-column:2;grid-row:1/span 2;align-self:center}

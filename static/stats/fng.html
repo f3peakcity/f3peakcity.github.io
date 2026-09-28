@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20260928b">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260929a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -60,6 +60,11 @@
     </section>
 
     <section class="section">
+      <div class="section-head"><h2>New guy journey</h2><span class="label">First post → return → established → leading <button type="button" class="info-dot" data-tip="Each step counts only FNGs old enough to have reached it, so a guy who posted last week is not a 'no' on the 30-day return." aria-label="Each step counts only FNGs old enough to have reached it, so a guy who posted last week is not a 'no' on the 30-day return.">&#9432;</button></span></div>
+      <div id="fng-journey"><div class="status label" role="status">Loading…</div></div>
+    </section>
+
+    <section class="section">
       <div class="section-head"><h2>Status breakdown</h2><span class="label" id="fng-status-total"></span></div>
       <div id="chart-fng-status"></div>
     </section>
@@ -75,6 +80,35 @@
       </section>
     </div>
 
+    <div class="pair">
+      <section class="section">
+        <div class="section-head"><h2>Back within 30 days</h2><span class="label">By first-post month</span></div>
+        <div class="chart" id="chart-fng-return-month"></div>
+      </section>
+      <section class="section">
+        <div class="section-head"><h2>Back within 30 days</h2><span class="label">By AO <button type="button" class="info-dot" data-tip="Share of each AO's FNGs who posted again within 30 days. Counts are small at most AOs, so read the 'n of m', not just the percent." aria-label="Share of each AO's FNGs who posted again within 30 days. Counts are small at most AOs, so read the 'n of m', not just the percent.">&#9432;</button></span></div>
+        <div id="fng-return-ao"><div class="status label" role="status">Loading…</div></div>
+      </section>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><h2>Needs a follow-up</h2><span class="label">For Site Qs and FNG shepherds</span></div>
+      <div class="trio">
+        <div>
+          <h3 class="list-head">No second post <button type="button" class="info-dot" data-tip="First post 7 to 60 days ago and hasn't been back. Past 60 days the trail is usually cold." aria-label="First post 7 to 60 days ago and hasn't been back. Past 60 days the trail is usually cold.">&#9432;</button></h3>
+          <div id="fng-noreturn"></div>
+        </div>
+        <div>
+          <h3 class="list-head">Came back, then faded <button type="button" class="info-dot" data-tip="Posted 2 or 3 times, but nothing in the last 3 weeks (first post within the last 120 days)." aria-label="Posted 2 or 3 times, but nothing in the last 3 weeks (first post within the last 120 days).">&#9432;</button></h3>
+          <div id="fng-faded"></div>
+        </div>
+        <div>
+          <h3 class="list-head">Ready to Q <button type="button" class="info-dot" data-tip="Former FNGs with 10+ posts who haven't led a workout yet. Worth a personal ask." aria-label="Former FNGs with 10+ posts who haven't led a workout yet. Worth a personal ask.">&#9432;</button></h3>
+          <div id="fng-readytoq"></div>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="section-head"><h2>All FNGs</h2><span class="label">Newest first · click a header to sort</span></div>
       <div class="table-wrap" id="fng-table-container"><div class="status label" role="status">Loading…</div></div>
@@ -89,7 +123,7 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260928b"></script>
-<script src="assets/js/fng.js?v=20260928b"></script>
+<script src="assets/js/data.js?v=20260929a"></script>
+<script src="assets/js/fng.js?v=20260929a"></script>
 </body>
 </html>
