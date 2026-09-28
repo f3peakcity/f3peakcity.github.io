@@ -110,16 +110,17 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
 
   // Cards: every real AO, attended ones first (by posts desc), then alphabetical
   // — perAoRows is already sorted that way.
-  grid.innerHTML = `<table class="table">
+  grid.innerHTML = `<table class="table table--stack">
       <thead><tr><th>AO</th><th class="num">Posts</th><th class="num">Qs</th><th>Last post</th><th>Last Q</th></tr></thead>
       <tbody>${perAoRows.map(a => `<tr${a['Posts'] === 0 ? ' class="is-muted"' : ''}>
         <td>${f3Esc(a['AO'])}</td>
         <td class="num">${a['Posts']}</td>
         <td class="num">${a['Qs']}</td>
-        <td>${fmtDate(a['Last Post'])}</td>
-        <td>${fmtDate(a['Last Q'])}</td>
+        <td class="nowrap">${fmtDate(a['Last Post'])}</td>
+        <td class="nowrap">${fmtDate(a['Last Q'])}</td>
       </tr>`).join('')}</tbody>
     </table>`;
+  f3StackLabels(grid.querySelector('table'));
 
   // Format an ISO date string as e.g. "Jul 1, 2026"; "—" when null.
   function fmtDate(str) {

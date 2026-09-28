@@ -266,9 +266,9 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
     const container = document.getElementById('pax-table-container');
     document.getElementById('pax-table-count').textContent = `${rows.length} PAX`;
     const th = (key, label, tip, num) =>
-      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${label} ${f3InfoDot(tip)}</th>`;
+      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${f3ThLabel(label, tip)}</th>`;
     container.innerHTML = `
-        <table class="table" id="pax-full-table">
+        <table class="table table--stack" id="pax-full-table">
           <thead>
             <tr>
               ${th('Site', 'PAX', 'PAX F3 handle')}
@@ -306,11 +306,12 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
         <td class="num">${isNaN(avgWk) ? '—' : avgWk.toFixed(1)}</td>
         <td class="num">${isNaN(avg3Wk) ? '—' : avg3Wk.toFixed(1)}</td>
         <td class="num">${r['Last 3 wk'] || '0'}</td>
-        <td>${f3Esc(traj)}</td>
+        <td class="nowrap">${f3Esc(traj)}</td>
         <td>${f3Esc(r['Favorite AO'] || '—')}</td>
         <td class="num">${lastSeen != null ? `${lastSeen}d ago` : '—'}</td>
       </tr>`;
     }).join('');
+    f3StackLabels(body.closest('table'));
   }
 })();
 

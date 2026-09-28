@@ -712,9 +712,9 @@ async function aoInit() {
   function renderTable(rows) {
     const container = document.getElementById('ao-table-container');
     const th = (key, label, tip, num) =>
-      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${label} ${f3InfoDot(tip)}</th>`;
+      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${f3ThLabel(label, tip)}</th>`;
     container.innerHTML = `
-        <table class="table" id="ao-full-table">
+        <table class="table table--stack" id="ao-full-table">
           <thead>
             <tr>
               ${th('Site', 'AO', 'AO name')}
@@ -724,7 +724,7 @@ async function aoInit() {
               ${th('FNGs', 'FNGs', 'Number of first-time attendees at this AO in 2026', true)}
               ${th('Unique Qs', 'Unique Qs', 'Number of distinct PAX who have led a workout (Q) at this AO in 2026', true)}
               ${th('Bench Strength', 'Bench', BENCH_TIP, true)}
-              <th>Core PAX ${f3InfoDot(CORE_TIP)}</th>
+              <th>${f3ThLabel('Core PAX', CORE_TIP)}</th>
             </tr>
           </thead>
           <tbody id="ao-table-body"></tbody>
@@ -756,6 +756,7 @@ async function aoInit() {
         <td class="table-note">${core.length ? f3Esc(core.join(', ')) : aoEmpty('No regulars yet')}</td>
       </tr>`;
     }).join('');
+    f3StackLabels(body.closest('table'));
   }
 }
 

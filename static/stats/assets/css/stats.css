@@ -204,15 +204,22 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 /* Sortable table headers (f3MakeSortable) */
 .table th[data-sort]{cursor:pointer;user-select:none}
 .table th[data-sort]:hover{color:var(--ink)}
-.table th[data-sort]::after{content:" \21C5";opacity:.4}
-.table th[data-sort].asc::after{content:" \2191";opacity:1;color:var(--green)}
-.table th[data-sort].desc::after{content:" \2193";opacity:1;color:var(--green)}
+.table th[data-sort] .th-tail::after{content:"\00a0\21C5";opacity:.4}
+.table th[data-sort].asc .th-tail::after{content:"\00a0\2191";opacity:1;color:var(--green)}
+.table th[data-sort].desc .th-tail::after{content:"\00a0\2193";opacity:1;color:var(--green)}
 
 /* PAX name links (table -> detail page) */
 .pax-link{color:var(--ink)}
 .pax-link:hover{color:var(--green);text-decoration:underline}
-.table td{white-space:nowrap}
-.table td.table-note{font:400 14px/1.4 var(--ui);color:var(--text);min-width:200px;white-space:normal}
+/* Tables fit their column instead of scrolling: headers wrap to a second
+   line, text cells wrap, and only numbers and dates hold to one line. */
+.table th{white-space:normal;vertical-align:bottom;line-height:1.35;letter-spacing:.06em;padding-right:8px}
+.table th .info-dot{margin-left:-2px}
+.table th .th-tail{white-space:nowrap}  /* last word + ⓘ + sort arrow never split (f3ThLabel) */
+.table td{padding-right:8px;vertical-align:top}
+.table td:first-child{min-width:7em}
+.table td.num,.table td.nowrap{white-space:nowrap}
+.table td.table-note{font:400 14px/1.4 var(--ui);color:var(--text);min-width:180px}
 
 /* AO page */
 #chart-daily-attendance{min-height:460px}
@@ -302,3 +309,18 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .info-dot:hover,.info-dot:focus-visible{color:var(--green)}
 .tip-pop{position:absolute;z-index:100;max-width:min(280px,calc(100vw - 16px));padding:8px 10px;background:var(--ink);color:var(--paper);font:400 13px/1.4 var(--ui);letter-spacing:.01em;text-transform:none;text-align:left;pointer-events:none}
 .tip-toggle{display:inline-flex;align-items:center;gap:6px}
+
+/* Stacked-card tables: under 800px the wide AO/PAX/FNG tables become one card
+   per row (name on top, fields as label/value pairs) instead of scrolling.
+   Labels come from data-label, set by f3StackLabels. */
+@media (max-width:800px){
+  .table--stack thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .table--stack,.table--stack tbody{display:block}
+  .table--stack tr{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px 16px;padding:16px 0;border-bottom:1px solid var(--rule)}
+  .table--stack td,.table--stack td.num,.table--stack td.nowrap{display:block;padding:0;border:0;min-width:0;text-align:left;white-space:normal}
+  .table--stack td::before{content:attr(data-label);display:block;margin-bottom:5px;font:600 11px/1.2 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .table--stack td:first-child{grid-column:1/-1;font-size:20px}
+  .table--stack td:first-child::before{content:none}
+  .table--stack td.table-note{grid-column:1/-1;min-width:0}
+  .table--stack tr:hover td{background:none}
+}

@@ -279,6 +279,24 @@ function f3InfoDot(tip) {
   return `<button type="button" class="info-dot" data-tip="${f3Esc(tip)}" aria-label="${f3Esc(tip)}">&#9432;</button>`;
 }
 
+// Table header text. Headers may wrap, but the last word, the ⓘ and the sort
+// arrow (drawn on .th-tail) stay together so icons never strand on a line.
+function f3ThLabel(label, tip) {
+  const words = f3Esc(label).split(' ');
+  const last = words.pop();
+  const dot = tip ? `&nbsp;${f3InfoDot(tip)}` : '';
+  return `${words.length ? words.join(' ') + ' ' : ''}<span class="th-tail">${last}${dot}</span>`;
+}
+
+// Stacked-card tables (.table--stack, under 800px): each cell shows its
+// column's header as a label. Call after every body render (sorting re-renders).
+function f3StackLabels(table) {
+  if (!table) return;
+  const labels = [...table.querySelectorAll('thead th')].map(th => th.textContent.replace('\u24D8', '').trim());
+  table.querySelectorAll('tbody tr').forEach(tr =>
+    [...tr.children].forEach((td, i) => { if (labels[i]) td.dataset.label = labels[i]; }));
+}
+
 function f3InitInfoDots() {
   const pop = document.createElement('div');
   pop.className = 'tip-pop';

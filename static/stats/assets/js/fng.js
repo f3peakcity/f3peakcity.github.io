@@ -170,9 +170,9 @@ const FNG_STATUSES = [
   function renderTable(rows) {
     const container = document.getElementById('fng-table-container');
     const th = (key, label, tip, num) =>
-      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${label} ${f3InfoDot(tip)}</th>`;
+      `<th data-sort="${key}"${num ? ' class="num"' : ''}>${f3ThLabel(label, tip)}</th>`;
     container.innerHTML = `
-        <table class="table" id="fng-full-table">
+        <table class="table table--stack" id="fng-full-table">
           <thead>
             <tr>
               ${th('FNG Name', 'FNG', 'PAX F3 handle')}
@@ -195,13 +195,14 @@ const FNG_STATUSES = [
     if (!body) return;
     body.innerHTML = rows.map(r => `<tr>
       <td>${f3Esc(r['FNG Name'])}</td>
-      <td>${f3Esc(r['First Post'] || '—')}</td>
+      <td class="nowrap">${f3Esc(r['First Post'] || '—')}</td>
       <td>${f3Esc(r['Home AO'] || '—')}</td>
       <td class="num">${r['Total Posts to date'] || '—'}</td>
-      <td>${f3Esc(r['2nd Post'] || '—')}</td>
+      <td class="nowrap">${f3Esc(r['2nd Post'] || '—')}</td>
       <td class="num">${r['Days to 2nd post'] === '' ? '—' : r['Days to 2nd post']}</td>
-      <td>${f3Esc(r['Status'] || '—')}</td>
+      <td class="nowrap">${f3Esc(r['Status'] || '—')}</td>
     </tr>`).join('');
+    f3StackLabels(body.closest('table'));
   }
 })();
 

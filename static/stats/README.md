@@ -136,3 +136,9 @@ Rules worth keeping:
   (`Date, Name, Site, Role`), applies `f3CanonicalSite`, and throws on a
   wrong-shaped sheet so pages show an error instead of an empty page.
   Loading/error/empty states come from `f3ShowLoading/f3ShowError/f3ShowEmpty`.
+- **Tables fit; they don't scroll.** Headers wrap (`f3ThLabel` keeps the last
+  word, ⓘ and sort arrow together), text cells wrap, `.num`/`.nowrap` cells
+  don't. Under 800px, `.table--stack` tables turn each row into a card, with
+  labels copied from the headers by `f3StackLabels` (call it after every body
+  render). The #112 year grid is the one exception: 12 month cells scroll
+  sideways on phones, as the handoff specifies.
