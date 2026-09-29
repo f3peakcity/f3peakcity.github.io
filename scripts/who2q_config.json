@@ -15,5 +15,15 @@
     "Full Metal Jacket (FMJ)"
   ],
   "excluded_pax": [],
-  "name_aliases": {}
+  "name_aliases": {
+    "Disco Duck (CARPEX)": "Disco Duck",
+    "Eugene Kornikh - Sputnik": "Sputnik",
+    "Gibraltar (Carpex)": "Gibraltar",
+    "High School Musical (G/L)": "High School Musical",
+    "Kilmer (GL)": "Kilmer",
+    "Mama’s Boy": "Mama's Boy",
+    "Memento": "Momento",
+    "Schroeder (Carpex)": "Schroeder",
+    "Sethler Buransky": "Tolstoy"
+  }
 }
