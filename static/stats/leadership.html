@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Leadership — F3 Peak City Stats</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260929c">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
+  <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#4a5e3a">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <img src="assets/img/logo-white-96.png" alt="" width="24" height="24">
+        <span>Peak City Stats</span>
+      </a>
+      <nav class="site-nav" aria-label="Dashboards">
+        <a href="ao.html">AO Stats</a>
+        <a href="pax.html">PAX Stats</a>
+        <a href="fng.html">FNG Stats</a>
+        <a href="leaderboard.html">#112 Leaderboard</a>
+        <a href="who2q.html">Who to Q</a>
+        <a href="leadership.html" aria-current="page">Leadership</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="page-head">
+      <div class="eyebrow label"><span>Dashboard 06</span><span>Last 90 days</span></div>
+      <h1 class="page-title">Leadership</h1>
+      <p class="page-sub">Who's leading, who's next, and where one or two men carry the load.</p>
+    </section>
+
+    <section class="kpis" aria-label="Leadership totals">
+      <div class="kpi">
+        <div class="kpi-num" id="stat-unique-qs">—</div>
+        <div class="label">Unique <span class="tail">Qs&nbsp;<button type="button" class="info-dot" data-tip="Different men who led at least one Peak City workout in the last 90 days." aria-label="Different men who led at least one Peak City workout in the last 90 days.">&#9432;</button></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-first-qs">—</div>
+        <div class="label">First-time Qs this <span class="tail">year&nbsp;<button type="button" class="info-dot" data-tip="Men whose first Q on record came this year. Records start Jan 2025, so a man who last led before then would count here too." aria-label="Men whose first Q on record came this year. Records start Jan 2025, so a man who last led before then would count here too.">&#9432;</button></span></div>
+      </div>
+      <div class="kpi kpi--accent">
+        <div class="kpi-num"><span id="stat-repeat">—</span><small id="stat-repeat-n"></small></div>
+        <div class="label">Q'd again in 60 <span class="tail">days&nbsp;<button type="button" class="info-dot" data-tip="Of this year's first-time Qs who are at least 60 days past that first Q, the share who led again within 60 days." aria-label="Of this year's first-time Qs who are at least 60 days past that first Q, the share who led again within 60 days.">&#9432;</button></span></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num"><span id="stat-concentration">—</span><small id="stat-concentration-n"></small></div>
+        <div class="label">Led by the top <span class="tail">20%&nbsp;<button type="button" class="info-dot" data-tip="Share of the last 90 days' Q-led workouts led by the busiest 20% of Qs. High isn't bad on its own, but it's a burnout and succession signal." aria-label="Share of the last 90 days' Q-led workouts led by the busiest 20% of Qs. High isn't bad on its own, but it's a burnout and succession signal.">&#9432;</button></span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>Q pipeline</h2><span class="label">From regular to regular Q</span></div>
+      <div id="ld-pipeline"><div class="status label" role="status">Loading…</div></div>
+    </section>
+
+    <div class="pair">
+      <section class="section">
+        <div class="section-head"><h2>First-time Qs</h2><span class="label">Days to 2nd <span class="tail">Q&nbsp;<button type="button" class="info-dot" data-tip="Newest first. Green = led again within 60 days. A dash means he hasn't Q'd again yet: worth an invite back." aria-label="Newest first. Green = led again within 60 days. A dash means he hasn't Q'd again yet: worth an invite back.">&#9432;</button></span></span></div>
+        <div id="ld-first-qs"><div class="status label" role="status">Loading…</div></div>
+      </section>
+      <section class="section" id="ready-to-q">
+        <div class="section-head"><h2>Ready to Q</h2><span class="label"><span id="ld-bench-count"></span> <button type="button" class="info-dot" data-tip="PC Regulars with no Q on record, by posts in the last 90 days. Who to Q has the same idea per AO." aria-label="PC Regulars with no Q on record, by posts in the last 90 days. Who to Q has the same idea per AO.">&#9432;</button></span></div>
+        <div id="ld-bench"><div class="status label" role="status">Loading…</div></div>
+      </section>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><h2>Q load by AO</h2><span class="label">Most concentrated first</span></div>
+      <div class="table-wrap" id="ld-load-table"><div class="status label" role="status">Loading…</div></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap label">
+      <span>Refreshed on load from Google Sheets</span>
+      <a href="https://f3peakcity.com">f3peakcity.com</a>
+    </div>
+  </footer>
+
+<script src="assets/js/data.js?v=20260929c"></script>
+<script src="assets/js/leadership.js?v=20260929c"></script>
+</body>
+</html>

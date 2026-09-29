@@ -64,6 +64,12 @@ function fngBuildRows(allRawRows, now) {
     const homeAO = fngRecord['Site'];
     const status = fngStatus(totalPosts, firstPostDate, now);
 
+    // Journey fields count only posts AFTER the FNG post (a few PAX have
+    // earlier records than their FNG tag; those don't count as coming back).
+    const after = sorted.filter(r => r['Date'] > firstPostIso &&
+      !FNG_EXCLUDED_SITES.includes((r['Site'] || '').trim()));
+    const daysAfter = r => Math.round((f3ParseLocalDate(r['Date']) - firstPostDate) / 86400000);
+
     rows.push({
       'FNG Name': name,
       'First Post': firstPost,
@@ -72,9 +78,70 @@ function fngBuildRows(allRawRows, now) {
       'Total Posts to date': totalPosts,
       'Home AO': homeAO,
       'Status': status,
+      '_firstIso': firstPostIso,
+      '_returnDays': after.length ? daysAfter(after[0]) : null,
+      '_posts30': after.filter(r => daysAfter(r) <= 30).length,
+      '_postedAfter60': after.some(r => daysAfter(r) >= 60),
+      '_lastIso': (after[after.length - 1] || fngRecord)['Date'],
+      // Any Q on record, even before a late FNG tag: 'Ready to Q' must never list a man who has led.
+      '_hasQd': records.some(r => r['Role'] === 'Q'),
     });
   });
   return rows;
+}
+
+// ── New Guy Journey ──
+// Every rate below only counts FNGs old enough to have had the chance: an FNG
+// from last week is not a "no" on the 30-day return.
+const FNG_DAY_MS = 86400000;
+const fngAgeDays = (r, now) => Math.floor((now - f3ParseLocalDate(r['_firstIso'])) / FNG_DAY_MS);
+const FNG_ESTABLISHED_POSTS = 3;   // 3 more after the first = 4+ posts in 30 days
+
+function fngJourneyStages(rows, now) {
+  const stage = (label, minAge, hit, tip) => {
+    const pool = rows.filter(r => fngAgeDays(r, now) >= minAge);
+    return { label, n: pool.filter(hit).length, of: pool.length, tip };
+  };
+  return [
+    stage('Came back within 7 days', 7, r => r['_returnDays'] !== null && r['_returnDays'] <= 7,
+      'Posted again within 7 days of their first post. FNGs from the last 7 days are not counted yet.'),
+    stage('Came back within 30 days', 30, r => r['_returnDays'] !== null && r['_returnDays'] <= 30,
+      'Posted again within 30 days of their first post.'),
+    stage('Established: 4+ posts in 30 days', 30, r => r['_posts30'] >= FNG_ESTABLISHED_POSTS,
+      'At least 4 posts, counting the first, within 30 days of their first post.'),
+    stage('Still posting after 60 days', 60, r => r['_postedAfter60'],
+      'Posted at least once 60 or more days after their first post.'),
+    stage("Has Q'd", 0, r => r['_hasQd'],
+      'Has led a workout since their first post: the first contribution step the data can see.'),
+  ];
+}
+
+// 30-day return grouped by a key (home AO or first-post month).
+function fngReturnBy(rows, now, keyFn, days = 30) {
+  const groups = {};
+  rows.filter(r => fngAgeDays(r, now) >= days).forEach(r => {
+    const g = groups[keyFn(r)] = groups[keyFn(r)] || { n: 0, of: 0 };
+    g.of++;
+    if (r['_returnDays'] !== null && r['_returnDays'] <= days) g.n++;
+  });
+  return groups;
+}
+
+// Three follow-up lists a Site Q or FNG shepherd can act on.
+function fngFollowUps(rows, now) {
+  const since = iso => Math.floor((now - f3ParseLocalDate(iso)) / FNG_DAY_MS);
+  const byNewest = (a, b) => b['_firstIso'].localeCompare(a['_firstIso']);
+  return {
+    // First post 7–60 days ago, never came back. Past 60 days the trail is cold.
+    noReturn: rows.filter(r => r['_returnDays'] === null && fngAgeDays(r, now) >= 7 && fngAgeDays(r, now) <= 60)
+      .sort(byNewest),
+    // Came back once or twice, then nothing for 3+ weeks (first post in the last 120 days).
+    faded: rows.filter(r => r['Total Posts to date'] >= 2 && r['Total Posts to date'] <= 3 &&
+      since(r['_lastIso']) >= 21 && fngAgeDays(r, now) <= 120).sort(byNewest),
+    // Stuck around (10+ posts) but hasn't Q'd: ready for the ask.
+    readyToQ: rows.filter(r => r['Total Posts to date'] >= 10 && !r['_hasQd'])
+      .sort((a, b) => b['Total Posts to date'] - a['Total Posts to date']),
+  };
 }
 
 const FNG_STATUSES = [
@@ -87,7 +154,8 @@ const FNG_STATUSES = [
 
 (async function () {
   const now = new Date();
-  const IDS = ['chart-fng-status', 'chart-days-to-return', 'chart-fng-monthly', 'fng-table-container'];
+  const IDS = ['fng-journey', 'chart-fng-status', 'chart-days-to-return', 'chart-fng-monthly',
+    'chart-fng-return-month', 'fng-return-ao', 'fng-noreturn', 'fng-faded', 'fng-readytoq', 'fng-table-container'];
   let allRows = [];
 
   try {
@@ -109,7 +177,16 @@ const FNG_STATUSES = [
   const filteredRows = [...allRows].sort((a, b) => firstPostTime(b) - firstPostTime(a));
   const countStatus = (rows, key) => rows.filter(r => (r['Status'] || '').includes(key)).length;
 
+  // Declared before the render calls below (they're consts, so a later
+  // declaration would throw in the temporal dead zone and blank the page).
+  const pct = (n, of) => (of ? Math.round(n / of * 100) : 0);
+  const shortDate = iso => f3ParseLocalDate(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
   renderStatCards(filteredRows);
+  renderJourney(filteredRows);
+  renderReturnByMonth(filteredRows);
+  renderReturnByAo(filteredRows);
+  renderFollowUps(filteredRows);
   renderStatusStack(filteredRows);
   renderDaysBar(filteredRows);
   renderMonthlyTrend(filteredRows);
@@ -122,6 +199,72 @@ const FNG_STATUSES = [
     document.getElementById('stat-pending').textContent = countStatus(rows, 'Pending');
     document.getElementById('stat-regular').textContent = regular;
     document.getElementById('stat-regular-pct').textContent = `${Math.round(regular / rows.length * 100)}%`;
+  }
+
+  function renderJourney(rows) {
+    const stages = fngJourneyStages(rows, now);
+    document.getElementById('fng-journey').innerHTML = stages.map((st, i) => `
+      <div class="bar-row bar-row--wide${i === 0 ? ' is-top' : ''}">
+        <span class="bar-name">${st.label} ${f3InfoDot(st.tip)}<span class="label">${st.n} of ${st.of} FNGs</span></span>
+        <span class="bar-track"><span class="bar-fill" style="width:${pct(st.n, st.of)}%"></span></span>
+        <span class="bar-val">${pct(st.n, st.of)}%</span>
+      </div>`).join('');
+  }
+
+  function renderReturnByMonth(rows) {
+    const groups = fngReturnBy(rows, now, r => r['_firstIso'].slice(0, 7));
+    const months = Object.keys(groups).sort();
+    if (!months.length) { f3ShowEmpty('chart-fng-return-month', 'No FNGs 30+ days out yet'); return; }
+    const labels = months.map(m => new Date(+m.slice(0, 4), +m.slice(5) - 1).toLocaleString('default', { month: 'short' }));
+    const options = f3Merge(f3ColumnOptions(labels, 'Back within 30 days', months.map(m => pct(groups[m].n, groups[m].of)),
+      { fmt: v => `${v}%` }), {
+      tooltip: { y: { formatter: (v, { dataPointIndex }) => {
+        const g = groups[months[dataPointIndex]];
+        return `${v}% · ${g.n} of ${g.of} FNGs`;
+      } } },
+    });
+    f3LazyChart('chart-fng-return-month', () =>
+      new ApexCharts(document.getElementById('chart-fng-return-month'), options).render());
+  }
+
+  function renderReturnByAo(rows) {
+    const groups = fngReturnBy(rows, now, r => r['Home AO']);
+    const aos = Object.keys(groups).sort((a, b) => groups[b].of - groups[a].of || a.localeCompare(b));
+    if (!aos.length) { f3ShowEmpty('fng-return-ao', 'No FNGs 30+ days out yet'); return; }
+    document.getElementById('fng-return-ao').innerHTML = aos.map(ao => `
+      <div class="row">
+        <span class="row-name">${f3Esc(ao)}</span>
+        <span class="label">${groups[ao].n} of ${groups[ao].of} back</span>
+        <span class="row-val">${pct(groups[ao].n, groups[ao].of)}%</span>
+      </div>`).join('');
+  }
+
+  function renderFollowUps(rows) {
+    const f = fngFollowUps(rows, now);
+    const daysSince = iso => Math.floor((now - f3ParseLocalDate(iso)) / 86400000);
+    const list = (id, items, empty, render) => {
+      document.getElementById(id).innerHTML = items.length
+        ? items.map(render).join('')
+        : `<div class="status label empty-state">${empty}</div>`;
+    };
+    list('fng-noreturn', f.noReturn, 'Every recent FNG has been back.', r => `
+      <div class="row" title="First post ${f3Esc(r['First Post'])} at ${f3Esc(r['Home AO'])}">
+        <span class="row-name">${f3Esc(r['FNG Name'])}</span>
+        <span class="label">${f3Esc(r['Home AO'])} · ${shortDate(r['_firstIso'])}</span>
+        <span class="row-val" aria-label="${daysSince(r['_firstIso'])} days since first post">${daysSince(r['_firstIso'])}d</span>
+      </div>`);
+    list('fng-faded', f.faded, 'No one has faded after coming back.', r => `
+      <div class="row" title="${r['Total Posts to date']} posts; last seen ${shortDate(r['_lastIso'])}">
+        <span class="row-name">${f3Esc(r['FNG Name'])}</span>
+        <span class="label">Last ${shortDate(r['_lastIso'])}</span>
+        <span class="row-val" aria-label="${daysSince(r['_lastIso'])} days since last post">${daysSince(r['_lastIso'])}d</span>
+      </div>`);
+    list('fng-readytoq', f.readyToQ, 'Every former FNG with 10+ posts has Q’d.', r => `
+      <div class="row">
+        <span class="row-name">${f3Esc(r['FNG Name'])}</span>
+        <span class="label">${f3Esc(r['Home AO'])}</span>
+        <span class="row-val" aria-label="${r['Total Posts to date']} posts">${r['Total Posts to date']}</span>
+      </div>`);
   }
 
   // One stacked bar plus a legend: the four statuses always add to 100%.
@@ -207,6 +350,6 @@ const FNG_STATUSES = [
 })();
 
 if (typeof module !== 'undefined') {
-  module.exports = { fngStatus, fngBuildRows, fngDaysBuckets };
+  module.exports = { fngStatus, fngBuildRows, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps };
 }
 

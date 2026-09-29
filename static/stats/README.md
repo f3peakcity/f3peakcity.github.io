@@ -56,6 +56,48 @@ across all of 2026 would have stripped five already-earned completions
 picking a new cutoff.** Compare completion counts before and after against the
 published sheet; the totals should hold.
 
+## New Guy Journey (`fng.html`)
+
+Built from attendance alone. Each rate counts only FNGs old enough to have
+reached that step, so last week's FNG is never a "no" on the 30-day return.
+Only posts **after** the FNG-tagged post count as coming back.
+
+- **Came back within 7 / 30 days**: a post within N days of the FNG post.
+- **Established**: 4+ posts (counting the first) within 30 days.
+- **Still posting after 60 days**: any post 60+ days after the first.
+- **Has Q'd**: a Q on record: the only contribution step the data can see.
+- **Follow-ups**: *no second post* (first post 7–60 days ago), *came back,
+  then faded* (2–3 posts, none in 21 days, first post within 120 days),
+  *ready to Q* (10+ posts, no Q on record).
+
+## Leadership (`leadership.html`)
+
+Q records at Peak City sites only (`#downrange` and Shield Lock excluded).
+Records start Jan 2025, so a "first Q" is the first **on record**.
+
+- **Unique Qs / concentration**: last 90 days; concentration is the share of
+  Q-led workouts led by the busiest 20% of Qs.
+- **Q'd again in 60 days**: of this year's first-time Qs who are 60+ days
+  past that first Q, the share who led again within 60 days.
+- **Pipeline**: PC Regulars → have Q'd → Q'd in 90 days → regular Q (3+ in 90).
+- **Ready to Q**: PC Regulars with no Q on record.
+- **Q load by AO** (also on the AO cards): share of an AO's last-90-day
+  Q-led workouts led by its two busiest Qs. Rust at 50%+, gold at 40%+,
+  uncolored under 6 Q-led workouts (`F3_Q_LOAD_*` in `data.js`).
+
+### Takeovers (visiting Qs)
+
+When another region takes over our workouts, their men's Q records are real
+posts but not Peak City leadership. `F3_VISITING_Q_WINDOWS` in `data.js`
+lists those date ranges; `f3IsVisitingQ` keeps their Qs out of every Q-depth
+metric (Leadership page, AO unique Qs, bench strength, Q load). Men whose only
+Qs came during a takeover are treated as visitors and kept off the pipeline
+and bench. Attendance, PAX totals and #112 still count those posts.
+
+- **2026-09-22 to 2026-09-25**: South Cary (SCary) takeover.
+
+Add a line for each future takeover.
+
 ## Known upstream data issue
 
 Out-of-region BigQuery events discard the real AO name and are stored as
@@ -102,6 +144,7 @@ node static/stats/test/fng.test.js
 node static/stats/test/pax-detail.test.js
 node static/stats/test/data.test.js
 node static/stats/test/who2q.test.js
+node static/stats/test/leadership.test.js
 
 # or all at once:
 for f in static/stats/test/*.test.js; do node "$f"; done

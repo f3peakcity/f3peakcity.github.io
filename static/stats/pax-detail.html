@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20260928b">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260929c">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -29,6 +29,7 @@
         <a href="fng.html">FNG Stats</a>
         <a href="leaderboard.html">#112 Leaderboard</a>
         <a href="who2q.html">Who to Q</a>
+        <a href="leadership.html">Leadership</a>
       </nav>
     </div>
   </header>
@@ -51,16 +52,16 @@
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-aos">—</div>
-        <div class="label">AOs visited <button type="button" class="info-dot" data-tip="Number of distinct AOs this PAX has posted at in 2026" aria-label="Number of distinct AOs this PAX has posted at in 2026">&#9432;</button></div>
+        <div class="label">AOs <span class="tail">visited&nbsp;<button type="button" class="info-dot" data-tip="Number of distinct AOs this PAX has posted at in 2026" aria-label="Number of distinct AOs this PAX has posted at in 2026">&#9432;</button></span></div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-ratio">—</div>
-        <div class="label">Q/P ratio <button type="button" class="info-dot" data-tip="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)" aria-label="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)">&#9432;</button></div>
+        <div class="label">Q/P <span class="tail">ratio&nbsp;<button type="button" class="info-dot" data-tip="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)" aria-label="Fraction of posts where this PAX led the workout (Q ÷ Total Posts)">&#9432;</button></span></div>
       </div>
     </section>
 
     <section class="section" id="rhythm-card" hidden>
-      <div class="section-head"><h2>Posting rhythm</h2><span class="label">One square per week <button type="button" class="info-dot" data-tip="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week." aria-label="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week.">&#9432;</button></span></div>
+      <div class="section-head"><h2>Posting rhythm</h2><span class="label">One square per <span class="tail">week&nbsp;<button type="button" class="info-dot" data-tip="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week." aria-label="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week.">&#9432;</button></span></span></div>
       <div id="pax-rhythm"></div>
     </section>
 
@@ -70,7 +71,7 @@
         <div class="chart" id="chart-detail-monthly"></div>
       </section>
       <section class="section">
-        <div class="section-head"><h2>Weekly fingerprint</h2><span class="label">Posts by day <button type="button" class="info-dot" data-tip="Which days of the week this PAX tends to post" aria-label="Which days of the week this PAX tends to post">&#9432;</button></span></div>
+        <div class="section-head"><h2>Weekly fingerprint</h2><span class="label">Posts by <span class="tail">day&nbsp;<button type="button" class="info-dot" data-tip="Which days of the week this PAX tends to post" aria-label="Which days of the week this PAX tends to post">&#9432;</button></span></span></div>
         <div class="chart" id="chart-detail-dow"></div>
       </section>
     </div>
@@ -89,7 +90,7 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260928b"></script>
-<script src="assets/js/pax-detail.js?v=20260928b"></script>
+<script src="assets/js/data.js?v=20260929c"></script>
+<script src="assets/js/pax-detail.js?v=20260929c"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20260928b">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20260929c">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -29,6 +29,7 @@
         <a href="fng.html" aria-current="page">FNG Stats</a>
         <a href="leaderboard.html">#112 Leaderboard</a>
         <a href="who2q.html">Who to Q</a>
+        <a href="leadership.html">Leadership</a>
       </nav>
     </div>
   </header>
@@ -43,20 +44,25 @@
     <section class="kpis" aria-label="FNG totals">
       <div class="kpi">
         <div class="kpi-num" id="stat-total-fngs">—</div>
-        <div class="label">Total FNGs <button type="button" class="info-dot" data-tip="Total first-time attendees in 2026" aria-label="Total first-time attendees in 2026">&#9432;</button></div>
+        <div class="label">Total <span class="tail">FNGs&nbsp;<button type="button" class="info-dot" data-tip="Total first-time attendees in 2026" aria-label="Total first-time attendees in 2026">&#9432;</button></span></div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-retained">—</div>
-        <div class="label">Developing <button type="button" class="info-dot" data-tip="FNGs who returned for a 2nd post but have fewer than 10 total posts" aria-label="FNGs who returned for a 2nd post but have fewer than 10 total posts">&#9432;</button></div>
+        <div class="label"><span class="tail">Developing&nbsp;<button type="button" class="info-dot" data-tip="FNGs who returned for a 2nd post but have fewer than 10 total posts" aria-label="FNGs who returned for a 2nd post but have fewer than 10 total posts">&#9432;</button></span></div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-pending">—</div>
-        <div class="label">Pending <button type="button" class="info-dot" data-tip="FNGs with only 1 post and 14 days or fewer since their first post: still in the grace period" aria-label="FNGs with only 1 post and 14 days or fewer since their first post: still in the grace period">&#9432;</button></div>
+        <div class="label"><span class="tail">Pending&nbsp;<button type="button" class="info-dot" data-tip="FNGs with only 1 post and 14 days or fewer since their first post: still in the grace period" aria-label="FNGs with only 1 post and 14 days or fewer since their first post: still in the grace period">&#9432;</button></span></div>
       </div>
       <div class="kpi kpi--accent">
         <div class="kpi-num"><span id="stat-regular">—</span><small id="stat-regular-pct"></small></div>
-        <div class="label">Graduated regular <button type="button" class="info-dot" data-tip="FNGs who have posted 10+ times: they stuck around and became regulars" aria-label="FNGs who have posted 10+ times: they stuck around and became regulars">&#9432;</button></div>
+        <div class="label">Graduated <span class="tail">regular&nbsp;<button type="button" class="info-dot" data-tip="FNGs who have posted 10+ times: they stuck around and became regulars" aria-label="FNGs who have posted 10+ times: they stuck around and became regulars">&#9432;</button></span></div>
       </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><h2>New guy journey</h2><span class="label">First post → return → established → <span class="tail">leading&nbsp;<button type="button" class="info-dot" data-tip="Each step counts only FNGs old enough to have reached it, so a guy who posted last week is not a 'no' on the 30-day return." aria-label="Each step counts only FNGs old enough to have reached it, so a guy who posted last week is not a 'no' on the 30-day return.">&#9432;</button></span></span></div>
+      <div id="fng-journey"><div class="status label" role="status">Loading…</div></div>
     </section>
 
     <section class="section">
@@ -66,7 +72,7 @@
 
     <div class="pair">
       <section class="section">
-        <div class="section-head"><h2>Days to 2nd post</h2><span class="label">FNGs <button type="button" class="info-dot" data-tip="Days between an FNG's first and second post; None = no second post yet" aria-label="Days between an FNG's first and second post; None = no second post yet">&#9432;</button></span></div>
+        <div class="section-head"><h2>Days to 2nd post</h2><span class="label"><span class="tail">FNGs&nbsp;<button type="button" class="info-dot" data-tip="Days between an FNG's first and second post; None = no second post yet" aria-label="Days between an FNG's first and second post; None = no second post yet">&#9432;</button></span></span></div>
         <div class="chart" id="chart-days-to-return"></div>
       </section>
       <section class="section">
@@ -74,6 +80,35 @@
         <div class="chart" id="chart-fng-monthly"></div>
       </section>
     </div>
+
+    <div class="pair">
+      <section class="section">
+        <div class="section-head"><h2>Back within 30 days</h2><span class="label">By first-post month</span></div>
+        <div class="chart" id="chart-fng-return-month"></div>
+      </section>
+      <section class="section">
+        <div class="section-head"><h2>Back within 30 days</h2><span class="label">By <span class="tail">AO&nbsp;<button type="button" class="info-dot" data-tip="Share of each AO's FNGs who posted again within 30 days. Counts are small at most AOs, so read the 'n of m', not just the percent." aria-label="Share of each AO's FNGs who posted again within 30 days. Counts are small at most AOs, so read the 'n of m', not just the percent.">&#9432;</button></span></span></div>
+        <div id="fng-return-ao"><div class="status label" role="status">Loading…</div></div>
+      </section>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><h2>Needs a follow-up</h2><span class="label">For Site Qs and FNG shepherds</span></div>
+      <div class="trio">
+        <div>
+          <h3 class="list-head">No second <span class="tail">post&nbsp;<button type="button" class="info-dot" data-tip="First post 7 to 60 days ago and hasn't been back. Past 60 days the trail is usually cold." aria-label="First post 7 to 60 days ago and hasn't been back. Past 60 days the trail is usually cold.">&#9432;</button></span></h3>
+          <div id="fng-noreturn"></div>
+        </div>
+        <div>
+          <h3 class="list-head">Came back, then <span class="tail">faded&nbsp;<button type="button" class="info-dot" data-tip="Posted 2 or 3 times, but nothing in the last 3 weeks (first post within the last 120 days)." aria-label="Posted 2 or 3 times, but nothing in the last 3 weeks (first post within the last 120 days).">&#9432;</button></span></h3>
+          <div id="fng-faded"></div>
+        </div>
+        <div>
+          <h3 class="list-head">Ready to <span class="tail">Q&nbsp;<button type="button" class="info-dot" data-tip="Former FNGs with 10+ posts who haven't led a workout yet. Worth a personal ask." aria-label="Former FNGs with 10+ posts who haven't led a workout yet. Worth a personal ask.">&#9432;</button></span></h3>
+          <div id="fng-readytoq"></div>
+        </div>
+      </div>
+    </section>
 
     <section class="section">
       <div class="section-head"><h2>All FNGs</h2><span class="label">Newest first · click a header to sort</span></div>
@@ -89,7 +124,7 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20260928b"></script>
-<script src="assets/js/fng.js?v=20260928b"></script>
+<script src="assets/js/data.js?v=20260929c"></script>
+<script src="assets/js/fng.js?v=20260929c"></script>
 </body>
 </html>

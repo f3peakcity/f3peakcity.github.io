@@ -6,7 +6,7 @@ const assert = require('assert');
 const dataUtils = require('../assets/js/data.js');
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
 
-const { fngStatus, fngBuildRows, fngDaysBuckets } = require('../assets/js/fng.js');
+const { fngStatus, fngBuildRows, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps } = require('../assets/js/fng.js');
 
 let passed = 0;
 let failed = 0;
@@ -90,6 +90,55 @@ console.log('\nfngDaysBuckets');
 test('buckets days-to-2nd at 3/7/14/30 and counts no-return as None', () => {
   const b = fngDaysBuckets([0, 3, 4, 7, 8, 14, 15, 30, 31, ''].map(d => ({ 'Days to 2nd post': d })));
   assert.deepStrictEqual(b, { '0–3 d': 2, '4–7 d': 2, '8–14 d': 2, '15–30 d': 2, '31+ d': 1, 'None': 1 });
+});
+
+console.log('\nNew Guy Journey');
+
+// NOW is 2026-08-15. Four FNGs with different journeys.
+const journeyRows = fngBuildRows([
+  row('2026-06-01', 'Quick', 'Half Dome', 'FNG'), row('2026-06-03', 'Quick', 'Half Dome'),
+  row('2026-06-10', 'Quick', 'Half Dome'), row('2026-06-17', 'Quick', 'Half Dome'),
+  row('2026-08-10', 'Quick', 'Das Boot', 'Q'),
+  row('2026-06-01', 'Slow', 'Half Dome', 'FNG'), row('2026-06-25', 'Slow', 'Half Dome'),
+  row('2026-06-01', 'Gone', 'Das Boot', 'FNG'),
+  row('2026-08-12', 'Fresh', 'Das Boot', 'FNG'),
+  row('2026-05-01', 'Early', 'Das Boot'), row('2026-06-01', 'Early', 'Das Boot', 'FNG'),
+], NOW);
+
+test('return days count only posts after the FNG post', () => {
+  assert.strictEqual(byName(journeyRows, 'Quick')['_returnDays'], 2);
+  assert.strictEqual(byName(journeyRows, 'Gone')['_returnDays'], null);
+  assert.strictEqual(byName(journeyRows, 'Early')['_returnDays'], null, 'a record before the FNG tag is not a return');
+});
+
+test('journey stages only count FNGs old enough for the window', () => {
+  const [d7, d30, est, d60, qd] = fngJourneyStages(journeyRows, NOW);
+  assert.deepStrictEqual([d7.n, d7.of], [1, 4], 'Fresh (3 days old) is not yet counted');
+  assert.deepStrictEqual([d30.n, d30.of], [2, 4]);
+  assert.deepStrictEqual([est.n, est.of], [1, 4]);
+  assert.deepStrictEqual([d60.n, d60.of], [1, 4]);
+  assert.deepStrictEqual([qd.n, qd.of], [1, 5]);
+});
+
+test('30-day return groups by home AO', () => {
+  const byAo = fngReturnBy(journeyRows, NOW, r => r['Home AO']);
+  assert.deepStrictEqual(byAo['Half Dome'], { n: 2, of: 2 });
+  assert.deepStrictEqual(byAo['Das Boot'], { n: 0, of: 2 });
+});
+
+test('follow-up lists: no return, faded, ready to Q', () => {
+  const regular = ['2026-05-02', '2026-05-09', '2026-05-16', '2026-05-23', '2026-05-30', '2026-06-06',
+    '2026-06-13', '2026-06-20', '2026-06-27'].map(d => row(d, 'Steady', 'Tortoises'));
+  const f = fngFollowUps(fngBuildRows([
+    row('2026-07-20', 'Missed', 'Das Boot', 'FNG'),              // 26 days, never back
+    row('2026-08-12', 'Fresh', 'Das Boot', 'FNG'),               // too new to chase
+    row('2026-06-01', 'Cold', 'Das Boot', 'FNG'),                // 75 days: past the window
+    row('2026-06-01', 'Slow', 'Half Dome', 'FNG'), row('2026-06-25', 'Slow', 'Half Dome'),
+    row('2026-04-25', 'Steady', 'Tortoises', 'FNG'), ...regular,
+  ], NOW), NOW);
+  assert.deepStrictEqual(f.noReturn.map(r => r['FNG Name']), ['Missed']);
+  assert.deepStrictEqual(f.faded.map(r => r['FNG Name']), ['Slow']);
+  assert.deepStrictEqual(f.readyToQ.map(r => r['FNG Name']), ['Steady']);
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);

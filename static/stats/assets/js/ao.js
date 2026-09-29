@@ -303,6 +303,7 @@ async function aoInit() {
   let rankedAos = [];       // all in-range AOs, busiest first
   let aoColorMap = {};      // AO -> color, built once from rankedAos
   let weeklyBySite = {};    // AO -> weekly PAX counts, for card sparklines
+  let qLoadBySite = {};     // AO -> { qLed, uniqueQs, top2Share } over 90 days
 
   try {
     allRawRows = await f3LoadRawRows({ year: '2026' });
@@ -327,7 +328,7 @@ async function aoInit() {
       ao.weeks.add(aoWeekMonday(r['Date']));
       ao.names.add(r['Name'].trim());
       ao.totalPosts++;
-      if (r['Role'] === 'Q') {
+      if (r['Role'] === 'Q' && !f3IsVisitingQ(r)) {  // takeover Qs aren't our bench
         const n = r['Name'].trim();
         ao.qNames.add(n);
         ao.qCounts[n] = (ao.qCounts[n] || 0) + 1;
@@ -389,6 +390,9 @@ async function aoInit() {
   weeklyBySite = aoWeeklySeriesBySite(allRawRows, { cutoffStr: rangeCutoffStr, todayStr }).bySite;
 
   // Busiest-per-workout first, so the table opens on the AOs that matter most.
+  // ponytail: the page loads this year's rows only, so in Jan–Mar the 90-day
+  // window is short. Load the prior year too if early-year cards look thin.
+  qLoadBySite = f3QLoadByAo(allRawRows, now);
   filteredRows = [...allRows].sort((a, b) => b['Avg/Meeting'] - a['Avg/Meeting']);
   renderAll();
   setupDayFilter();
@@ -681,6 +685,10 @@ async function aoInit() {
       const coreHtml = corePax.length
         ? corePax.map(name => f3Esc(name)).join(', ')
         : aoEmpty('No regulars yet');
+      const load = qLoadBySite[r['Site']];
+      const loadHtml = !load || load.qLed < F3_Q_LOAD_MIN
+        ? aoEmpty('Too few to judge')
+        : `<span class="tone-${f3QLoadTone(load)}">${Math.round(load.top2Share * 100)}%</span>`;
       const weekly = weeklyBySite[r['Site']] || [];
       const spark = aoSparkSvg(weekly);
       // Label and chip share a row; the bars get the card's full width below.
@@ -701,6 +709,8 @@ async function aoInit() {
             ${stat('Total posts', r['Total Attendees'] || 0)}
             ${stat('Bench strength', benchHtml, BENCH_TIP)}
             ${stat('Top Q', topQ, 'PAX who most frequently led workouts at this AO in 2026')}
+            ${stat('Qs, last 90 days', load ? load.uniqueQs : aoEmpty('None'), 'Different men who led here in the last 90 days')}
+            ${stat('Top 2 share', loadHtml, 'Share of the last 90 days\' Q-led workouts led by the two busiest Qs. Rust at 50%+, gold at 40%+: if those two step back, who leads?')}
           </dl>
           ${sparkHtml}
           <div class="label">Core PAX (${corePax.length}) ${f3InfoDot(CORE_TIP)}</div>

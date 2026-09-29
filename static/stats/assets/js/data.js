@@ -409,6 +409,58 @@ function f3PcRegularMap(rows, now) {
   return map;
 }
 
+// Takeovers: days when another region's men led our workouts. Their Q records
+// are real posts (attendance, #112 and PAX totals keep them) but they are not
+// Peak City leadership, so every Q-depth metric skips them via f3IsVisitingQ.
+// Add a line per takeover; dates are inclusive.
+const F3_VISITING_Q_WINDOWS = [
+  { from: '2026-09-22', to: '2026-09-25', note: 'South Cary (SCary) takeover: their men Q\'d our workouts' },
+];
+function f3IsVisitingQ(r) {
+  const d = r['Date'] || '';
+  return r['Role'] === 'Q' && F3_VISITING_Q_WINDOWS.some(w => d >= w.from && d <= w.to);
+}
+
+// Q load per AO over the last `days`: Q-led records, unique Qs, and the share
+// led by the two busiest Qs. A high share is a succession risk, not a verdict:
+// if those two men step back, the AO has no one else in rotation.
+// Q records at #downrange / Shield Lock don't count (they aren't Peak City Qs).
+const F3_Q_LOAD_ALERT = 0.5;   // top-2 share at or above this is flagged
+const F3_Q_LOAD_WATCH = 0.4;
+const F3_Q_LOAD_MIN = 6;       // fewer Q-led workouts than this is too few to judge
+function f3QLoadByAo(rows, now, days = 90) {
+  const cutoff = new Date(now - days * 864e5);
+  const bySite = {};
+  rows.forEach(r => {
+    if (r['Role'] !== 'Q' || f3IsVisitingQ(r)) return;
+    const site = (r['Site'] || '').trim();
+    if (!f3CountsTowardAttendance(site)) return;
+    const d = f3ParseLocalDate(r['Date']);
+    if (!d || d < cutoff || d > now) return;
+    const m = bySite[site] = bySite[site] || {};
+    const n = r['Name'].trim();
+    m[n] = (m[n] || 0) + 1;
+  });
+  const out = {};
+  Object.entries(bySite).forEach(([site, m]) => {
+    const counts = Object.values(m).sort((a, b) => b - a);
+    const qLed = counts.reduce((a, b) => a + b, 0);
+    const top2 = (counts[0] || 0) + (counts[1] || 0);
+    out[site] = { qLed, uniqueQs: counts.length, top2Share: qLed ? top2 / qLed : 0 };
+  });
+  return out;
+}
+
+// Tone for a top-2 share: 'alert' / 'watch', or 'none' when there are too few
+// Q-led workouts to judge. Healthy spread stays uncolored rather than green —
+// most AOs are fine, and a wall of green would bury the one that isn't.
+function f3QLoadTone(load) {
+  if (!load || load.qLed < F3_Q_LOAD_MIN) return 'none';
+  if (load.top2Share >= F3_Q_LOAD_ALERT) return 'alert';
+  if (load.top2Share >= F3_Q_LOAD_WATCH) return 'watch';
+  return 'none';
+}
+
 // Site names that changed identity in the real world — historical raw rows
 // still carry the old name, so every page needs to read them as the new one.
 // Western Wake Crisis Ministry (WWCM) merged into NeighborUp in Aug 2026;
@@ -445,6 +497,6 @@ if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
-    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv,
+    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ,
   };
 }
