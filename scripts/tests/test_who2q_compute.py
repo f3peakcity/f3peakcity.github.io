@@ -1,3 +1,4 @@
+import json
 import sys
 import unittest
 from datetime import date
@@ -160,6 +161,18 @@ class TestPlausibilityError(unittest.TestCase):
         att = [row(uid, f"P{uid}", "A", date(2026, 6, 1)) for uid in range(60)]
         payload = {"aos": []}
         self.assertIn("no AOs", plausibility_error(payload, att))
+
+
+class TestShippedConfig(unittest.TestCase):
+    """A typo'd alias value silently mints a bogus handle instead of no-op'ing."""
+
+    def test_no_chained_or_self_aliases(self):
+        aliases = json.loads(
+            (Path(__file__).resolve().parent.parent / "who2q_config.json").read_text()
+        )["name_aliases"]
+        for key, value in aliases.items():
+            self.assertNotEqual(key, value)
+            self.assertNotIn(value, aliases, f"{key} -> {value} chains to another alias")
 
 
 if __name__ == "__main__":
