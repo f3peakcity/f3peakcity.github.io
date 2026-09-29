@@ -282,7 +282,7 @@ async function lbInit() {
       const countCls = (currentPosts >= POST_GOAL && qDoneCurrent) ? ' lb-complete' : currentPosts < 4 ? ' lb-behind' : '';
 
       return `<div class="lb-pax-card">
-        <div class="lb-pax-name">${f3Esc(r['PAX'])}</div>
+        <div class="lb-pax-name"><a class="pax-link" href="pax-detail.html?pax=${encodeURIComponent(r['PAX'])}">${f3Esc(r['PAX'])}</a></div>
         <div class="lb-dot-row">${dots}</div>
         <div class="lb-mini-bar-track">
           <div class="lb-mini-bar-fill" style="width:${pct}%"></div>
@@ -328,7 +328,7 @@ async function lbInit() {
         return `<span class="${cellClass(val, qCount)}" title="${tip}">${f3Esc(val)}</span>`;
       }).join('');
       return `<div class="heat-row">
-        <span class="bar-name">${f3Esc(r['PAX'])}</span>
+        <span class="bar-name"><a class="pax-link" href="pax-detail.html?pax=${encodeURIComponent(r['PAX'])}">${f3Esc(r['PAX'])}</a></span>
         ${cells}
         <span class="heat-streak">${f3Esc(r['Streakers'] || '—')}</span>
       </div>`;
