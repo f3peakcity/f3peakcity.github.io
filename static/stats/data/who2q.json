@@ -32,7 +32,7 @@
      "attended_in_window": 0
     },
     {
-     "name": "Schroeder (Carpex)",
+     "name": "Schroeder",
      "last_q": "2025-08-13",
      "days_since": 412,
      "attended_in_window": 0
@@ -116,7 +116,7 @@
      "attended_in_window": 0
     },
     {
-     "name": "Gibraltar (Carpex)",
+     "name": "Gibraltar",
      "last_q": "2026-07-01",
      "days_since": 90,
      "attended_in_window": 7
@@ -154,7 +154,7 @@
    ],
    "stale_qs": [
     {
-     "name": "Mama’s Boy",
+     "name": "Mama's Boy",
      "last_q": "2025-09-22",
      "days_since": 372,
      "attended_in_window": 0
@@ -402,7 +402,7 @@
      "attended_in_window": 0
     },
     {
-     "name": "Eugene Kornikh - Sputnik",
+     "name": "Sputnik",
      "last_q": "2026-07-02",
      "days_since": 89,
      "attended_in_window": 6
@@ -990,7 +990,7 @@
      "attended_in_window": 1
     },
     {
-     "name": "High School Musical (G/L)",
+     "name": "High School Musical",
      "last_q": "2026-04-04",
      "days_since": 178,
      "attended_in_window": 0
@@ -1312,7 +1312,7 @@
      "attended_in_window": 0
     },
     {
-     "name": "High School Musical (G/L)",
+     "name": "High School Musical",
      "last_q": "2025-12-11",
      "days_since": 292,
      "attended_in_window": 0
@@ -1536,7 +1536,7 @@
      "attended_in_window": 1
     },
     {
-     "name": "Mama’s Boy",
+     "name": "Mama's Boy",
      "last_q": "2026-01-19",
      "days_since": 253,
      "attended_in_window": 2
@@ -1608,7 +1608,7 @@
      "attended_in_window": 6
     },
     {
-     "name": "Memento",
+     "name": "Momento",
      "last_q": "2026-07-15",
      "days_since": 76,
      "attended_in_window": 4
@@ -2005,7 +2005,7 @@
   },
   {
    "name": "Off The Rails",
-   "workouts_in_window": 11,
+   "workouts_in_window": 12,
    "never_qd": [],
    "stale_qs": [
     {
@@ -2018,13 +2018,13 @@
      "name": "Theismann",
      "last_q": "2025-08-21",
      "days_since": 404,
-     "attended_in_window": 1
+     "attended_in_window": 2
     },
     {
      "name": "Cheap Trick",
      "last_q": "2025-10-20",
      "days_since": 344,
-     "attended_in_window": 10
+     "attended_in_window": 11
     },
     {
      "name": "Chalupa",
@@ -2087,7 +2087,7 @@
      "attended_in_window": 0
     },
     {
-     "name": "Disco Duck (CARPEX)",
+     "name": "Disco Duck",
      "last_q": "2026-01-15",
      "days_since": 257,
      "attended_in_window": 0
@@ -2111,10 +2111,10 @@
      "attended_in_window": 0
     },
     {
-     "name": "Eugene Kornikh - Sputnik",
+     "name": "Sputnik",
      "last_q": "2026-02-23",
      "days_since": 218,
-     "attended_in_window": 0
+     "attended_in_window": 1
     },
     {
      "name": "Big Red",
@@ -2204,13 +2204,13 @@
      "name": "Maestro",
      "last_q": "2026-07-13",
      "days_since": 78,
-     "attended_in_window": 7
+     "attended_in_window": 8
     },
     {
-     "name": "Sethler Buransky",
+     "name": "Tolstoy",
      "last_q": "2026-07-20",
      "days_since": 71,
-     "attended_in_window": 4
+     "attended_in_window": 5
     },
     {
      "name": "Poi",
@@ -2317,7 +2317,7 @@
      "attended_in_window": 9
     },
     {
-     "name": "Mama’s Boy",
+     "name": "Mama's Boy",
      "last_q": "2026-02-10",
      "days_since": 231,
      "attended_in_window": 8
@@ -2395,7 +2395,7 @@
      "attended_in_window": 0
     },
     {
-     "name": "Sethler Buransky",
+     "name": "Tolstoy",
      "last_q": "2026-06-23",
      "days_since": 98,
      "attended_in_window": 9
@@ -2517,7 +2517,7 @@
      "attended_in_window": 0
     },
     {
-     "name": "Schroeder (Carpex)",
+     "name": "Schroeder",
      "last_q": "2025-09-20",
      "days_since": 374,
      "attended_in_window": 0
@@ -2661,7 +2661,7 @@
      "attended_in_window": 0
     },
     {
-     "name": "High School Musical (G/L)",
+     "name": "High School Musical",
      "last_q": "2026-01-10",
      "days_since": 262,
      "attended_in_window": 0
@@ -2745,7 +2745,7 @@
      "last_attended": "2026-09-27"
     },
     {
-     "name": "Sethler Buransky",
+     "name": "Tolstoy",
      "attended": 3,
      "rate": 0.375,
      "last_attended": "2026-09-06"
@@ -2819,7 +2819,7 @@
      "last_attended": "2026-08-28"
     },
     {
-     "name": "Kilmer (GL)",
+     "name": "Kilmer",
      "attended": 4,
      "rate": 0.5,
      "last_attended": "2026-08-28"
@@ -2899,7 +2899,7 @@
      "attended_in_window": 5
     },
     {
-     "name": "Gibraltar (Carpex)",
+     "name": "Gibraltar",
      "last_q": "2026-07-10",
      "days_since": 81,
      "attended_in_window": 4
@@ -2943,7 +2943,7 @@
      "attended_in_window": 0
     },
     {
-     "name": "Gibraltar (Carpex)",
+     "name": "Gibraltar",
      "last_q": "2025-09-03",
      "days_since": 391,
      "attended_in_window": 0
@@ -3235,7 +3235,7 @@
      "attended_in_window": 3
     },
     {
-     "name": "Disco Duck (CARPEX)",
+     "name": "Disco Duck",
      "last_q": "2026-03-11",
      "days_since": 202,
      "attended_in_window": 1
