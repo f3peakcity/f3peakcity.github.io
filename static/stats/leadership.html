@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20260929c">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20261002a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -36,9 +36,15 @@
 
   <main class="wrap">
     <section class="page-head">
-      <div class="eyebrow label"><span>Dashboard 06</span><span>Last 90 days</span></div>
+      <div class="eyebrow label"><span>Dashboard 06</span><span><span id="ld-scope-note">Showing PC Regulars</span> · Last 90 days</span></div>
       <h1 class="page-title">Leadership</h1>
-      <p class="page-sub">Who's leading, who's next, and where one or two men carry the load.</p>
+      <div class="page-head-row">
+        <p class="page-sub">Who's leading, who's next, and where one or two men carry the load.</p>
+        <div class="toggle" role="group" aria-label="Which PAX to show">
+          <button type="button" id="ld-btn-regulars" aria-pressed="true">PC Regulars</button>
+          <button type="button" id="ld-btn-all" aria-pressed="false">All PAX</button>
+        </div>
+      </div>
     </section>
 
     <section class="kpis" aria-label="Leadership totals">
@@ -71,7 +77,7 @@
         <div id="ld-first-qs"><div class="status label" role="status">Loading…</div></div>
       </section>
       <section class="section" id="ready-to-q">
-        <div class="section-head"><h2>Ready to Q</h2><span class="label"><span id="ld-bench-count"></span> <button type="button" class="info-dot" data-tip="PC Regulars with no Q on record, by posts in the last 90 days. Who to Q has the same idea per AO." aria-label="PC Regulars with no Q on record, by posts in the last 90 days. Who to Q has the same idea per AO.">&#9432;</button></span></div>
+        <div class="section-head"><h2>Ready to Q</h2><span class="label"><span id="ld-bench-count"></span> <button type="button" class="info-dot" data-tip="Men in this view (PC Regulars, or everyone who posted in the last 90 days) with no Q on record, by posts in the last 90 days. Who to Q has the same idea per AO." aria-label="Men in this view (PC Regulars, or everyone who posted in the last 90 days) with no Q on record, by posts in the last 90 days. Who to Q has the same idea per AO.">&#9432;</button></span></div>
         <div id="ld-bench"><div class="status label" role="status">Loading…</div></div>
       </section>
     </div>
@@ -89,7 +95,7 @@
     </div>
   </footer>
 
-<script src="assets/js/data.js?v=20260929c"></script>
-<script src="assets/js/leadership.js?v=20260929c"></script>
+<script src="assets/js/data.js?v=20261002a"></script>
+<script src="assets/js/leadership.js?v=20261002a"></script>
 </body>
 </html>

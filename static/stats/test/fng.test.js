@@ -5,6 +5,7 @@ const assert = require('assert');
 
 const dataUtils = require('../assets/js/data.js');
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
+global.f3IsFng = dataUtils.f3IsFng;
 
 const { fngStatus, fngBuildRows, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps } = require('../assets/js/fng.js');
 
@@ -90,6 +91,14 @@ console.log('\nfngDaysBuckets');
 test('buckets days-to-2nd at 3/7/14/30 and counts no-return as None', () => {
   const b = fngDaysBuckets([0, 3, 4, 7, 8, 14, 15, 30, 31, ''].map(d => ({ 'Days to 2nd post': d })));
   assert.deepStrictEqual(b, { '0–3 d': 2, '4–7 d': 2, '8–14 d': 2, '15–30 d': 2, '31+ d': 1, 'None': 1 });
+});
+
+console.log('\nnot-an-FNG list');
+
+test('a man on F3_NOT_FNG is not an FNG even with an FNG-tagged record', () => {
+  const rows = fngBuildRows([row('2026-08-01', 'Bolton', 'Das Boot', 'FNG'), row('2026-08-01', 'Real New Guy', 'Das Boot', 'FNG')], NOW);
+  assert.deepStrictEqual(rows.map(r => r['FNG Name']), ['Real New Guy']);
+  assert.strictEqual(dataUtils.f3IsFng({ Name: ' BOLTON ', Role: 'FNG' }), false, 'match is trimmed and case-insensitive');
 });
 
 console.log('\nNew Guy Journey');

@@ -339,3 +339,11 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .trio .row .row-val{grid-column:2;grid-row:1/span 2;align-self:center}
 .kpi .label{line-height:1.45}  /* two-line KPI labels need air; the handoff .label is line-height 1 */
 .bar-row--wide .bar-name .label a{color:var(--green)}
+
+/* Side-by-side sections: header rules line up. The note label wraps on the
+   right instead of dropping under the title, and subgrid gives both headers
+   in a row the same height (a shorter one sits on the shared bottom edge). */
+.pair > .section{display:grid;grid-template-rows:subgrid;grid-row:span 2;align-content:start}
+.pair .section-head{flex-wrap:nowrap;align-items:flex-end;align-self:end}
+.pair .section-head h2{flex:0 0 auto}  /* the title keeps its line; the note wraps */
+.pair .section-head > .label{flex:0 1 auto;min-width:0;text-align:right;line-height:1.4}

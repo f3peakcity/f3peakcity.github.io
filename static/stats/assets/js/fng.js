@@ -44,7 +44,7 @@ function fngBuildRows(allRawRows, now) {
 
   const rows = [];
   Object.entries(byName).forEach(([name, records]) => {
-    const fngRecord = records.find(r => r['Role'] === 'FNG' && !FNG_EXCLUDED_SITES.includes((r['Site'] || '').trim()));
+    const fngRecord = records.find(r => f3IsFng(r) && !FNG_EXCLUDED_SITES.includes((r['Site'] || '').trim()));
     if (!fngRecord) return;
 
     const sorted = records.slice().sort((a, b) => a['Date'].localeCompare(b['Date']));
@@ -145,11 +145,11 @@ function fngFollowUps(rows, now) {
 }
 
 const FNG_STATUSES = [
-  // key matched against Status, legend label, CSS modifier
-  ['Regular', 'Graduated', 'done'],
-  ['Developing', 'Developing', 'dev'],
-  ['Pending', 'Pending', 'pending'],
-  ['Ghosted', 'Ghosted', 'ghost'],
+  // key matched against Status, legend label, CSS modifier, definition (mirrors fngStatus)
+  ['Regular', 'Graduated', 'done', 'Graduated to Regular: 10 or more posts. He stuck around.'],
+  ['Developing', 'Developing', 'dev', 'Came back for a second post, but has fewer than 10 posts so far.'],
+  ['Pending', 'Pending', 'pending', 'One post, made within the last 14 days: still in the grace period to come back.'],
+  ['Ghosted', 'Ghosted', 'ghost', "One post, more than 14 days ago, and hasn't been back."],
 ];
 
 (async function () {
@@ -249,19 +249,19 @@ const FNG_STATUSES = [
     };
     list('fng-noreturn', f.noReturn, 'Every recent FNG has been back.', r => `
       <div class="row" title="First post ${f3Esc(r['First Post'])} at ${f3Esc(r['Home AO'])}">
-        <span class="row-name">${f3Esc(r['FNG Name'])}</span>
+        <span class="row-name">${f3PaxLink(r['FNG Name'])}</span>
         <span class="label">${f3Esc(r['Home AO'])} · ${shortDate(r['_firstIso'])}</span>
         <span class="row-val" aria-label="${daysSince(r['_firstIso'])} days since first post">${daysSince(r['_firstIso'])}d</span>
       </div>`);
     list('fng-faded', f.faded, 'No one has faded after coming back.', r => `
       <div class="row" title="${r['Total Posts to date']} posts; last seen ${shortDate(r['_lastIso'])}">
-        <span class="row-name">${f3Esc(r['FNG Name'])}</span>
+        <span class="row-name">${f3PaxLink(r['FNG Name'])}</span>
         <span class="label">Last ${shortDate(r['_lastIso'])}</span>
         <span class="row-val" aria-label="${daysSince(r['_lastIso'])} days since last post">${daysSince(r['_lastIso'])}d</span>
       </div>`);
     list('fng-readytoq', f.readyToQ, 'Every former FNG with 10+ posts has Q’d.', r => `
       <div class="row">
-        <span class="row-name">${f3Esc(r['FNG Name'])}</span>
+        <span class="row-name">${f3PaxLink(r['FNG Name'])}</span>
         <span class="label">${f3Esc(r['Home AO'])}</span>
         <span class="row-val" aria-label="${r['Total Posts to date']} posts">${r['Total Posts to date']}</span>
       </div>`);
@@ -270,9 +270,9 @@ const FNG_STATUSES = [
   // One stacked bar plus a legend: the four statuses always add to 100%.
   function renderStatusStack(rows) {
     const total = rows.length;
-    const parts = FNG_STATUSES.map(([key, label, mod]) => {
+    const parts = FNG_STATUSES.map(([key, label, mod, tip]) => {
       const n = countStatus(rows, key);
-      return { label, mod, n, pct: Math.round(n / total * 100) };
+      return { label, mod, tip, n, pct: Math.round(n / total * 100) };
     });
     document.getElementById('fng-status-total').textContent = `${total} FNGs`;
     document.getElementById('chart-fng-status').innerHTML = `
@@ -281,7 +281,7 @@ const FNG_STATUSES = [
       </div>
       <div class="legend">
         ${parts.map(p => `<div>
-          <div><span class="swatch stack--${p.mod}"></span> <span class="label">${p.label}</span></div>
+          <div><span class="swatch stack--${p.mod}"></span> <span class="label">${p.label}&nbsp;${f3InfoDot(p.tip)}</span></div>
           <div class="legend-num">${p.n} <small>${p.pct}%</small></div>
         </div>`).join('')}
       </div>`;
@@ -324,7 +324,7 @@ const FNG_STATUSES = [
               ${th('Total Posts to date', 'Posts', 'Total posts in 2026', true)}
               ${th('2nd Post', '2nd post', 'Date of second attendance')}
               ${th('Days to 2nd post', 'Days to 2nd', 'Days between first and second post; lower is a better retention signal', true)}
-              ${th('Status', 'Status', 'Retention status based on post count and days since first post')}
+              ${th('Status', 'Status', FNG_STATUSES.map(([, label, , tip]) => `${label}: ${tip}`).join(' '))}
             </tr>
           </thead>
           <tbody id="fng-table-body"></tbody>
@@ -337,7 +337,7 @@ const FNG_STATUSES = [
     const body = document.getElementById('fng-table-body');
     if (!body) return;
     body.innerHTML = rows.map(r => `<tr>
-      <td>${f3Esc(r['FNG Name'])}</td>
+      <td>${f3PaxLink(r['FNG Name'])}</td>
       <td class="nowrap">${f3Esc(r['First Post'] || '—')}</td>
       <td>${f3Esc(r['Home AO'] || '—')}</td>
       <td class="num">${r['Total Posts to date'] || '—'}</td>

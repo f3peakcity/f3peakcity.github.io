@@ -72,31 +72,57 @@ function ldVisitors(rows, history) {
   return out;
 }
 
-// From PC Regulars to regular Qs. Every stage is a subset of the one before.
-function ldPipeline(rows, history, now) {
+// The men a view is about. 'regulars' = PC Regulars; 'all' = anyone who
+// posted in the last 90 days. Takeover visitors are never in either.
+const LD_SCOPES = {
+  regulars: { noun: 'regulars', base: 'PC Regulars', tip: 'Posts 26+ times in 26 weeks, or 3+ in the last 3 weeks.' },
+  all: { noun: 'active PAX', base: 'Active PAX', tip: 'Posted at least once in the last 90 days.' },
+};
+function ldBase(rows, history, now, scope = 'regulars') {
   const visitors = ldVisitors(rows, history);
-  const regulars = Object.entries(f3PcRegularMap(rows, now)).filter(([n, v]) => v && !visitors.has(n)).map(([n]) => n);
-  const recentQs = name => (history[name] || []).filter(q => ldInWindow(q.date, now, LD_WINDOW_DAYS)).length;
-  const everQd = regulars.filter(n => history[n]);
-  const recent = everQd.filter(n => recentQs(n) > 0);
-  const regularQ = recent.filter(n => recentQs(n) >= LD_REGULAR_Q);
-  return [
-    { label: 'PC Regulars', n: regulars.length, tip: 'Posts 26+ times in 26 weeks, or 3+ in the last 3 weeks.' },
-    { label: "Have Q'd", n: everQd.length, tip: "PC Regulars with at least one Q on record (records start Jan 2025)." },
-    { label: "Q'd in the last 90 days", n: recent.length, tip: 'Led at least one workout in the last 90 days.' },
-    { label: 'Regular Qs', n: regularQ.length, tip: `Led ${LD_REGULAR_Q}+ workouts in the last 90 days.` },
-  ].map(st => ({ ...st, of: regulars.length }));
+  let names;
+  if (scope === 'all') {
+    names = new Set();
+    rows.forEach(r => {
+      if (f3CountsTowardAttendance(r['Site']) && ldInWindow(r['Date'], now, LD_WINDOW_DAYS)) names.add(r['Name'].trim());
+    });
+  } else {
+    names = new Set(Object.entries(f3PcRegularMap(rows, now)).filter(([, v]) => v).map(([n]) => n));
+  }
+  visitors.forEach(v => names.delete(v));
+  return names;
 }
 
-// PC Regulars with no Q on record: the bench. Home AO = where they post most
-// in the window; sorted by recent posts, most first.
-function ldBench(rows, history, now) {
-  const regulars = f3PcRegularMap(rows, now);
-  const visitors = ldVisitors(rows, history);
+// Q history for a view: PC Regulars see only their own Qs; All PAX sees every Q.
+function ldScopedHistory(history, base, scope) {
+  if (scope === 'all') return history;
+  return Object.fromEntries(Object.entries(history).filter(([n]) => base.has(n)));
+}
+
+// From the base to regular Qs. Every stage is a subset of the one before.
+function ldPipeline(rows, history, now, scope = 'regulars') {
+  const base = [...ldBase(rows, history, now, scope)];
+  const recentQs = name => (history[name] || []).filter(q => ldInWindow(q.date, now, LD_WINDOW_DAYS)).length;
+  const everQd = base.filter(n => history[n]);
+  const recent = everQd.filter(n => recentQs(n) > 0);
+  const regularQ = recent.filter(n => recentQs(n) >= LD_REGULAR_Q);
+  const { base: baseLabel, tip, noun } = LD_SCOPES[scope];
+  return [
+    { label: baseLabel, n: base.length, tip },
+    { label: "Have Q'd", n: everQd.length, tip: `${baseLabel} with at least one Q on record (records start Jan 2025).` },
+    { label: "Q'd in the last 90 days", n: recent.length, tip: 'Led at least one workout in the last 90 days.' },
+    { label: 'Regular Qs', n: regularQ.length, tip: `Led ${LD_REGULAR_Q}+ workouts in the last 90 days.` },
+  ].map(st => ({ ...st, of: base.length, noun }));
+}
+
+// The base minus anyone with a Q on record: the bench. Home AO = where they
+// post most in the window; sorted by recent posts, most first.
+function ldBench(rows, history, now, scope = 'regulars') {
+  const base = ldBase(rows, history, now, scope);
   const recent = {};
   rows.forEach(r => {
     const name = r['Name'].trim();
-    if (!regulars[name] || history[name] || visitors.has(name) || !f3CountsTowardAttendance(r['Site'])) return;
+    if (!base.has(name) || history[name] || !f3CountsTowardAttendance(r['Site'])) return;
     if (!ldInWindow(r['Date'], now, LD_WINDOW_DAYS)) return;
     const m = recent[name] = recent[name] || { posts: 0, sites: {} };
     m.posts++;
@@ -127,89 +153,114 @@ function ldBench(rows, history, now) {
     return;
   }
 
+  // Declared before render() runs: consts used inside it would otherwise
+  // throw in the temporal dead zone and blank the page.
   const year = String(now.getFullYear());
-  const history = ldQHistory(rows);
-  const conc = ldConcentration(history, now);
-  const firstTimers = ldFirstTimeQs(history, `${year}-01-01`);
-  const repeat = ldRepeatRate(firstTimers, now);
+  const allHistory = ldQHistory(rows);
   const pct = (n, of) => (of ? Math.round(n / of * 100) : 0);
   const shortDate = iso => f3ParseLocalDate(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-
-  // KPIs
-  document.getElementById('stat-unique-qs').textContent = conc.uniqueQs;
-  document.getElementById('stat-first-qs').textContent = firstTimers.length;
-  document.getElementById('stat-repeat').textContent = `${pct(repeat.n, repeat.of)}%`;
-  document.getElementById('stat-repeat-n').textContent = `${repeat.n} of ${repeat.of}`;
-  document.getElementById('stat-concentration').textContent = `${pct(conc.topShare, 1)}%`;
-  document.getElementById('stat-concentration-n').textContent = `${conc.topN} men`;
-
-  // Pipeline
-  const stages = ldPipeline(rows, history, now);
-  // The "Have Q'd" gap is exactly the Ready to Q list, so link to it.
-  const stageNote = (st, i) => {
-    if (!i) return 'The base';
-    const share = `${pct(st.n, st.of)}% of regulars`;
-    const notYet = st.of - st.n;
-    return i === 1 && notYet
-      ? `${share} · <a href="#ready-to-q">${notYet} haven't yet &darr;</a>`
-      : share;
-  };
-  document.getElementById('ld-pipeline').innerHTML = stages.map((st, i) => `
-    <div class="bar-row bar-row--wide${i === 0 ? ' is-top' : ''}">
-      <span class="bar-name">${st.label} ${f3InfoDot(st.tip)}<span class="label">${stageNote(st, i)}</span></span>
-      <span class="bar-track"><span class="bar-fill" style="width:${pct(st.n, st.of)}%"></span></span>
-      <span class="bar-val">${st.n}</span>
-    </div>`).join('');
-
-  // First-time Qs: green value when he came back to Q within the window;
-  // "—" when he hasn't Q'd again yet.
-  document.getElementById('ld-first-qs').innerHTML = firstTimers.length ? firstTimers.map(f => {
-    const again = f.daysToSecond !== null;
-    const tip = again ? `Second Q ${shortDate(f.second)}, ${f.daysToSecond} days later` : "Hasn't Q'd again yet";
-    return `<div class="row" title="${f3Esc(tip)}">
-      <span class="row-name">${f3Esc(f.name)}</span>
-      <span class="label">${shortDate(f.first)} · ${f3Esc(f.site)}</span>
-      <span class="row-val${again && f.daysToSecond <= LD_REPEAT_DAYS ? ' is-good' : ''}" aria-label="${f3Esc(tip)}">${again ? `${f.daysToSecond}d` : '—'}</span>
-    </div>`;
-  }).join('') : `<div class="status label empty-state">No first-time Qs yet this year</div>`;
-
-  // Bench
-  const bench = ldBench(rows, history, now);
-  document.getElementById('ld-bench-count').textContent = `${bench.length} men`;
-  document.getElementById('ld-bench').innerHTML = bench.length ? bench.map(b => `
-    <div class="row">
-      <span class="row-name">${f3Esc(b.name)}</span>
-      <span class="label">${f3Esc(b.homeAo)}</span>
-      <span class="row-val" aria-label="${b.posts} posts in the last 90 days">${b.posts}</span>
-    </div>`).join('') : `<div class="status label empty-state">Every PC Regular has Q'd. Deep bench.</div>`;
-
-  // Q load by AO
-  const load = f3QLoadByAo(rows, now, LD_WINDOW_DAYS);
-  const loadRows = Object.entries(load)
-    .filter(([site]) => f3IsRealAo(site))
-    .map(([site, l]) => ({ site, ...l, tone: f3QLoadTone(l) }))
-    .sort((a, b) => b.top2Share - a.top2Share || b.qLed - a.qLed);
   const th = (label, tip, num) => `<th${num ? ' class="num"' : ''}>${f3ThLabel(label, tip)}</th>`;
-  document.getElementById('ld-load-table').innerHTML = `
-    <table class="table table--stack">
-      <thead><tr>
-        ${th('AO', 'Workout location')}
-        ${th('Q-led workouts', 'Q records at this AO in the last 90 days', true)}
-        ${th('Unique Qs', 'Different men who led here in the last 90 days', true)}
-        ${th('Top 2 share', 'Share of those workouts led by the two busiest Qs. Rust at 50%+, gold at 40%+, with at least 6 Q-led workouts to judge.', true)}
-      </tr></thead>
-      <tbody>${loadRows.map(l => `<tr>
-        <td>${f3Esc(l.site)}</td>
-        <td class="num">${l.qLed}</td>
-        <td class="num">${l.uniqueQs}</td>
-        <td class="num"><span class="tone-${l.tone}">${pct(l.top2Share, 1)}%</span></td>
-      </tr>`).join('')}</tbody>
-    </table>`;
-  f3StackLabels(document.querySelector('#ld-load-table table'));
+  const setText = (id, text) => { document.getElementById(id).textContent = text; };
+  let scope = 'regulars';
+
+  render();
+
+  // One toggle re-scopes the whole page: KPIs, pipeline, lists and the table.
+  ['ld-btn-regulars', 'ld-btn-all'].forEach(id => {
+    const btn = document.getElementById(id);
+    btn.addEventListener('click', () => {
+      const next = id === 'ld-btn-all' ? 'all' : 'regulars';
+      if (next === scope) return;
+      scope = next;
+      f3SetPressed(btn);
+      render();
+    });
+  });
+
+  function render() {
+    const base = ldBase(rows, allHistory, now, scope);
+    const history = ldScopedHistory(allHistory, base, scope);
+    const conc = ldConcentration(history, now);
+    const firstTimers = ldFirstTimeQs(history, `${year}-01-01`);
+    const repeat = ldRepeatRate(firstTimers, now);
+    const { noun, base: baseLabel } = LD_SCOPES[scope];
+
+    // KPIs
+    setText('stat-unique-qs', conc.uniqueQs);
+    setText('stat-first-qs', firstTimers.length);
+    setText('stat-repeat', `${pct(repeat.n, repeat.of)}%`);
+    setText('stat-repeat-n', `${repeat.n} of ${repeat.of}`);
+    setText('stat-concentration', `${pct(conc.topShare, 1)}%`);
+    setText('stat-concentration-n', `${conc.topN} men`);
+
+    // Pipeline. The "Have Q'd" gap is exactly the Ready to Q list, so link to it.
+    const stages = ldPipeline(rows, allHistory, now, scope);
+    const stageNote = (st, i) => {
+      if (!i) return 'The base';
+      const share = `${pct(st.n, st.of)}% of ${st.noun}`;
+      const notYet = st.of - st.n;
+      return i === 1 && notYet
+        ? `${share} · <a href="#ready-to-q">${notYet} haven't yet &darr;</a>`
+        : share;
+    };
+    document.getElementById('ld-pipeline').innerHTML = stages.map((st, i) => `
+      <div class="bar-row bar-row--wide${i === 0 ? ' is-top' : ''}">
+        <span class="bar-name">${st.label} ${f3InfoDot(st.tip)}<span class="label">${stageNote(st, i)}</span></span>
+        <span class="bar-track"><span class="bar-fill" style="width:${pct(st.n, st.of)}%"></span></span>
+        <span class="bar-val">${st.n}</span>
+      </div>`).join('');
+
+    // First-time Qs: green value when he came back to Q within the window;
+    // "—" when he hasn't Q'd again yet.
+    document.getElementById('ld-first-qs').innerHTML = firstTimers.length ? firstTimers.map(f => {
+      const again = f.daysToSecond !== null;
+      const tip = again ? `Second Q ${shortDate(f.second)}, ${f.daysToSecond} days later` : "Hasn't Q'd again yet";
+      return `<div class="row" title="${f3Esc(tip)}">
+        <span class="row-name">${f3PaxLink(f.name)}</span>
+        <span class="label">${shortDate(f.first)} · ${f3Esc(f.site)}</span>
+        <span class="row-val${again && f.daysToSecond <= LD_REPEAT_DAYS ? ' is-good' : ''}" aria-label="${f3Esc(tip)}">${again ? `${f.daysToSecond}d` : '—'}</span>
+      </div>`;
+    }).join('') : `<div class="status label empty-state">No first-time Qs among ${noun} yet this year</div>`;
+
+    // Bench
+    const bench = ldBench(rows, allHistory, now, scope);
+    setText('ld-bench-count', `${bench.length} ${noun}`);
+    document.getElementById('ld-bench').innerHTML = bench.length ? bench.map(b => `
+      <div class="row">
+        <span class="row-name">${f3PaxLink(b.name)}</span>
+        <span class="label">${f3Esc(b.homeAo)}</span>
+        <span class="row-val" aria-label="${b.posts} posts in the last 90 days">${b.posts}</span>
+      </div>`).join('') : `<div class="status label empty-state">Every one of the ${noun} has Q'd. Deep bench.</div>`;
+
+    // Q load by AO, counting only the Qs in this view
+    const load = f3QLoadByAo(scope === 'all' ? rows : rows.filter(r => base.has(r['Name'].trim())), now, LD_WINDOW_DAYS);
+    const loadRows = Object.entries(load)
+      .filter(([site]) => f3IsRealAo(site))
+      .map(([site, l]) => ({ site, ...l, tone: f3QLoadTone(l) }))
+      .sort((a, b) => b.top2Share - a.top2Share || b.qLed - a.qLed);
+    document.getElementById('ld-load-table').innerHTML = loadRows.length ? `
+      <table class="table table--stack">
+        <thead><tr>
+          ${th('AO', 'Workout location')}
+          ${th('Q-led workouts', `Q records at this AO in the last 90 days, by ${noun}`, true)}
+          ${th('Unique Qs', 'Different men who led here in the last 90 days', true)}
+          ${th('Top 2 share', 'Share of those workouts led by the two busiest Qs. Rust at 50%+, gold at 40%+, with at least 6 Q-led workouts to judge.', true)}
+        </tr></thead>
+        <tbody>${loadRows.map(l => `<tr>
+          <td>${f3Esc(l.site)}</td>
+          <td class="num">${l.qLed}</td>
+          <td class="num">${l.uniqueQs}</td>
+          <td class="num"><span class="tone-${l.tone}">${pct(l.top2Share, 1)}%</span></td>
+        </tr>`).join('')}</tbody>
+      </table>` : `<div class="status label empty-state">No Qs by ${noun} in the last 90 days</div>`;
+    f3StackLabels(document.querySelector('#ld-load-table table'));
+    document.getElementById('ld-scope-note').textContent = `Showing ${baseLabel}`;
+  }
 })();
 
 if (typeof module !== 'undefined') {
   module.exports = {
-    LD_REPEAT_DAYS, ldQHistory, ldVisitors, ldConcentration, ldFirstTimeQs, ldRepeatRate, ldPipeline, ldBench,
+    LD_REPEAT_DAYS, ldQHistory, ldVisitors, ldBase, ldScopedHistory, ldConcentration, ldFirstTimeQs,
+    ldRepeatRate, ldPipeline, ldBench,
   };
 }

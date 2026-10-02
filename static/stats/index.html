@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20260929c">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20261002a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -108,7 +108,7 @@
     </div>
   </footer>
 
-<script src="assets/js/data.js?v=20260929c"></script>
+<script src="assets/js/data.js?v=20261002a"></script>
 <script>
 (async function() {
   const EXCLUDED_SITES = ['#downrange', 'Shield Lock'];
@@ -128,10 +128,10 @@
     const activeAOs = new Set(
       allRawRows.filter(r => !EXCLUDED_SITES.includes((r['Site'] || '').trim())).map(r => r['Site'].trim())
     ).size;
-    const totalFngs = allRawRows.filter(r => r['Role'] === 'FNG').length;
+    const totalFngs = allRawRows.filter(f3IsFng).length;
 
     // FNG → Regular: FNGs whose total 2026 post count >= 10
-    const fngNames = new Set(allRawRows.filter(r => r['Role'] === 'FNG').map(r => r['Name'].trim()));
+    const fngNames = new Set(allRawRows.filter(f3IsFng).map(r => r['Name'].trim()));
     const postsByName = {};
     allRawRows.forEach(r => {
       const n = r['Name'].trim();

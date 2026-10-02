@@ -81,9 +81,25 @@ Records start Jan 2025, so a "first Q" is the first **on record**.
   past that first Q, the share who led again within 60 days.
 - **Pipeline**: PC Regulars → have Q'd → Q'd in 90 days → regular Q (3+ in 90).
 - **Ready to Q**: PC Regulars with no Q on record.
+- **PC Regulars / All PAX toggle**: PC Regulars counts only regulars' Qs
+  and uses PC Regulars as the base; All PAX counts every Q and uses anyone who
+  posted in the last 90 days.
 - **Q load by AO** (also on the AO cards): share of an AO's last-90-day
   Q-led workouts led by its two busiest Qs. Rust at 50%+, gold at 40%+,
   uncolored under 6 Q-led workouts (`F3_Q_LOAD_*` in `data.js`).
+
+### Not an FNG (mis-tags)
+
+Some men get tagged FNG at import when they aren't new (e.g. a regular whose
+tag lands months into his posts). Add their name to `F3_NOT_FNG_LC` in
+`data.js` (lowercase) and every page reads that tag as an ordinary post via
+`f3IsFng`. The sheet's history is untouched.
+
+- **Bolton**: tagged FNG 2026-08-28 after 84 posts since May 2025.
+
+Candidates are FNG tags that come after earlier posts by the same name; check
+each before adding. Blindside (tagged a week after his first post) looks like
+a genuinely late tag, not a mis-tag.
 
 ### Takeovers (visiting Qs)
 

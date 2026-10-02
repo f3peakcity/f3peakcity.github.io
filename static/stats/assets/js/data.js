@@ -288,6 +288,11 @@ function f3ThLabel(label, tip) {
   return `${words.length ? words.join(' ') + ' ' : ''}<span class="th-tail">${last}${dot}</span>`;
 }
 
+// A PAX name linking to their PAX Detail page (escaped).
+function f3PaxLink(name) {
+  return `<a class="pax-link" href="pax-detail.html?pax=${encodeURIComponent(String(name || '').trim())}">${f3Esc(name)}</a>`;
+}
+
 // Stacked-card tables (.table--stack, under 800px): each cell shows its
 // column's header as a label. Call after every body render (sorting re-renders).
 function f3StackLabels(table) {
@@ -409,6 +414,16 @@ function f3PcRegularMap(rows, now) {
   return map;
 }
 
+// Men tagged FNG in the sheet who aren't new to Peak City (a mis-tag at
+// import). Their FNG records are read as ordinary posts on every page. Add a
+// name here (case-insensitive) to un-flag someone; history stays in the sheet.
+const F3_NOT_FNG_LC = new Set([
+  'bolton',   // tagged FNG 2026-08-28 after 84 posts since May 2025
+]);
+function f3IsFng(r) {
+  return r['Role'] === 'FNG' && !F3_NOT_FNG_LC.has(String(r['Name'] || '').trim().toLowerCase());
+}
+
 // Takeovers: days when another region's men led our workouts. Their Q records
 // are real posts (attendance, #112 and PAX totals keep them) but they are not
 // Peak City leadership, so every Q-depth metric skips them via f3IsVisitingQ.
@@ -497,6 +512,6 @@ if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
-    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ,
+    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3IsFng, f3PaxLink,
   };
 }
