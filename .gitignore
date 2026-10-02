@@ -58,3 +58,9 @@ Temporary Items
 # =========================
 # Docs
 /docs/*
+
+# macOS
+.DS_Store
+
+# Auto-generated local agent summary, not project content
+PROJECT.md
