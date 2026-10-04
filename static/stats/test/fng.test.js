@@ -7,7 +7,7 @@ const dataUtils = require('../assets/js/data.js');
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
 global.f3IsFng = dataUtils.f3IsFng;
 
-const { fngStatus, fngBuildRows, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps } = require('../assets/js/fng.js');
+const { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps } = require('../assets/js/fng.js');
 
 let passed = 0;
 let failed = 0;
@@ -91,6 +91,25 @@ console.log('\nfngDaysBuckets');
 test('buckets days-to-2nd at 3/7/14/30 and counts no-return as None', () => {
   const b = fngDaysBuckets([0, 3, 4, 7, 8, 14, 15, 30, 31, ''].map(d => ({ 'Days to 2nd post': d })));
   assert.deepStrictEqual(b, { '0–3 d': 2, '4–7 d': 2, '8–14 d': 2, '15–30 d': 2, '31+ d': 1, 'None': 1 });
+});
+
+console.log('\nLast seen');
+
+test('days since last seen is set only for FNGs who posted more than once', () => {
+  const rows = fngBuildRows([
+    row('2026-07-01', 'Twice', 'Das Boot', 'FNG'), row('2026-08-05', 'Twice', 'Das Boot'),
+    row('2026-08-10', 'Twice', '#downrange'),                       // excluded site doesn't count as seen
+    row('2026-08-01', 'Once', 'Das Boot', 'FNG'),
+  ], NOW);
+  assert.strictEqual(byName(rows, 'Twice')['Days since last seen'], 10, 'Aug 5 to Aug 15');
+  assert.strictEqual(byName(rows, 'Once')['Days since last seen'], '');
+});
+
+test('Last seen cell: dash for one post, rust once fading', () => {
+  assert.strictEqual(fngLastSeenCell(''), '—');
+  assert.strictEqual(fngLastSeenCell(0), 'today');
+  assert.strictEqual(fngLastSeenCell(FNG_FADED_DAYS - 1), `${FNG_FADED_DAYS - 1}d ago`);
+  assert.ok(fngLastSeenCell(FNG_FADED_DAYS).includes('tone-alert'));
 });
 
 console.log('\nnot-an-FNG list');

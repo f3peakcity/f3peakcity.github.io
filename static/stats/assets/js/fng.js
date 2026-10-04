@@ -18,6 +18,10 @@ function fngStatus(totalPosts, firstPostDate, now) {
   return 'Checking Data...';
 }
 
+// No post in this many days reads as fading: the "Came back, then faded"
+// list and the table's Last seen column both use it.
+const FNG_FADED_DAYS = 21;
+
 // Days from first to second post, bucketed. "None" is an FNG with no second
 // post yet — the bucket that matters most for follow-up.
 const FNG_DAY_BUCKETS = [
@@ -34,6 +38,13 @@ function fngDaysBuckets(rows) {
 }
 
 // Pure aggregation: allRawRows -> one row per PAX who has ever been tagged FNG.
+// Table cell for Last seen: "—" for one-post FNGs, rust once he's fading.
+function fngLastSeenCell(days) {
+  if (days === '') return '—';
+  const label = days === 0 ? 'today' : `${days}d ago`;
+  return days >= FNG_FADED_DAYS ? `<span class="tone-alert">${label}</span>` : label;
+}
+
 function fngBuildRows(allRawRows, now) {
   const byName = {};
   allRawRows.forEach(r => {
@@ -69,6 +80,10 @@ function fngBuildRows(allRawRows, now) {
     const after = sorted.filter(r => r['Date'] > firstPostIso &&
       !FNG_EXCLUDED_SITES.includes((r['Site'] || '').trim()));
     const daysAfter = r => Math.round((f3ParseLocalDate(r['Date']) - firstPostDate) / 86400000);
+    // Most recent post on record, for men who have been out more than once.
+    const lastIso = sorted.filter(r => !FNG_EXCLUDED_SITES.includes((r['Site'] || '').trim())).map(r => r['Date']).pop();
+    const daysSinceLast = totalPosts >= 2 && lastIso
+      ? Math.floor((now - f3ParseLocalDate(lastIso)) / 86400000) : '';
 
     rows.push({
       'FNG Name': name,
@@ -76,6 +91,7 @@ function fngBuildRows(allRawRows, now) {
       '2nd Post': secondPost,
       'Days to 2nd post': daysTo2nd,
       'Total Posts to date': totalPosts,
+      'Days since last seen': daysSinceLast,
       'Home AO': homeAO,
       'Status': status,
       '_firstIso': firstPostIso,
@@ -137,7 +153,7 @@ function fngFollowUps(rows, now) {
       .sort(byNewest),
     // Came back once or twice, then nothing for 3+ weeks (first post in the last 120 days).
     faded: rows.filter(r => r['Total Posts to date'] >= 2 && r['Total Posts to date'] <= 3 &&
-      since(r['_lastIso']) >= 21 && fngAgeDays(r, now) <= 120).sort(byNewest),
+      since(r['_lastIso']) >= FNG_FADED_DAYS && fngAgeDays(r, now) <= 120).sort(byNewest),
     // Stuck around (10+ posts) but hasn't Q'd: ready for the ask.
     readyToQ: rows.filter(r => r['Total Posts to date'] >= 10 && !r['_hasQd'])
       .sort((a, b) => b['Total Posts to date'] - a['Total Posts to date']),
@@ -324,6 +340,7 @@ const FNG_STATUSES = [
               ${th('Total Posts to date', 'Posts', 'Total posts in 2026', true)}
               ${th('2nd Post', '2nd post', 'Date of second attendance')}
               ${th('Days to 2nd post', 'Days to 2nd', 'Days between first and second post; lower is a better retention signal', true)}
+              ${th('Days since last seen', 'Last seen', `For FNGs who have posted more than once: days since their most recent post. Rust at ${FNG_FADED_DAYS}+ days, when a guy who came back starts to fade.`, true)}
               ${th('Status', 'Status', FNG_STATUSES.map(([, label, , tip]) => `${label}: ${tip}`).join(' '))}
             </tr>
           </thead>
@@ -343,6 +360,7 @@ const FNG_STATUSES = [
       <td class="num">${r['Total Posts to date'] || '—'}</td>
       <td class="nowrap">${f3Esc(r['2nd Post'] || '—')}</td>
       <td class="num">${r['Days to 2nd post'] === '' ? '—' : r['Days to 2nd post']}</td>
+      <td class="num">${fngLastSeenCell(r['Days since last seen'])}</td>
       <td class="nowrap">${f3Esc(r['Status'] || '—')}</td>
     </tr>`).join('');
     f3StackLabels(body.closest('table'));
@@ -350,6 +368,6 @@ const FNG_STATUSES = [
 })();
 
 if (typeof module !== 'undefined') {
-  module.exports = { fngStatus, fngBuildRows, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps };
+  module.exports = { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps };
 }
 
