@@ -5,7 +5,7 @@ const assert = require('assert');
 const dataUtils = require('../assets/js/data.js');
 Object.assign(global, dataUtils);
 const {
-  ldQHistory, ldVisitors, ldConcentration, ldFirstTimeQs, ldRepeatRate, ldPipeline, ldBench,
+  ldQHistory, ldVisitors, ldBase, ldScopedHistory, ldConcentration, ldFirstTimeQs, ldRepeatRate, ldPipeline, ldBench,
 } = require('../assets/js/leadership.js');
 
 let passed = 0;
@@ -99,6 +99,26 @@ test("the pipeline's 'have Q'd' gap is exactly the bench (the page links one to 
 test('bench is PC Regulars with no Q on record, with a home AO', () => {
   const b = ldBench(teamRows, ldQHistory(teamRows), NOW);
   assert.deepStrictEqual(b.map(x => [x.name, x.homeAo]), [['Bench', 'Half Dome']]);
+});
+
+console.log('\nPC Regulars vs All PAX');
+
+test('All PAX widens the base to anyone who posted in 90 days', () => {
+  const rows = [...teamRows, r('2026-09-20', 'Drop-in', 'Das Boot'), r('2026-09-10', 'Drop-in Q', 'Das Boot', 'Q')];
+  const h = ldQHistory(rows);
+  assert.deepStrictEqual([...ldBase(rows, h, NOW, 'regulars')].sort(), ['Bench', 'Leader', 'Past']);
+  assert.deepStrictEqual([...ldBase(rows, h, NOW, 'all')].sort(), ['Bench', 'Drop-in', 'Drop-in Q', 'Leader', 'Past']);
+  assert.deepStrictEqual(ldBench(rows, h, NOW, 'all').map(b => b.name), ['Bench', 'Drop-in']);
+  const [base, qd] = ldPipeline(rows, h, NOW, 'all');
+  assert.deepStrictEqual([base.label, base.n, qd.n], ['Active PAX', 5, 3]);
+});
+
+test("PC Regulars view counts only regulars' Qs; All PAX counts every Q", () => {
+  const rows = [...teamRows, r('2026-09-10', 'Drop-in Q', 'Das Boot', 'Q')];
+  const h = ldQHistory(rows);
+  const regs = ldScopedHistory(h, ldBase(rows, h, NOW, 'regulars'), 'regulars');
+  assert.strictEqual(regs['Drop-in Q'], undefined);
+  assert.ok(ldScopedHistory(h, ldBase(rows, h, NOW, 'all'), 'all')['Drop-in Q']);
 });
 
 console.log('\ntakeover (visiting Qs)');

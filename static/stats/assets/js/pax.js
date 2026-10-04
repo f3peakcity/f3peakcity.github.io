@@ -299,7 +299,7 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
       const traj = (r['Trajectory'] || '➡️ Holding Steady').trim();
       const lastSeen = r['Last Seen'];
       return `<tr>
-        <td><a class="pax-link" href="pax-detail.html?pax=${encodeURIComponent(r['Site'])}">${f3Esc(r['Site'])}</a></td>
+        <td>${f3PaxLink(r['Site'])}</td>
         <td class="num">${r['Total Post'] || '0'}</td>
         <td class="num">${r['Total Q'] || '0'}</td>
         <td class="num">${isNaN(qpRatio) ? '—' : (qpRatio * 100).toFixed(1) + '%'}</td>

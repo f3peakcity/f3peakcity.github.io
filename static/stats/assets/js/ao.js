@@ -333,7 +333,7 @@ async function aoInit() {
         ao.qNames.add(n);
         ao.qCounts[n] = (ao.qCounts[n] || 0) + 1;
       }
-      if (r['Role'] === 'FNG') ao.fngCount++;
+      if (f3IsFng(r)) ao.fngCount++;
 
       const d = new Date(r['Date'] + 'T00:00:00');
       if (d >= cutoff26w) {

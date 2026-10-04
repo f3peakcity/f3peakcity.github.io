@@ -81,9 +81,74 @@ Records start Jan 2025, so a "first Q" is the first **on record**.
   past that first Q, the share who led again within 60 days.
 - **Pipeline**: PC Regulars → have Q'd → Q'd in 90 days → regular Q (3+ in 90).
 - **Ready to Q**: PC Regulars with no Q on record.
+- **PC Regulars / All PAX toggle**: PC Regulars counts only regulars' Qs
+  and uses PC Regulars as the base; All PAX counts every Q and uses anyone who
+  posted in the last 90 days.
 - **Q load by AO** (also on the AO cards): share of an AO's last-90-day
   Q-led workouts led by its two busiest Qs. Rust at 50%+, gold at 40%+,
   uncolored under 6 Q-led workouts (`F3_Q_LOAD_*` in `data.js`).
+
+### Not an FNG (mis-tags)
+
+Sometimes a man is tagged **FNG** in the sheet when he isn't new: a regular
+whose tag lands months into his posts, or a visitor from another region. A
+false FNG inflates the FNG count, skews the New Guy Journey, and puts a
+regular in the follow-up lists.
+
+The fix is a list of names in `assets/js/data.js`. Anyone on it has his FNG
+tag read as an ordinary post on **every** stats page (FNG Stats, the landing
+page, AO Stats). The sheet itself is not changed.
+
+**Current list**
+
+| Name | Why |
+|---|---|
+| Bolton | Tagged FNG 2026-08-28 after 84 posts since May 2025 |
+
+#### How to add someone
+
+1. **Check the exact name.** Use the name as it appears in the sheet's `Name`
+   column (it's also the name shown on FNG Stats). Case and surrounding spaces
+   don't matter; spelling does.
+2. **Add a line to the list.** Open `static/stats/assets/js/data.js` and find
+   `F3_NOT_FNG_LC`. Add the name in **lowercase**, in quotes, with a comma and
+   a short reason:
+
+   ```js
+   const F3_NOT_FNG_LC = new Set([
+     'bolton',   // tagged FNG 2026-08-28 after 84 posts since May 2025
+     'new name', // why he isn't an FNG, with the date of the bad tag
+   ]);
+   ```
+
+3. **Bump the cache token on every stats page.** `data.js` is loaded by all of
+   them, so change `?v=` on all of them or returning visitors keep the old list
+   (see [Cache busting](#cache-busting)). From the repo root:
+
+   ```bash
+   sed -i '' -E 's/\?v=[0-9]{8}[a-z]/?v=YYYYMMDDa/g' static/stats/*.html   # use today's date
+   ```
+
+4. **Add him to the table above** so the next person knows why he's there.
+5. **Run the tests**, then open a pull request:
+
+   ```bash
+   for f in static/stats/test/*.test.js; do node "$f"; done
+   ```
+
+6. **Check after it deploys.** He should be gone from FNG Stats (the table,
+   the journey and the follow-up lists), and the FNG counts on the landing page
+   and AO Stats drop by one.
+
+To **undo**, delete his line and bump the token again.
+
+#### Finding candidates
+
+A likely false FNG is a man whose FNG tag comes **after** earlier posts under
+the same name. Don't add those automatically. Check each one first: Blindside
+was tagged a week after his first post, and he is a genuine FNG whose tag was
+simply late. Fixing the tag at the source (the Slack/BigQuery import, see the
+Slack_Data_Collector repo) is better still, when it's possible.
 
 ### Takeovers (visiting Qs)
 
