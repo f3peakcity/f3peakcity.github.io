@@ -415,8 +415,9 @@ function f3PcRegularMap(rows, now) {
 }
 
 // Men tagged FNG in the sheet who aren't new to Peak City (a mis-tag at
-// import). Their FNG records are read as ordinary posts on every page. Add a
-// name here (case-insensitive) to un-flag someone; history stays in the sheet.
+// import). Their FNG records are read as ordinary posts on every page.
+// TO ADD SOMEONE: add his name in lowercase with a short reason, then bump
+// ?v= on every stats page. Step-by-step: static/stats/README.md, "Not an FNG".
 const F3_NOT_FNG_LC = new Set([
   'bolton',   // tagged FNG 2026-08-28 after 84 posts since May 2025
 ]);
