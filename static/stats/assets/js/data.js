@@ -209,6 +209,18 @@ function f3MaxIndex(values) {
   return best;
 }
 
+// Sort order for a table column: blanks ('' / null / undefined) always last,
+// numbers numerically, anything else as text. Columns mix numbers with blanks
+// (e.g. "Days to 2nd" for an FNG who never came back), so never assume strings.
+function f3CompareValues(a, b, dir = 1) {
+  const blank = v => v === '' || v === null || v === undefined;
+  if (blank(a) || blank(b)) return blank(a) === blank(b) ? 0 : blank(a) ? 1 : -1;
+  const an = parseFloat(a);
+  const bn = parseFloat(b);
+  if (!isNaN(an) && !isNaN(bn)) return (an - bn) * dir;
+  return String(a).localeCompare(String(b)) * dir;
+}
+
 // Attaches click-to-sort behavior to all <th data-sort="colName"> elements
 // within the given table element.
 // getRows: a function that returns the current rows to sort (enables live filtering)
@@ -228,15 +240,7 @@ function f3MakeSortable(tableId, getRows, renderFn) {
       }
       table.querySelectorAll('th[data-sort]').forEach(h => h.classList.remove('asc', 'desc'));
       th.classList.add(sortDir === 1 ? 'asc' : 'desc');
-      const sorted = [...getRows()].sort((a, b) => {
-        const av = a[col] ?? '';
-        const bv = b[col] ?? '';
-        const an = parseFloat(av);
-        const bn = parseFloat(bv);
-        // Both must be valid numbers for numeric sort; empty string falls to string sort
-        if (!isNaN(an) && !isNaN(bn)) return (an - bn) * sortDir;
-        return av.localeCompare(bv) * sortDir;
-      });
+      const sorted = [...getRows()].sort((a, b) => f3CompareValues(a[col], b[col], sortDir));
       renderFn(sorted);
     });
   });
@@ -513,6 +517,6 @@ if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
-    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3IsFng, f3PaxLink,
+    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3IsFng, f3PaxLink, f3CompareValues,
   };
 }

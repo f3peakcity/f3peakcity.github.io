@@ -66,6 +66,9 @@ Only posts **after** the FNG-tagged post count as coming back.
 - **Established**: 4+ posts (counting the first) within 30 days.
 - **Still posting after 60 days**: any post 60+ days after the first.
 - **Has Q'd**: a Q on record: the only contribution step the data can see.
+- **Last seen** (All FNGs table): for FNGs with 2+ posts, days since their
+  most recent post; rust at 21+ days (`FNG_FADED_DAYS`, shared with the
+  *came back, then faded* list). One-post FNGs show a dash.
 - **Follow-ups**: *no second post* (first post 7–60 days ago), *came back,
   then faded* (2–3 posts, none in 21 days, first post within 120 days),
   *ready to Q* (10+ posts, no Q on record).

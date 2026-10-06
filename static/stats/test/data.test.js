@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ } = require('../assets/js/data.js');
+const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3CompareValues } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -325,6 +325,24 @@ test('tone flags concentrated load but not a sample too small to judge', () => {
   assert.strictEqual(f3QLoadTone({ qLed: 12, top2Share: 0.45 }), 'watch');
   assert.strictEqual(f3QLoadTone({ qLed: 12, top2Share: 0.30 }), 'none');
   assert.strictEqual(f3QLoadTone({ qLed: 4, top2Share: 1 }), 'none');
+});
+
+// --- f3CompareValues (table sorting) ---
+console.log('\nf3CompareValues');
+
+test('numbers sort numerically and blanks stay last in both directions', () => {
+  const vals = [23, '', 3, null, 51, '2', undefined];
+  const asc = [...vals].sort((a, b) => f3CompareValues(a, b, 1));
+  const desc = [...vals].sort((a, b) => f3CompareValues(a, b, -1));
+  assert.deepStrictEqual(asc.slice(0, 4), ['2', 3, 23, 51]);
+  assert.deepStrictEqual(desc.slice(0, 4), [51, 23, 3, '2']);
+  assert.ok(asc.slice(4).every(v => v === '' || v == null), 'blanks last ascending');
+  assert.ok(desc.slice(4).every(v => v === '' || v == null), 'blanks last descending');
+});
+
+test('text sorts as text, and a number never throws against a string', () => {
+  assert.ok(f3CompareValues('Das Boot', 'Half Dome') < 0);
+  assert.doesNotThrow(() => f3CompareValues(5, 'Ghosted'));
 });
 
 // --- Summary ---
