@@ -44,8 +44,8 @@ the export** so the site keeps yesterday's data; the run log says which row.
 A name or AO that matches nothing is a `WARNING:` line in the log, not a stop.
 
 A **candidate** for an AO, over the last `candidate_window_weeks` (26):
-posted at `candidate_attendance` (50%) or more of its workouts, Q'd there at
-least `candidate_min_qs` (2) times, and is not a current Site Q anywhere. Past
+posted at `candidate_attendance` (40%) or more of its workouts, Q'd there at
+least `candidate_min_qs` (1) time, and is not a current Site Q anywhere. Past
 Site Qs are listed after everyone else; those whose term ended within
 `recent_site_q_months` (12) go last. Alphabetical otherwise. Each candidate
 carries Qs here, the number of AOs he Q'd at, and his first attendance on
@@ -73,7 +73,7 @@ plus any current Site Q, who the page leaves out):
     FROM win w JOIN denom d USING (ao_name)
     WHERE w.ao_name = 'Hot for Teacher'
     GROUP BY w.user_id
-    HAVING rate >= 0.5 AND qs_here >= 2
+    HAVING rate >= 0.4 AND qs_here >= 1
     ORDER BY name;
 
 ## Validation against SQL (Beaver Chase example)

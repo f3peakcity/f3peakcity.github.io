@@ -6,8 +6,8 @@
   "stale_days": 60,
   "max_never_qd": 10,
   "candidate_window_weeks": 26,
-  "candidate_attendance": 0.5,
-  "candidate_min_qs": 2,
+  "candidate_attendance": 0.4,
+  "candidate_min_qs": 1,
   "recent_site_q_months": 12
  },
  "aos": [
@@ -143,7 +143,7 @@
      "name": "Clockwork",
      "start": "2022-04-06",
      "start_precision": "day",
-     "season": "summer"
+     "season": "all"
     },
     {
      "name": "Earhart",
@@ -158,19 +158,34 @@
      "season": "summer"
     },
     {
-     "name": "Clockwork",
-     "start": "2024-01-10",
-     "start_precision": "day",
-     "season": "winter"
-    },
-    {
      "name": "Imp",
      "start": "2024-01-10",
      "start_precision": "day",
      "season": "winter"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Cheap Trick",
+     "attended": 11,
+     "rate": 0.407,
+     "qs_here": 2,
+     "q_aos": 8,
+     "first_seen": "2025-08-07",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "Gibraltar",
+     "attended": 14,
+     "rate": 0.519,
+     "qs_here": 1,
+     "q_aos": 2,
+     "first_seen": "2025-08-13",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "Beaver Chase",
@@ -312,7 +327,28 @@
      "season": "all"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Mr. Safety",
+     "attended": 11,
+     "rate": 0.44,
+     "qs_here": 1,
+     "q_aos": 3,
+     "first_seen": "2025-08-07",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "Zero Drop",
+     "attended": 10,
+     "rate": 0.4,
+     "qs_here": 1,
+     "q_aos": 10,
+     "first_seen": "2025-08-07",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "Bounty Hunters (BH)",
@@ -993,7 +1029,38 @@
      "season": "all"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "9-Lives",
+     "attended": 14,
+     "rate": 0.538,
+     "qs_here": 1,
+     "q_aos": 2,
+     "first_seen": "2025-08-09",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "Hail Naw",
+     "attended": 12,
+     "rate": 0.462,
+     "qs_here": 1,
+     "q_aos": 3,
+     "first_seen": "2025-08-07",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "Sasquat",
+     "attended": 15,
+     "rate": 0.577,
+     "qs_here": 1,
+     "q_aos": 1,
+     "first_seen": "2025-08-08",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "Das Boot",
@@ -1214,7 +1281,18 @@
      "season": "all"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Old Maid",
+     "attended": 16,
+     "rate": 0.615,
+     "qs_here": 1,
+     "q_aos": 2,
+     "first_seen": "2025-08-09",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "Disturbing the Peace (DTP)",
@@ -1387,7 +1465,18 @@
      "season": "all"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Hail Naw",
+     "attended": 11,
+     "rate": 0.44,
+     "qs_here": 1,
+     "q_aos": 3,
+     "first_seen": "2025-08-07",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "Half Dome",
@@ -1568,12 +1657,32 @@
    ],
    "candidates": [
     {
+     "name": "Biner",
+     "attended": 11,
+     "rate": 0.423,
+     "qs_here": 3,
+     "q_aos": 6,
+     "first_seen": "2025-08-07",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
      "name": "Orphan",
      "attended": 17,
      "rate": 0.654,
      "qs_here": 2,
      "q_aos": 5,
      "first_seen": "2025-08-12",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "Stella",
+     "attended": 13,
+     "rate": 0.5,
+     "qs_here": 1,
+     "q_aos": 1,
+     "first_seen": "2025-08-23",
      "past_site_q": null,
      "recent_past": false
     }
@@ -1828,7 +1937,18 @@
      "season": "all"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Theismann",
+     "attended": 13,
+     "rate": 0.406,
+     "qs_here": 1,
+     "q_aos": 2,
+     "first_seen": "2025-08-08",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "Hot for Teacher",
@@ -2044,6 +2164,16 @@
      "qs_here": 3,
      "q_aos": 2,
      "first_seen": "2025-08-09",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "Cheap Trick",
+     "attended": 12,
+     "rate": 0.522,
+     "qs_here": 1,
+     "q_aos": 8,
+     "first_seen": "2025-08-07",
      "past_site_q": null,
      "recent_past": false
     },
@@ -2502,7 +2632,18 @@
      "season": "all"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Poi",
+     "attended": 14,
+     "rate": 0.56,
+     "qs_here": 1,
+     "q_aos": 3,
+     "first_seen": "2025-08-07",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "Pump Fiction",
@@ -3120,7 +3261,18 @@
     }
    ],
    "site_qs": [],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Orphan",
+     "attended": 5,
+     "rate": 0.455,
+     "qs_here": 2,
+     "q_aos": 5,
+     "first_seen": "2025-08-12",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "The Board Meeting",
@@ -3257,7 +3409,48 @@
      "season": "summer"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Gibraltar",
+     "attended": 8,
+     "rate": 0.615,
+     "qs_here": 1,
+     "q_aos": 2,
+     "first_seen": "2025-08-13",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "Lightswitch (GL)",
+     "attended": 7,
+     "rate": 0.538,
+     "qs_here": 1,
+     "q_aos": 1,
+     "first_seen": "2026-06-26",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "Open Concept",
+     "attended": 9,
+     "rate": 0.692,
+     "qs_here": 1,
+     "q_aos": 2,
+     "first_seen": "2025-08-09",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "OTW (On The Way)",
+     "attended": 6,
+     "rate": 0.462,
+     "qs_here": 1,
+     "q_aos": 3,
+     "first_seen": "2025-12-22",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "The Foundry",
@@ -3496,7 +3689,18 @@
      "season": "all"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Brownout",
+     "attended": 17,
+     "rate": 0.654,
+     "qs_here": 1,
+     "q_aos": 3,
+     "first_seen": "2025-08-06",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "Tin2Iron",
@@ -3585,7 +3789,18 @@
      "season": "all"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Biner",
+     "attended": 8,
+     "rate": 0.421,
+     "qs_here": 2,
+     "q_aos": 6,
+     "first_seen": "2025-08-07",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   },
   {
    "name": "Tortoises",
@@ -3674,7 +3889,28 @@
      "season": "all"
     }
    ],
-   "candidates": []
+   "candidates": [
+    {
+     "name": "Theismann",
+     "attended": 10,
+     "rate": 0.4,
+     "qs_here": 2,
+     "q_aos": 2,
+     "first_seen": "2025-08-08",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
+     "name": "WWW",
+     "attended": 13,
+     "rate": 0.52,
+     "qs_here": 1,
+     "q_aos": 2,
+     "first_seen": "2025-08-06",
+     "past_site_q": null,
+     "recent_past": false
+    }
+   ]
   }
  ]
 }
