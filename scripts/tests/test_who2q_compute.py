@@ -1,7 +1,7 @@
 import json
 import sys
 import unittest
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -173,6 +173,128 @@ class TestShippedConfig(unittest.TestCase):
         for key, value in aliases.items():
             self.assertNotEqual(key, value)
             self.assertNotIn(value, aliases, f"{key} -> {value} chains to another alias")
+
+
+from who2q_compute import (RosterError, parse_roster, parse_roster_date, match_ao, match_roster,
+                           site_qs_for_ao, candidates_for_ao, is_visiting_q)
+
+ROSTER_HEADER = "DoW,AO,F3 Name,Start Date,End Date,Season,Note\n"
+SITE_CONFIG = dict(
+    CONFIG,
+    window_weeks=12,
+    candidate_window_weeks=26,
+    candidate_attendance=0.5,
+    candidate_min_qs=2,
+    recent_site_q_months=12,
+    visiting_q_windows=[{"from": "2026-02-23", "to": "2026-02-24"}],
+    ao_aliases={"CougarTown": "Cougar Town"},
+    name_aliases={"Ch3ap Trick": "Cheap Trick", "Chicken Little": "The Chicken Little"},
+)
+
+
+class TestRosterParsing(unittest.TestCase):
+    def test_dates_keep_their_precision(self):
+        self.assertEqual(parse_roster_date("5/5/2025"), ("2025-05-05", "day"))
+        self.assertEqual(parse_roster_date("5/18/24"), ("2024-05-18", "day"))
+        self.assertEqual(parse_roster_date("2025-10"), ("2025-10", "month"))
+        self.assertEqual(parse_roster_date("2025"), ("2025", "year"))
+        self.assertEqual(parse_roster_date(""), (None, None))
+
+    def test_rows_current_season_and_suffix(self):
+        terms = parse_roster(ROSTER_HEADER +
+                             "Tue,CougarTown,Ramsay,6/4/2024,Not Yet,All,\n"
+                             "Wed,7th Inning Stretch,Triple Lindy (summer),,,Summer,\n"
+                             ",,,,,,\n"
+                             "Fri,Board Meeting,Rooney,5/18/24,2025-09,All,\n")
+        self.assertEqual(len(terms), 3, "blank rows are skipped")
+        self.assertIsNone(terms[0]["end"], "'Not Yet' means current")
+        self.assertEqual((terms[1]["name"], terms[1]["season"]), ("Triple Lindy", "summer"))
+        self.assertEqual(terms[2]["end"], "2025-09")
+
+    def test_malformed_roster_stops_the_export(self):
+        with self.assertRaises(RosterError):
+            parse_roster("AO,Name\nX,Y\n")                                   # missing columns
+        with self.assertRaises(RosterError):
+            parse_roster(ROSTER_HEADER + "Tue,Cougar Town,Ramsay,someday,,All,\n")
+        with self.assertRaises(RosterError):
+            parse_roster(ROSTER_HEADER + "Tue,Cougar Town,Ramsay,,,Spring,\n")
+
+
+class TestRosterMatching(unittest.TestCase):
+    AOS = ["Cougar Town", "Lion's Den", "Hot for Teacher"]
+
+    def test_ao_spellings_resolve(self):
+        self.assertEqual(match_ao("CougarTown", self.AOS, SITE_CONFIG), "Cougar Town")
+        self.assertEqual(match_ao("Lion’s Den", self.AOS, SITE_CONFIG), "Lion's Den")
+        self.assertEqual(match_ao("Hot For Teacher", self.AOS, SITE_CONFIG), "Hot for Teacher")
+        self.assertIsNone(match_ao("F3 Dads", self.AOS, SITE_CONFIG))
+
+    def test_names_resolve_through_aliases_and_two_accounts_both_match(self):
+        names = {1: "Ramsay", 2: "The Chicken Little", 3: "Sputnik", 4: "Sputnik"}
+        terms = parse_roster(ROSTER_HEADER +
+                             "Tue,CougarTown,Ramsay,,,All,\n"
+                             "Sat,Lion's Den,Chicken Little,,,All,\n"
+                             "Wed,Lion's Den,Sputnik,,,All,\n"
+                             "Wed,Lion's Den,Nobody,,,All,\n"
+                             "Sat,F3 Dads,Ramsay,,,All,\n")
+        matched, warnings = match_roster(terms, names, self.AOS, SITE_CONFIG)
+        self.assertEqual(matched[1]["uids"], [2])
+        self.assertEqual(matched[2]["uids"], [3, 4], "both of Sputnik's accounts")
+        self.assertEqual(len(warnings), 2, "one unmatched name, one unmatched AO")
+
+
+def terms_for(csv_body, names, aos):
+    return match_roster(parse_roster(ROSTER_HEADER + csv_body), names, aos, SITE_CONFIG)[0]
+
+
+class TestSiteQs(unittest.TestCase):
+    def test_current_only_earliest_first_and_both_seasons_merge(self):
+        names = {1: "Clockwork", 2: "Imp", 3: "Old Guard"}
+        terms = terms_for("Wed,7th Inning Stretch,Clockwork,2024-01-10,,Winter,\n"
+                          "Wed,7th Inning Stretch,Clockwork,2022-04-06,,Summer,\n"
+                          "Wed,7th Inning Stretch,Imp,,,Winter,\n"
+                          "Wed,7th Inning Stretch,Old Guard,2020,2023,All,\n",
+                          names, ["7th Inning Stretch"])
+        got = site_qs_for_ao("7th Inning Stretch", terms)
+        self.assertEqual([(s["name"], s["start"], s["season"]) for s in got],
+                         [("Clockwork", "2022-04-06", "all"), ("Imp", None, "winter")])
+
+
+class TestCandidates(unittest.TestCase):
+    WEEKS = [date(2026, 3, 2) + timedelta(weeks=i) for i in range(18)]   # 18 workouts at "A"
+
+    def att(self, uid, name, n):
+        return [row(uid, name, "A", d) for d in self.WEEKS[:n]]
+
+    def run_rule(self, roster_body="", q_extra=()):
+        names = {1: "Steady", 2: "Rare", 3: "Current SQ", 4: "Past SQ", 5: "Recent SQ", 6: "Anchor"}
+        att = (self.att(1, "Steady", 12) + self.att(2, "Rare", 4) + self.att(3, "Current SQ", 12)
+               + self.att(4, "Past SQ", 12) + self.att(5, "Recent SQ", 12) + self.att(6, "Anchor", 18))
+        q = [row(u, names[u], "A", self.WEEKS[i]) for u in (1, 2, 3, 4, 5) for i in (0, 1)]
+        q += [row(1, "Steady", "B", self.WEEKS[3])] + list(q_extra)
+        terms = terms_for(roster_body, names, ["A", "B"])
+        first = {1: date(2025, 8, 1)}
+        return candidates_for_ao("A", att, q, names, terms, first, TODAY, SITE_CONFIG)
+
+    def test_rule_order_and_fields(self):
+        got = self.run_rule("Tue,A,Current SQ,,,All,\n"
+                            "Tue,A,Past SQ,2023,2024-06,All,\n"
+                            "Tue,A,Recent SQ,2024,2026-05,All,\n")
+        self.assertEqual([c["name"] for c in got], ["Steady", "Past SQ", "Recent SQ"],
+                         "Rare misses attendance, Anchor never Q'd, Current SQ is excluded; "
+                         "past Site Qs follow, the recent one last")
+        steady = got[0]
+        self.assertEqual((steady["qs_here"], steady["q_aos"], steady["first_seen"]), (2, 2, "2025-08-01"))
+        self.assertEqual(got[1]["past_site_q"], {"ao": "A", "end": "2024-06"})
+        self.assertFalse(got[1]["recent_past"])
+        self.assertTrue(got[2]["recent_past"])
+
+    def test_takeover_qs_never_count(self):
+        visit = row(6, "Anchor", "A", date(2026, 2, 23))   # 133 days before TODAY: would be overdue
+        self.assertTrue(is_visiting_q(visit, SITE_CONFIG))
+        payload = build_payload([visit, visit], self.att(6, "Anchor", 18), TODAY, SITE_CONFIG,
+                                roster=[], first_seen={})
+        self.assertEqual(payload["aos"][0]["stale_qs"], [], "a takeover Q is not 'last Q'd here'")
 
 
 if __name__ == "__main__":
