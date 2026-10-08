@@ -418,6 +418,15 @@ function f3PcRegularMap(rows, now) {
   return map;
 }
 
+// Men left off the PAX page's Potential Cotters list, for any reason (moved,
+// injured, stepped away on purpose, asked not to be listed). Lowercase name ->
+// short reason. Step-by-step: static/stats/README.md, "Potential Cotters".
+const F3_COTTER_EXCLUDED_LC = {
+  // 'example name': 'moved to Charlotte, 2026-09',
+  'pet sounds': 'home region ≠ Peak City',
+  'hook': 'home region ≠ Peak City',
+};
+
 // Men tagged FNG in the sheet who aren't new to Peak City (a mis-tag at
 // import). Their FNG records are read as ordinary posts on every page.
 // TO ADD SOMEONE: add his name in lowercase with a short reason, then bump
@@ -522,6 +531,6 @@ if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
-    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3IsFng, f3PaxLink, f3CompareValues,
+    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3IsFng, f3PaxLink, f3CompareValues, F3_COTTER_EXCLUDED_LC,
   };
 }

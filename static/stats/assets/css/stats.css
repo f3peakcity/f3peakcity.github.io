@@ -355,3 +355,13 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .row--stacked .label{grid-column:1;grid-row:2;line-height:1.5}
 .row--stacked .row-val{grid-column:2;grid-row:1/span 2;align-self:center}
 .w2q-divider{padding:20px 0 8px;border-bottom:1px solid var(--rule)}
+
+/* PAX: Potential Cotters, collapsed by default. The summary is the section
+   head with a +/− marker; the native disclosure keeps it keyboard and
+   screen-reader friendly with no script. */
+.cotters > summary{cursor:pointer;list-style:none}
+.cotters > summary::-webkit-details-marker{display:none}
+.cotters > summary::after{content:"+";font:800 26px/1 var(--display);margin-left:12px;color:var(--ink)}
+.cotters[open] > summary::after{content:"\2212"}
+.cotters > summary:hover h2{color:var(--green)}
+.cotters > summary > .label{margin-left:auto}

@@ -9,7 +9,7 @@ global.f3CountsTowardAttendance = dataUtils.f3CountsTowardAttendance;
 global.f3IsRealAo = dataUtils.f3IsRealAo;
 global.f3PcRegularMap = dataUtils.f3PcRegularMap;
 
-const { paxBuildRows } = require('../assets/js/pax.js');
+const { paxBuildRows, paxCotters, PAX_COTTER_QUIET_DAYS, PAX_COTTER_MAX_DAYS } = require('../assets/js/pax.js');
 
 let passed = 0;
 let failed = 0;
@@ -111,6 +111,53 @@ test('less recent activity than the 26-week average is Cooling Off', () => {
   for (let i = 0; i < 20; i++) rows.push(row('2026-03-01', 'Cataracts', 'Half Dome'));
   const c = byName(paxBuildRows(rows, NOW), 'Cataracts');
   assert.strictEqual(c['Trajectory'], '❄️ Cooling Off');
+});
+
+console.log('\nPotential Cotters');
+
+const COTTER_NOW = new Date(2026, 9, 8);   // Oct 8, 2026
+// n posts, one every 3 days, the last one on `lastIso`, at `site`.
+function streak(name, lastIso, n, site = 'Das Boot') {
+  const last = new Date(lastIso + 'T00:00:00');
+  return Array.from({ length: n }, (_, i) => {
+    const d = new Date(last); d.setDate(last.getDate() - 3 * (n - 1 - i));
+    const iso = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    return { Date: iso, Name: name, Site: site, Role: 'P' };
+  });
+}
+
+test('regulars quiet 21+ days are listed; too few posts, too recent or too long gone are not', () => {
+  const rows = [
+    ...streak('Quiet', '2026-09-01', 8),                       // 37 days away, 8 posts: in
+    ...streak('Thin', '2026-09-01', 7),                        // only 7 posts: out
+    ...streak('Edge', '2026-09-17', 8),                        // exactly 21 days: in
+    ...streak('Recent', '2026-09-20', 12),                     // 18 days: out
+    ...streak('LongGone', '2026-03-01', 20),                   // 221 days: out
+  ];
+  const got = paxCotters(rows, COTTER_NOW).map(c => [c.name, c.daysAway]);
+  assert.deepStrictEqual(got, [['Edge', PAX_COTTER_QUIET_DAYS], ['Quiet', 37]], 'most recently gone first');
+  assert.ok(PAX_COTTER_MAX_DAYS >= 180 && PAX_COTTER_MAX_DAYS <= 184, 'about 6 months');
+});
+
+test('a post anywhere, #downrange included, resets the clock', () => {
+  const rows = [...streak('Traveler', '2026-08-20', 10), { Date: '2026-10-01', Name: 'Traveler', Site: '#downrange', Role: 'P' }];
+  assert.deepStrictEqual(paxCotters(rows, COTTER_NOW), []);
+});
+
+test('last AO is where he last posted; home AO is where he posted most', () => {
+  const rows = [...streak('Wanderer', '2026-08-30', 9, 'Tortoises'), { Date: '2026-09-02', Name: 'Wanderer', Site: 'Das Boot', Role: 'P' }];
+  const [c] = paxCotters(rows, COTTER_NOW);
+  assert.deepStrictEqual([c.lastDate, c.lastAo, c.homeAo, c.daysAway], ['2026-09-02', 'Das Boot', 'Tortoises', 36]);
+});
+
+test('regular means Peak City posts: #downrange-only men are not on the list', () => {
+  const rows = [...streak('Out Of Region', '2026-09-01', 12, '#downrange'), ...streak('Ours', '2026-09-01', 8)];
+  assert.deepStrictEqual(paxCotters(rows, COTTER_NOW).map(c => c.name), ['Ours']);
+});
+
+test('the exclusion list keeps a man off, case-insensitively', () => {
+  const rows = [...streak('Moved Away', '2026-09-01', 10), ...streak('Still Here', '2026-09-01', 10)];
+  assert.deepStrictEqual(paxCotters(rows, COTTER_NOW, { 'moved away': 'moved to Charlotte' }).map(c => c.name), ['Still Here']);
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);
