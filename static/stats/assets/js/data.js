@@ -423,6 +423,8 @@ function f3PcRegularMap(rows, now) {
 // short reason. Step-by-step: static/stats/README.md, "Potential Cotters".
 const F3_COTTER_EXCLUDED_LC = {
   // 'example name': 'moved to Charlotte, 2026-09',
+  'pet sounds': 'home region ≠ Peak City',
+  'hook': 'home region ≠ Peak City',
 };
 
 // Men tagged FNG in the sheet who aren't new to Peak City (a mis-tag at
