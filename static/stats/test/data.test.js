@@ -316,6 +316,9 @@ test('takeover Q records are skipped; posts and other dates are not', () => {
   assert.strictEqual(f3IsVisitingQ({ Date: '2026-09-23', Role: 'Q' }), true);
   assert.strictEqual(f3IsVisitingQ({ Date: '2026-09-23', Role: 'P' }), false);
   assert.strictEqual(f3IsVisitingQ({ Date: '2026-09-26', Role: 'Q' }), false);
+  // A Peak City man on the window's keep list Q'd during the takeover: his Q counts.
+  assert.strictEqual(f3IsVisitingQ({ Date: '2026-09-23', Role: 'Q', Name: ' Santa Maria ' }), false);
+  assert.strictEqual(f3IsVisitingQ({ Date: '2026-09-23', Role: 'Q', Name: 'Spade (South Cary)' }), true);
   const load = f3QLoadByAo([qRow('2026-09-23', 'Visitor', 'Das Boot'), qRow('2026-09-10', 'Local', 'Das Boot')], QNOW);
   assert.deepStrictEqual([load['Das Boot'].qLed, load['Das Boot'].uniqueQs], [1, 1]);
 });

@@ -6,6 +6,26 @@
   "regular_threshold": 0.3,
   "stale_days": 60,
   "max_never_qd": 10,
+  "site_qs_csv_url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vSnJX2Ofgx1Pz5o860_daHOWc1ylSPadk2xNU1UaY8huQzA_nTx6xn6I-tMORZgQEiv2JqYeJZoV3Jo/pub?gid=1809974440&single=true&output=csv",
+  "candidate_window_weeks": 26,
+  "candidate_attendance": 0.4,
+  "candidate_min_qs": 1,
+  "recent_site_q_months": 12,
+  "visiting_q_windows": [
+    {"from": "2026-09-22", "to": "2026-09-25", "note": "South Cary (SCary) takeover: their men Q'd our workouts",
+     "keep": {"106065": "Santa Maria: Peak City man, his 9/23 Q at 7th Inning Stretch counts"}}
+  ],
+  "site_q_user_ids": {
+    "Sputnik": {"user_id": 44977, "note": "Eugene Kornikh - Sputnik; user 2424 is a different Sputnik"}
+  },
+  "ao_aliases": {
+    "Board Meeting": "The Board Meeting",
+    "Bounty Hunters": "Bounty Hunters (BH)",
+    "CougarTown": "Cougar Town",
+    "Disturbing The Peace": "Disturbing the Peace (DTP)",
+    "Hells Bells": "Hell's Bells",
+    "Tin 2 Iron": "Tin2Iron"
+  },
   "excluded_aos": [
     "Shieldlock 🛡️🔒",
     "Raiders of the Locked Park",
@@ -17,6 +37,7 @@
   "excluded_pax": [],
   "name_aliases": {
     "Arredondo3 J": "Sunny",
+    "Chicken Little": "The Chicken Little",
     "Disco Duck (CARPEX)": "Disco Duck",
     "Eugene Kornikh - Sputnik": "Sputnik",
     "Gibraltar (Carpex)": "Gibraltar",

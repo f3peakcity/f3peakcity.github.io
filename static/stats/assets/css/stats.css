@@ -347,3 +347,11 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .pair .section-head{flex-wrap:nowrap;align-items:flex-end;align-self:end}
 .pair .section-head h2{flex:0 0 auto}  /* the title keeps its line; the note wraps */
 .pair .section-head > .label{flex:0 1 auto;min-width:0;text-align:right;line-height:1.4}
+
+/* Who to Q: Site Q candidates. A stacked row puts the facts under the name
+   (the trio lists use the same shape); a quiet divider starts past Site Qs. */
+.row--stacked{grid-template-columns:minmax(0,1fr) auto;row-gap:4px}
+.row--stacked .row-name{overflow-wrap:anywhere}
+.row--stacked .label{grid-column:1;grid-row:2;line-height:1.5}
+.row--stacked .row-val{grid-column:2;grid-row:1/span 2;align-self:center}
+.w2q-divider{padding:20px 0 8px;border-bottom:1px solid var(--rule)}

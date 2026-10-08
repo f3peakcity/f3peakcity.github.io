@@ -5,8 +5,11 @@ const assert = require('assert');
 const dataUtils = require('../assets/js/data.js');
 global.f3Esc = dataUtils.f3Esc;
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
-const { who2qFmtRate, who2qFmtDate, who2qShortDate, who2qNeverRowsHtml, who2qStaleRowsHtml } =
-  require('../assets/js/who2q.js');
+global.f3PaxLink = dataUtils.f3PaxLink;
+const {
+  who2qFmtRate, who2qFmtDate, who2qShortDate, who2qNeverRowsHtml, who2qStaleRowsHtml,
+  who2qRosterDate, who2qTenure, who2qSiteQRowsHtml, who2qCandidateRowsHtml, who2qCandidateRule,
+} = require('../assets/js/who2q.js');
 
 let passed = 0;
 let failed = 0;
@@ -77,6 +80,62 @@ test('render helpers escape HTML in names', () => {
   ]);
   assert.ok(!html.includes('<img'));
   assert.ok(html.includes('&lt;img'));
+});
+
+// --- Site Qs and candidates (#182) ---
+const NOW = new Date(2026, 9, 8);   // Oct 8, 2026
+
+test('roster dates read at their own precision', () => {
+  assert.strictEqual(who2qRosterDate('2026-09-10'), 'Sep 10, 2026');
+  assert.strictEqual(who2qRosterDate('2025-05'), 'May 2025');
+  assert.strictEqual(who2qRosterDate('2024'), '2024');
+});
+
+test('tenure: weeks, months, years; ~ for approximate starts; null when unknown', () => {
+  assert.strictEqual(who2qTenure('2026-09-10', 'day', NOW), '4 wk');
+  assert.strictEqual(who2qTenure('2025-05-05', 'day', NOW), '17 mo');
+  assert.strictEqual(who2qTenure('2024-06-04', 'day', NOW), '2 yr');
+  assert.strictEqual(who2qTenure('2025-05', 'month', NOW), '~17 mo');
+  assert.strictEqual(who2qTenure('2024', 'year', NOW), '~2 yr');
+  assert.strictEqual(who2qTenure(null, null, NOW), null);
+});
+
+test('Site Q rows: since, tenure, season tag, linked names; empty state', () => {
+  const html = who2qSiteQRowsHtml([
+    { name: 'Moline', start: '2026-09-10', start_precision: 'day', season: 'all' },
+    { name: 'Triple Lindy', start: null, start_precision: null, season: 'summer' },
+  ], NOW);
+  assert.ok(html.includes('since Sep 10, 2026'));
+  assert.ok(html.includes('4 wk'));
+  assert.ok(html.includes('Summer · start date not on record'));
+  assert.ok(html.includes('pax-detail.html?pax=Moline'));
+  assert.ok(who2qSiteQRowsHtml([], NOW).includes('No Site Q on record'));
+});
+
+test('candidate rows: facts, then past Site Qs under a divider; empty state', () => {
+  const html = who2qCandidateRowsHtml([
+    { name: 'Hobbit', rate: 0.792, qs_here: 2, q_aos: 7, first_seen: '2025-08-12', past_site_q: null },
+    { name: 'Cheap Trick', rate: 0.542, qs_here: 1, q_aos: 1, first_seen: null, past_site_q: null },
+    { name: 'Old Guard', rate: 0.5, qs_here: 3, q_aos: 2, first_seen: '2025-08-01',
+      past_site_q: { ao: 'Cougar Town', end: '2025-06' }, recent_past: true },
+  ]);
+  assert.ok(html.indexOf('Hobbit') < html.indexOf('Past Site Qs'), 'fresh candidates first');
+  assert.ok(html.indexOf('Past Site Qs') < html.indexOf('Old Guard'), 'past Site Qs under the divider');
+  assert.ok(html.includes('2 Qs here · Q\'s at 7 AOs · in F3 since at least Aug 2025'));
+  assert.ok(html.includes('1 Q here · Q\'s at 1 AO'), 'singulars');
+  assert.ok(html.includes('Site Q at Cougar Town until Jun 2025'));
+  assert.ok(html.includes('79%'));
+  assert.ok(!who2qCandidateRowsHtml([{ name: 'A', rate: 0.5, qs_here: 1, q_aos: 1, past_site_q: null }]).includes('Past Site Qs'),
+    'no divider without past Site Qs');
+  assert.ok(who2qCandidateRowsHtml([]).includes('No one meets the bar yet'));
+});
+
+test('candidate rule tooltip reads the export settings', () => {
+  const rule = who2qCandidateRule({ candidate_attendance: 0.4, candidate_min_qs: 1, candidate_window_weeks: 26 });
+  assert.ok(rule.includes('40%+'));
+  assert.ok(rule.includes('at least once in the last 26 weeks'));
+  assert.ok(who2qCandidateRule({ candidate_attendance: 0.5, candidate_min_qs: 2, candidate_window_weeks: 26 })
+    .includes('at least 2 times'));
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
