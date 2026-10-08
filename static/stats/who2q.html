@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20261002a">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20261008a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -38,7 +38,7 @@
     <section class="page-head">
       <div class="eyebrow label"><span>Dashboard 05</span><span>For Site Qs</span></div>
       <h1 class="page-title">Who to Q</h1>
-      <p class="page-sub">Q candidates by AO: regulars who haven't led yet, and past Qs who are overdue.</p>
+      <p class="page-sub">By AO: who holds Site Q, who's ready to step up, regulars who haven't led yet, and past Qs who are overdue.</p>
     </section>
 
     <div class="ao-picker">
@@ -53,6 +53,22 @@
       <h2 class="w2q-ao-name" id="w2q-ao-name"></h2>
       <span class="label" id="w2q-ao-summary"></span>
     </div>
+
+    <section class="section" id="w2q-siteqs-section" hidden>
+      <div class="section-head">
+        <h2>Current Site <span class="tail">Qs&nbsp;<button type="button" class="info-dot" data-tip="From the Site Q roster in the Peak City Q Sheet. Tenure counts from the start date on the roster; a ~ means the start is approximate (month or year only)." aria-label="From the Site Q roster in the Peak City Q Sheet. Tenure counts from the start date on the roster; a ~ means the start is approximate (month or year only).">&#9432;</button></span></h2>
+        <span class="label">Since · tenure</span>
+      </div>
+      <div id="w2q-siteqs"></div>
+    </section>
+
+    <section class="section" id="w2q-cands-section" hidden>
+      <div class="section-head">
+        <h2>Site Q <span class="tail">candidates&nbsp;<button type="button" class="info-dot" id="w2q-cands-tip" data-tip="Regulars here who have Q'd here, and aren't a current Site Q anywhere." aria-label="Regulars here who have Q'd here, and aren't a current Site Q anywhere.">&#9432;</button></span></h2>
+        <span class="label" id="w2q-cands-note">Posts here</span>
+      </div>
+      <div id="w2q-cands"></div>
+    </section>
 
     <div class="pair">
       <section class="section">
@@ -80,6 +96,6 @@
   </footer>
 
 <script src="assets/js/data.js?v=20261008a"></script>
-<script src="assets/js/who2q.js?v=20261002a"></script>
+<script src="assets/js/who2q.js?v=20261008a"></script>
 </body>
 </html>

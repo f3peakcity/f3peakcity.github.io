@@ -53,6 +53,86 @@ function who2qStaleRowsHtml(list) {
   }).join('');
 }
 
+// ---- Site Qs and Site Q candidates (from scripts/who2q_export.py, #182) ----
+
+const WHO2Q_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+// A roster date ('2025-05-05', '2025-05' or '2025') as words at its own
+// precision, so an approximate start never reads as an exact day.
+function who2qRosterDate(iso) {
+  const [y, m, d] = String(iso).split('-').map(Number);
+  if (d) return `${WHO2Q_MONTHS.at(m - 1)} ${d}, ${y}`;
+  if (m) return `${WHO2Q_MONTHS.at(m - 1)} ${y}`;
+  return String(y);
+}
+
+// How long since a roster start date: '3 wk', '5 mo', '2 yr'. Approximate
+// (month or year) starts get a '~'. null when the start isn't on record.
+function who2qTenure(iso, precision, now = new Date()) {
+  if (!iso) return null;
+  const [y, m, d] = String(iso).split('-').map(Number);
+  const start = new Date(y, (m || 1) - 1, d || 1);
+  const days = Math.max(0, Math.floor((now - start) / 86400000));
+  const months = (now.getFullYear() - start.getFullYear()) * 12 + now.getMonth() - start.getMonth();
+  const approx = precision === 'day' ? '' : '~';
+  if (days < 56) return `${approx}${Math.max(1, Math.floor(days / 7))} wk`;
+  if (months < 24) return `${approx}${months} mo`;
+  return `${approx}${Math.floor(months / 12)} yr`;
+}
+
+function who2qSeasonTag(season) {
+  return season === 'summer' ? 'Summer' : season === 'winter' ? 'Winter' : '';
+}
+
+function who2qSiteQRowsHtml(list, now = new Date()) {
+  if (!list.length) {
+    return '<div class="status label empty-state">No Site Q on record for this AO</div>';
+  }
+  return list.map(s => {
+    const since = s.start ? `since ${who2qRosterDate(s.start)}` : 'start date not on record';
+    const season = who2qSeasonTag(s.season);
+    return `<div class="row">
+      <span class="row-name">${f3PaxLink(s.name)}</span>
+      <span class="label">${season ? `${season} · ` : ''}${since}</span>
+      <span class="row-val">${who2qTenure(s.start, s.start_precision, now) || '—'}</span>
+    </div>`;
+  }).join('');
+}
+
+// Candidates first, then past Site Qs under a divider (the export already
+// orders them: never-served, then past, recent past last; alphabetical within).
+function who2qCandidateRowsHtml(list) {
+  if (!list.length) {
+    return '<div class="status label empty-state">No one meets the bar yet</div>';
+  }
+  const row = c => {
+    const facts = [
+      `${c.qs_here} Q${c.qs_here === 1 ? '' : 's'} here`,
+      `Q's at ${c.q_aos} AO${c.q_aos === 1 ? '' : 's'}`,
+      c.first_seen ? `in F3 since at least ${who2qRosterDate(c.first_seen.slice(0, 7))}` : '',
+    ];
+    if (c.past_site_q) {
+      facts.unshift(`Site Q at ${f3Esc(c.past_site_q.ao)} until ${who2qRosterDate(c.past_site_q.end)}`);
+    }
+    return `<div class="row row--stacked">
+      <span class="row-name">${f3PaxLink(c.name)}</span>
+      <span class="label">${facts.filter(Boolean).join(' · ')}</span>
+      <span class="row-val" aria-label="posts at ${who2qFmtRate(c.rate)} of workouts here">${who2qFmtRate(c.rate)}</span>
+    </div>`;
+  };
+  const fresh = list.filter(c => !c.past_site_q);
+  const past = list.filter(c => c.past_site_q);
+  return fresh.map(row).join('') +
+    (past.length ? `<div class="w2q-divider label">Past Site Qs</div>${past.map(row).join('')}` : '');
+}
+
+// The candidate rule in words, from the export's own settings.
+function who2qCandidateRule(p) {
+  return `Posted at ${Math.round(p.candidate_attendance * 100)}%+ of this AO's workouts and Q'd here at least ` +
+    `${p.candidate_min_qs === 1 ? 'once' : `${p.candidate_min_qs} times`} in the last ${p.candidate_window_weeks} weeks, ` +
+    `and not a current Site Q anywhere. Past Site Qs are listed last.`;
+}
+
 // ---- Page wiring (browser only) ----
 
 async function who2qInit() {
@@ -70,6 +150,14 @@ async function who2qInit() {
     document.getElementById('params-note').textContent =
       `Regular: ${Math.round(p.regular_threshold * 100)}%+ of the last ${p.window_weeks} wks · ` +
       `Overdue: no Q in ${p.stale_days}+ days`;
+    if (p.candidate_window_weeks) {
+      // The candidate rule's tooltip says the export's actual settings.
+      const tip = document.getElementById('w2q-cands-tip');
+      tip.dataset.tip = who2qCandidateRule(p);
+      tip.setAttribute('aria-label', tip.dataset.tip);
+      document.getElementById('w2q-cands-note').textContent =
+        `Posts here · last ${p.candidate_window_weeks} wks`;
+    }
 
     const byName = {};
     data.aos.forEach(ao => {
@@ -86,8 +174,20 @@ async function who2qInit() {
       location.hash = 'ao=' + encodeURIComponent(ao.name);
       document.getElementById('w2q-ao').hidden = false;
       document.getElementById('w2q-ao-name').textContent = ao.name;
+      // Site Qs and candidates: only when the export wrote them (older JSON lacks them).
+      const hasSiteQs = Array.isArray(ao.site_qs) && Array.isArray(ao.candidates);
+      document.getElementById('w2q-siteqs-section').hidden = !hasSiteQs;
+      document.getElementById('w2q-cands-section').hidden = !hasSiteQs;
+      if (hasSiteQs) {
+        document.getElementById('w2q-siteqs').innerHTML = who2qSiteQRowsHtml(ao.site_qs);
+        document.getElementById('w2q-cands').innerHTML = who2qCandidateRowsHtml(ao.candidates);
+      }
+      const siteQPart = hasSiteQs
+        ? `${ao.site_qs.length} Site Q${ao.site_qs.length === 1 ? '' : 's'} · ` +
+          `${ao.candidates.length} candidate${ao.candidates.length === 1 ? '' : 's'} · `
+        : '';
       document.getElementById('w2q-ao-summary').textContent =
-        `${ao.never_qd.length} never Q'd · ${ao.stale_qs.length} overdue · ` +
+        `${siteQPart}${ao.never_qd.length} never Q'd · ${ao.stale_qs.length} overdue · ` +
         `${ao.workouts_in_window} workouts in ${data.params.window_weeks} wks`;
       document.getElementById('never-qd-count').textContent = 'Regulars · posts here';
       document.getElementById('stale-q-count').textContent = 'Days since';
@@ -115,5 +215,8 @@ if (typeof document !== 'undefined') {
 
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
-  module.exports = { who2qFmtRate, who2qFmtDate, who2qShortDate, who2qNeverRowsHtml, who2qStaleRowsHtml };
+  module.exports = {
+    who2qFmtRate, who2qFmtDate, who2qShortDate, who2qNeverRowsHtml, who2qStaleRowsHtml,
+    who2qRosterDate, who2qTenure, who2qSiteQRowsHtml, who2qCandidateRowsHtml, who2qCandidateRule,
+  };
 }

@@ -39,6 +39,22 @@ published as CSV (`site_qs_csv_url`). One row per Site Q term:
 | End Date | Blank or `Not Yet` while current; a date once the term ends. Keep the row: it's the history |
 | Season | `All`, `Summer` (May–Sept) or `Winter` (Oct–Apr). A man listed for both is shown once, all year |
 
+**Keeping the roster current:**
+
+- **A term ends:** fill his End Date (don't delete the row; it's the history and
+  it marks him as a past Site Q among candidates), then add a new row for the
+  successor with his Start Date.
+- **A seasonal AO** (7th Inning Stretch): one row per man with Season `Summer`
+  or `Winter`. A man who serves both seasons gets two rows, or one row with
+  `All`; either way the page shows him once, all year.
+- **A new AO:** if the sheet's spelling differs from Who to Q's, add it to
+  `ao_aliases`; the export's `WARNING:` lines name anything it couldn't match.
+
+The page (`static/stats/who2q.html`) shows each AO's current Site Qs with
+tenure ("since Sep 10, 2026 · 4 wk"; a `~` means an approximate start) and its
+candidates, past Site Qs under a divider. The candidate tooltip reads the
+thresholds from `who2q.json`'s `params`, so changing them here needs no page edit.
+
 A malformed roster (missing column, unreadable date, unknown season) **stops
 the export** so the site keeps yesterday's data; the run log says which row.
 A name or AO that matches nothing is a `WARNING:` line in the log, not a stop.
