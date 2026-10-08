@@ -102,6 +102,60 @@ function paxBuildRows(allRawRows, now) {
   }).sort((a, b) => a['Site'].localeCompare(b['Site']));
 }
 
+// ── Potential Cotters ──
+// A Cotter is a man who comes back after time away. This list is the men we'd
+// like to see do that: regulars who've gone quiet. Any post anywhere counts as
+// being seen (#downrange and Shield Lock included: a man traveling isn't gone).
+const PAX_COTTER_REGULAR_POSTS = 8;    // posts in the window before his last one...
+const PAX_COTTER_REGULAR_DAYS = 90;    // ...this many days back = he was a regular
+const PAX_COTTER_QUIET_DAYS = 21;      // no post in this many days = gone quiet
+const PAX_COTTER_MAX_DAYS = 182;       // gone longer than ~6 months drops off
+
+// All raw rows (every year: the window reaches back past January) -> the list,
+// most recently gone first. Each: name, last date, last AO, home AO, days away.
+function paxCotters(rows, now, excluded = {}) {
+  const byName = {};
+  rows.forEach(r => {
+    const name = (r['Name'] || '').trim();
+    if (!name || !r['Date']) return;
+    (byName[name] = byName[name] || []).push(r);
+  });
+  const dayMs = 86400000;
+  const out = [];
+  Object.entries(byName).forEach(([name, recs]) => {
+    if (excluded[name.toLowerCase()]) return;
+    recs.sort((a, b) => a['Date'].localeCompare(b['Date']));
+    const last = recs[recs.length - 1];
+    const lastDate = f3ParseLocalDate(last['Date']);
+    if (!lastDate) return;
+    const daysAway = Math.floor((now - lastDate) / dayMs);
+    if (daysAway < PAX_COTTER_QUIET_DAYS || daysAway > PAX_COTTER_MAX_DAYS) return;
+    // "Was a regular" counts Peak City AOs only: a man whose posts are mostly
+    // #downrange / Shield Lock is usually another region's PAX, not ours.
+    // "Seen" (lastDate above) still counts any post anywhere.
+    const windowStart = lastDate - PAX_COTTER_REGULAR_DAYS * dayMs;
+    const recent = recs.filter(r => f3ParseLocalDate(r['Date']) > windowStart &&
+      f3CountsTowardAttendance((r['Site'] || '').trim()));
+    if (recent.length < PAX_COTTER_REGULAR_POSTS) return;
+    // Home AO: where he posted most in that window.
+    const sites = {};
+    recent.forEach(r => {
+      const s = (r['Site'] || '').trim();
+      if (s) sites[s] = (sites[s] || 0) + 1;
+    });
+    const home = Object.entries(sites).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0];
+    out.push({
+      name,
+      lastDate: last['Date'],
+      lastAo: (last['Site'] || '').trim(),
+      homeAo: home ? home[0] : '',
+      daysAway,
+      posts: recent.length,
+    });
+  });
+  return out.sort((a, b) => a.daysAway - b.daysAway || a.name.localeCompare(b.name));
+}
+
 const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Cooling Off'];
 
 (async function () {
@@ -111,16 +165,23 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
 
   let allRows = [];
   let filteredRows = [];
+  let everyRow = [];
 
   try {
-    const allRawRows = await f3LoadRawRows({ year: '2026' });
+    // Every year for Potential Cotters (its window reaches back ~9 months);
+    // this year only for everything else on the page, as before.
+    everyRow = await f3LoadRawRows();
+    const allRawRows = everyRow.filter(r => r['Date'].startsWith('2026-'));
 
     allRows = paxBuildRows(allRawRows, now);
 
   } catch (e) {
     CHART_IDS.forEach(id => f3ShowError(id));
+    f3ShowError('cotters-list');
     return;
   }
+
+  renderCotters(paxCotters(everyRow, now, F3_COTTER_EXCLUDED_LC));
 
   if (!allRows.length) {
     CHART_IDS.forEach(id => f3ShowEmpty(id, 'No 2026 posts logged yet'));
@@ -168,6 +229,21 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
       charts[id] = new ApexCharts(document.getElementById(id), options);
       charts[id].render();
     });
+  }
+
+  // Potential Cotters: count in the collapsed heading, rows inside. Not tied to
+  // the PC Regulars toggle (a man who's gone quiet has usually dropped off it).
+  function renderCotters(list) {
+    document.getElementById('cotters-count').textContent = `${list.length} ${list.length === 1 ? 'man' : 'men'}`;
+    const day = iso => f3ParseLocalDate(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    document.getElementById('cotters-list').innerHTML = list.length ? list.map(c => {
+      const home = c.homeAo && c.homeAo !== c.lastAo ? ` · home AO ${f3Esc(c.homeAo)}` : '';
+      return `<div class="row row--stacked">
+        <span class="row-name">${f3PaxLink(c.name)}</span>
+        <span class="label">Last seen ${day(c.lastDate)} at ${f3Esc(c.lastAo)}${home}</span>
+        <span class="row-val" aria-label="${c.daysAway} days since his last post">${c.daysAway}d</span>
+      </div>`;
+    }).join('') : '<div class="status label empty-state">No regulars have gone quiet. Everybody\'s posting.</div>';
   }
 
   function renderStatCards(rows) {
@@ -316,5 +392,5 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
 })();
 
 if (typeof module !== 'undefined') {
-  module.exports = { paxBuildRows };
+  module.exports = { paxBuildRows, paxCotters, PAX_COTTER_QUIET_DAYS, PAX_COTTER_MAX_DAYS };
 }

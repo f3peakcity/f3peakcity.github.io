@@ -56,6 +56,38 @@ across all of 2026 would have stripped five already-earned completions
 picking a new cutoff.** Compare completion counts before and after against the
 published sheet; the totals should hold.
 
+## Potential Cotters (`pax.html`)
+
+A Cotter is a man who comes back after time away. The PAX page's collapsible
+**Potential Cotters** list is the regulars we haven't seen lately, so someone
+can reach out and welcome them back. Most recently gone first.
+
+- **Was a regular:** 8+ posts **at Peak City AOs** in the 90 days before his last
+  post. #downrange and Shield Lock don't count here: men whose posts are mostly
+  out of region are usually another region's PAX.
+- **Gone quiet:** no post **anywhere** (any AO, #downrange included) in 21+ days.
+  A regular who's traveling and posting downrange isn't on the list.
+- **Drops off** after about 6 months away (182 days).
+- Shows his last date and AO, and his home AO (where he posted most in that
+  window) when it differs. Not tied to the PC Regulars toggle.
+- Thresholds are the `PAX_COTTER_*` constants in `assets/js/pax.js`.
+
+### Keeping someone off the list
+
+For any reason (moved, injured, stepped away on purpose, asked not to be listed):
+
+1. In `assets/js/data.js`, add his name **in lowercase** with a short reason to
+   `F3_COTTER_EXCLUDED_LC`:
+
+   ```js
+   const F3_COTTER_EXCLUDED_LC = {
+     'new name': 'moved to Charlotte, 2026-10',
+   };
+   ```
+
+2. Bump `?v=` on every stats page (`data.js` is shared; see [Cache busting](#cache-busting)).
+3. Run the tests and open a pull request. To put him back, delete the line.
+
 ## New Guy Journey (`fng.html`)
 
 Built from attendance alone. Each rate counts only FNGs old enough to have
