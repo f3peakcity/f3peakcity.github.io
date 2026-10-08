@@ -56,6 +56,29 @@ across all of 2026 would have stripped five already-earned completions
 picking a new cutoff.** Compare completion counts before and after against the
 published sheet; the totals should hold.
 
+## Who to Q (`who2q.html`)
+
+The one stats page that doesn't read the Raw sheet tab. It reads
+`data/who2q.json`, built once a day from F3 Nation BigQuery by
+`scripts/who2q_export.py` (the job runs in the Slack_Data_Collector repo).
+**Full documentation: [`scripts/README-who2q.md`](../../scripts/README-who2q.md).**
+
+For each AO it shows:
+
+- **Current Site Qs** with tenure, from the **Site Q roster** tab of the
+  [Peak City Q Sheet](https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit?gid=1809974440).
+  Site Qs keep that tab current: fill End Date when a term ends and add the
+  successor's row.
+- **Site Q candidates:** 40%+ attendance there and at least one Q there over
+  26 weeks, not a current Site Q anywhere; past Site Qs listed last.
+- **Never Q'd here** (regulars, 30%+ over 12 weeks) and **Overdue for a Q**
+  (no Q there in 60+ days).
+
+Every threshold, alias and exception is in `scripts/who2q_config.json`:
+`ao_aliases` and `name_aliases` for spellings, `site_q_user_ids` for two men
+with one name (Sputnik), and `visiting_q_windows` for takeovers, whose `keep`
+list counts Peak City men who Q'd that week (Santa Maria).
+
 ## Potential Cotters (`pax.html`)
 
 A Cotter is a man who comes back after time away. The PAX page's collapsible
@@ -73,6 +96,13 @@ can reach out and welcome them back. Most recently gone first.
 - Thresholds are the `PAX_COTTER_*` constants in `assets/js/pax.js`.
 
 ### Keeping someone off the list
+
+**Currently excluded** (`F3_COTTER_EXCLUDED_LC`):
+
+| Name | Why |
+|---|---|
+| Hook | Home region isn't Peak City |
+| Pet Sounds | Home region isn't Peak City |
 
 For any reason (moved, injured, stepped away on purpose, asked not to be listed):
 
