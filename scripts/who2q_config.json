@@ -12,8 +12,12 @@
   "candidate_min_qs": 1,
   "recent_site_q_months": 12,
   "visiting_q_windows": [
-    {"from": "2026-09-22", "to": "2026-09-25", "note": "South Cary (SCary) takeover: their men Q'd our workouts"}
+    {"from": "2026-09-22", "to": "2026-09-25", "note": "South Cary (SCary) takeover: their men Q'd our workouts",
+     "keep": {"106065": "Santa Maria: Peak City man, his 9/23 Q at 7th Inning Stretch counts"}}
   ],
+  "site_q_user_ids": {
+    "Sputnik": {"user_id": 44977, "note": "Eugene Kornikh - Sputnik; user 2424 is a different Sputnik"}
+  },
   "ao_aliases": {
     "Board Meeting": "The Board Meeting",
     "Bounty Hunters": "Bounty Hunters (BH)",

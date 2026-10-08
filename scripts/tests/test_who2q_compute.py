@@ -229,18 +229,28 @@ class TestRosterMatching(unittest.TestCase):
         self.assertEqual(match_ao("Hot For Teacher", self.AOS, SITE_CONFIG), "Hot for Teacher")
         self.assertIsNone(match_ao("F3 Dads", self.AOS, SITE_CONFIG))
 
-    def test_names_resolve_through_aliases_and_two_accounts_both_match(self):
-        names = {1: "Ramsay", 2: "The Chicken Little", 3: "Sputnik", 4: "Sputnik"}
+    def test_names_resolve_through_aliases_and_pins(self):
+        names = {1: "Ramsay", 2: "The Chicken Little", 3: "Sputnik", 4: "Sputnik", 5: "Twin", 6: "Twin"}
         terms = parse_roster(ROSTER_HEADER +
                              "Tue,CougarTown,Ramsay,,,All,\n"
                              "Sat,Lion's Den,Chicken Little,,,All,\n"
                              "Wed,Lion's Den,Sputnik,,,All,\n"
+                             "Wed,Lion's Den,Twin,,,All,\n"
                              "Wed,Lion's Den,Nobody,,,All,\n"
                              "Sat,F3 Dads,Ramsay,,,All,\n")
-        matched, warnings = match_roster(terms, names, self.AOS, SITE_CONFIG)
+        cfg = dict(SITE_CONFIG, site_q_user_ids={"Sputnik": {"user_id": 4, "note": "the one we want"}})
+        matched, warnings = match_roster(terms, names, self.AOS, cfg)
         self.assertEqual(matched[1]["uids"], [2])
-        self.assertEqual(matched[2]["uids"], [3, 4], "both of Sputnik's accounts")
-        self.assertEqual(len(warnings), 2, "one unmatched name, one unmatched AO")
+        self.assertEqual(matched[2]["uids"], [4], "two men share 'Sputnik'; the pin picks one")
+        self.assertEqual(matched[3]["uids"], [5, 6], "an unpinned shared name covers both")
+        self.assertEqual(len(warnings), 3, "the unpinned shared name, the unmatched name, the unmatched AO")
+        self.assertIn("site_q_user_ids", warnings[0])
+
+    def test_takeover_keep_list_counts_that_mans_q(self):
+        cfg = dict(SITE_CONFIG, visiting_q_windows=[{"from": "2026-02-23", "to": "2026-02-24",
+                                                     "keep": {"7": "a Peak City man"}}])
+        self.assertFalse(is_visiting_q(row(7, "Local", "A", date(2026, 2, 23)), cfg))
+        self.assertTrue(is_visiting_q(row(8, "Visitor", "A", date(2026, 2, 23)), cfg))
 
 
 def terms_for(csv_body, names, aos):

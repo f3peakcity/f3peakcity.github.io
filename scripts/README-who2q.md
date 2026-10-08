@@ -53,8 +53,14 @@ record (`first_seen`: BigQuery history starts around Aug 2025, so read it as
 "since at least").
 
 Takeovers (`visiting_q_windows`): another region's men leading our workouts.
-Their Qs never count, for candidates or for "Overdue for a Q". Same dates as
-`F3_VISITING_Q_WINDOWS` in `static/stats/assets/js/data.js`.
+Their Qs never count, for candidates or for "Overdue for a Q". A Peak City man
+who Q'd during a takeover goes in that window's `keep`, by BigQuery user id
+(Santa Maria, 106065); his Q then counts. Keep the dates and men in sync with
+`F3_VISITING_Q_WINDOWS` in `static/stats/assets/js/data.js` (by name there).
+
+Two different men with the same name (there are two Sputniks): pin the roster
+name to one BigQuery user id in `site_q_user_ids` (`Sputnik` → 44977, Eugene
+Kornikh). An unpinned name that matches several people is a `WARNING:`.
 
 **Check a candidate list by hand** (Hot for Teacher; expect the page's list
 plus any current Site Q, who the page leaves out):

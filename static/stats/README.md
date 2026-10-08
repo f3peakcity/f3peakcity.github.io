@@ -162,7 +162,12 @@ metric (Leadership page, AO unique Qs, bench strength, Q load). Men whose only
 Qs came during a takeover are treated as visitors and kept off the pipeline
 and bench. Attendance, PAX totals and #112 still count those posts.
 
-- **2026-09-22 to 2026-09-25**: South Cary (SCary) takeover.
+- **2026-09-22 to 2026-09-25**: South Cary (SCary) takeover. Exception
+  (`keep`): Santa Maria, a Peak City man whose 9/23 Q at 7th Inning Stretch counts.
+
+A window's `keep` lists Peak City men (lowercase names) who Q'd during it; their
+Qs still count. The Who to Q export keeps the same men by user id in
+`scripts/who2q_config.json`.
 
 Add a line for each future takeover.
 

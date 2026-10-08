@@ -433,12 +433,17 @@ function f3IsFng(r) {
 // are real posts (attendance, #112 and PAX totals keep them) but they are not
 // Peak City leadership, so every Q-depth metric skips them via f3IsVisitingQ.
 // Add a line per takeover; dates are inclusive.
+// `keep` = Peak City men who Q'd during a takeover: their Qs still count
+// (lowercase names; the export's who2q_config.json keeps the same men by user id).
 const F3_VISITING_Q_WINDOWS = [
-  { from: '2026-09-22', to: '2026-09-25', note: 'South Cary (SCary) takeover: their men Q\'d our workouts' },
+  { from: '2026-09-22', to: '2026-09-25', note: 'South Cary (SCary) takeover: their men Q\'d our workouts',
+    keep: ['santa maria'] },
 ];
 function f3IsVisitingQ(r) {
   const d = r['Date'] || '';
-  return r['Role'] === 'Q' && F3_VISITING_Q_WINDOWS.some(w => d >= w.from && d <= w.to);
+  const name = String(r['Name'] || '').trim().toLowerCase();
+  return r['Role'] === 'Q' &&
+    F3_VISITING_Q_WINDOWS.some(w => d >= w.from && d <= w.to && !(w.keep || []).includes(name));
 }
 
 // Q load per AO over the last `days`: Q-led records, unique Qs, and the share

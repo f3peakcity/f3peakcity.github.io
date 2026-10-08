@@ -267,7 +267,9 @@ def is_visiting_q(row, config):
     F3_VISITING_Q_WINDOWS in static/stats/assets/js/data.js).
     """
     d = row["start_date"].isoformat()
-    return any(w["from"] <= d <= w["to"] for w in config.get("visiting_q_windows", []))
+    # `keep`: user ids of Peak City men who Q'd during the takeover; theirs count.
+    return any(w["from"] <= d <= w["to"] and str(row["user_id"]) not in w.get("keep", {})
+               for w in config.get("visiting_q_windows", []))
 
 
 def match_ao(roster_ao, ao_names, config):
@@ -295,19 +297,28 @@ def _period_end(iso):
 def match_roster(terms, names, ao_names, config):
     """Attach BigQuery user ids and the Who-to-Q AO name to each roster term.
 
-    names: user_id -> canonical name (latest_names). A name can map to several
-    user ids when one man has two accounts merged by name_aliases (Sputnik);
-    the term then covers all of them. Returns (terms, warnings); a term that
-    matches no person or no AO is kept and reported once.
+    names: user_id -> canonical name (latest_names). Two different men can share
+    a name (two Sputniks): site_q_user_ids pins a roster name to one user id.
+    An unpinned name that matches several people covers all of them and is
+    reported. Returns (terms, warnings); each problem is reported once.
     """
     by_name = defaultdict(set)
     for uid, name in names.items():
         by_name[normalize(name).lower()].add(uid)
     aliases = {normalize(k): v for k, v in config.get("name_aliases", {}).items()}
+    pins = {normalize(k).lower(): v["user_id"] for k, v in config.get("site_q_user_ids", {}).items()}
+    by_str_uid = {str(uid): uid for uid in names}
     out, warnings = [], []
     for t in terms:
         canonical = aliases.get(t["name"], t["name"])
-        uids = sorted(by_name.get(normalize(canonical).lower(), set()), key=str)
+        pin = pins.get(t["name"].lower())
+        if pin is not None:
+            uids = [by_str_uid[str(pin)]] if str(pin) in by_str_uid else []
+        else:
+            uids = sorted(by_name.get(normalize(canonical).lower(), set()), key=str)
+            if len(uids) > 1:
+                warnings.append("roster name {!r} matches {} people in BigQuery; pin one in site_q_user_ids"
+                                .format(t["name"], len(uids)))
         if not uids:
             warnings.append("roster name {!r} ({}) matches no one in BigQuery; add a name_aliases entry"
                             .format(t["name"], t["ao"]))
