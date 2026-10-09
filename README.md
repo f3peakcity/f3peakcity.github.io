@@ -63,3 +63,11 @@ To add or update an AO location make sure to update the following places.
 1. Submit a [F3 Nation Map Change Request](https://f3nation.com/map-changes/).
 2. Update the link on the [schedule](./content/schedule/index.md).
 3. Update the links on the [Q Sheet](https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit?usp=sharing).
+4. Add its Site Qs to the **Site Q roster** tab of the Q Sheet. If the AO's name there differs from F3 Nation's, add an `ao_aliases` entry in `scripts/who2q_config.json` (see [scripts/README-who2q.md](./scripts/README-who2q.md)).
+
+## Stats dashboard
+
+The stats pages at [f3peakcity.com/stats](https://f3peakcity.com/stats/) are plain HTML and JavaScript in `static/stats/`, reading the published Google Sheet in the browser. Who to Q is the exception: it reads a JSON file built daily from F3 Nation BigQuery.
+
+- **What each number means, and how to change the lists** (not-an-FNG, Potential Cotters exclusions, takeovers): [static/stats/README.md](./static/stats/README.md)
+- **Who to Q, the Site Q roster and the daily export:** [scripts/README-who2q.md](./scripts/README-who2q.md)

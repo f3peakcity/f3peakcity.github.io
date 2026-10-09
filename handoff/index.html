@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peak City Stats</title>
+  <link rel="stylesheet" href="stats.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/stats/index.html">
+        <img src="assets/f3-peak-city-white-on-transparent.png" alt="F3 Peak City">
+        <span>Peak City Stats</span>
+      </a>
+      <nav class="site-nav">
+        <a href="/stats/ao.html">AO Stats</a>
+        <a href="/stats/pax.html">PAX Stats</a>
+        <a href="/stats/fng.html">FNG Stats</a>
+        <a href="/stats/leaderboard.html">#112 Leaderboard</a>
+        <a href="/stats/who2q.html">Who to Q</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="eyebrow label">
+      <span>All-time region total</span>
+      <span>Apex, NC</span>
+    </div>
+
+    <section class="hero">
+      <div class="hero-num" id="stat-total-posts">7,942</div>
+      <div class="hero-side">
+        <div class="hero-kicker">Posts &amp; counting ↑</div>
+        <p class="hero-lede">Every post in the gloom, logged. Pick a dashboard below to see where the region stands.</p>
+      </div>
+    </section>
+
+    <section class="kpis">
+      <div class="kpi">
+        <div class="kpi-num" id="stat-total-pax">284</div>
+        <div class="label">Total PAX</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-num" id="stat-active-aos">17</div>
+        <div class="label">Active AOs</div>
+      </div>
+      <div class="kpi kpi--accent">
+        <div class="kpi-num"><span id="stat-fng-pct">63%</span><small id="stat-fng-ratio">26 of 41</small></div>
+        <div class="label">FNG → Regular</div>
+      </div>
+    </section>
+
+    <div class="flag"><span>Dashboards</span></div>
+
+    <ul class="dash-list">
+      <li><a class="dash" href="/stats/ao.html">
+        <span class="dash-idx">01</span>
+        <div><div class="dash-title">AO Stats</div><p class="dash-desc">Attendance trends, Q rotation, and FNG count by workout location.</p></div>
+        <div class="dash-meta"><span class="label" id="meta-aos">17 AOs</span><span class="arrow">→</span></div>
+      </a></li>
+      <li><a class="dash" href="/stats/pax.html">
+        <span class="dash-idx">02</span>
+        <div><div class="dash-title">PAX Stats</div><p class="dash-desc">Posts, Qs, home AO, and last-seen date for every PAX in the region.</p></div>
+        <div class="dash-meta"><span class="label" id="meta-pax">284 PAX</span><span class="arrow">→</span></div>
+      </a></li>
+      <li><a class="dash" href="/stats/fng.html">
+        <span class="dash-idx">03</span>
+        <div><div class="dash-title">FNG Stats</div><p class="dash-desc">Every FNG from first post through their first 60 days in the gloom.</p></div>
+        <div class="dash-meta"><span class="label" id="meta-fngs">41 FNGs · 2026</span><span class="arrow">→</span></div>
+      </a></li>
+      <li><a class="dash" href="/stats/leaderboard.html">
+        <span class="dash-idx">04</span>
+        <div><div class="dash-title">#112 Leaderboard</div><p class="dash-desc">12 posts a month. Who's leading the charge? Updated live.</p></div>
+        <div class="dash-meta"><span class="label" id="meta-lb">284 PAX</span><span class="arrow">→</span></div>
+      </a></li>
+      <li><a class="dash" href="/stats/who2q.html">
+        <span class="dash-idx">05</span>
+        <div><div class="dash-title">Who to Q</div><p class="dash-desc">Q candidates by AO: regulars who haven't led yet, and past Qs who are overdue.</p></div>
+        <div class="dash-meta"><span class="label">By AO</span><span class="arrow">→</span></div>
+      </a></li>
+    </ul>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap label">
+      <span>Refreshed on load from Google Sheets</span>
+      <a href="https://f3peakcity.com">f3peakcity.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>
