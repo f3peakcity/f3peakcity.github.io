@@ -85,6 +85,12 @@ function fngBuildRows(allRawRows, now) {
     const daysSinceLast = totalPosts >= 2 && lastIso
       ? Math.floor((now - f3ParseLocalDate(lastIso)) / 86400000) : '';
 
+    // First Q at or after the FNG post: counted posts (no #downrange/Shield Lock)
+    // up to it, minus takeover Qs (f3IsVisitingQ). Blank until he has led.
+    const counted = sorted.filter(r => r['Date'] >= firstPostIso && f3CountsTowardAttendance(r['Site']));
+    const qIdx = counted.findIndex(r => r['Role'] === 'Q' && !f3IsVisitingQ(r));
+    const firstQ = qIdx >= 0 ? counted[qIdx] : null;
+
     rows.push({
       'FNG Name': name,
       'First Post': firstPost,
@@ -94,6 +100,8 @@ function fngBuildRows(allRawRows, now) {
       'Days since last seen': daysSinceLast,
       'Home AO': homeAO,
       'Status': status,
+      'Days to first Q': firstQ ? Math.round((f3ParseLocalDate(firstQ['Date']) - firstPostDate) / 86400000) : '',
+      'Posts before first Q': firstQ ? qIdx : '',
       '_firstIso': firstPostIso,
       '_returnDays': after.length ? daysAfter(after[0]) : null,
       '_posts30': after.filter(r => daysAfter(r) <= 30).length,
@@ -130,6 +138,20 @@ function fngJourneyStages(rows, now) {
     stage("Has Q'd", 0, r => r['_hasQd'],
       'Has led a workout since their first post: the first contribution step the data can see.'),
   ];
+}
+
+// Summary of the lead-up to a first Q, among FNGs who have Q'd.
+function fngMedian(xs) {
+  const s = xs.slice().sort((a, b) => a - b), m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+function fngFirstQSummary(rows) {
+  const qd = rows.filter(r => r['Days to first Q'] !== '');
+  return {
+    n: qd.length, of: rows.length,
+    medianDays: qd.length ? fngMedian(qd.map(r => r['Days to first Q'])) : null,
+    medianPosts: qd.length ? fngMedian(qd.map(r => r['Posts before first Q'])) : null,
+  };
 }
 
 // 30-day return grouped by a key (home AO or first-post month).
@@ -171,7 +193,7 @@ const FNG_STATUSES = [
 (async function () {
   const now = new Date();
   const IDS = ['fng-journey', 'chart-fng-status', 'chart-days-to-return', 'chart-fng-monthly',
-    'chart-fng-return-month', 'fng-return-ao', 'fng-noreturn', 'fng-faded', 'fng-readytoq', 'fng-table-container'];
+    'chart-fng-return-month', 'fng-firstq', 'fng-return-ao', 'fng-noreturn', 'fng-faded', 'fng-readytoq', 'fng-table-container'];
   let allRows = [];
 
   try {
@@ -200,6 +222,7 @@ const FNG_STATUSES = [
 
   renderStatCards(filteredRows);
   renderJourney(filteredRows);
+  renderFirstQ(filteredRows);
   renderReturnByMonth(filteredRows);
   renderReturnByAo(filteredRows);
   renderFollowUps(filteredRows);
@@ -225,6 +248,18 @@ const FNG_STATUSES = [
         <span class="bar-track"><span class="bar-fill" style="width:${pct(st.n, st.of)}%"></span></span>
         <span class="bar-val">${pct(st.n, st.of)}%</span>
       </div>`).join('');
+  }
+
+  function renderFirstQ(rows) {
+    const q = fngFirstQSummary(rows);
+    const fmt = v => (v === null ? '—' : v);
+    document.getElementById('fng-firstq').innerHTML = `
+      <div class="row"><span class="row-name">FNGs who have Q'd ${f3InfoDot('Share of FNGs in this list with at least one Q at a Peak City site. Takeover, #downrange and Shield Lock Qs do not count.')}</span>
+        <span class="label">${q.n} of ${q.of}</span><span class="row-val">${pct(q.n, q.of)}%</span></div>
+      <div class="row"><span class="row-name">Median days to first Q ${f3InfoDot('Days from first post to first Q, among FNGs who have Q\'d.')}</span>
+        <span class="label"></span><span class="row-val">${fmt(q.medianDays)}</span></div>
+      <div class="row"><span class="row-name">Median posts before first Q ${f3InfoDot('Posts (counting the first) before the post he led, among FNGs who have Q\'d.')}</span>
+        <span class="label"></span><span class="row-val">${fmt(q.medianPosts)}</span></div>`;
   }
 
   function renderReturnByMonth(rows) {
@@ -341,6 +376,8 @@ const FNG_STATUSES = [
               ${th('2nd Post', '2nd post', 'Date of second attendance')}
               ${th('Days to 2nd post', 'Days to 2nd', 'Days between first and second post; lower is a better retention signal', true)}
               ${th('Days since last seen', 'Last seen', `For FNGs who have posted more than once: days since their most recent post. Rust at ${FNG_FADED_DAYS}+ days, when a guy who came back starts to fade.`, true)}
+              ${th('Days to first Q', 'Days to Q', 'Days from first post to first Q. Blank until he has led. Takeover, #downrange and Shield Lock Qs do not count.', true)}
+              ${th('Posts before first Q', 'Posts to Q', 'Posts (counting the first) before the post he led. Blank until he has led.', true)}
               ${th('Status', 'Status', FNG_STATUSES.map(([, label, , tip]) => `${label}: ${tip}`).join(' '))}
             </tr>
           </thead>
@@ -361,6 +398,8 @@ const FNG_STATUSES = [
       <td class="nowrap">${f3Esc(r['2nd Post'] || '—')}</td>
       <td class="num">${r['Days to 2nd post'] === '' ? '—' : r['Days to 2nd post']}</td>
       <td class="num">${fngLastSeenCell(r['Days since last seen'])}</td>
+      <td class="num">${r['Days to first Q'] === '' ? '—' : r['Days to first Q']}</td>
+      <td class="num">${r['Posts before first Q'] === '' ? '—' : r['Posts before first Q']}</td>
       <td class="nowrap">${f3Esc(r['Status'] || '—')}</td>
     </tr>`).join('');
     f3StackLabels(body.closest('table'));
@@ -368,6 +407,6 @@ const FNG_STATUSES = [
 })();
 
 if (typeof module !== 'undefined') {
-  module.exports = { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps };
+  module.exports = { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngFirstQSummary, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps };
 }
 
