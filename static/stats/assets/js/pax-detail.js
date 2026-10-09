@@ -50,6 +50,33 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
     }));
 }
 
+// Give/take benchmark: a man should Q once per this many posts, judged over the
+// trailing window. Tune here; documented in static/stats/README.md.
+const PAX_DETAIL_POSTS_PER_Q = 12;
+const PAX_DETAIL_BALANCE_WEEKS = 26;
+
+// Pure: rows + name + now -> { lastQ, weeksSinceQ, posts, qs, onTrack }.
+// Posts and Qs skip #downrange/Shield Lock; takeover Qs (f3IsVisitingQ) don't count.
+function paxDetailQBalance(rows, paxName, now) {
+  const cutoff = new Date(now - PAX_DETAIL_BALANCE_WEEKS * F3_MS_PER_WEEK);
+  let lastQ = null, posts = 0, qs = 0;
+  rows.forEach(r => {
+    if (r['Name'].trim() !== paxName || !f3CountsTowardAttendance(r['Site'])) return;
+    const isQ = r['Role'] === 'Q' && !f3IsVisitingQ(r);
+    if (isQ && (!lastQ || r['Date'] > lastQ)) lastQ = r['Date'];
+    const d = f3ParseLocalDate(r['Date']);
+    if (!d || d < cutoff) return;
+    posts++;
+    if (isQ) qs++;
+  });
+  const last = lastQ && f3ParseLocalDate(lastQ);
+  return {
+    lastQ, posts, qs,
+    weeksSinceQ: last ? Math.max(0, Math.floor((now - last) / F3_MS_PER_WEEK)) : null,
+    onTrack: qs * PAX_DETAIL_POSTS_PER_Q >= posts,
+  };
+}
+
 (async function () {
   const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -102,6 +129,8 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
   document.getElementById('detail-pax-sub').textContent =
     `${totalPosts.toLocaleString()} posts · ${totalQs.toLocaleString()} Qs · ${aosVisited} AOs in 2026`;
 
+  renderQBalance(paxDetailQBalance(allRawRows, paxName, new Date()));
+
   // Timeline visuals (real-AO posts only, so counts match the summary above).
   const realRows = paxRows.filter(r => paxDetailIsRealAo((r['Site'] || '').trim()));
   renderRhythm(realRows);
@@ -121,6 +150,26 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
       </tr>`).join('')}</tbody>
     </table>`;
   f3StackLabels(grid.querySelector('table'));
+
+  // Give/take: weeks since last Q, and Qs vs posts against the benchmark.
+  function renderQBalance(b) {
+    const noQ = b.weeksSinceQ === null;
+    document.getElementById('stat-lastq').textContent = noQ ? 'Never' : `${b.weeksSinceQ} wk`;
+    document.getElementById('stat-lastq-date').textContent = noQ ? 'No Q on record in 2026' : fmtDate(b.lastQ);
+    const el = document.getElementById('stat-balance');
+    const verdict = document.getElementById('stat-balance-read');
+    const win = `${PAX_DETAIL_BALANCE_WEEKS} wks`;
+    if (!b.posts) {
+      el.textContent = '—';
+      verdict.textContent = `No posts in the last ${win}`;
+    } else {
+      el.textContent = b.qs ? `1 per ${Math.round(b.posts / b.qs)}` : '0 Qs';
+      verdict.textContent = `${b.qs} Q${b.qs !== 1 ? 's' : ''} in ${b.posts} posts, last ${win} · ` +
+        (b.onTrack ? 'On track' : 'Due to Q') + ` (goal 1 per ${PAX_DETAIL_POSTS_PER_Q})`;
+      verdict.className = 'label ' + (b.onTrack ? 'tone-none' : 'tone-alert');
+    }
+    document.getElementById('balance-card').hidden = false;
+  }
 
   // Format an ISO date string as e.g. "Jul 1, 2026"; "—" when null.
   function fmtDate(str) {
@@ -220,6 +269,6 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
 })();
 
 if (typeof module !== 'undefined') {
-  module.exports = { paxDetailBuildPerAo };
+  module.exports = { paxDetailBuildPerAo, paxDetailQBalance, PAX_DETAIL_POSTS_PER_Q };
 }
 

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20261002a">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20261009a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -60,6 +60,22 @@
       </div>
     </section>
 
+    <section class="section" id="balance-card" hidden>
+      <div class="section-head"><h2>Give and take</h2><span class="label">Contribute as much as you <span class="tail">take&nbsp;<button type="button" class="info-dot" data-tip="Qs vs posts over the trailing 26 weeks, against a goal of 1 Q per 12 posts. Due to Q means he is below that pace. #downrange / Shield Lock posts and visiting Qs are left out." aria-label="Qs vs posts over the trailing 26 weeks, against a goal of 1 Q per 12 posts. Due to Q means he is below that pace. #downrange / Shield Lock posts and visiting Qs are left out.">&#9432;</button></span></span></div>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="kpi-num" id="stat-lastq">—</div>
+          <div class="label">Since last Q <span class="tail">&nbsp;<button type="button" class="info-dot" data-tip="Whole weeks since this PAX last led a workout at a Peak City AO this year. Visiting-region takeover Qs and #downrange / Shield Lock Qs don't count." aria-label="Whole weeks since this PAX last led a workout at a Peak City AO this year. Visiting-region takeover Qs and #downrange / Shield Lock Qs don't count.">&#9432;</button></span></div>
+          <div class="label" id="stat-lastq-date"></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-num" id="stat-balance">—</div>
+          <div class="label">Q per posts</div>
+          <div class="label" id="stat-balance-read"></div>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="rhythm-card" hidden>
       <div class="section-head"><h2>Posting rhythm</h2><span class="label">One square per <span class="tail">week&nbsp;<button type="button" class="info-dot" data-tip="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week." aria-label="Each square is one week of 2026. Darker = more posts that week; a gold ring means this PAX Q'd that week.">&#9432;</button></span></span></div>
       <div id="pax-rhythm"></div>
@@ -90,7 +106,7 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20261008c"></script>
-<script src="assets/js/pax-detail.js?v=20261002a"></script>
+<script src="assets/js/data.js?v=20261009a"></script>
+<script src="assets/js/pax-detail.js?v=20261009a"></script>
 </body>
 </html>
