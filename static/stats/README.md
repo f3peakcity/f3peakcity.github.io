@@ -135,6 +135,19 @@ Only posts **after** the FNG-tagged post count as coming back.
   then faded* (2–3 posts, none in 21 days, first post within 120 days),
   *ready to Q* (10+ posts, no Q on record).
 
+## PAX detail: give and take (`pax-detail.html`)
+
+"Contribute as much as you take." Two reads per man, region-wide:
+
+- **Since last Q:** whole weeks since his most recent Q, with the date.
+  "Never" means no Q on record in the loaded 2026 data.
+- **Q per posts:** Qs vs posts over the trailing 26 weeks
+  (`PAX_DETAIL_BALANCE_WEEKS`), against a goal of 1 Q per 12 posts
+  (`PAX_DETAIL_POSTS_PER_Q`). **On track** = `Qs x 12 >= posts`; otherwise
+  **Due to Q** (rust). Same benchmark for everyone.
+- Counted like Leadership: takeover Qs (`f3IsVisitingQ`) and Q rows at `#downrange` / Shield Lock are excluded from Qs; `#downrange` / Shield Lock rows also drop out of posts, but a takeover post still counts as a post. Not shown on the
+  Leadership page (yet).
+
 ## Leadership (`leadership.html`)
 
 Q records at Peak City sites only (`#downrange` and Shield Lock excluded).
