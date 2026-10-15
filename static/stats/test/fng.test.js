@@ -6,8 +6,10 @@ const assert = require('assert');
 const dataUtils = require('../assets/js/data.js');
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
 global.f3IsFng = dataUtils.f3IsFng;
+global.f3IsVisitingQ = dataUtils.f3IsVisitingQ;
+global.f3CountsTowardAttendance = dataUtils.f3CountsTowardAttendance;
 
-const { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps } = require('../assets/js/fng.js');
+const { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngFirstQSummary, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps } = require('../assets/js/fng.js');
 
 let passed = 0;
 let failed = 0;
@@ -167,6 +169,25 @@ test('follow-up lists: no return, faded, ready to Q', () => {
   assert.deepStrictEqual(f.noReturn.map(r => r['FNG Name']), ['Missed']);
   assert.deepStrictEqual(f.faded.map(r => r['FNG Name']), ['Slow']);
   assert.deepStrictEqual(f.readyToQ.map(r => r['FNG Name']), ['Steady']);
+});
+
+test('first Q: days and posts before; blank without a Q; excluded Qs skipped', () => {
+  const rows = fngBuildRows([
+    row('2026-05-01', 'A', 'Das Boot', 'FNG'), row('2026-05-08', 'A', 'Das Boot'), row('2026-05-15', 'A', 'Das Boot'),
+    row('2026-05-20', 'A', '#downrange', 'Q'), row('2026-05-22', 'A', 'Das Boot', 'Q'),
+    row('2026-06-01', 'B', 'Das Boot', 'FNG'), row('2026-09-23', 'B', 'Das Boot', 'Q'),   // takeover window
+    row('2026-06-01', 'C', 'Das Boot', 'FNG'), row('2026-06-08', 'C', 'Das Boot', 'Q'),
+    row('2026-07-01', 'D', 'Das Boot', 'FNG'), row('2026-07-08', 'D', 'Das Boot', 'Q'),
+    row('2026-07-10', 'D', 'Das Boot', 'Q'),
+  ], NOW);
+  const a = byName(rows, 'A');
+  assert.strictEqual(a['Days to first Q'], 21);
+  assert.strictEqual(a['Posts before first Q'], 3);
+  assert.strictEqual(byName(rows, 'B')['Days to first Q'], '');
+  assert.strictEqual(byName(rows, 'B')['Posts before first Q'], '');
+  const s = fngFirstQSummary(rows);
+  assert.deepStrictEqual(s, { n: 3, of: 4, medianDays: 7, medianPosts: 1 });
+  assert.strictEqual(fngFirstQSummary([]).medianDays, null);
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);
