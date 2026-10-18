@@ -498,8 +498,9 @@ function f3QLoadTone(load) {
 // Site names that changed identity in the real world — historical raw rows
 // still carry the old name, so every page needs to read them as the new one.
 // Western Wake Crisis Ministry (WWCM) merged into NeighborUp in Aug 2026;
-// rows before that date still say "WWCM" in the sheet.
-const F3_SITE_ALIASES_LC = { 'wwcm': 'NeighborUp' };
+// rows before that date still say "WWCM" in the sheet. "Neighbor Up" (with a
+// space) is a hand-typed variant that otherwise shows as a second AO.
+const F3_SITE_ALIASES_LC = { 'wwcm': 'NeighborUp', 'neighbor up': 'NeighborUp' };
 function f3CanonicalSite(site) {
   const s = String(site || '').trim();
   return F3_SITE_ALIASES_LC[s.toLowerCase()] || s;
