@@ -231,6 +231,11 @@ test('#downrange does not count toward either window', () => {
   assert.ok(!f3PcRegularMap(rows, NOW)['Cataracts']);
 });
 
+test('as-of: posts after the date are ignored', () => {
+  const rows = [row('2026-08-20', 'Rooney'), row('2026-08-21', 'Rooney'), row('2026-08-22', 'Rooney')];
+  assert.ok(!f3PcRegularMap(rows, NOW)['Rooney']);
+});
+
 console.log('\nf3CanonicalSite — WWCM merged into NeighborUp');
 
 test('WWCM historical posts attribute to NeighborUp', () => {

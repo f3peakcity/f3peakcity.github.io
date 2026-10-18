@@ -289,6 +289,17 @@ page, right after parsing — so a rename only needs one entry, in one place.
 
 - **PC Regular** — 26+ posts in the trailing 26 weeks, *or* 3+ posts in the
   trailing 3 weeks. Excludes `#downrange` and Shield Lock.
+- **PC Regulars over time** (`pax.html`) — month-end PC Regular count for the
+  current year, with the **still-regular rate** (% of last month's regulars
+  who are still regular) and new/lost counts. Each month is the same rule run
+  *as of* that month end (`f3PcRegularMap(rows, asOf)` ignores posts after
+  `asOf`); the current month runs through today. The year is
+  `now.getFullYear()`, so it rolls into 2027 untouched. The page loads every
+  year of rows for it, so a January window reaches back into the prior year
+  (the 2026-only filter does not truncate it). A month is starred `*` and
+  footnoted as **partial** when its 26-week window starts before the first
+  record in the sheet (records begin Jan 2025, so none in 2026 today). Not tied
+  to the PC Regulars toggle. Logic: `paxRegularTrend` in `pax.js`.
 - **Active Streakers** — consecutive months completing #112. During the first
   13 days of a month the count runs through the prior month, so a new month
   does not show everyone at zero.

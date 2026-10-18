@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20261018c">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20261018d">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -76,6 +76,19 @@
       <div id="cotters-list"><div class="status label" role="status">Loading…</div></div>
     </details>
 
+    <div class="pair">
+      <section class="section">
+        <div class="section-head"><h2>PC Regulars</h2><span class="label">Month-end <span class="tail">count&nbsp;<button type="button" class="info-dot" data-tip="PC Regular count as of each month end, using the same rule as the PC Regular filter. Still regular = share of last month's regulars who are still regular this month. The current month runs through today." aria-label="PC Regular count as of each month end, using the same rule as the PC Regular filter. Still regular = share of last month's regulars who are still regular this month. The current month runs through today.">&#9432;</button></span></span></div>
+        <div class="chart" id="chart-regular-count"></div>
+        <p class="label" id="regular-trend-moves"></p>
+      </section>
+      <section class="section">
+        <div class="section-head"><h2>Still regular</h2><span class="label">% of last month's regulars</span></div>
+        <div class="chart" id="chart-regular-rate"></div>
+        <p class="label" id="regular-trend-note" hidden>* Partial: our records start less than 26 weeks before that month end, so it undercounts.</p>
+      </section>
+    </div>
+
     <section class="section">
       <div class="section-head"><h2>Top 15 by posts</h2><span class="label">Year to date</span></div>
       <div class="chart" id="chart-top-pax"></div>
@@ -122,7 +135,7 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20261018c"></script>
-<script src="assets/js/pax.js?v=20261018c"></script>
+<script src="assets/js/data.js?v=20261018d"></script>
+<script src="assets/js/pax.js?v=20261018d"></script>
 </body>
 </html>

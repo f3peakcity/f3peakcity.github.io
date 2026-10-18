@@ -156,6 +156,40 @@ function paxCotters(rows, now, excluded = {}) {
   return out.sort((a, b) => a.daysAway - b.daysAway || a.name.localeCompare(b.name));
 }
 
+// ── PC Regulars over time ──
+// Month-end PC Regular count for `year`, evaluated AS OF each month end with the
+// shared rule (f3PcRegularMap). `rows` must be every year: a January window
+// reaches back into the prior year. A month still in progress is evaluated as
+// of `now`. `partial` = the 26-week window starts before the first record in
+// the data, so early months undercount. Rate = share of the previous month's
+// regulars who are still regular (December of the prior year seeds January).
+function paxRegularTrend(rows, year, now) {
+  const counted = rows.filter(r => f3CountsTowardAttendance((r['Site'] || '').trim()));
+  const first = counted.map(r => f3ParseLocalDate(r['Date'])).filter(Boolean)
+    .reduce((m, d) => (!m || d < m ? d : m), null);
+  const regularsAt = asOf => new Set(Object.entries(f3PcRegularMap(counted, asOf))
+    .filter(([, v]) => v).map(([n]) => n));
+  const monthEnd = m => new Date(year, m + 1, 0, 23, 59, 59);
+  let prev = regularsAt(monthEnd(-1));
+  const out = [];
+  for (let m = 0; m < 12 && new Date(year, m, 1) <= now; m++) {
+    const asOf = monthEnd(m) < now ? monthEnd(m) : now;
+    const cur = regularsAt(asOf);
+    const kept = [...prev].filter(n => cur.has(n)).length;
+    out.push({
+      month: m,
+      count: cur.size,
+      rate: prev.size ? Math.round(kept / prev.size * 100) : null,
+      added: cur.size - kept,
+      lost: prev.size - kept,
+      partial: !!first && new Date(asOf - F3_PC_REGULAR_WEEKS * F3_MS_PER_WEEK) < first,
+      inProgress: asOf === now,
+    });
+    prev = cur;
+  }
+  return out;
+}
+
 const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Cooling Off'];
 
 (async function () {
@@ -166,12 +200,14 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
   let allRows = [];
   let filteredRows = [];
   let everyRow = [];
+  let regularTrend = [];
 
   try {
     // Every year for Potential Cotters (its window reaches back ~9 months);
     // this year only for everything else on the page, as before.
     everyRow = await f3LoadRawRows();
     const allRawRows = everyRow.filter(r => r['Date'].startsWith('2026-'));
+    regularTrend = paxRegularTrend(everyRow, now.getFullYear(), now);
 
     allRows = paxBuildRows(allRawRows, now);
 
@@ -196,6 +232,7 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
   const charts = {};
 
   renderAll();
+  renderRegularTrend(regularTrend);
 
   // One toggle re-scopes everything on the page: KPIs, every chart, the table.
   ['btn-regulars', 'btn-all-pax'].forEach(id => {
@@ -244,6 +281,30 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
         <span class="row-val" aria-label="${c.daysAway} days since his last post">${c.daysAway}d</span>
       </div>`;
     }).join('') : '<div class="status label empty-state">No regulars have gone quiet. Everybody\'s posting.</div>';
+  }
+
+  // Not tied to the PC Regulars toggle: it is always about regulars.
+  function renderRegularTrend(trend) {
+    if (!trend.length) { f3ShowEmpty('chart-regular-count', 'No data yet'); f3ShowEmpty('chart-regular-rate', 'No data yet'); return; }
+    const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const labels = trend.map(t => MON[t.month] + (t.partial ? '*' : ''));
+    const last = trend.length - 1;
+    const counts = trend.map(t => t.count);
+    drawChart('chart-regular-count', f3ApexOptions({
+      chart: { type: 'line', height: 240 },
+      series: [{ name: 'PC Regulars', data: counts }],
+      stroke: { show: true, width: 3, curve: 'straight' },
+      markers: { size: 4, strokeWidth: 0, discrete: [{ seriesIndex: 0, dataPointIndex: last, size: 6, fillColor: F3_GREEN, strokeColor: F3_GREEN }] },
+      xaxis: { categories: labels, labels: { rotate: 0, hideOverlappingLabels: false } },
+      yaxis: { show: false, min: 0, max: Math.max(1, ...counts) * 1.2 },
+      dataLabels: { enabled: true, offsetY: -8, style: { fontSize: '13px', fontFamily: F3_DISPLAY_FONT, fontWeight: 800, colors: [F3_INK] } },
+      tooltip: { y: { formatter: v => `${v} regulars` } },
+    }));
+    const rates = trend.map(t => t.rate === null ? 0 : t.rate);
+    drawChart('chart-regular-rate', f3ColumnOptions(labels, 'Still regular', rates, { highlight: last, fmt: v => `${v}%` }));
+    document.getElementById('regular-trend-note').hidden = !trend.some(t => t.partial);
+    document.getElementById('regular-trend-moves').textContent = trend[last].rate === null ? '' :
+      `${MON[trend[last].month]}: ${trend[last].added} new, ${trend[last].lost} lost vs. last month`;
   }
 
   function renderStatCards(rows) {
@@ -392,5 +453,5 @@ const PAX_TRAJECTORIES = ['🔥 Heating Up', '➡️ Holding Steady', '❄️ Co
 })();
 
 if (typeof module !== 'undefined') {
-  module.exports = { paxBuildRows, paxCotters, PAX_COTTER_QUIET_DAYS, PAX_COTTER_MAX_DAYS };
+  module.exports = { paxBuildRows, paxRegularTrend, paxCotters, PAX_COTTER_QUIET_DAYS, PAX_COTTER_MAX_DAYS };
 }
