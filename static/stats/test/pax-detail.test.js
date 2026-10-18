@@ -3,8 +3,8 @@
 
 const assert = require('assert');
 
-global.f3IsRealAo = require('../assets/js/data.js').f3IsRealAo;
-const { paxDetailBuildPerAo } = require('../assets/js/pax-detail.js');
+Object.assign(global, require('../assets/js/data.js'), { F3_MS_PER_WEEK: 604800000 });
+const { paxDetailBuildPerAo, paxDetailQBalance } = require('../assets/js/pax-detail.js');
 
 let passed = 0;
 let failed = 0;
@@ -86,6 +86,51 @@ test('AOs sort by posts descending, then alphabetically', () => {
   ];
   const out = paxDetailBuildPerAo(rows, 'Jockey');
   assert.deepStrictEqual(out.map(r => r['AO']), ['Alpha', 'Zeta']);
+});
+
+console.log('\npaxDetailQBalance — weeks since Q and give/take');
+
+const NOW = new Date(2026, 9, 9); // Oct 9 2026
+const posts = (n, date, site) => Array.from({ length: n }, () => row(date, 'Jockey', site || 'Half Dome'));
+
+test('never Q\'d: no date, off track once posting', () => {
+  const b = paxDetailQBalance(posts(3, '2026-09-01'), 'Jockey', NOW);
+  assert.strictEqual(b.lastQ, null);
+  assert.strictEqual(b.weeksSinceQ, null);
+  assert.strictEqual(b.onTrack, false);
+});
+
+test('weeks since last Q is whole weeks to the most recent Q', () => {
+  const rows = [row('2026-06-01', 'Jockey', 'Half Dome', 'Q'), row('2026-09-18', 'Jockey', 'Half Dome', 'Q')];
+  const b = paxDetailQBalance(rows, 'Jockey', NOW);
+  assert.strictEqual(b.lastQ, '2026-09-18');
+  assert.strictEqual(b.weeksSinceQ, 3);
+});
+
+test('1 Q in 12 posts is on track; 1 in 13 is due', () => {
+  const q = row('2026-09-01', 'Jockey', 'Half Dome', 'Q');
+  assert.strictEqual(paxDetailQBalance([q, ...posts(11, '2026-09-02')], 'Jockey', NOW).onTrack, true);
+  assert.strictEqual(paxDetailQBalance([q, ...posts(12, '2026-09-02')], 'Jockey', NOW).onTrack, false);
+});
+
+test('only the trailing 26 weeks count toward the balance, but not toward last Q', () => {
+  const rows = [row('2026-01-05', 'Jockey', 'Half Dome', 'Q'), ...posts(5, '2026-01-06'), ...posts(2, '2026-09-01')];
+  const b = paxDetailQBalance(rows, 'Jockey', NOW);
+  assert.strictEqual(b.posts, 2);
+  assert.strictEqual(b.qs, 0);
+  assert.strictEqual(b.lastQ, '2026-01-05');
+});
+
+test('#downrange and takeover Qs are ignored; others\' rows too', () => {
+  const rows = [
+    row('2026-09-10', 'Jockey', '#downrange', 'Q'),
+    row('2026-09-23', 'Jockey', 'Half Dome', 'Q'), // SCary takeover window
+    row('2026-09-24', 'Rooney', 'Half Dome', 'Q'),
+    ...posts(1, '2026-09-01'),
+  ];
+  const b = paxDetailQBalance(rows, 'Jockey', NOW);
+  assert.strictEqual(b.lastQ, null);
+  assert.strictEqual(b.posts, 2); // takeover post is still a post
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);
