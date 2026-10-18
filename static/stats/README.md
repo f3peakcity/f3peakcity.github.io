@@ -131,6 +131,12 @@ Only posts **after** the FNG-tagged post count as coming back.
 - **Last seen** (All FNGs table): for FNGs with 2+ posts, days since their
   most recent post; rust at 21+ days (`FNG_FADED_DAYS`, shared with the
   *came back, then faded* list). One-post FNGs show a dash.
+- **Days to / posts before first Q** (All FNGs table, blank until he has
+  led): days from the FNG post to his first Q, and how many counted posts
+  (the first included) came before it. Takeover Qs (`f3IsVisitingQ`) and
+  #downrange / Shield Lock records don't count. The summary under the journey
+  shows the share of the page's FNGs (2026 cohort) who have Q'd, and the
+  median days and posts to first Q among those who have.
 - **Follow-ups**: *no second post* (first post 7–60 days ago), *came back,
   then faded* (2–3 posts, none in 21 days, first post within 120 days),
   *ready to Q* (10+ posts, no Q on record).
