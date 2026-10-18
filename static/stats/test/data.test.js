@@ -165,6 +165,10 @@ test('a junk-AO display name is excluded by default', () => {
   assert.strictEqual(f3IsRealAo('Convergence'), false);
 });
 
+test('"Neighbor Up" (spaced) attributes to NeighborUp', () => {
+  assert.strictEqual(f3CanonicalSite('Neighbor Up'), 'NeighborUp');
+});
+
 test('matching ignores case and surrounding whitespace', () => {
   assert.strictEqual(f3IsRealAo('  CONVERGENCE  '), false);
   assert.strictEqual(f3IsRealAo('#DOWNRANGE'), false);
