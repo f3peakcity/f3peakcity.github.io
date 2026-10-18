@@ -395,6 +395,8 @@ const F3_PC_REGULAR_RECENT_WEEKS = 3;
 const F3_PC_REGULAR_RECENT_MIN = 3;
 const F3_MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
 
+// `now` is also the as-of date: posts after it are ignored, so passing a past
+// month end gives the regulars as they stood then (the PC Regulars trend).
 function f3PcRegularMap(rows, now) {
   const cutoff26w = new Date(now - F3_PC_REGULAR_WEEKS * F3_MS_PER_WEEK);
   const cutoff3w  = new Date(now - F3_PC_REGULAR_RECENT_WEEKS * F3_MS_PER_WEEK);
@@ -404,7 +406,7 @@ function f3PcRegularMap(rows, now) {
     const site = (r['Site'] || '').trim();
     if (!f3CountsTowardAttendance(site)) return;
     const d = f3ParseLocalDate(r['Date']);
-    if (!d || d < cutoff26w) return;
+    if (!d || d < cutoff26w || d > now) return;
     const name = r['Name'].trim();
     if (!counts[name]) counts[name] = { w26: 0, w3: 0 };
     counts[name].w26++;

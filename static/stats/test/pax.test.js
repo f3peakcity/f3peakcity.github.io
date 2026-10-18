@@ -7,9 +7,11 @@ const dataUtils = require('../assets/js/data.js');
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
 global.f3CountsTowardAttendance = dataUtils.f3CountsTowardAttendance;
 global.f3IsRealAo = dataUtils.f3IsRealAo;
+global.F3_PC_REGULAR_WEEKS = 26;
+global.F3_MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
 global.f3PcRegularMap = dataUtils.f3PcRegularMap;
 
-const { paxBuildRows, paxCotters, PAX_COTTER_QUIET_DAYS, PAX_COTTER_MAX_DAYS } = require('../assets/js/pax.js');
+const { paxBuildRows, paxRegularTrend, paxCotters, PAX_COTTER_QUIET_DAYS, PAX_COTTER_MAX_DAYS } = require('../assets/js/pax.js');
 
 let passed = 0;
 let failed = 0;
@@ -158,6 +160,40 @@ test('regular means Peak City posts: #downrange-only men are not on the list', (
 test('the exclusion list keeps a man off, case-insensitively', () => {
   const rows = [...streak('Moved Away', '2026-09-01', 10), ...streak('Still Here', '2026-09-01', 10)];
   assert.deepStrictEqual(paxCotters(rows, COTTER_NOW, { 'moved away': 'moved to Charlotte' }).map(c => c.name), ['Still Here']);
+});
+
+
+console.log('\npaxRegularTrend — PC Regulars as of each month end');
+const ys = (name, n, from, site) => Array.from({ length: n }, (_, i) =>
+  row(new Date(Date.parse(from + 'T12:00:00Z') + i * 86400000).toISOString().slice(0, 10), name, site || 'Half Dome'));
+// Data starts 2025-01-01 (a filler man), so every 2026 window is complete.
+const base = row('2025-01-01', 'Filler', 'Half Dome');
+test('evaluates as of the month end and ignores later posts', () => {
+  const rows = [base, ...ys('A', 3, '2026-02-10'), ...ys('B', 3, '2026-04-10')];
+  const t = paxRegularTrend(rows, 2026, new Date('2026-06-15T12:00:00'));
+  assert.deepStrictEqual(t.map(x => x.count), [0, 1, 0, 1, 0, 0]); // 3-in-3-weeks lapses after 3 weeks
+});
+test('rate, added and lost compare with the previous month; January seeds from December', () => {
+  const rows = [base, ...ys('A', 3, '2025-12-20'), ...ys('B', 3, '2026-01-20')];
+  const t = paxRegularTrend(rows, 2026, new Date('2026-03-15T12:00:00'));
+  assert.deepStrictEqual([t[0].count, t[0].rate, t[0].added, t[0].lost], [1, 0, 1, 1]);
+  assert.deepStrictEqual([t[1].count, t[1].rate, t[1].lost], [0, 0, 1]);
+});
+test('flags months whose 26-week window starts before the first record', () => {
+  const rows = [row('2026-01-05', 'A'), ...ys('A', 3, '2026-06-01')];
+  const t = paxRegularTrend(rows, 2026, new Date('2026-08-15T12:00:00'));
+  assert.deepStrictEqual(t.map(x => x.partial), [true, true, true, true, true, true, false, false]);
+});
+test('current month runs through now; future months are omitted', () => {
+  const t = paxRegularTrend([base], 2026, new Date('2026-03-15T12:00:00'));
+  assert.strictEqual(t.length, 3);
+  assert.deepStrictEqual(t.map(x => x.inProgress), [false, false, true]);
+});
+test('a different year works with no code change (Jan 2027 reaches into 2026)', () => {
+  const rows = [base, ...ys('A', 26, '2026-08-10')];
+  const t = paxRegularTrend(rows, 2027, new Date('2027-01-20T12:00:00'));
+  assert.strictEqual(t[0].count, 1);
+  assert.strictEqual(t[0].partial, false);
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);
