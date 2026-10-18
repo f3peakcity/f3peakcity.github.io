@@ -137,6 +137,13 @@ Only posts **after** the FNG-tagged post count as coming back.
   #downrange / Shield Lock records don't count. The summary under the journey
   shows the share of the page's FNGs (2026 cohort) who have Q'd, and the
   median days and posts to first Q among those who have.
+- **Retention by cohort** (`fngCohorts`): one row per month of first post
+  (derived from the data, so it carries into 2027). Checkpoints: *back within
+  30 days* (same rule as above), *reached 10+ posts* (the Regular rule), and
+  *active in the last 30 days* (latest post, #downrange / Shield Lock excluded).
+  Each checkpoint counts only FNGs 30+ days past their first post; a cohort
+  with none yet shows "too soon" instead of 0%, and a mixed month's percentage
+  uses only its mature men.
 - **Follow-ups**: *no second post* (first post 7–60 days ago), *came back,
   then faded* (2–3 posts, none in 21 days, first post within 120 days),
   *ready to Q* (10+ posts, no Q on record).

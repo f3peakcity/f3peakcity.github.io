@@ -165,6 +165,32 @@ function fngReturnBy(rows, now, keyFn, days = 30) {
   return groups;
 }
 
+// Retention cohorts: one row per first-post month. Each checkpoint counts only
+// FNGs old enough to have reached it (age >= minAge); the rest are immature and
+// leave that cell's denominator, so a young cohort reads "too soon", never 0%.
+// Regular and Active have no natural clock, so they use the 30-day mark too.
+const FNG_COHORT_CHECKS = [
+  ['back30', 30, r => r['_returnDays'] !== null && r['_returnDays'] <= 30],
+  ['regular', 30, r => r['Total Posts to date'] >= 10],   // same rule as fngStatus / index.html
+  ['active', 30, (r, sinceLast) => sinceLast <= 30],
+];
+function fngCohorts(rows, now) {
+  const cohorts = {};
+  rows.forEach(r => {
+    const key = r['_firstIso'].slice(0, 7);
+    const c = cohorts[key] = cohorts[key] || { month: key, fngs: 0 };
+    c.fngs++;
+    const sinceLast = Math.floor((now - f3ParseLocalDate(r['_lastIso'])) / FNG_DAY_MS);
+    FNG_COHORT_CHECKS.forEach(([k, minAge, hit]) => {
+      const cell = c[k] = c[k] || { n: 0, of: 0 };
+      if (fngAgeDays(r, now) < minAge) return;
+      cell.of++;
+      if (hit(r, sinceLast)) cell.n++;
+    });
+  });
+  return Object.values(cohorts).sort((a, b) => a.month.localeCompare(b.month));
+}
+
 // Three follow-up lists a Site Q or FNG shepherd can act on.
 function fngFollowUps(rows, now) {
   const since = iso => Math.floor((now - f3ParseLocalDate(iso)) / FNG_DAY_MS);
@@ -193,7 +219,7 @@ const FNG_STATUSES = [
 (async function () {
   const now = new Date();
   const IDS = ['fng-journey', 'chart-fng-status', 'chart-days-to-return', 'chart-fng-monthly',
-    'chart-fng-return-month', 'fng-firstq', 'fng-return-ao', 'fng-noreturn', 'fng-faded', 'fng-readytoq', 'fng-table-container'];
+    'chart-fng-return-month', 'fng-cohorts', 'fng-firstq', 'fng-return-ao', 'fng-noreturn', 'fng-faded', 'fng-readytoq', 'fng-table-container'];
   let allRows = [];
 
   try {
@@ -224,6 +250,7 @@ const FNG_STATUSES = [
   renderJourney(filteredRows);
   renderFirstQ(filteredRows);
   renderReturnByMonth(filteredRows);
+  renderCohorts(filteredRows);
   renderReturnByAo(filteredRows);
   renderFollowUps(filteredRows);
   renderStatusStack(filteredRows);
@@ -276,6 +303,31 @@ const FNG_STATUSES = [
     });
     f3LazyChart('chart-fng-return-month', () =>
       new ApexCharts(document.getElementById('chart-fng-return-month'), options).render());
+  }
+
+  function renderCohorts(rows) {
+    const cell = c => c.of
+      ? `${c.n} of ${c.of} <small>${pct(c.n, c.of)}%</small>`
+      : '<span class="label" title="Too soon: no FNG in this cohort has had time to reach this checkpoint">too soon</span>';
+    const th = (label, tip) => `<th class="num">${f3ThLabel(label, tip)}</th>`;
+    document.getElementById('fng-cohorts').innerHTML = `
+      <table class="table table--stack" id="fng-cohort-table">
+        <thead><tr>
+          <th>${f3ThLabel('Cohort', 'Month of first post.')}</th>
+          ${th('FNGs', 'FNGs whose first post was in this month.')}
+          ${th('Back within 30 days', 'Posted again within 30 days of the first post. Counts only FNGs 30+ days past their first post.')}
+          ${th('Reached 10+ posts', 'Now a Regular: 10 or more posts. Counts only FNGs 30+ days past their first post, since a newer FNG has not had time.')}
+          ${th('Active, last 30 days', 'Posted within the last 30 days. Counts only FNGs 30+ days past their first post.')}
+        </tr></thead>
+        <tbody>${fngCohorts(rows, now).map(c => `<tr>
+          <td>${new Date(+c.month.slice(0, 4), +c.month.slice(5) - 1).toLocaleString('default', { month: 'short', year: 'numeric' })}</td>
+          <td class="num">${c.fngs}</td>
+          <td class="num">${cell(c.back30)}</td>
+          <td class="num">${cell(c.regular)}</td>
+          <td class="num">${cell(c.active)}</td>
+        </tr>`).join('')}</tbody>
+      </table>`;
+    f3StackLabels(document.getElementById('fng-cohort-table'));
   }
 
   function renderReturnByAo(rows) {
@@ -407,6 +459,6 @@ const FNG_STATUSES = [
 })();
 
 if (typeof module !== 'undefined') {
-  module.exports = { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngFirstQSummary, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps };
+  module.exports = { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngFirstQSummary, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps, fngCohorts };
 }
 
