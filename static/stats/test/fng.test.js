@@ -9,7 +9,7 @@ global.f3IsFng = dataUtils.f3IsFng;
 global.f3IsVisitingQ = dataUtils.f3IsVisitingQ;
 global.f3CountsTowardAttendance = dataUtils.f3CountsTowardAttendance;
 
-const { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngFirstQSummary, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps } = require('../assets/js/fng.js');
+const { FNG_FADED_DAYS, fngLastSeenCell, fngStatus, fngBuildRows, fngFirstQSummary, fngDaysBuckets, fngJourneyStages, fngReturnBy, fngFollowUps, fngCohorts } = require('../assets/js/fng.js');
 
 let passed = 0;
 let failed = 0;
@@ -188,6 +188,40 @@ test('first Q: days and posts before; blank without a Q; excluded Qs skipped', (
   const s = fngFirstQSummary(rows);
   assert.deepStrictEqual(s, { n: 3, of: 4, medianDays: 7, medianPosts: 1 });
   assert.strictEqual(fngFirstQSummary([]).medianDays, null);
+});
+
+console.log('\nfngCohorts — retention by first-post month');
+
+test('cohorts: counts, immature checkpoints excluded from denominator', () => {
+  const regular = n => Array.from({ length: n }, (_, i) => row(`2026-06-${String(i + 2).padStart(2, '0')}`, 'R', 'Das Boot'));
+  const rows = fngBuildRows([
+    // June (>30d old): A back in 7d and active; B never back; R reaches 10 posts
+    row('2026-06-01', 'A', 'Das Boot', 'FNG'), row('2026-06-08', 'A', 'Das Boot'), row('2026-08-10', 'A', 'Das Boot'),
+    row('2026-06-02', 'B', 'Das Boot', 'FNG'),
+    row('2026-06-01', 'R', 'Das Boot', 'FNG'), ...regular(10),
+    // August (<30d old): too soon for everything
+    row('2026-08-05', 'C', 'Das Boot', 'FNG'),
+    row('2026-08-01', 'D', 'Das Boot', 'FNG'), row('2026-08-04', 'D', 'Das Boot'),
+  ], NOW);
+  const [jun, aug] = fngCohorts(rows, NOW);
+  assert.strictEqual(jun.month, '2026-06');
+  assert.strictEqual(jun.fngs, 3);
+  assert.deepStrictEqual(jun.back30, { n: 2, of: 3 });
+  assert.deepStrictEqual(jun.regular, { n: 1, of: 3 });
+  assert.deepStrictEqual(jun.active, { n: 1, of: 3 });   // A only: R's last post is 2026-06-11
+  assert.strictEqual(aug.fngs, 2);
+  ['back30', 'regular', 'active'].forEach(k => assert.deepStrictEqual(aug[k], { n: 0, of: 0 }));
+});
+
+test('cohorts: mixed-age month only counts mature men; #downrange ignored', () => {
+  const rows = fngBuildRows([
+    row('2026-07-10', 'E', 'Das Boot', 'FNG'), row('2026-07-12', 'E', 'Das Boot'),
+    row('2026-07-20', 'F', 'Das Boot', 'FNG'),
+    row('2026-07-05', 'G', '#downrange', 'FNG'),
+  ], NOW);
+  const [jul] = fngCohorts(rows, NOW);
+  assert.strictEqual(jul.fngs, 2);
+  assert.deepStrictEqual(jul.back30, { n: 1, of: 1 });
 });
 
 console.log(`\n${passed} passed, ${failed} failed\n`);
