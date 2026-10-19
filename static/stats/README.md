@@ -284,6 +284,10 @@ page, right after parsing — so a rename only needs one entry, in one place.
 - **WWCM → NeighborUp** — Western Wake Crisis Ministry merged into NeighborUp
   in Aug 2026. Rows before that date still say `WWCM`; every stats page reads
   them as `NeighborUp`.
+- **"Neighbor Up" → NeighborUp** — a hand-typed spelling with a space (one row,
+  2026-10-03) that otherwise showed up as a second AO. Also folded in
+  `F3_SITE_ALIASES_LC`. Fix the row in the sheet when you can; the alias just
+  keeps the pages right in the meantime.
 
 ## Other definitions
 
@@ -333,6 +337,12 @@ and backs the regression test for the August 2026 count.
 Stats pages pin their assets with a `?v=` token. **Bump it on the affected page
 whenever its CSS or JS changes**, or returning visitors get a stale asset against
 new markup.
+
+Bump it on **every** stats HTML page in one shot (the token lives on the same
+lines of all of them), e.g. `perl -0pi -e 's/\?v=OLD/?v=NEW/g' static/stats/*.html`,
+with a date token plus a letter (`20261018d`). When several branches are open
+at once, bump it **once, last**, or stack the PRs; independent bumps conflict
+on every page.
 
 ## Design system
 
