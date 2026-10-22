@@ -17,7 +17,7 @@ from pathlib import Path
 from google.cloud import bigquery
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from who2q_compute import RosterError, build_payload, parse_roster, plausibility_error
+from who2q_compute import PC_REGULAR_WEEKS, RosterError, build_payload, parse_roster, plausibility_error
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 CONFIG_PATH = SCRIPT_DIR / "who2q_config.json"
@@ -33,7 +33,7 @@ WHERE e.region_org_id = @region
 """
 
 # Window attendance (all roles — a Q counts as a post). Covers the longer of the
-# Who-to-Q and candidate windows; each list filters its own window in Python.
+# Who-to-Q, candidate and PC Regular windows; each list filters its own window in Python.
 ATT_SQL = """
 SELECT a.user_id, a.f3_name, e.ao_name, e.start_date
 FROM `{ds}.attendance_info` AS a
@@ -81,7 +81,7 @@ def main():
         sys.exit("Set bq_project in scripts/who2q_config.json (see scripts/README-who2q.md)")
     ds = config.get("bq_dataset", "analytics")
     region = bigquery.ScalarQueryParameter("region", "INT64", config["region_org_id"])
-    att_weeks = max(config["window_weeks"], config.get("candidate_window_weeks", 0))
+    att_weeks = max(config["window_weeks"], config.get("candidate_window_weeks", 0), PC_REGULAR_WEEKS)
     weeks = bigquery.ScalarQueryParameter("weeks", "INT64", att_weeks)
 
     # Roster first: a malformed roster stops the run before anything is written,

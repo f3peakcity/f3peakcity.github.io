@@ -8,7 +8,7 @@ Logic decisions (see docs/superpowers/plans/2026-07-06-who-to-q-dashboard.md):
 - Rate denominator = distinct workout dates at the AO in the window that
   have at least one recorded attendee.
 - "Ever Q'd" = any q_ind=1 row in all available history for that AO.
-- List 1 sort: rate desc, then last attendance desc, then name asc; cap max_never_qd.
+- No list is capped here: the page shows the top rows and the full count.
 - List 2 sort: days since last Q desc, then name asc; no cap; stale means
   days_since > stale_days (exactly stale_days is NOT stale).
 """
@@ -33,43 +33,27 @@ def latest_names(rows, config):
     return {uid: name for uid, (_, name) in best.items()}
 
 
-def never_qd_list(att_rows, q_user_ids, names, config):
-    """Regular attendees (rate >= threshold) of one AO who never Q'd it.
+def _regulars(att_rows, names, config):
+    """(user_id, dates, rate) for each regular (rate >= regular_threshold) of one AO.
 
     att_rows: window attendance rows for a single AO.
-    q_user_ids: user_ids with any all-time Q at this AO.
     """
     excluded = set(config.get("excluded_pax", []))
-    workout_dates = {r["start_date"] for r in att_rows}
-    denom = len(workout_dates)
-    if denom == 0:
-        return []
     dates_by_user = defaultdict(set)
     for r in att_rows:
         dates_by_user[r["user_id"]].add(r["start_date"])
+    denom = len({r["start_date"] for r in att_rows})
+    return [(uid, dates, len(dates) / denom) for uid, dates in dates_by_user.items()
+            if len(dates) / denom >= config["regular_threshold"] and names[uid] not in excluded]
 
-    candidates = []
-    for uid, dates in dates_by_user.items():
-        if uid in q_user_ids:
-            continue
-        name = names[uid]
-        if name in excluded:
-            continue
-        rate = len(dates) / denom
-        if rate < config["regular_threshold"]:
-            continue
-        candidates.append({
-            "name": name,
-            "attended": len(dates),
-            "rate": round(rate, 3),
-            "_last": max(dates),
-        })
-    candidates.sort(key=lambda p: (-p["rate"], -p["_last"].toordinal(), p["name"]))
-    return [
-        {"name": p["name"], "attended": p["attended"], "rate": p["rate"],
-         "last_attended": p["_last"].isoformat()}
-        for p in candidates[: config["max_never_qd"]]
-    ]
+
+def _last_q(q_rows):
+    """user_id -> date of his most recent Q in q_rows."""
+    last = {}
+    for r in q_rows:
+        if r["user_id"] not in last or r["start_date"] > last[r["user_id"]]:
+            last[r["user_id"]] = r["start_date"]
+    return last
 
 
 def stale_q_list(q_rows, att_rows, names, today, config):
@@ -79,10 +63,7 @@ def stale_q_list(q_rows, att_rows, names, today, config):
     att_rows: window attendance rows for the same AO (context column).
     """
     excluded = set(config.get("excluded_pax", []))
-    last_q = {}
-    for r in q_rows:
-        if r["user_id"] not in last_q or r["start_date"] > last_q[r["user_id"]]:
-            last_q[r["user_id"]] = r["start_date"]
+    last_q = _last_q(q_rows)
     window_dates = defaultdict(set)
     for r in att_rows:
         window_dates[r["user_id"]].add(r["start_date"])
@@ -102,6 +83,99 @@ def stale_q_list(q_rows, att_rows, names, today, config):
             "attended_in_window": len(window_dates.get(uid, ())),
         })
     out.sort(key=lambda p: (-p["days_since"], p["name"]))
+    return out
+
+
+def regulars_list(att_rows, q_rows, names, today, config):
+    """Every regular of one AO, with how long since he last Q'd it.
+
+    att_rows: window attendance rows for a single AO.
+    q_rows: all-time Q rows for the same AO.
+    Sort: never Q'd here first, then longest since a Q, then name.
+    """
+    last_q = _last_q(q_rows)
+    out = []
+    for uid, dates, rate in _regulars(att_rows, names, config):
+        lq = last_q.get(uid)
+        out.append({
+            "name": names[uid],
+            "attended": len(dates),
+            "rate": round(rate, 3),
+            "last_q": lq.isoformat() if lq else None,
+            "days_since": (today - lq).days if lq else None,
+        })
+    out.sort(key=lambda p: (p["days_since"] is not None, -(p["days_since"] or 0), p["name"]))
+    return out
+
+
+# PC Regular: 26+ posts in the trailing 26 weeks, or 3+ in the trailing 3 weeks.
+# Same rule as f3PcRegularMap in static/stats/assets/js/data.js; keep both in sync.
+PC_REGULAR_WEEKS = 26
+PC_REGULAR_RECENT_WEEKS = 3
+PC_REGULAR_RECENT_MIN = 3
+
+
+def pc_regular_uids(att_rows, today, config):
+    """user_ids who are PC Regulars as of today. Posts at excluded_aos don't count."""
+    excluded_aos = set(config.get("excluded_aos", []))
+    start = today - timedelta(weeks=PC_REGULAR_WEEKS)
+    recent = today - timedelta(weeks=PC_REGULAR_RECENT_WEEKS)
+    w26, w3 = defaultdict(int), defaultdict(int)
+    for r in att_rows:
+        if r["ao_name"] in excluded_aos or not start <= r["start_date"] <= today:
+            continue
+        w26[r["user_id"]] += 1
+        if r["start_date"] >= recent:
+            w3[r["user_id"]] += 1
+    return {uid for uid in w26 if w26[uid] >= PC_REGULAR_WEEKS or w3[uid] >= PC_REGULAR_RECENT_MIN}
+
+
+def pc_regulars_for_ao(pc_uids, regular_uids, att_rows, q_rows, names, today, config):
+    """PC Regulars to ask at one AO: never Q'd it, or not in more than pc_stale_days.
+
+    regular_uids: this AO's own regulars, left out (regulars_list covers them).
+    att_rows: this AO's attendance over the PC Regular window (posts here).
+    q_rows: all-time Q rows for the same AO.
+    Sort: most posts here first, then never Q'd before stale, then name.
+    """
+    excluded = set(config.get("excluded_pax", []))
+    last_q = _last_q(q_rows)
+    posts = defaultdict(set)
+    for r in att_rows:
+        posts[r["user_id"]].add(r["start_date"])
+    out = []
+    for uid in pc_uids - set(regular_uids):
+        lq = last_q.get(uid)
+        days = (today - lq).days if lq else None
+        if (days is not None and days <= config["pc_stale_days"]) or names[uid] in excluded:
+            continue
+        out.append({
+            "name": names[uid],
+            "posts_here": len(posts.get(uid, ())),
+            "last_q": lq.isoformat() if lq else None,
+            "days_since": days,
+        })
+    out.sort(key=lambda p: (-p["posts_here"], p["days_since"] is not None, p["name"]))
+    return out
+
+
+def q_load_for_ao(q_rows, regular_uids, names, today, config):
+    """Who has been leading one AO: Qs per man over the last q_load_weeks.
+
+    q_rows: all-time Q rows for a single AO, takeover Qs already removed.
+    regular_uids: this AO's regulars, so the page can tell them from visitors.
+    Sort: most Qs, then most recent Q, then name.
+    """
+    excluded = set(config.get("excluded_pax", []))
+    start = today - timedelta(weeks=config["q_load_weeks"])
+    qs = defaultdict(list)
+    for r in q_rows:
+        if start <= r["start_date"] <= today:
+            qs[r["user_id"]].append(r["start_date"])
+    out = [{"name": names[uid], "qs": len(dates), "last_q": max(dates).isoformat(),
+            "regular": uid in regular_uids}
+           for uid, dates in qs.items() if names[uid] not in excluded]
+    out.sort(key=lambda p: (-p["qs"], -date.fromisoformat(p["last_q"]).toordinal(), p["name"]))
     return out
 
 
@@ -128,6 +202,12 @@ def build_payload(q_rows, att_rows, today, config, roster=None, first_seen=None,
     q_by_ao = defaultdict(list)
     for r in q_rows:
         q_by_ao[r["ao_name"]].append(r)
+    pc_start = today - timedelta(weeks=PC_REGULAR_WEEKS)
+    pc_att_by_ao = defaultdict(list)
+    for r in att_rows:
+        if r["start_date"] >= pc_start:
+            pc_att_by_ao[r["ao_name"]].append(r)
+    pc_uids = pc_regular_uids(att_rows, today, config)
     ao_names = [a for a in sorted(att_by_ao, key=str.lower) if a not in excluded_aos]
 
     terms = []
@@ -146,12 +226,15 @@ def build_payload(q_rows, att_rows, today, config, roster=None, first_seen=None,
     for ao_name in ao_names:
         ao_att = att_by_ao[ao_name]
         ao_q = q_by_ao.get(ao_name, [])
-        q_uids = {r["user_id"] for r in ao_q}
+        regular_uids = {uid for uid, _, _ in _regulars(ao_att, names, config)}
         ao = {
             "name": ao_name,
             "workouts_in_window": len({r["start_date"] for r in ao_att}),
-            "never_qd": never_qd_list(ao_att, q_uids, names, config),
             "stale_qs": stale_q_list(ao_q, ao_att, names, today, config),
+            "regulars": regulars_list(ao_att, ao_q, names, today, config),
+            "pc_regulars": pc_regulars_for_ao(pc_uids, regular_uids, pc_att_by_ao[ao_name],
+                                              ao_q, names, today, config),
+            "q_load": q_load_for_ao(ao_q, regular_uids, names, today, config),
         }
         if roster is not None:
             ao["site_qs"] = site_qs_for_ao(ao_name, terms)
@@ -163,7 +246,7 @@ def build_payload(q_rows, att_rows, today, config, roster=None, first_seen=None,
         "window_weeks": config["window_weeks"],
         "regular_threshold": config["regular_threshold"],
         "stale_days": config["stale_days"],
-        "max_never_qd": config["max_never_qd"],
+        "pc_stale_days": config["pc_stale_days"],
     }
     if roster is not None:
         params.update({k: config[k] for k in ("candidate_window_weeks", "candidate_attendance",

@@ -28,15 +28,36 @@ function who2qShortDate(iso, now = new Date()) {
 // A past Q this long gone is the strongest ask, so it earns the one green.
 const WHO2Q_LONG_OVERDUE_DAYS = 120;
 
-function who2qNeverRowsHtml(list) {
+// Every list shows at most this many rows; the export writes them all, so the
+// counts in the AO summary are the real ones.
+const WHO2Q_MAX_ROWS = 15;
+
+function who2qCapped(list, rowsHtml) {
+  const shown = list.slice(0, WHO2Q_MAX_ROWS);
+  return rowsHtml(shown) +
+    (list.length > shown.length ? `<div class="w2q-divider label">Showing ${shown.length} of ${list.length}</div>` : '');
+}
+
+// No Q on record. Not "never": BigQuery history only starts around Aug 2025.
+const WHO2Q_NO_Q = '—';
+const WHO2Q_NO_Q_TIP = "No Q's in recent history";
+
+// Who has been leading here: Qs per man, most first; regulars told from visitors.
+function who2qQLoadRowsHtml(list) {
   if (!list.length) {
-    return '<div class="status label empty-state">Everyone who attends regularly has already Q’d here. Deep bench.</div>';
+    return '<div class="status label empty-state">No Qs on record here lately</div>';
   }
-  return list.map(p => `<div class="row" title="Posted to ${who2qFmtRate(p.rate)} of this AO's recent workouts · last seen ${who2qFmtDate(p.last_attended)}">
-      <span class="row-name">${f3Esc(p.name)}</span>
-      <span class="label">Last ${who2qShortDate(p.last_attended)} · ${who2qFmtRate(p.rate)}</span>
-      <span class="row-val" aria-label="${p.attended} posts here">${p.attended}</span>
+  return list.map(p => `<div class="row" title="Last Q here ${who2qFmtDate(p.last_q)}">
+      <span class="row-name">${f3PaxLink(p.name)}</span>
+      <span class="label">${p.regular ? 'Regular' : 'Visitor'} · last ${who2qShortDate(p.last_q)}</span>
+      <span class="row-val" aria-label="${p.qs} Q${p.qs === 1 ? '' : 's'} here">${p.qs}</span>
     </div>`).join('');
+}
+
+// "25 Qs from 22 men": how widely the load is shared.
+function who2qQLoadSummary(list) {
+  const qs = list.reduce((n, p) => n + p.qs, 0);
+  return `${qs} Q${qs === 1 ? '' : 's'} from ${list.length} m${list.length === 1 ? 'a' : 'e'}n`;
 }
 
 function who2qStaleRowsHtml(list) {
@@ -51,6 +72,43 @@ function who2qStaleRowsHtml(list) {
       <span class="row-val${p.days_since > WHO2Q_LONG_OVERDUE_DAYS ? ' is-good' : ''}" aria-label="${p.days_since} days since">${p.days_since}</span>
     </div>`;
   }).join('');
+}
+
+// Every regular here, no Q on record first, then longest since a Q here.
+function who2qRegularRowsHtml(list) {
+  if (!list.length) {
+    return '<div class="status label empty-state">No one posts here often enough to count as a regular yet</div>';
+  }
+  return list.map(p => {
+    const never = p.days_since === null;
+    return `<div class="row" title="Posted to ${who2qFmtRate(p.rate)} of this AO's recent workouts${never ? '' : ` · last Q here ${who2qFmtDate(p.last_q)}`}">
+      <span class="row-name">${f3PaxLink(p.name)}</span>
+      <span class="label">${never ? '' : `Q'd ${who2qShortDate(p.last_q)} · `}${who2qFmtRate(p.rate)}</span>
+      <span class="row-val${!never && p.days_since > WHO2Q_LONG_OVERDUE_DAYS ? ' is-good' : ''}" ${never ? `title="${WHO2Q_NO_Q_TIP}" aria-label="${WHO2Q_NO_Q_TIP}"` : `aria-label="${p.days_since} days since"`}>${never ? WHO2Q_NO_Q : p.days_since}</span>
+    </div>`;
+  }).join('');
+}
+
+// PC Regulars from anywhere in the region who are due a Q here; most posts here first.
+function who2qPcRowsHtml(list) {
+  if (!list.length) {
+    return '<div class="status label empty-state">Every PC Regular has Q\'d here recently</div>';
+  }
+  return list.map(p => {
+    const never = p.days_since === null;
+    const posts = p.posts_here ? `${p.posts_here} post${p.posts_here === 1 ? '' : 's'} here` : 'never posted here';
+    return `<div class="row">
+      <span class="row-name">${f3PaxLink(p.name)}</span>
+      <span class="label">${posts}${never ? '' : ` · Q'd ${who2qShortDate(p.last_q)}`}</span>
+      <span class="row-val" ${never ? `title="${WHO2Q_NO_Q_TIP}" aria-label="${WHO2Q_NO_Q_TIP}"` : `aria-label="${p.days_since} days since"`}>${never ? WHO2Q_NO_Q : p.days_since}</span>
+    </div>`;
+  }).join('');
+}
+
+// The PC Regulars rule in words, from the export's own settings.
+function who2qPcRule(p) {
+  return `PC Regulars (26+ posts in 26 weeks, or 3+ in the last 3) who aren't regulars here and haven't Q'd here ` +
+    `in ${p.pc_stale_days}+ days, or have no Q here on record. Most posts here (last 26 weeks) first.`;
 }
 
 // ---- Site Qs and Site Q candidates (from scripts/who2q_export.py, #182) ----
@@ -137,7 +195,7 @@ function who2qCandidateRule(p) {
 
 async function who2qInit() {
   const sel = document.getElementById('ao-select');
-  const neverBody = document.getElementById('never-qd-body');
+  const loadBody = document.getElementById('q-load-body');
   const staleBody = document.getElementById('stale-q-body');
   try {
     const res = await fetch('data/who2q.json');
@@ -150,6 +208,11 @@ async function who2qInit() {
     document.getElementById('params-note').textContent =
       `Regular: ${Math.round(p.regular_threshold * 100)}%+ of the last ${p.window_weeks} wks · ` +
       `Overdue: no Q in ${p.stale_days}+ days`;
+    if (p.pc_stale_days) {
+      const tip = document.getElementById('w2q-pc-tip');
+      tip.dataset.tip = who2qPcRule(p);
+      tip.setAttribute('aria-label', tip.dataset.tip);
+    }
     if (p.candidate_window_weeks) {
       // The candidate rule's tooltip says the export's actual settings.
       const tip = document.getElementById('w2q-cands-tip');
@@ -179,20 +242,28 @@ async function who2qInit() {
       document.getElementById('w2q-siteqs-section').hidden = !hasSiteQs;
       document.getElementById('w2q-cands-section').hidden = !hasSiteQs;
       if (hasSiteQs) {
-        document.getElementById('w2q-siteqs').innerHTML = who2qSiteQRowsHtml(ao.site_qs);
-        document.getElementById('w2q-cands').innerHTML = who2qCandidateRowsHtml(ao.candidates);
+        document.getElementById('w2q-siteqs').innerHTML = who2qCapped(ao.site_qs, who2qSiteQRowsHtml);
+        document.getElementById('w2q-cands').innerHTML = who2qCapped(ao.candidates, who2qCandidateRowsHtml);
+      }
+      // Regulars and PC Regulars: only when the export wrote them (older JSON lacks them).
+      const hasRegulars = Array.isArray(ao.regulars) && Array.isArray(ao.pc_regulars);
+      document.getElementById('w2q-regulars-pair').hidden = !hasRegulars;
+      if (hasRegulars) {
+        document.getElementById('w2q-regulars').innerHTML = who2qCapped(ao.regulars, who2qRegularRowsHtml);
+        document.getElementById('w2q-pc').innerHTML = who2qCapped(ao.pc_regulars, who2qPcRowsHtml);
       }
       const siteQPart = hasSiteQs
         ? `${ao.site_qs.length} Site Q${ao.site_qs.length === 1 ? '' : 's'} · ` +
           `${ao.candidates.length} candidate${ao.candidates.length === 1 ? '' : 's'} · `
         : '';
       document.getElementById('w2q-ao-summary').textContent =
-        `${siteQPart}${ao.never_qd.length} never Q'd · ${ao.stale_qs.length} overdue · ` +
+        `${siteQPart}${ao.stale_qs.length} overdue · ` +
         `${ao.workouts_in_window} workouts in ${data.params.window_weeks} wks`;
-      document.getElementById('never-qd-count').textContent = 'Regulars · posts here';
+      const qLoad = ao.q_load || [];
+      document.getElementById('q-load-count').textContent = who2qQLoadSummary(qLoad);
       document.getElementById('stale-q-count').textContent = 'Days since';
-      neverBody.innerHTML = who2qNeverRowsHtml(ao.never_qd);
-      staleBody.innerHTML = who2qStaleRowsHtml(ao.stale_qs);
+      loadBody.innerHTML = who2qCapped(qLoad, who2qQLoadRowsHtml);
+      staleBody.innerHTML = who2qCapped(ao.stale_qs, who2qStaleRowsHtml);
     }
 
     const m = location.hash.match(/^#ao=(.+)$/);
@@ -203,7 +274,7 @@ async function who2qInit() {
     }
     sel.addEventListener('change', render);
   } catch (e) {
-    f3ShowError('never-qd-body', 'Could not load Q candidate data — try refreshing the page');
+    f3ShowError('q-load-body', 'Could not load Q candidate data — try refreshing the page');
     f3ShowError('stale-q-body', 'Could not load Q candidate data — try refreshing the page');
     document.getElementById('data-as-of').textContent = 'Unavailable';
   }
@@ -216,7 +287,8 @@ if (typeof document !== 'undefined') {
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
   module.exports = {
-    who2qFmtRate, who2qFmtDate, who2qShortDate, who2qNeverRowsHtml, who2qStaleRowsHtml,
+    who2qFmtRate, who2qFmtDate, who2qShortDate, who2qQLoadRowsHtml, who2qQLoadSummary, who2qStaleRowsHtml,
     who2qRosterDate, who2qTenure, who2qSiteQRowsHtml, who2qCandidateRowsHtml, who2qCandidateRule,
+    who2qRegularRowsHtml, who2qPcRowsHtml, who2qPcRule, who2qCapped,
   };
 }

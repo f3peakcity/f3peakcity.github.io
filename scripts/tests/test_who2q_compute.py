@@ -5,14 +5,15 @@ from datetime import date, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from who2q_compute import latest_names, never_qd_list, stale_q_list, build_payload, plausibility_error
+from who2q_compute import latest_names, regulars_list, stale_q_list, build_payload, plausibility_error
 
 CONFIG = {
     "region_org_id": 40342,
     "window_weeks": 16,
     "regular_threshold": 0.5,
     "stale_days": 60,
-    "max_never_qd": 10,
+    "pc_stale_days": 182,
+    "q_load_weeks": 26,
     "excluded_aos": ["Moon Tower"],
     "excluded_pax": ["Ghosted"],
     "name_aliases": {"Ch3ap Trick": "Cheap Trick"},
@@ -37,7 +38,7 @@ class TestLatestNames(unittest.TestCase):
         self.assertEqual(latest_names(rows, CONFIG)[2], "Cheap Trick")
 
 
-class TestNeverQd(unittest.TestCase):
+class TestRegularRule(unittest.TestCase):
     def test_rate_uses_distinct_workout_dates_as_denominator(self):
         # 4 distinct workout dates; uid 1 attends 2 (50% -> in), uid 2 attends 1 (25% -> out)
         dates = [date(2026, 6, d) for d in (1, 8, 15, 22)]
@@ -46,51 +47,22 @@ class TestNeverQd(unittest.TestCase):
         # uid 3 attends all 4 so the denominator is 4
         att += [row(3, "Always", "A", d) for d in dates]
         names = latest_names(att, CONFIG)
-        result = never_qd_list(att, set(), names, CONFIG)
-        got = {p["name"]: p for p in result}
-        self.assertIn("Half", got)
-        self.assertNotIn("Rare", got)
+        got = {p["name"]: p for p in regulars_list(att, [], names, TODAY, CONFIG)}
+        self.assertEqual(set(got), {"Half", "Always"})
         self.assertEqual(got["Half"]["rate"], 0.5)
         self.assertEqual(got["Half"]["attended"], 2)
-        self.assertEqual(got["Always"]["last_attended"], "2026-06-22")
 
     def test_threshold_boundary_50_percent_is_regular(self):
         att = [row(1, "Edge", "A", date(2026, 6, 1)),
                row(2, "Anchor", "A", date(2026, 6, 1)), row(2, "Anchor", "A", date(2026, 6, 8))]
         names = latest_names(att, CONFIG)
-        result = never_qd_list(att, set(), names, CONFIG)
+        result = regulars_list(att, [], names, TODAY, CONFIG)
         self.assertIn("Edge", [p["name"] for p in result])  # 1/2 = exactly 0.5
 
-    def test_excludes_prior_qs_and_excluded_pax(self):
-        att = [row(1, "HasQd", "A", date(2026, 6, 1)),
-               row(2, "Ghosted", "A", date(2026, 6, 1)),
-               row(3, "Clean", "A", date(2026, 6, 1))]
+    def test_excluded_pax(self):
+        att = [row(2, "Ghosted", "A", date(2026, 6, 1)), row(3, "Clean", "A", date(2026, 6, 1))]
         names = latest_names(att, CONFIG)
-        result = never_qd_list(att, {1}, names, CONFIG)
-        self.assertEqual([p["name"] for p in result], ["Clean"])
-
-    def test_caps_at_max_and_sorts_rate_then_recency_then_name(self):
-        d1, d2 = date(2026, 6, 1), date(2026, 6, 8)
-        att = []
-        # 12 people all attend both workouts (rate 1.0) -> alphabetical tie-break, cap 10
-        for uid in range(12):
-            att += [row(uid, f"Pax{chr(65 + uid)}", "A", d1), row(uid, f"Pax{chr(65 + uid)}", "A", d2)]
-        names = latest_names(att, CONFIG)
-        result = never_qd_list(att, set(), names, CONFIG)
-        self.assertEqual(len(result), 10)
-        self.assertEqual(result[0]["name"], "PaxA")
-        self.assertEqual(result[-1]["name"], "PaxJ")
-
-    def test_recency_breaks_rate_ties(self):
-        # Both attend 1 of 2 workouts (rate 0.5); Late attended more recently
-        att = [row(1, "Early", "A", date(2026, 6, 1)),
-               row(2, "Late", "A", date(2026, 6, 8))]
-        names = latest_names(att, CONFIG)
-        result = never_qd_list(att, set(), names, CONFIG)
-        self.assertEqual([p["name"] for p in result], ["Late", "Early"])
-
-    def test_empty_when_no_workouts(self):
-        self.assertEqual(never_qd_list([], set(), {}, CONFIG), [])
+        self.assertEqual([p["name"] for p in regulars_list(att, [], names, TODAY, CONFIG)], ["Clean"])
 
 
 class TestStaleQs(unittest.TestCase):
@@ -129,6 +101,69 @@ class TestStaleQs(unittest.TestCase):
         self.assertEqual(stale_q_list(q, [], names, TODAY, CONFIG), [])
 
 
+from who2q_compute import pc_regular_uids, pc_regulars_for_ao, q_load_for_ao
+
+
+class TestRegulars(unittest.TestCase):
+    def test_every_regular_never_first_then_longest_gap(self):
+        dates = [date(2026, 6, d) for d in (1, 8)]
+        att = [row(u, n, "A", d) for u, n in ((1, "Recent"), (2, "Never"), (3, "Long"), (4, "Ghosted"))
+               for d in dates]
+        att.append(row(5, "Rare", "A", dates[0]))  # 1 of 2 = 50%: a regular, Q'd 5 days ago
+        q = [row(1, "Recent", "A", date(2026, 6, 1)), row(3, "Long", "A", date(2026, 1, 1)),
+             row(3, "Long", "A", date(2025, 12, 1)), row(5, "Rare", "A", date(2026, 7, 1))]
+        names = latest_names(att + q, CONFIG)
+        got = regulars_list(att, q, names, TODAY, CONFIG)
+        self.assertEqual([p["name"] for p in got], ["Never", "Long", "Recent", "Rare"])
+        self.assertEqual(got[0]["days_since"], None)
+        self.assertEqual(got[1]["last_q"], "2026-01-01")
+        self.assertEqual(got[1]["days_since"], (TODAY - date(2026, 1, 1)).days)
+
+    def test_empty_when_no_workouts(self):
+        self.assertEqual(regulars_list([], [], {}, TODAY, CONFIG), [])
+
+
+class TestPcRegulars(unittest.TestCase):
+    def test_26_in_26_weeks_or_3_in_3_weeks(self):
+        att = [row(1, "TwentySix", "A", TODAY - timedelta(days=5 * i + 30)) for i in range(26)]
+        att += [row(2, "TwentyFive", "A", TODAY - timedelta(days=5 * i + 30)) for i in range(25)]
+        att += [row(3, "Fresh", "A", TODAY - timedelta(days=i)) for i in range(3)]
+        att += [row(4, "Elsewhere", "Moon Tower", TODAY - timedelta(days=i)) for i in range(3)]
+        self.assertEqual(pc_regular_uids(att, TODAY, CONFIG), {1, 3})
+
+    def test_ao_regulars_left_out_stale_boundary_sort_and_cap(self):
+        q = [row(1, "JustStale", "A", TODAY - timedelta(days=183)),
+             row(2, "NotStale", "A", TODAY - timedelta(days=182)),
+             row(3, "Regular", "A", TODAY - timedelta(days=400))]
+        att = [row(1, "JustStale", "A", TODAY - timedelta(days=d)) for d in (1, 8, 15)]
+        att += [row(4, "NeverQd", "A", TODAY - timedelta(days=d)) for d in (1, 8, 15)]
+        att += [row(5, "Visitor", "A", TODAY - timedelta(days=1)),
+                row(6, "Stranger", "B", TODAY - timedelta(days=1)),
+                row(7, "Other", "B", TODAY - timedelta(days=1)),
+                row(8, "Ghosted", "B", TODAY - timedelta(days=1))]
+        names = latest_names(att + q, CONFIG)
+        got = pc_regulars_for_ao({1, 2, 3, 4, 5, 6, 7, 8}, {3}, [r for r in att if r["ao_name"] == "A"],
+                                        q, names, TODAY, CONFIG)
+        # NeverQd beats JustStale on the tie (never before stale).
+        self.assertEqual([p["name"] for p in got], ["NeverQd", "JustStale", "Visitor", "Other", "Stranger"])
+        self.assertEqual(got[1]["days_since"], 183)
+        self.assertEqual(got[0]["posts_here"], 3)
+
+
+class TestQLoad(unittest.TestCase):
+    def test_counts_window_qs_sorted_most_then_latest(self):
+        q = [row(1, "Busy", "A", TODAY - timedelta(days=10)), row(1, "Busy", "A", TODAY - timedelta(days=40)),
+             row(2, "Once", "A", TODAY - timedelta(days=5)),
+             row(3, "Earlier", "A", TODAY - timedelta(days=20)),
+             row(4, "Ancient", "A", TODAY - timedelta(weeks=27)),
+             row(5, "Ghosted", "A", TODAY - timedelta(days=3))]
+        names = latest_names(q, CONFIG)
+        got = q_load_for_ao(q, {1}, names, TODAY, CONFIG)
+        self.assertEqual([(p["name"], p["qs"]) for p in got], [("Busy", 2), ("Once", 1), ("Earlier", 1)])
+        self.assertEqual([p["regular"] for p in got], [True, False, False])
+        self.assertEqual(got[0]["last_q"], (TODAY - timedelta(days=10)).isoformat())
+
+
 class TestBuildPayload(unittest.TestCase):
     def test_shape_ao_filtering_and_sorting(self):
         att = [row(1, "P1", "Zulu", date(2026, 6, 1)),
@@ -141,9 +176,12 @@ class TestBuildPayload(unittest.TestCase):
         self.assertEqual([a["name"] for a in payload["aos"]], ["Alpha", "Zulu"])
         alpha = payload["aos"][0]
         self.assertEqual(alpha["workouts_in_window"], 1)
-        self.assertEqual([p["name"] for p in alpha["never_qd"]], ["P2"])
         self.assertEqual([p["name"] for p in alpha["stale_qs"]], ["OldQ"])
         self.assertEqual(alpha["stale_qs"][0]["attended_in_window"], 0)
+        self.assertEqual([p["name"] for p in alpha["regulars"]], ["P2"])
+        self.assertEqual(alpha["pc_regulars"], [])
+        self.assertEqual(alpha["q_load"], [])  # OldQ's Q is older than 26 weeks
+        self.assertEqual(payload["params"]["pc_stale_days"], 182)
 
 
 class TestPlausibilityError(unittest.TestCase):

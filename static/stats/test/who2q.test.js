@@ -7,8 +7,9 @@ global.f3Esc = dataUtils.f3Esc;
 global.f3ParseLocalDate = dataUtils.f3ParseLocalDate;
 global.f3PaxLink = dataUtils.f3PaxLink;
 const {
-  who2qFmtRate, who2qFmtDate, who2qShortDate, who2qNeverRowsHtml, who2qStaleRowsHtml,
+  who2qFmtRate, who2qFmtDate, who2qShortDate, who2qQLoadRowsHtml, who2qQLoadSummary, who2qStaleRowsHtml,
   who2qRosterDate, who2qTenure, who2qSiteQRowsHtml, who2qCandidateRowsHtml, who2qCandidateRule,
+  who2qRegularRowsHtml, who2qPcRowsHtml, who2qPcRule, who2qCapped,
 } = require('../assets/js/who2q.js');
 
 let passed = 0;
@@ -41,20 +42,19 @@ test('who2qShortDate adds the year only outside the current one', () => {
   assert.strictEqual(who2qShortDate('2025-08-06', now), 'Aug 6, 2025');
 });
 
-test('never-qd table renders rows in order with rank', () => {
-  const html = who2qNeverRowsHtml([
-    { name: 'Blue Steel', attended: 12, rate: 0.75, last_attended: '2026-07-01' },
-    { name: 'Magnum', attended: 8, rate: 0.5, last_attended: '2026-06-24' },
-  ]);
-  assert.ok(html.indexOf('Blue Steel') < html.indexOf('Magnum'));
-  assert.ok(html.includes('75%'));
-  assert.ok(html.includes('Jul 1, 2026'));
-});
-
-test('never-qd empty state', () => {
-  const html = who2qNeverRowsHtml([]);
-  assert.ok(html.includes('already Q’d'));
-  assert.ok(!html.includes('<table'));
+test('who carries the Qs: counts, regular vs visitor, summary', () => {
+  const list = [
+    { name: 'Ramsay', qs: 2, last_q: '2026-09-15', regular: true },
+    { name: 'Cataracts', qs: 1, last_q: '2026-10-20', regular: false },
+  ];
+  const html = who2qQLoadRowsHtml(list);
+  assert.ok(html.indexOf('Ramsay') < html.indexOf('Cataracts'), 'keeps export order');
+  assert.ok(html.includes('Regular · last'));
+  assert.ok(html.includes('Visitor · last'));
+  assert.ok(html.includes('>2</span>'));
+  assert.strictEqual(who2qQLoadSummary(list), '3 Qs from 2 men');
+  assert.strictEqual(who2qQLoadSummary([list[1]]), '1 Q from 1 man');
+  assert.ok(who2qQLoadRowsHtml([]).includes('empty-state'));
 });
 
 test('stale-q table shows days ago and window attendance', () => {
@@ -75,8 +75,8 @@ test('stale-q empty state', () => {
 });
 
 test('render helpers escape HTML in names', () => {
-  const html = who2qNeverRowsHtml([
-    { name: '<img src=x>', attended: 1, rate: 1, last_attended: '2026-07-01' },
+  const html = who2qStaleRowsHtml([
+    { name: '<img src=x>', last_q: '2026-07-01', days_since: 90, attended_in_window: 1 },
   ]);
   assert.ok(!html.includes('<img'));
   assert.ok(html.includes('&lt;img'));
@@ -136,6 +136,42 @@ test('candidate rule tooltip reads the export settings', () => {
   assert.ok(rule.includes('at least once in the last 26 weeks'));
   assert.ok(who2qCandidateRule({ candidate_attendance: 0.5, candidate_min_qs: 2, candidate_window_weeks: 26 })
     .includes('at least 2 times'));
+});
+
+test('regulars rows: a dash for no Q on record, days otherwise', () => {
+  const html = who2qRegularRowsHtml([
+    { name: 'Moline', attended: 10, rate: 0.83, last_q: null, days_since: null },
+    { name: 'Hitchhiker', attended: 10, rate: 0.83, last_q: '2026-10-06', days_since: 15 },
+  ]);
+  assert.ok(html.includes('<span class="label">83%</span>'));
+  assert.ok(html.includes('title="No Q\'s in recent history"'), 'the dash explains itself on hover');
+  assert.ok(html.includes('>—</span>'));
+  assert.ok(!html.includes('Never'), 'history starts Aug 2025: never say never');
+  assert.ok(html.includes('>15</span>'));
+  assert.ok(html.indexOf('Moline') < html.indexOf('Hitchhiker'), 'keeps export order');
+  assert.ok(who2qRegularRowsHtml([]).includes('empty-state'));
+});
+
+test('PC Regular rows: posts here and no Q on record', () => {
+  const list = [
+    { name: '9-Lives', posts_here: 5, last_q: null, days_since: null },
+    { name: 'I-Beam', posts_here: 1, last_q: '2025-09-23', days_since: 393 },
+    { name: 'Blindside', posts_here: 0, last_q: null, days_since: null },
+  ];
+  const html = who2qPcRowsHtml(list);
+  assert.ok(html.includes('<span class="label">5 posts here</span>'));
+  assert.ok(html.includes('1 post here · Q\'d Sep 23, 2025'));
+  assert.ok(html.includes('never posted here'));
+  assert.ok(who2qPcRowsHtml([]).includes('empty-state'));
+  assert.ok(who2qPcRule({ pc_stale_days: 182 }).includes('182+ days'));
+});
+
+test('every list caps at 15 rows and says how many there are', () => {
+  const list = Array.from({ length: 20 }, (_, i) => i);
+  const html = who2qCapped(list, shown => shown.map(i => `<i>${i}</i>`).join(''));
+  assert.ok(html.includes('<i>14</i>') && !html.includes('<i>15</i>'));
+  assert.ok(html.includes('Showing 15 of 20'));
+  assert.ok(!who2qCapped(list.slice(0, 15), shown => '').includes('Showing'), 'no footer when nothing is cut');
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);

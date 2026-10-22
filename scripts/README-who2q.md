@@ -68,6 +68,26 @@ carries Qs here, the number of AOs he Q'd at, and his first attendance on
 record (`first_seen`: BigQuery history starts around Aug 2025, so read it as
 "since at least").
 
+**Regulars here** (`regulars`): every regular of the AO (same rule as Never
+Q'd: `regular_threshold` over `window_weeks`), with `last_q` and `days_since`
+(both null if he never Q'd there). Never first, then longest gap, then name.
+
+**PC Regulars to ask** (`pc_regulars`): PC Regulars, 26+
+posts in 26 weeks or 3+ in the last 3, posts at `excluded_aos` not counted.
+That's the `PC_REGULAR_*` constants in `who2q_compute.py`; keep them in sync with
+`f3PcRegularMap` in `static/stats/assets/js/data.js`. Leaves out the AO's own
+regulars (they're on Regulars here) and anyone who Q'd there within
+`pc_stale_days` (182). Sorted by posts there over 26 weeks, then never Q'd
+before stale, then name.
+
+**Who carries the Qs** (`q_load`): every Q at the AO in the last `q_load_weeks`
+(26), one entry per man with `qs`, `last_q` and `regular` (on Regulars here).
+Most Qs first, then most recent, then name. It replaced the old "Never Q'd
+here" list, which was exactly the dashed rows of Regulars here.
+
+No list is capped in the JSON. The page shows each list's top 15 rows
+(`WHO2Q_MAX_ROWS` in `static/stats/assets/js/who2q.js`) and the full count.
+
 Takeovers (`visiting_q_windows`): another region's men leading our workouts.
 Their Qs never count, for candidates or for "Overdue for a Q". A Peak City man
 who Q'd during a takeover goes in that window's `keep`, by BigQuery user id
@@ -100,7 +120,7 @@ plus any current Site Q, who the page leaves out):
 
 ## Validation against SQL (Beaver Chase example)
 
-**List 2 (overdue Qs)** — expect exact match with the page:
+**Overdue for a Q** — expect exact match with the page:
 
     SELECT a.f3_name,
            MAX(e.start_date) AS last_q,
@@ -114,33 +134,6 @@ plus any current Site Q, who the page leaves out):
 
 Note: the page groups by `user_id` and shows the latest `f3_name` with
 aliases applied, so rows may differ if one person posted under two names.
-
-**List 1 (regulars who never Q'd)** — expect the page's top 10:
-
-    WITH win AS (
-      SELECT a.user_id, a.f3_name, e.start_date
-      FROM `analytics.attendance_info` a
-      JOIN `analytics.event_info` e ON e.id = a.event_instance_id
-      WHERE e.region_org_id = 40342 AND e.ao_name = "Beaver Chase"
-        AND e.start_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 16 WEEK)
-    ),
-    denom AS (SELECT COUNT(DISTINCT start_date) AS n FROM win),
-    ever_q AS (
-      SELECT DISTINCT a.user_id
-      FROM `analytics.attendance_info` a
-      JOIN `analytics.event_info` e ON e.id = a.event_instance_id
-      WHERE e.region_org_id = 40342 AND e.ao_name = "Beaver Chase" AND a.q_ind = 1
-    )
-    SELECT ANY_VALUE(w.f3_name) AS f3_name,
-           COUNT(DISTINCT w.start_date) AS attended,
-           ROUND(COUNT(DISTINCT w.start_date) / (SELECT n FROM denom), 3) AS rate,
-           MAX(w.start_date) AS last_attended
-    FROM win w
-    WHERE w.user_id NOT IN (SELECT user_id FROM ever_q)
-    GROUP BY w.user_id
-    HAVING rate >= 0.5
-    ORDER BY rate DESC, last_attended DESC, f3_name
-    LIMIT 10;
 
 Caveat: `CURRENT_DATE()` in the SQL vs `generated_at` in the JSON differ
 if you validate on a different day than the export ran.
