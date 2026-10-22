@@ -71,8 +71,17 @@ For each AO it shows:
   successor's row.
 - **Site Q candidates:** 40%+ attendance there and at least one Q there over
   26 weeks, not a current Site Q anywhere; past Site Qs listed last.
-- **Never Q'd here** (regulars, 30%+ over 12 weeks) and **Overdue for a Q**
-  (no Q there in 60+ days).
+- **Regulars here:** every regular (30%+ over 12 weeks) with days since he last
+  Q'd there; a dash (no Q on record: BigQuery starts ~Aug 2025) first, then the
+  longest gap.
+- **PC Regulars to ask:** PC Regulars from anywhere in the region (same rule as
+  the PAX page) who aren't regulars there and haven't Q'd there in 182+ days, or
+  ever. Most posts there (26 weeks) first.
+- **Who carries the Qs:** every Q there in 26 weeks, by man, most first; regular
+  or visitor; headline "25 Qs from 22 men".
+- **Overdue for a Q** (no Q there in 60+ days).
+- Every list shows its top 15 rows and "Showing 15 of N" (`WHO2Q_MAX_ROWS` in
+  `assets/js/who2q.js`); the export writes them in full.
 
 Every threshold, alias and exception is in `scripts/who2q_config.json`:
 `ao_aliases` and `name_aliases` for spellings, `site_q_user_ids` for two men

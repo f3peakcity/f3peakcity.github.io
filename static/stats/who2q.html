@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20261018d">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20261022a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -38,7 +38,7 @@
     <section class="page-head">
       <div class="eyebrow label"><span>Dashboard 05</span><span>For Site Qs</span></div>
       <h1 class="page-title">Who to Q</h1>
-      <p class="page-sub">By AO: who holds Site Q, who's ready to step up, regulars who haven't led yet, and past Qs who are overdue.</p>
+      <p class="page-sub">By AO: who holds Site Q, who's ready to step up, how long since each regular Q'd, PC Regulars to ask, who carries the Qs, and past Qs who are overdue.</p>
     </section>
 
     <div class="ao-picker">
@@ -70,13 +70,30 @@
       <div id="w2q-cands"></div>
     </section>
 
+    <div class="pair" id="w2q-regulars-pair" hidden>
+      <section class="section">
+        <div class="section-head">
+          <h2>Regulars <span class="tail">here&nbsp;<button type="button" class="info-dot" data-tip="Everyone who posts here regularly, and how long since each last Q'd here. A dash means no Q here on record (history starts Aug 2025); those come first, then the longest gap." aria-label="Everyone who posts here regularly, and how long since each last Q'd here. A dash means no Q here on record (history starts Aug 2025); those come first, then the longest gap.">&#9432;</button></span></h2>
+          <span class="label">Days since</span>
+        </div>
+        <div id="w2q-regulars"></div>
+      </section>
+      <section class="section">
+        <div class="section-head">
+          <h2>PC Regulars <span class="tail">to ask&nbsp;<button type="button" class="info-dot" id="w2q-pc-tip" data-tip="PC Regulars who aren't regulars here and haven't Q'd here in 6+ months, or have no Q here on record." aria-label="PC Regulars who aren't regulars here and haven't Q'd here in 6+ months, or have no Q here on record.">&#9432;</button></span></h2>
+          <span class="label">Days since</span>
+        </div>
+        <div id="w2q-pc"></div>
+      </section>
+    </div>
+
     <div class="pair">
       <section class="section">
         <div class="section-head">
-          <h2>Never Q'd <span class="tail">here&nbsp;<button type="button" class="info-dot" data-tip="Regular attendees with no recorded Q at this AO, ever" aria-label="Regular attendees with no recorded Q at this AO, ever">&#9432;</button></span></h2>
-          <span class="label" id="never-qd-count">Regulars</span>
+          <h2>Who carries <span class="tail">the Qs&nbsp;<button type="button" class="info-dot" data-tip="Every Q here in the last 26 weeks, by man: most first. Regular means he posts here regularly (30%+ of the last 12 weeks)." aria-label="Every Q here in the last 26 weeks, by man: most first. Regular means he posts here regularly (30%+ of the last 12 weeks).">&#9432;</button></span></h2>
+          <span class="label" id="q-load-count">Qs here</span>
         </div>
-        <div id="never-qd-body"><div class="status label">Choose an AO above to see candidates</div></div>
+        <div id="q-load-body"><div class="status label">Choose an AO above to see candidates</div></div>
       </section>
       <section class="section">
         <div class="section-head">
@@ -95,7 +112,7 @@
     </div>
   </footer>
 
-<script src="assets/js/data.js?v=20261018d"></script>
-<script src="assets/js/who2q.js?v=20261018d"></script>
+<script src="assets/js/data.js?v=20261022a"></script>
+<script src="assets/js/who2q.js?v=20261022a"></script>
 </body>
 </html>
