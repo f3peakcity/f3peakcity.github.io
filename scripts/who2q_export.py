@@ -27,7 +27,7 @@ OUT_PATH = SCRIPT_DIR.parent / "static" / "stats" / "data" / "who2q.json"
 
 # All-time Q history for the region. Traceable to the spec's example query.
 Q_SQL = """
-SELECT a.user_id, a.f3_name, e.ao_name, e.start_date
+SELECT a.user_id, a.f3_name, e.ao_name, e.name, e.start_date
 FROM `{ds}.attendance_info` AS a
 JOIN `{ds}.event_info` AS e ON e.id = a.event_instance_id
 WHERE e.region_org_id = @region
@@ -37,7 +37,7 @@ WHERE e.region_org_id = @region
 # Window attendance (all roles — a Q counts as a post). Covers the longer of the
 # Who-to-Q, candidate and PC Regular windows; each list filters its own window in Python.
 ATT_SQL = """
-SELECT a.user_id, a.f3_name, e.ao_name, e.start_date
+SELECT a.user_id, a.f3_name, e.ao_name, e.name, e.start_date
 FROM `{ds}.attendance_info` AS a
 JOIN `{ds}.event_info` AS e ON e.id = a.event_instance_id
 WHERE e.region_org_id = @region
@@ -61,18 +61,30 @@ def fetch_roster(url):
         return parse_roster(resp.read().decode("utf-8-sig"))
 
 
-def _row(user_id, f3_name, ao_name, start_date):
+def ao_for(ao_name, event_name):
+    """The Who to Q AO for an event: BigQuery's ao_name, except Ovaltime, which
+    BigQuery files under FMJ. Same rule as Slack_Data_Collector's pipeline: an
+    FMJ event whose name contains "ovaltime" is Oval Time ("Ovaltime meets
+    Half Dome" is at Half Dome, so it stays there). Callers are already
+    scoped to Peak City (region_org_id)."""
+    ao_name = (ao_name or "").strip()
+    if ao_name == "Full Metal Jacket (FMJ)" and "ovaltime" in (event_name or "").lower():
+        return "Oval Time"
+    return ao_name
+
+
+def _row(user_id, f3_name, ao_name, event_name, start_date):
     """One q/att row as build_payload wants it, or None (the query path's skip rule)."""
     if user_id is None or start_date is None or not f3_name:
         return None
     return {"user_id": user_id, "f3_name": f3_name.strip(),
-            "ao_name": (ao_name or "").strip(), "start_date": start_date}
+            "ao_name": ao_for(ao_name, event_name), "start_date": start_date}
 
 
 def fetch_rows(client, sql, params):
     from google.cloud import bigquery
     job = client.query(sql, job_config=bigquery.QueryJobConfig(query_parameters=params))
-    rows = (_row(r.user_id, r.f3_name, r.ao_name, r.start_date) for r in job.result())
+    rows = (_row(r.user_id, r.f3_name, r.ao_name, r.name, r.start_date) for r in job.result())
     return [r for r in rows if r]
 
 
@@ -107,7 +119,7 @@ def snapshot_rows(snapshot_dir, region_org_id, att_weeks, today):
                     continue
                 uid, d = int(r["user_id"]), date.fromisoformat(r["start_date"])
                 first[uid] = min(first.get(uid, d), d)  # FIRST_SQL: no f3_name filter
-                row = _row(uid, r["f3_name"], r["ao_name"], d)
+                row = _row(uid, r["f3_name"], r["ao_name"], r["name"], d)
                 if not row:
                     continue
                 if r["q_ind"] == "1":  # a.q_ind = 1 (a count: '2' doesn't match)
