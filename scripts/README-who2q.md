@@ -8,6 +8,10 @@ All thresholds and exclusion lists live in `scripts/who2q_config.json`
 (`excluded_aos`, `excluded_pax`, `name_aliases`) — edit, re-run the
 export, commit.
 
+AOs are BigQuery's `ao_name`, with one split (same rule as Slack_Data_Collector's
+pipeline): an FMJ event whose name contains "ovaltime" is AO **Oval Time**
+(`ao_for` in `who2q_export.py`). "Ovaltime meets Half Dome" stays at Half Dome.
+
 ## Refresh locally (works today)
 
 From a Slack_Data_Collector checkout (no BigQuery access needed; `--today
