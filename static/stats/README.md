@@ -1,8 +1,12 @@
 # Stats dashboard — metric definitions
 
 How the numbers on <https://f3peakcity.com/stats/> are computed. All pages read
-the same published Google Sheet ("Raw" tab) at page load and aggregate in the
-browser; there is no build step and no stored copy of these numbers.
+the same Google Sheet "Raw" tab and aggregate in the browser. The tab is
+snapshotted once a day to `data/raw.json` (+ `data/meta.json`, whose
+`generated_at` is the footer's "Data as of") by `stats-json.yml` in
+f3peakcity/Slack_Data_Collector, which checks the JSON against the CSV cell by
+cell before committing. If the snapshot is missing or malformed the pages fall
+back to the live published CSV and the footer says "Live from Google Sheets".
 
 ## What counts as a post
 
@@ -374,7 +378,8 @@ Rules worth keeping:
   `<button class="info-dot" data-tip="…">` in HTML. One shared popover opens on
   hover, keyboard focus or tap; no Bootstrap. Dense data cells (heat cells,
   rhythm squares, Who to Q rows) keep native `title` hover text instead.
-- **Data loads through `f3LoadRawRows()`.** It checks the Raw tab's header
+- **Data loads through `f3LoadRawRows()`.** It reads `data/raw.json` (falling
+  back to the published CSV), fills the `.f3-as-of` footer span, checks the Raw tab's header
   (`Date, Name, Site, Role`), applies `f3CanonicalSite`, and throws on a
   wrong-shaped sheet so pages show an error instead of an empty page.
   Loading/error/empty states come from `f3ShowLoading/f3ShowError/f3ShowEmpty`.

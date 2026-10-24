@@ -514,19 +514,54 @@ function f3CanonicalSite(site) {
 // as an error, not as "no posts yet".
 const F3_RAW_COLUMNS = ['Date', 'Name', 'Site', 'Role'];
 
-// Parses the Raw tab: checks its header, rewrites migrated site names, drops
-// rows with no PAX name. `year` (e.g. '2026') keeps only that year's rows.
-function f3RawRowsFromCsv(text, { year } = {}) {
-  const header = f3ParseCSVLine((text || '').split('\n')[0] || '').map(h => h.trim());
+// Checks the header, rewrites migrated site names, drops rows with no PAX
+// name. `year` (e.g. '2026') keeps only that year's rows.
+function f3CleanRawRows(header, rows, { year } = {}) {
   const missing = F3_RAW_COLUMNS.filter(c => !header.includes(c));
   if (missing.length) throw new Error(`Sheet is missing column(s): ${missing.join(', ')}`);
-  return f3ParseCSV(text, 0)
+  return rows
     .map(r => ({ ...r, Site: f3CanonicalSite(r['Site']) }))
     .filter(r => r['Name'] && r['Name'].trim() && (!year || r['Date'].startsWith(year + '-')));
 }
 
+// The Raw tab as published CSV (the live-sheet fallback).
+function f3RawRowsFromCsv(text, opts) {
+  const header = f3ParseCSVLine((text || '').split('\n')[0] || '').map(h => h.trim());
+  return f3CleanRawRows(header, f3ParseCSV(text || '', 0), opts);
+}
+
+// The Raw tab as data/raw.json: the rows f3ParseCSV builds from the CSV,
+// snapshotted daily by Slack_Data_Collector's stats-json workflow (#69).
+function f3RawRowsFromJson(rows, opts) {
+  if (!Array.isArray(rows)) throw new Error('raw.json is not a list of rows');
+  return f3CleanRawRows(Object.keys(rows[0] || {}), rows, opts);
+}
+
+// Footer freshness: every element with class f3-as-of gets the snapshot date.
+function f3SetAsOf(text) {
+  document.querySelectorAll('.f3-as-of').forEach(el => { el.textContent = text; });
+}
+
+// Same-origin snapshot first; the live published sheet only if it is missing
+// or malformed, so the page still works before the first snapshot lands.
 async function f3LoadRawRows(opts) {
-  return f3RawRowsFromCsv(await f3FetchCSV('raw'), opts);
+  let rows;
+  try {
+    const res = await fetch('data/raw.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status} fetching raw.json`);
+    rows = f3RawRowsFromJson(await res.json(), opts);
+  } catch (e) {
+    console.warn('Stats snapshot unavailable, reading the live sheet instead:', e.message);
+    rows = f3RawRowsFromCsv(await f3FetchCSV('raw'), opts);
+    f3SetAsOf('Live from Google Sheets');
+    return rows;
+  }
+  fetch('data/meta.json')
+    .then(r => (r.ok ? r.json() : Promise.reject()))
+    .then(m => f3SetAsOf('Data as of ' + new Date(m.generated_at)
+      .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })))
+    .catch(() => f3SetAsOf('Daily snapshot of Google Sheets'));
+  return rows;
 }
 
 // Export for Node.js tests
@@ -534,6 +569,6 @@ if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
-    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3IsFng, f3PaxLink, f3CompareValues, F3_COTTER_EXCLUDED_LC,
+    f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3RawRowsFromJson, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3IsFng, f3PaxLink, f3CompareValues, F3_COTTER_EXCLUDED_LC,
   };
 }
