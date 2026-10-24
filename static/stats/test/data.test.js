@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3CompareValues } = require('../assets/js/data.js');
+const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3RawRowsFromJson, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3CompareValues } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -298,6 +298,22 @@ test('a header-only sheet is empty, not an error', () => {
 test('a sheet without the expected columns throws', () => {
   assert.throws(() => f3RawRowsFromCsv('<html>not csv</html>\n'), /missing column/);
   assert.throws(() => f3RawRowsFromCsv(''), /missing column/);
+});
+
+// --- f3RawRowsFromJson (data/raw.json = f3ParseCSV rows of the Raw tab) ---
+console.log('\nf3RawRowsFromJson');
+
+test('the JSON snapshot reads exactly like the CSV it came from', () => {
+  const csv = 'Date,Name,Site,Role\n2026-08-01,Imp,WWCM,Q\n2025-12-31,Imp,Das Boot,\n2026-08-02, ,Das Boot,\n';
+  const json = JSON.parse(JSON.stringify(f3ParseCSV(csv, 0)));
+  assert.deepStrictEqual(f3RawRowsFromJson(json, { year: '2026' }), f3RawRowsFromCsv(csv, { year: '2026' }));
+  assert.deepStrictEqual(f3RawRowsFromJson(json), f3RawRowsFromCsv(csv));
+});
+
+test('an empty or wrong-shaped snapshot throws (the loader then falls back to the sheet)', () => {
+  assert.throws(() => f3RawRowsFromJson([]), /missing column/);
+  assert.throws(() => f3RawRowsFromJson({ rows: [] }), /not a list/);
+  assert.throws(() => f3RawRowsFromJson([{ Date: '2026-01-01' }]), /missing column/);
 });
 
 // --- f3QLoadByAo / f3QLoadTone ---
