@@ -1,32 +1,9 @@
 // F3 Peak City Stats — Shared Data Utilities
 // ============================================================
-// CONFIG: Google Sheets "Publish to Web" published ID and GIDs.
-// The published ID differs from the sheet's edit URL ID — it is
-// the long token in the /d/e/{PUBLISHED_ID}/pub URLs.
+// Every page reads same-origin data/raw.json, built daily from
+// Slack_Data_Collector's per-year ledger files (#75). The pages
+// never read the Google Sheet: it holds only the current year (#77).
 // ============================================================
-const F3_PUBLISHED_ID = '2PACX-1vR804eEdHprDZVLy23u5xzcvgdFodpwtIsMXLG20hTxYrV29DxwtBoPvR5W9V7r4-U2J1yKSs7XkM7M';
-
-const F3_TAB_GIDS = {
-  ao:          '1516133009',
-  pax:         '731565815',
-  fng:         '146818903',
-  leaderboard: '740264345',
-  raw:         '1113362713',
-};
-
-// ============================================================
-
-function f3CsvUrl(tabKey) {
-  const id = F3_PUBLISHED_ID;
-  const gid = F3_TAB_GIDS[tabKey];
-  return `https://docs.google.com/spreadsheets/d/e/${id}/pub?gid=${gid}&single=true&output=csv`;
-}
-
-async function f3FetchCSV(tabKey) {
-  const res = await fetch(f3CsvUrl(tabKey));
-  if (!res.ok) throw new Error(`HTTP ${res.status} fetching ${tabKey} tab`);
-  return res.text();
-}
 
 function f3ParseCSVLine(line) {
   line = line.replace(/\r$/, '');
@@ -524,7 +501,8 @@ function f3CleanRawRows(header, rows, { year } = {}) {
     .filter(r => r['Name'] && r['Name'].trim() && (!year || r['Date'].startsWith(year + '-')));
 }
 
-// The Raw tab as published CSV (the live-sheet fallback).
+// The Raw tab as published CSV. No page loads CSV any more; kept for tests and
+// for Slack_Data_Collector's leaderboard112.py parity check (tests/parity).
 function f3RawRowsFromCsv(text, opts) {
   const header = f3ParseCSVLine((text || '').split('\n')[0] || '').map(h => h.trim());
   return f3CleanRawRows(header, f3ParseCSV(text || '', 0), opts);
@@ -542,25 +520,18 @@ function f3SetAsOf(text) {
   document.querySelectorAll('.f3-as-of').forEach(el => { el.textContent = text; });
 }
 
-// Same-origin snapshot first; the live published sheet only if it is missing
-// or malformed, so the page still works before the first snapshot lands.
+// The same-origin snapshot only. A missing or malformed raw.json throws, so the
+// page shows its error state: there is no live-sheet fallback, because the
+// sheet holds only the current year (#77) and would silently drop history.
 async function f3LoadRawRows(opts) {
-  let rows;
-  try {
-    const res = await fetch('data/raw.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status} fetching raw.json`);
-    rows = f3RawRowsFromJson(await res.json(), opts);
-  } catch (e) {
-    console.warn('Stats snapshot unavailable, reading the live sheet instead:', e.message);
-    rows = f3RawRowsFromCsv(await f3FetchCSV('raw'), opts);
-    f3SetAsOf('Live from Google Sheets');
-    return rows;
-  }
+  const res = await fetch('data/raw.json');
+  if (!res.ok) throw new Error(`HTTP ${res.status} fetching raw.json`);
+  const rows = f3RawRowsFromJson(await res.json(), opts);
   fetch('data/meta.json')
     .then(r => (r.ok ? r.json() : Promise.reject()))
     .then(m => f3SetAsOf('Data as of ' + new Date(m.generated_at)
       .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })))
-    .catch(() => f3SetAsOf('Daily snapshot of Google Sheets'));
+    .catch(() => f3SetAsOf('Daily snapshot'));
   return rows;
 }
 
