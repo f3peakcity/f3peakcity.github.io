@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20261023a">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20261027a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -60,6 +60,27 @@
       </div>
     </section>
 
+    <section class="section" id="calendar-card" hidden>
+      <div class="section-head"><h2>#112 by day</h2><span class="label">Matches the <span class="tail">leaderboard&nbsp;<button type="button" class="info-dot" data-tip="One square per day. A day earns one #112 post however many rows it has; on Saturdays a NeighborUp or F3 Dads post earns one more. Tap a day to see every row and which ones counted. A dot marks a day with rows that didn't count." aria-label="One square per day. A day earns one #112 post however many rows it has; on Saturdays a NeighborUp or F3 Dads post earns one more. Tap a day to see every row and which ones counted. A dot marks a day with rows that didn't count.">&#9432;</button></span></span></div>
+      <div class="cal-bar">
+        <div class="cal-nav">
+          <button type="button" class="cal-arrow" id="cal-prev" aria-label="Previous month">&lsaquo;</button>
+          <span class="cal-title" id="cal-title"></span>
+          <button type="button" class="cal-arrow" id="cal-next" aria-label="Next month">&rsaquo;</button>
+        </div>
+        <div class="cal-tally" id="cal-tally"></div>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      <div class="rhythm-legend label">
+        <span><span class="cal-key"></span>no post</span>
+        <span><span class="cal-key p1"></span>posted</span>
+        <span><span class="cal-key p2"></span>2+ posts</span>
+        <span><span class="cal-key p1 is-q"></span>Q'd</span>
+        <span><span class="cal-key"><span class="cal-extra"></span></span>rows that didn't count</span>
+      </div>
+      <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
+    </section>
+
     <section class="section" id="balance-card" hidden>
       <div class="section-head"><h2>Give and take</h2><span class="label">Contribute as much as you <span class="tail">take&nbsp;<button type="button" class="info-dot" data-tip="Qs vs posts over the trailing 26 weeks, against a goal of 1 Q per 12 posts. Due to Q means he is below that pace. #downrange / Shield Lock posts and visiting Qs are left out." aria-label="Qs vs posts over the trailing 26 weeks, against a goal of 1 Q per 12 posts. Due to Q means he is below that pace. #downrange / Shield Lock posts and visiting Qs are left out.">&#9432;</button></span></span></div>
       <div class="kpis">
@@ -106,7 +127,8 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20261023a"></script>
-<script src="assets/js/pax-detail.js?v=20261023a"></script>
+<script src="assets/js/data.js?v=20261027a"></script>
+<script src="assets/js/leaderboard.js?v=20261027a"></script>
+<script src="assets/js/pax-detail.js?v=20261027a"></script>
 </body>
 </html>

@@ -77,6 +77,70 @@ function paxDetailQBalance(rows, paxName, now) {
   };
 }
 
+// #112 calendar (Slack_Data_Collector#97): one cell per day of a month, built
+// on leaderboard.js's own credit rules so it explains the leaderboard's number
+// and can never disagree with it. Needs leaderboard.js loaded first.
+const PAX_DETAIL_YEAR = '2026';
+
+// Short source label for a raw SourceFile value.
+function paxDetailSource(sourceFile) {
+  const s = String(sourceFile || '').trim();
+  if (s.startsWith('BigQuery')) return 'BigQuery';
+  if (s.startsWith('Attendance')) return 'Slack';
+  return s || 'Manual';
+}
+
+// Pure: rows + PAX + year + month (0-based) -> { label, days, posts, qs, complete }.
+// Each day: { date, rows, credit, q } where every row carries `counted` and,
+// when it earns nothing, a `why`. A day's credit is lbDayPostCredit's (from
+// LB_DAY_CREDIT_FROM; one per record before), so posts == the leaderboard's.
+function paxDetailCalendarMonth(rows, paxName, year, monthIdx) {
+  const ym = `${year}-${String(monthIdx + 1).padStart(2, '0')}`;
+  const dayCredit = ym >= LB_DAY_CREDIT_FROM;
+  const byDate = {};
+  rows.forEach(r => {
+    if ((r['Name'] || '').trim() !== paxName) return;
+    const date = (r['Date'] || '').trim();
+    if (date.startsWith(ym + '-')) (byDate[date] = byDate[date] || []).push(r);
+  });
+
+  const daysInMonth = new Date(Number(year), monthIdx + 1, 0).getDate();
+  const days = [];
+  let posts = 0, qs = 0;
+  for (let n = 1; n <= daysInMonth; n++) {
+    const date = `${ym}-${String(n).padStart(2, '0')}`;
+    // Q rows first, so the row shown as earning the day's post is the Q.
+    const dayRows = (byDate[date] || []).slice()
+      .sort((a, b) => (b['Role'] === 'Q') - (a['Role'] === 'Q'));
+    const saturday = f3ParseLocalDate(date).getDay() === LB_SATURDAY;
+    let primarySeen = false;
+    const secondarySeen = new Set();
+    const annotated = dayRows.map(r => {
+      const site = String(r['Site'] ?? '').trim();
+      const out = { site, role: (r['Role'] || '').trim(), source: paxDetailSource(r['SourceFile']), counted: true };
+      if (!dayCredit) return out;
+      const key = site.toLowerCase();
+      if (saturday && LB_SECOND_POST_SITES_LC.has(key)) {
+        if (secondarySeen.has(key)) Object.assign(out, { counted: false, why: `Second ${site} row today` });
+        secondarySeen.add(key);
+      } else if (primarySeen) {
+        Object.assign(out, { counted: false, why: saturday
+          ? `One post per Saturday morning, plus ${LB_SECOND_POST_SITES.join(' or ')}`
+          : 'One post per day' });
+      } else {
+        primarySeen = true;
+      }
+      return out;
+    });
+    const credit = dayCredit ? lbDayPostCredit(date, dayRows.map(r => r['Site'])) : dayRows.length;
+    const q = annotated.some(r => r.role === 'Q');
+    posts += credit;
+    qs += annotated.filter(r => r.role === 'Q').length;
+    days.push({ date, rows: annotated, credit, q });
+  }
+  return { label: MONTHS[monthIdx], days, posts, qs, complete: posts >= POST_GOAL && qs >= 1 };
+}
+
 (async function () {
   const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -98,7 +162,7 @@ function paxDetailQBalance(rows, paxName, now) {
 
   let allRawRows = [];
   try {
-    allRawRows = await f3LoadRawRows({ year: '2026' });
+    allRawRows = await f3LoadRawRows({ year: PAX_DETAIL_YEAR });
   } catch (e) {
     f3ShowError('pax-ao-grid');
     return;
@@ -130,6 +194,7 @@ function paxDetailQBalance(rows, paxName, now) {
     `${totalPosts.toLocaleString()} posts · ${totalQs.toLocaleString()} Qs · ${aosVisited} AOs in 2026`;
 
   renderQBalance(paxDetailQBalance(allRawRows, paxName, new Date()));
+  renderCalendar();
 
   // Timeline visuals (real-AO posts only, so counts match the summary above).
   const realRows = paxRows.filter(r => paxDetailIsRealAo((r['Site'] || '').trim()));
@@ -169,6 +234,80 @@ function paxDetailQBalance(rows, paxName, now) {
       verdict.className = 'label ' + (b.onTrack ? 'tone-none' : 'tone-alert');
     }
     document.getElementById('balance-card').hidden = false;
+  }
+
+  // #112 calendar: the current month (or December once the year is over),
+  // with arrows back to January. All rows count here, #downrange included,
+  // exactly as on the leaderboard.
+  function renderCalendar() {
+    const now = new Date();
+    const lastMonth = String(now.getFullYear()) === PAX_DETAIL_YEAR ? now.getMonth() : 11;
+    const todayIso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    let monthIdx = lastMonth;
+    const card = document.getElementById('calendar-card');
+    const prev = document.getElementById('cal-prev');
+    const next = document.getElementById('cal-next');
+    prev.onclick = () => { if (monthIdx > 0) { monthIdx--; draw(); } };
+    next.onclick = () => { if (monthIdx < lastMonth) { monthIdx++; draw(); } };
+    draw();
+    card.hidden = false;
+
+    function draw() {
+      const cal = paxDetailCalendarMonth(allRawRows, paxName, PAX_DETAIL_YEAR, monthIdx);
+      prev.disabled = monthIdx === 0;
+      next.disabled = monthIdx === lastMonth;
+      document.getElementById('cal-title').textContent =
+        new Date(Number(PAX_DETAIL_YEAR), monthIdx, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+      const toGo = Math.max(0, POST_GOAL - cal.posts);
+      const tally = document.getElementById('cal-tally');
+      tally.innerHTML = `<span class="kpi-num">${cal.posts}</span><span class="label">of ${POST_GOAL} posts</span>` +
+        `<span class="kpi-num">${cal.qs}</span><span class="label">Q${cal.qs !== 1 ? 's' : ''}</span>` +
+        `<span class="label ${cal.complete ? 'tone-good' : 'tone-none'}">${cal.complete ? 'Month complete'
+          : [toGo ? `${toGo} post${toGo !== 1 ? 's' : ''} to go` : '', cal.qs ? '' : 'needs a Q'].filter(Boolean).join(' · ')}</span>`;
+
+      const offset = (f3ParseLocalDate(cal.days[0].date).getDay() + 6) % 7; // Monday first
+      const heads = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        .map(d => `<span class="cal-head label" aria-hidden="true">${d}</span>`).join('');
+      const blanks = '<span class="cal-blank"></span>'.repeat(offset);
+      const cells = cal.days.map(d => {
+        const future = d.date > todayIso;
+        const extra = d.rows.some(r => !r.counted);
+        const cls = ['cal-day', d.credit >= 2 ? 'p2' : d.credit === 1 ? 'p1' : '',
+          d.q ? 'is-q' : '', future ? 'is-future' : ''].filter(Boolean).join(' ');
+        const say = future ? 'upcoming' : !d.rows.length ? 'no post'
+          : `${d.credit} post${d.credit !== 1 ? 's' : ''}${d.q ? ', Q' : ''}${extra ? ', has uncounted rows' : ''}`;
+        return `<button type="button" class="${cls}" data-date="${d.date}"${future ? ' disabled' : ''}
+          aria-label="${fmtDate(d.date)}: ${say}"><span class="cal-num">${Number(d.date.slice(8))}</span>` +
+          `${d.credit >= 2 ? `<span class="cal-count">×${d.credit}</span>` : ''}` +
+          `${extra ? '<span class="cal-extra" aria-hidden="true"></span>' : ''}</button>`;
+      }).join('');
+      const grid = document.getElementById('cal-grid');
+      grid.innerHTML = heads + blanks + cells;
+
+      const show = date => {
+        const d = cal.days.find(x => x.date === date);
+        grid.querySelectorAll('.cal-day').forEach(b => b.classList.toggle('is-selected', b.dataset.date === date));
+        const detail = document.getElementById('cal-detail');
+        if (!d) { detail.innerHTML = ''; return; }
+        const head = `<div class="cal-detail-head"><strong>${fmtDate(d.date)}</strong>` +
+          `<span class="label">${d.rows.length ? `${d.credit} post${d.credit !== 1 ? 's' : ''} credited` : 'No posts'}</span></div>`;
+        const list = d.rows.map(r => `<li class="${r.counted ? '' : 'is-muted'}">
+            <span class="cal-site">${f3Esc(r.site === '#downrange' ? 'Downrange' : r.site || '—')}</span>
+            <span class="label">${f3Esc(r.role || '—')} · ${f3Esc(r.source)}</span>
+            <span class="label ${r.counted ? 'tone-good' : 'tone-none'}">${r.counted ? 'Counts' : `Not counted: ${f3Esc(r.why)}`}</span>
+          </li>`).join('');
+        detail.innerHTML = head + (list ? `<ul class="cal-rows">${list}</ul>` : '');
+      };
+      grid.querySelectorAll('.cal-day:not([disabled])').forEach(b => {
+        b.addEventListener('click', () => show(b.dataset.date));
+        b.addEventListener('focus', () => show(b.dataset.date));
+        b.addEventListener('mouseenter', () => show(b.dataset.date));
+      });
+      const posted = cal.days.filter(d => d.rows.length && d.date <= todayIso);
+      show(cal.days.some(d => d.date === todayIso && d.rows.length) ? todayIso
+        : (posted.length ? posted[posted.length - 1].date : null));
+    }
   }
 
   // Format an ISO date string as e.g. "Jul 1, 2026"; "—" when null.
@@ -269,6 +408,7 @@ function paxDetailQBalance(rows, paxName, now) {
 })();
 
 if (typeof module !== 'undefined') {
-  module.exports = { paxDetailBuildPerAo, paxDetailQBalance, PAX_DETAIL_POSTS_PER_Q };
+  module.exports = { paxDetailBuildPerAo, paxDetailQBalance, PAX_DETAIL_POSTS_PER_Q,
+    paxDetailCalendarMonth, paxDetailSource };
 }
 
