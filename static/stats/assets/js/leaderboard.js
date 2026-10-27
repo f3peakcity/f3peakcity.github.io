@@ -339,14 +339,16 @@ async function lbInit() {
 }
 
 // Browser only — requiring this file from a Node test must not start a fetch.
-if (typeof document !== 'undefined') {
+// Only on the leaderboard page: pax-detail.html loads this file too, for the
+// credit rules its #112 calendar reuses (lbDayPostCredit, lbMonthlyPostCredit).
+if (typeof document !== 'undefined' && document.getElementById('leaderboard-table')) {
   lbInit();
 }
 
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
   module.exports = {
-    LB_SECOND_POST_SITES, LB_DAY_CREDIT_FROM,
+    MONTHS, POST_GOAL, LB_SECOND_POST_SITES, LB_SECOND_POST_SITES_LC, LB_SATURDAY, LB_DAY_CREDIT_FROM,
     lbMonthLabel, lbDayPostCredit, lbMonthlyPostCredit,
   };
 }
