@@ -705,7 +705,7 @@ async function aoInit() {
         <article class="ao-card">
           <h3 class="ao-card-title">${f3Esc(r['Site'])}</h3>
           <dl class="ao-card-stats">
-            ${stat('Avg attendance', avg.toFixed(1))}
+            ${stat('Avg attendance', avg.toFixed(1), 'Average PAX count per session (total posts ÷ distinct sessions)')}
             ${stat('Total posts', r['Total Attendees'] || 0)}
             ${stat('Bench strength', benchHtml, BENCH_TIP)}
             ${stat('Top Q', topQ, 'PAX who most frequently led workouts at this AO in 2026')}
