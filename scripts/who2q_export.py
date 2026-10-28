@@ -27,7 +27,8 @@ OUT_PATH = SCRIPT_DIR.parent / "static" / "stats" / "data" / "who2q.json"
 
 # All-time Q history for the region. Traceable to the spec's example query.
 Q_SQL = """
-SELECT a.user_id, a.f3_name, e.ao_name, e.name, e.start_date
+SELECT a.user_id, a.f3_name, e.ao_name, e.name, e.start_date,
+       e.first_f_ind, e.second_f_ind, e.third_f_ind
 FROM `{ds}.attendance_info` AS a
 JOIN `{ds}.event_info` AS e ON e.id = a.event_instance_id
 WHERE e.region_org_id = @region
@@ -37,7 +38,8 @@ WHERE e.region_org_id = @region
 # Window attendance (all roles — a Q counts as a post). Covers the longer of the
 # Who-to-Q, candidate and PC Regular windows; each list filters its own window in Python.
 ATT_SQL = """
-SELECT a.user_id, a.f3_name, e.ao_name, e.name, e.start_date
+SELECT a.user_id, a.f3_name, e.ao_name, e.name, e.start_date,
+       e.first_f_ind, e.second_f_ind, e.third_f_ind
 FROM `{ds}.attendance_info` AS a
 JOIN `{ds}.event_info` AS e ON e.id = a.event_instance_id
 WHERE e.region_org_id = @region
@@ -73,9 +75,25 @@ def ao_for(ao_name, event_name):
     return ao_name
 
 
-def _row(user_id, f3_name, ao_name, event_name, start_date):
-    """One q/att row as build_payload wants it, or None (the query path's skip rule)."""
+# #204: AOs whose 3rd F events still count as 1st F. Same list as
+# Slack_Data_Collector's FIRST_F_AO_OVERRIDES (NeighborUp is a 3rd F service project).
+FIRST_F_AO_OVERRIDES = {"NeighborUp"}
+
+
+def is_first_f(first_f, second_f, third_f, ao_name):
+    """Same rule as Slack_Data_Collector's is_first_f (#73): False only for an
+    event typed 2nd/3rd F and not 1st F. Flags are 0/1/NULL/'' ('' in the snapshot)."""
+    flag = lambda v: v not in (None, "", "0", 0, False)
+    return (flag(first_f) or not (flag(second_f) or flag(third_f))
+            or ao_name in FIRST_F_AO_OVERRIDES)
+
+
+def _row(user_id, f3_name, ao_name, event_name, start_date, first_f=1, second_f=0, third_f=0):
+    """One q/att row as build_payload wants it, or None (the query path's skip rule,
+    and #204: 2nd/3rd F events don't count)."""
     if user_id is None or start_date is None or not f3_name:
+        return None
+    if not is_first_f(first_f, second_f, third_f, (ao_name or "").strip()):
         return None
     return {"user_id": user_id, "f3_name": f3_name.strip(),
             "ao_name": ao_for(ao_name, event_name), "start_date": start_date}
@@ -84,7 +102,8 @@ def _row(user_id, f3_name, ao_name, event_name, start_date):
 def fetch_rows(client, sql, params):
     from google.cloud import bigquery
     job = client.query(sql, job_config=bigquery.QueryJobConfig(query_parameters=params))
-    rows = (_row(r.user_id, r.f3_name, r.ao_name, r.name, r.start_date) for r in job.result())
+    rows = (_row(r.user_id, r.f3_name, r.ao_name, r.name, r.start_date,
+                 r.first_f_ind, r.second_f_ind, r.third_f_ind) for r in job.result())
     return [r for r in rows if r]
 
 
@@ -119,7 +138,8 @@ def snapshot_rows(snapshot_dir, region_org_id, att_weeks, today):
                     continue
                 uid, d = int(r["user_id"]), date.fromisoformat(r["start_date"])
                 first[uid] = min(first.get(uid, d), d)  # FIRST_SQL: no f3_name filter
-                row = _row(uid, r["f3_name"], r["ao_name"], r["name"], d)
+                row = _row(uid, r["f3_name"], r["ao_name"], r["name"], d,
+                           r["first_f_ind"], r["second_f_ind"], r["third_f_ind"])
                 if not row:
                     continue
                 if r["q_ind"] == "1":  # a.q_ind = 1 (a count: '2' doesn't match)

@@ -12,6 +12,11 @@ AOs are BigQuery's `ao_name`, with one split (same rule as Slack_Data_Collector'
 pipeline): an FMJ event whose name contains "ovaltime" is AO **Oval Time**
 (`ao_for` in `who2q_export.py`). "Ovaltime meets Half Dome" stays at Half Dome.
 
+Only 1st F events count, for attendance and Q history alike. `is_first_f` in
+`who2q_export.py` copies Slack_Data_Collector's rule: an event typed 2nd/3rd F and
+not 1st F is dropped; events with no type flags count; NeighborUp (a 3rd F service
+project) counts. Tenure ("in F3 since") still uses every F.
+
 ## Refresh locally (works today)
 
 From a Slack_Data_Collector checkout (no BigQuery access needed; `--today
