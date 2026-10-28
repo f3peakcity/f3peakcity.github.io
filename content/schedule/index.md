@@ -79,7 +79,7 @@ Notes:
 | DAY             | LOCATION                                                                     | TIME        | WHAT         | DESCRIPTION                                                                              | SLACK                                                                    |
 | --------------- | ---------------------------------------------------------------------------- | ----------- | ------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | Thursday        | [Panera – Beaver Creek](https://goo.gl/maps/cYYpQzRSjtPEFtAx8)               | 0635 – 0710 | Infusion     | Read through books of the Bible and discuss                                              | `#3rdf`   |
-| Saturday        | [Lowes Food Apex](https://goo.gl/maps/XmZXzmJF2THXJTmj9)                     | Any         | NeighborUp   | Pickup food at Lowes & Deliver to NeighborUp Warehouse few miles away.                         | `#3rdf`   |
+| Saturday Morning| [Lowes Food Apex](https://goo.gl/maps/XmZXzmJF2THXJTmj9)                     | Any         | NeighborUp   | Pickup food at Lowes & Deliver to NeighborUp Warehouse few miles away.                         | `#3rdf`   |
 | Every other Sun | Downtown Cary                                                                | 1400        | TCP Sawgrass | Landscape multiple homes in support of The Carying Place.                                | Carpex Slack [`#3rdf-carying-place-tcp`](https://f3carpex.slack.com/archives/CB22XF46R) |
 
 ### <a name="events"></a>Calendar of Events
