@@ -67,7 +67,7 @@ To add or update an AO location make sure to update the following places.
 
 ## Stats dashboard
 
-The stats pages at [f3peakcity.com/stats](https://f3peakcity.com/stats/) are plain HTML and JavaScript in `static/stats/`, reading the published Google Sheet in the browser. Who to Q is the exception: it reads a JSON file built daily from F3 Nation BigQuery.
+The stats pages at [f3peakcity.com/stats](https://f3peakcity.com/stats/) are plain HTML and JavaScript in `static/stats/`. They read `static/stats/data/raw.json`, which the Slack_Data_Collector pipeline rebuilds daily from its per-year attendance ledger (all years, not just the current one); pages never read the Google Sheet directly. Who to Q reads `who2q.json`, built daily from that pipeline's F3 Nation BigQuery snapshot.
 
 - **What each number means, and how to change the lists** (not-an-FNG, Potential Cotters exclusions, takeovers): [static/stats/README.md](./static/stats/README.md)
 - **Who to Q, the Site Q roster and the daily export:** [scripts/README-who2q.md](./scripts/README-who2q.md)
