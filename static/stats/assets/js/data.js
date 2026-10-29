@@ -515,7 +515,19 @@ function f3RawRowsFromJson(rows, opts) {
   return f3CleanRawRows(Object.keys(rows[0] || {}), rows, opts);
 }
 
-// Footer freshness: every element with class f3-as-of gets the snapshot date.
+// A snapshot timestamp (ISO with offset) as Eastern date and time, e.g.
+// "Oct 29, 2026, 8:55 AM EDT". Pinned to America/New_York so every visitor sees
+// the region's clock, whatever their own time zone. '' for a missing/bad value.
+function f3FormatRefreshed(iso) {
+  const d = new Date(iso);
+  if (!iso || isNaN(d)) return '';
+  return d.toLocaleString('en-US', {
+    timeZone: 'America/New_York', month: 'short', day: 'numeric', year: 'numeric',
+    hour: 'numeric', minute: '2-digit', timeZoneName: 'short',
+  });
+}
+
+// Footer freshness: every element with class f3-as-of gets the snapshot time.
 function f3SetAsOf(text) {
   document.querySelectorAll('.f3-as-of').forEach(el => { el.textContent = text; });
 }
@@ -529,16 +541,18 @@ async function f3LoadRawRows(opts) {
   const rows = f3RawRowsFromJson(await res.json(), opts);
   fetch('data/meta.json')
     .then(r => (r.ok ? r.json() : Promise.reject()))
-    .then(m => f3SetAsOf('Data as of ' + new Date(m.generated_at)
-      .toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })))
-    .catch(() => f3SetAsOf('Daily snapshot'));
+    .then(m => {
+      const when = f3FormatRefreshed(m.generated_at);
+      f3SetAsOf(when ? `Last refreshed ${when}` : 'Refresh time unavailable');
+    })
+    .catch(() => f3SetAsOf('Refresh time unavailable'));
   return rows;
 }
 
 // Export for Node.js tests
 if (typeof module !== 'undefined') {
   module.exports = {
-    f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc,
+    f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc, f3FormatRefreshed,
     f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
     f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3RawRowsFromJson, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3IsFng, f3PaxLink, f3CompareValues, F3_COTTER_EXCLUDED_LC,
   };

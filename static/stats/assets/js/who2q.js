@@ -202,8 +202,11 @@ async function who2qInit() {
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
 
+    // generated_at is the as-of day the numbers are computed for; refreshed_at
+    // (added 2026-10) is when the file was written. Older files lack it.
+    const refreshed = f3FormatRefreshed(data.refreshed_at);
     document.getElementById('data-as-of').textContent =
-      'As of ' + who2qFmtDate(data.generated_at);
+      'As of ' + who2qFmtDate(data.generated_at) + (refreshed ? ` · last refreshed ${refreshed}` : '');
     const p = data.params;
     document.getElementById('params-note').textContent =
       `Regular: ${Math.round(p.regular_threshold * 100)}%+ of the last ${p.window_weeks} wks · ` +

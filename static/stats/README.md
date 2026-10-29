@@ -2,8 +2,9 @@
 
 How the numbers on <https://f3peakcity.com/stats/> are computed. All pages read
 the same `data/raw.json` (+ `data/meta.json`, whose `generated_at` is the
-footer's "Data as of") and aggregate in the browser. `stats-json.yml` in
-f3peakcity/Slack_Data_Collector builds it daily from that repo's per-year
+footer's "Last refreshed" time, shown in Eastern by `f3FormatRefreshed`) and
+aggregate in the browser. `stats-json.yml` in f3peakcity/Slack_Data_Collector
+builds it after every ledger export from that repo's per-year
 ledger files `data/ledger/master_YYYY.csv` (every year), after checking the
 current year against the Master Data sheet's Raw tab. Pages never read the
 sheet, which holds only the current year: if `raw.json` is missing or
