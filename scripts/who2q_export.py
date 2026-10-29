@@ -15,7 +15,7 @@ import csv
 import json
 import sys
 import urllib.request
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -195,6 +195,9 @@ def main():
     problem = plausibility_error(payload, att_rows)
     if problem:
         sys.exit(f"Aborting export: {problem}")
+    # When the file was written, for the page footer. generated_at stays the as-of
+    # day the numbers are computed for.
+    payload["refreshed_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n")
     print(f"Wrote {args.out} — {len(payload['aos'])} AOs, generated_at {payload['generated_at']}")

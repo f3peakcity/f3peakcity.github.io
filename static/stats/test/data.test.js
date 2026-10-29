@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3RawRowsFromJson, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3CompareValues } = require('../assets/js/data.js');
+const { f3FormatRefreshed, f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3RawRowsFromJson, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3CompareValues } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -374,5 +374,16 @@ test('text sorts as text, and a number never throws against a string', () => {
 });
 
 // --- Summary ---
+// --- f3FormatRefreshed ---
+console.log('\nf3FormatRefreshed');
+test('formats a UTC snapshot time in Eastern, with the zone', () => {
+  assert.strictEqual(f3FormatRefreshed('2026-10-29T12:55:47+00:00'), 'Oct 29, 2026, 8:55 AM EDT');
+  assert.strictEqual(f3FormatRefreshed('2026-12-02T02:05:00+00:00'), 'Dec 1, 2026, 9:05 PM EST'); // crosses midnight
+});
+test('empty for missing or bad input', () => {
+  assert.strictEqual(f3FormatRefreshed(undefined), '');
+  assert.strictEqual(f3FormatRefreshed('not a date'), '');
+});
+
 console.log(`\n${passed} passed, ${failed} failed\n`);
 if (failed > 0) process.exit(1);
