@@ -16468,5 +16468,6 @@
 {"Date": "2026-10-29", "Name": "Cataracts", "Site": "Shieldlock", "Role": "P", "ImportedAt": "2026-10-29 13:54:03", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-10-29", "Name": "Disco Duck", "Site": "Shieldlock", "Role": "P", "ImportedAt": "2026-10-29 13:54:03", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-10-29", "Name": "Sour Mash", "Site": "Shieldlock", "Role": "P", "ImportedAt": "2026-10-29 13:54:03", "SourceFile": "BigQuery:analytics.attendance_info"},
-{"Date": "2026-10-29", "Name": "WWW", "Site": "Shieldlock", "Role": "P", "ImportedAt": "2026-10-29 14:51:55", "SourceFile": "Attendance!C"}
+{"Date": "2026-10-29", "Name": "WWW", "Site": "Shieldlock", "Role": "P", "ImportedAt": "2026-10-29 14:51:55", "SourceFile": "Attendance!C"},
+{"Date": "2026-10-31", "Name": "Yahoo", "Site": "NeighborUp", "Role": "Q", "ImportedAt": "2026-10-29 20:41:27", "SourceFile": "ManualEntry"}
 ]
