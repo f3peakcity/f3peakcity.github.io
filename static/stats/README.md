@@ -19,6 +19,7 @@ looks wrong" reports, so check here first.**
 |---|---|---|
 | `leaderboard.html` (#112) | One post per PAX per **calendar day**, from AUG 2026 on | A monthly challenge; a day is a day |
 | `pax.html`, `pax-detail.html` | One post per **raw record** | Per-PAX totals and averages |
+| `pax-detail.html` "#112 by day" calendar | **Same as the leaderboard** (it calls `lbDayPostCredit`) | Explains a PAX's leaderboard number day by day |
 | `ao.html` | One record per **AO per day** | Headcount at a location |
 | `fng.html` | One record per **raw record** | First-post tracking |
 
@@ -175,6 +176,25 @@ Only posts **after** the FNG-tagged post count as coming back.
   **Due to Q** (rust). Same benchmark for everyone.
 - Counted like Leadership: takeover Qs (`f3IsVisitingQ`) and Q rows at `#downrange` / Shield Lock are excluded from Qs; `#downrange` / Shield Lock rows also drop out of posts, but a takeover post still counts as a post. Not shown on the
   Leadership page (yet).
+
+## PAX detail: #112 by day (`pax-detail.html`)
+
+The calendar for troubleshooting "why am I at 11 posts?" (Slack_Data_Collector#97).
+
+- One cell per day, colored by **credited** #112 posts: no post, posted,
+  2+ (a Saturday double-down, "×2"), and a gold ring for a Q. The month's tally
+  (posts of `POST_GOAL`, Qs, complete) equals the leaderboard for that PAX.
+- Tap, hover or focus a day to list **every** row: Site, Role, Source
+  (`SourceFile`: BigQuery / Slack / Manual), and "Counts" or "Not counted:
+  <reason>". A red dot marks days with uncounted rows (duplicates, `#downrange`
+  copies, a second AO on a weekday). `#downrange` shows as "Downrange";
+  the real region and AO aren't in the data (Slack_Data_Collector#96).
+- **It reuses `leaderboard.js`**, which pax-detail.html now loads (`lbInit()`
+  only runs where `#leaderboard-table` exists). Change credit rules there,
+  never in pax-detail.js. `test/pax-detail.test.js` checks every PAX × month in
+  `data/raw.json` against `lbMonthlyPostCredit`.
+- Year-scoped by `PAX_DETAIL_YEAR` like the rest of the site; see
+  Slack_Data_Collector#102 for the 2027 rollover.
 
 ## Leadership (`leadership.html`)
 
