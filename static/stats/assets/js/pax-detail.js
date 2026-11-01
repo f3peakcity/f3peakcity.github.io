@@ -6,8 +6,9 @@
 // Unlike ao.js / leaderboard (which exclude them from region-wide AO stats),
 // this per-PAX drill-down INCLUDES #downrange and Shieldlock — on a single
 // guy's page those posts are part of his story (travel / other-region posts).
+// Special events too, but only the ones he went to — see paxDetailBuildPerAo.
 function paxDetailIsRealAo(site) {
-  return f3IsRealAo(site, { includeDownrange: true, includeShieldlock: true });
+  return f3IsRealAo(site, { includeDownrange: true, includeShieldlock: true, includeSpecialEvents: true });
 }
 
 // Pure aggregation: allRawRows + a PAX name -> one row per real AO in the region
@@ -16,7 +17,10 @@ function paxDetailBuildPerAo(allRawRows, paxName) {
   const allAos = new Set();
   allRawRows.forEach(r => {
     const site = (r['Site'] || '').trim();
-    if (paxDetailIsRealAo(site)) allAos.add(site);
+    if (!paxDetailIsRealAo(site)) return;
+    // A one-off CSAUP isn't a place he could have posted and didn't; no 0 rows.
+    if (f3IsSpecialEvent(site) && r['Name'].trim() !== paxName) return;
+    allAos.add(site);
   });
 
   const paxRows = allRawRows.filter(r => r['Name'].trim() === paxName);

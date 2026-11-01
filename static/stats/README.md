@@ -304,6 +304,25 @@ page, right after parsing — so a rename only needs one entry, in one place.
   `F3_SITE_ALIASES_LC`. Fix the row in the sheet when you can; the alias just
   keeps the pages right in the meantime.
 
+## Special events / CSAUPs
+
+One-off events like `#ohnocho` (Oct 10, 2026) and The Odyssey (logged as
+`Odyssey` on 2025-11-01, `The Odyssey` on 2026-10-31) are real posts but not
+AOs. They're listed in `F3_SPECIAL_EVENT_SITES_LC` in `data.js` (lowercased,
+every spelling the sheet uses):
+
+- **Attendance:** they count like any workout — #112, PC Regulars, PAX totals,
+  Favorite AO inputs, FNG first posts. Same as before.
+- **AO charts and cards** (`ao.html`, Popular AO on `pax.html`, Q load on
+  `leadership.html`): hidden by default via `f3IsRealAo`. The AO page has an
+  **AOs only / + Special events** toggle to show them; colors are assigned with
+  them included, so toggling never recolors an AO.
+- **PAX detail:** shown, but only for the PAX who went — no 0-post row for
+  everyone else.
+
+New event: add its `Site` spelling(s) to `F3_SPECIAL_EVENT_SITES_LC` and the
+data-tip on `ao.html`'s toggle.
+
 ## Other definitions
 
 - **PC Regular** — 26+ posts in the trailing 26 weeks, *or* 3+ posts in the

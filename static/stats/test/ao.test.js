@@ -70,6 +70,14 @@ test('drops non-AO and downrange entries regardless of case', () => {
   assert.strictEqual(aoIsRealSite('  Ruck the Hall  '), false);
 });
 
+test('special events only when asked', () => {
+  assert.strictEqual(aoIsRealSite('#ohnocho'), false);
+  assert.strictEqual(aoIsRealSite('The Odyssey'), false);
+  assert.strictEqual(aoIsRealSite('#ohnocho', true), true);
+  assert.strictEqual(aoIsRealSite('The Odyssey', true), true);
+  assert.strictEqual(aoIsRealSite('#downrange', true), false);
+});
+
 // --- aoDayOfWeek ---
 console.log('\naoDayOfWeek');
 
@@ -119,6 +127,14 @@ test('drops rows before the cutoff', () => {
 test('drops excluded sites', () => {
   const { byDate } = aoBucketByDate(SAMPLE, OPTS);
   assert.deepStrictEqual(byDate['2026-08-10'], { 'Beaver Chase': 1 });
+});
+
+test('special events are dropped unless includeSpecialEvents', () => {
+  const rows = [...SAMPLE, { Date: '2026-08-10', Site: '#ohnocho' }];
+  assert.deepStrictEqual(aoBucketByDate(rows, OPTS).byDate['2026-08-10'], { 'Beaver Chase': 1 });
+  assert.deepStrictEqual(
+    aoBucketByDate(rows, { ...OPTS, includeSpecialEvents: true }).byDate['2026-08-10'],
+    { 'Beaver Chase': 1, '#ohnocho': 1 });
 });
 
 test('filters to a single weekday', () => {

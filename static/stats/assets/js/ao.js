@@ -49,8 +49,9 @@ function aoDailyCutoff(dayFilter, now) {
 
 // True when `site` is a real, currently-tracked AO. Trims and lowercases so
 // sheet-entry drift ("  Ruck the Hall  ", "#AO-MON-ATEAM") still matches.
-function aoIsRealSite(site) {
-  return f3IsRealAo(site);
+// Special events (#ohnocho, The Odyssey) only when the page toggle asks.
+function aoIsRealSite(site, includeSpecialEvents = false) {
+  return f3IsRealAo(site, { includeSpecialEvents });
 }
 
 // 'Mon'..'Sun' for an ISO date. Parses at local midnight — a bare
@@ -66,10 +67,11 @@ function aoDayOfWeek(dateStr) {
 //   todayStr   today (ISO); excluded, since sessions report in over the day and
 //              a partial today renders as a false collapse in attendance
 //   dayOfWeek  optional 'Mon'..'Sun' filter
+//   includeSpecialEvents  keep CSAUP/special-event sites
 //
 // `aoTotals` deliberately ignores dayOfWeek: it ranks AOs for color assignment,
 // which must stay identical no matter which day is being viewed.
-function aoBucketByDate(rows, { cutoffStr, todayStr, dayOfWeek } = {}) {
+function aoBucketByDate(rows, { cutoffStr, todayStr, dayOfWeek, includeSpecialEvents } = {}) {
   const byDate = {};
   const aoTotals = {};
   rows.forEach(r => {
@@ -78,7 +80,7 @@ function aoBucketByDate(rows, { cutoffStr, todayStr, dayOfWeek } = {}) {
     if (cutoffStr && date < cutoffStr) return;
     if (todayStr && date >= todayStr) return;
     const site = (r['Site'] || '').trim();
-    if (!aoIsRealSite(site)) return;
+    if (!aoIsRealSite(site, includeSpecialEvents)) return;
     aoTotals[site] = (aoTotals[site] || 0) + 1;
     if (dayOfWeek && aoDayOfWeek(date) !== dayOfWeek) return;
     if (!byDate[date]) byDate[date] = {};
@@ -99,7 +101,7 @@ function aoWeekMonday(dateStr) {
 // Per-AO weekly attendance on one shared week axis, for the card sparklines.
 // Every site gets a value for every week in range — a week an AO did not run is
 // a real 0, and drawing it as one is the whole point of the sparkline.
-function aoWeeklySeriesBySite(rows, { cutoffStr, todayStr } = {}) {
+function aoWeeklySeriesBySite(rows, { cutoffStr, todayStr, includeSpecialEvents } = {}) {
   const weekSet = new Set();
   const counts = {};
   rows.forEach(r => {
@@ -108,7 +110,7 @@ function aoWeeklySeriesBySite(rows, { cutoffStr, todayStr } = {}) {
     if (cutoffStr && date < cutoffStr) return;
     if (todayStr && date >= todayStr) return;
     const site = (r['Site'] || '').trim();
-    if (!aoIsRealSite(site)) return;
+    if (!aoIsRealSite(site, includeSpecialEvents)) return;
     const wk = aoWeekMonday(date);
     weekSet.add(wk);
     if (!counts[site]) counts[site] = {};
@@ -297,6 +299,7 @@ async function aoInit() {
   let fngsByAoChart = null;
   let weeklyChart = null;
   let dailyChart = null;
+  let showEvents = false;   // special events / CSAUPs alongside the AOs
   let dailyDay = '';        // '' = every day; otherwise 'Mon'..'Sun'
   let dailyIsolatedAo = null;  // legend click narrows the chart to one AO
   let dailyAos = [];        // AOs in the current slice, in stack order
@@ -307,11 +310,45 @@ async function aoInit() {
 
   try {
     allRawRows = await f3LoadRawRows({ year: '2026' });
+    allRows = buildAoRows();
+  } catch (e) {
+    ['ao-table-container', 'ao-cards-grid', 'chart-daily-attendance', 'chart-weekly-attendance',
+      'chart-ao-attendance', 'chart-ao-fngs'].forEach(id => f3ShowError(id));
+    return;
+  }
 
+  if (!allRows.length) {
+    ['ao-table-container', 'ao-cards-grid', 'chart-daily-attendance', 'chart-weekly-attendance',
+      'chart-ao-attendance', 'chart-ao-fngs'].forEach(id => f3ShowEmpty(id, 'No 2026 workouts logged yet'));
+    return;
+  }
+
+  // One AO ranking drives stack order AND color in every chart on this page, so
+  // an AO reads the same whether or not the view it appears in is filtered.
+  // Ranked with special events in, so toggling them never recolors an AO.
+  const rangeTotals = aoBucketByDate(allRawRows,
+    { cutoffStr: rangeCutoffStr, todayStr, includeSpecialEvents: true }).aoTotals;
+  rankedAos = Object.keys(rangeTotals)
+    .sort((a, b) => rangeTotals[b] - rangeTotals[a] || a.localeCompare(b));
+  aoColorMap = aoBuildColorMap(rankedAos);
+  weeklyBySite = aoWeeklySeriesBySite(allRawRows,
+    { cutoffStr: rangeCutoffStr, todayStr, includeSpecialEvents: true }).bySite;
+
+  // Busiest-per-workout first, so the table opens on the AOs that matter most.
+  // ponytail: the page loads this year's rows only, so in Jan–Mar the 90-day
+  // window is short. Load the prior year too if early-year cards look thin.
+  qLoadBySite = f3QLoadByAo(allRawRows, now);
+  filteredRows = [...allRows].sort((a, b) => b['Avg/Meeting'] - a['Avg/Meeting']);
+  renderAll();
+  setupDayFilter();
+  setupEventsFilter();
+
+  // One summary row per AO in allRawRows, honoring the special-events toggle.
+  function buildAoRows() {
     const aoMap = {};
     allRawRows.forEach(r => {
       const site = r['Site'].trim();
-      if (!aoIsRealSite(site)) return;
+      if (!aoIsRealSite(site, showEvents)) return;
       if (!aoMap[site]) aoMap[site] = {
         dates: new Set(),
         weeks: new Set(),
@@ -343,7 +380,7 @@ async function aoInit() {
       }
     });
 
-    allRows = Object.entries(aoMap).map(([site, ao]) => {
+    return Object.entries(aoMap).map(([site, ao]) => {
       const distinctSessions = ao.dates.size;
       const avgPerMeeting = distinctSessions > 0 ? ao.totalPosts / distinctSessions : 0;
       const benchStrength = ao.names.size > 0 ? ao.qNames.size / ao.names.size * 100 : 0;
@@ -368,34 +405,7 @@ async function aoInit() {
         '_corePax': corePax,
       };
     });
-
-  } catch (e) {
-    ['ao-table-container', 'ao-cards-grid', 'chart-daily-attendance', 'chart-weekly-attendance',
-      'chart-ao-attendance', 'chart-ao-fngs'].forEach(id => f3ShowError(id));
-    return;
   }
-
-  if (!allRows.length) {
-    ['ao-table-container', 'ao-cards-grid', 'chart-daily-attendance', 'chart-weekly-attendance',
-      'chart-ao-attendance', 'chart-ao-fngs'].forEach(id => f3ShowEmpty(id, 'No 2026 workouts logged yet'));
-    return;
-  }
-
-  // One AO ranking drives stack order AND color in every chart on this page, so
-  // an AO reads the same whether or not the view it appears in is filtered.
-  const rangeTotals = aoBucketByDate(allRawRows, { cutoffStr: rangeCutoffStr, todayStr }).aoTotals;
-  rankedAos = Object.keys(rangeTotals)
-    .sort((a, b) => rangeTotals[b] - rangeTotals[a] || a.localeCompare(b));
-  aoColorMap = aoBuildColorMap(rankedAos);
-  weeklyBySite = aoWeeklySeriesBySite(allRawRows, { cutoffStr: rangeCutoffStr, todayStr }).bySite;
-
-  // Busiest-per-workout first, so the table opens on the AOs that matter most.
-  // ponytail: the page loads this year's rows only, so in Jan–Mar the 90-day
-  // window is short. Load the prior year too if early-year cards look thin.
-  qLoadBySite = f3QLoadByAo(allRawRows, now);
-  filteredRows = [...allRows].sort((a, b) => b['Avg/Meeting'] - a['Avg/Meeting']);
-  renderAll();
-  setupDayFilter();
 
   // Set up sortable — must call AFTER table is first rendered
   // Uses getter so it always sorts the current filteredRows
@@ -424,7 +434,7 @@ async function aoInit() {
     const weekTotals = {};
     rows.forEach(r => {
       if (r['Date'] < rangeCutoffStr) return;
-      if (!aoIsRealSite((r['Site'] || '').trim())) return;
+      if (!aoIsRealSite((r['Site'] || '').trim(), showEvents)) return;
       const wk = aoWeekMonday(r['Date']);
       if (wk >= currentWeek) return;
       weekTotals[wk] = (weekTotals[wk] || 0) + 1;
@@ -495,6 +505,7 @@ async function aoInit() {
       cutoffStr: aoDailyCutoff(dailyDay, now),
       todayStr,
       dayOfWeek: dailyDay || undefined,
+      includeSpecialEvents: showEvents,
     });
 
     if (!dates.length) {
@@ -608,6 +619,7 @@ async function aoInit() {
       cutoffStr: aoDailyCutoff(dailyDay, now),
       todayStr,
       dayOfWeek: dailyDay || undefined,
+      includeSpecialEvents: showEvents,
     });
     updateDailyReadout(dates, byDate);
   }
@@ -624,6 +636,23 @@ async function aoInit() {
       dailyIsolatedAo = null;
       f3SetPressed(btn);
       renderDailyAttendance();
+    });
+  }
+
+  function setupEventsFilter() {
+    const group = document.getElementById('events-filter');
+    if (!group) return;
+    group.addEventListener('click', e => {
+      const btn = e.target.closest('button');
+      if (!btn || !group.contains(btn)) return;
+      const show = btn.dataset.events === 'show';
+      if (show === showEvents) return;
+      showEvents = show;
+      dailyIsolatedAo = null;
+      f3SetPressed(btn);
+      allRows = buildAoRows();
+      filteredRows = [...allRows].sort((a, b) => b['Avg/Meeting'] - a['Avg/Meeting']);
+      renderAll();
     });
   }
 

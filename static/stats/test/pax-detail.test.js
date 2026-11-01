@@ -44,6 +44,16 @@ test('display-excluded sites never get a card, not even a zero-post one', () => 
   assert.strictEqual(byAo(out, 'Convergence'), undefined);
 });
 
+test('a special event gets a card only for the PAX who went', () => {
+  const rows = [
+    row('2026-10-31', 'Jockey', 'The Odyssey'),
+    row('2026-10-10', 'Shipyard', '#ohnocho', 'Q'),
+  ];
+  const out = paxDetailBuildPerAo(rows, 'Jockey');
+  assert.strictEqual(byAo(out, 'The Odyssey')['Posts'], 1);
+  assert.strictEqual(byAo(out, '#ohnocho'), undefined);
+});
+
 console.log('\npaxDetailBuildPerAo — per-AO totals for this PAX only');
 
 test('posts and Qs are counted for the named PAX, not other PAX', () => {
