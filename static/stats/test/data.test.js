@@ -2,7 +2,7 @@
 // Run with: node static/stats/test/data.test.js
 
 const assert = require('assert');
-const { f3FormatRefreshed, f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3RawRowsFromJson, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3CompareValues } = require('../assets/js/data.js');
+const { f3FormatRefreshed, f3ParseCSVLine, f3ParseCSV, f3FilterByDateRange, f3Esc, f3CountsTowardAttendance, f3IsRealAo, f3IsSpecialEvent, f3PcRegularMap, f3CanonicalSite, f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3RawRowsFromJson, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3CompareValues } = require('../assets/js/data.js');
 
 let passed = 0;
 let failed = 0;
@@ -186,6 +186,29 @@ test('Shieldlock gets its own card when includeShieldlock is set', () => {
 
 test('junk-AO display names are still excluded even with both options set', () => {
   assert.strictEqual(f3IsRealAo('Convergence', { includeDownrange: true, includeShieldlock: true }), false);
+});
+
+console.log('\nf3IsRealAo — special events / CSAUPs');
+
+test('special events are hidden from AO displays by default', () => {
+  ['#ohnocho', 'The Odyssey', 'Odyssey', '  #OHNOCHO '].forEach(s =>
+    assert.strictEqual(f3IsRealAo(s), false, s));
+});
+
+test('includeSpecialEvents shows them', () => {
+  assert.strictEqual(f3IsRealAo('#ohnocho', { includeSpecialEvents: true }), true);
+  assert.strictEqual(f3IsRealAo('The Odyssey', { includeSpecialEvents: true }), true);
+});
+
+test('special events still count toward attendance', () => {
+  assert.strictEqual(f3CountsTowardAttendance('#ohnocho'), true);
+  assert.strictEqual(f3CountsTowardAttendance('The Odyssey'), true);
+});
+
+test('f3IsSpecialEvent knows events from AOs', () => {
+  assert.strictEqual(f3IsSpecialEvent(' the odyssey '), true);
+  assert.strictEqual(f3IsSpecialEvent('Half Dome'), false);
+  assert.strictEqual(f3IsSpecialEvent(''), false);
 });
 
 console.log('\nf3PcRegularMap — the shared PC Regular rule');

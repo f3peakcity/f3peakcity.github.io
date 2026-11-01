@@ -342,9 +342,23 @@ function f3CountsTowardAttendance(site) {
   return !F3_ATTENDANCE_EXCLUDED_SITES.includes(String(site || '').trim());
 }
 
+// Special events / CSAUPs: real posts by real PAX, so they count toward
+// attendance like any workout, but they aren't AOs. Hidden from AO charts and
+// cards unless includeSpecialEvents is set (the AO page's toggle). Add the next
+// one here, lowercased, under every spelling the sheet uses.
+const F3_SPECIAL_EVENT_SITES_LC = new Set([
+  '#ohnocho',
+  'the odyssey',
+  'odyssey',
+]);
+function f3IsSpecialEvent(site) {
+  return F3_SPECIAL_EVENT_SITES_LC.has(String(site || '').trim().toLowerCase());
+}
+
 // "Is this a distinct, currently-tracked AO worth its own chart bar or card."
 // Excludes #downrange/Shieldlock (spelled two ways across tabs; toggle with
-// includeDownrange/includeShieldlock) plus known junk/administrative names.
+// includeDownrange/includeShieldlock), special events (includeSpecialEvents)
+// plus known junk/administrative names.
 const F3_AO_DISPLAY_EXCLUSIONS_LC = new Set([
   'convergence',
   'raiders of the locked park',
@@ -356,11 +370,12 @@ const F3_AO_DISPLAY_EXCLUSIONS_LC = new Set([
   '#ao-mon-ateam',
 ]);
 function f3IsRealAo(site, opts = {}) {
-  const { includeDownrange = false, includeShieldlock = false } = opts;
+  const { includeDownrange = false, includeShieldlock = false, includeSpecialEvents = false } = opts;
   const s = String(site || '').trim().toLowerCase();
   if (!s) return false;
   if (!includeDownrange && s === '#downrange') return false;
   if (!includeShieldlock && (s === 'shield lock' || s === 'shieldlock')) return false;
+  if (!includeSpecialEvents && F3_SPECIAL_EVENT_SITES_LC.has(s)) return false;
   return !F3_AO_DISPLAY_EXCLUSIONS_LC.has(s);
 }
 
@@ -553,7 +568,7 @@ async function f3LoadRawRows(opts) {
 if (typeof module !== 'undefined') {
   module.exports = {
     f3ParseCSVLine, f3ParseCSV, f3ParseLocalDate, f3FilterByDateRange, f3Esc, f3FormatRefreshed,
-    f3CountsTowardAttendance, f3IsRealAo, f3PcRegularMap, f3CanonicalSite,
+    f3CountsTowardAttendance, f3IsRealAo, f3IsSpecialEvent, f3PcRegularMap, f3CanonicalSite,
     f3Merge, f3ApexOptions, f3MaxIndex, f3RawRowsFromCsv, f3RawRowsFromJson, f3QLoadByAo, f3QLoadTone, f3IsVisitingQ, f3IsFng, f3PaxLink, f3CompareValues, F3_COTTER_EXCLUDED_LC,
   };
 }

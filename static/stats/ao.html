@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Lora:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="assets/css/stats.css?v=20261029a">
+  <link rel="stylesheet" href="assets/css/stats.css?v=20261101a">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png">
   <link rel="icon" href="/img/icons/favicon.ico" sizes="any">
@@ -38,13 +38,21 @@
     <section class="page-head">
       <div class="eyebrow label"><span>Dashboard 01</span><span>Since Jan 1, 2026</span></div>
       <h1 class="page-title">AO Stats</h1>
-      <p class="page-sub">Site health metrics for Site Qs: attendance, Q depth, and FNGs at every workout location.</p>
+      <div class="page-head-row">
+        <p class="page-sub">Site health metrics for Site Qs: attendance, Q depth, and FNGs at every workout location.</p>
+        <div class="tip-toggle"><div class="toggle" role="group" aria-label="Special events" id="events-filter">
+          <button type="button" data-events="hide" aria-pressed="true">AOs only</button>
+          <button type="button" data-events="show" aria-pressed="false">+ Special events</button>
+        </div>
+          <button type="button" class="info-dot" data-tip="Special events and CSAUPs (#ohnocho, The Odyssey) are real posts but not AOs. They're hidden from these charts by default; their posts still count on the PAX and leaderboard pages." aria-label="Special events and CSAUPs (#ohnocho, The Odyssey) are real posts but not AOs. They're hidden from these charts by default; their posts still count on the PAX and leaderboard pages.">&#9432;</button>
+        </div>
+      </div>
     </section>
 
     <section class="kpis" aria-label="AO totals">
       <div class="kpi">
         <div class="kpi-num" id="stat-total-aos">—</div>
-        <div class="label">Active <span class="tail">AOs&nbsp;<button type="button" class="info-dot" data-tip="Distinct AO sites with at least one workout in 2026 (excludes #downrange and Shield Lock)" aria-label="Distinct AO sites with at least one workout in 2026 (excludes #downrange and Shield Lock)">&#9432;</button></span></div>
+        <div class="label">Active <span class="tail">AOs&nbsp;<button type="button" class="info-dot" data-tip="Distinct AO sites with at least one workout in 2026 (excludes #downrange, Shield Lock, and special events unless shown)" aria-label="Distinct AO sites with at least one workout in 2026 (excludes #downrange, Shield Lock, and special events unless shown)">&#9432;</button></span></div>
       </div>
       <div class="kpi">
         <div class="kpi-num" id="stat-avg-attendance">—</div>
@@ -116,7 +124,7 @@
   </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3/dist/apexcharts.min.js"></script>
-<script src="assets/js/data.js?v=20261029a"></script>
-<script src="assets/js/ao.js?v=20261029a"></script>
+<script src="assets/js/data.js?v=20261101a"></script>
+<script src="assets/js/ao.js?v=20261101a"></script>
 </body>
 </html>
