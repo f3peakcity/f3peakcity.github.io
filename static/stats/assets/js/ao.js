@@ -49,7 +49,7 @@ function aoDailyCutoff(dayFilter, now) {
 
 // True when `site` is a real, currently-tracked AO. Trims and lowercases so
 // sheet-entry drift ("  Ruck the Hall  ", "#AO-MON-ATEAM") still matches.
-// Special events (#ohnocho, The Odyssey) only when the page toggle asks.
+// Special events (#ohnocho, The Odyssey, PM2HR, BRR teams) only when the page toggle asks.
 function aoIsRealSite(site, includeSpecialEvents = false) {
   return f3IsRealAo(site, { includeSpecialEvents });
 }
