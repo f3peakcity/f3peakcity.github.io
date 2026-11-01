@@ -22,6 +22,7 @@ looks wrong" reports, so check here first.**
 | `pax-detail.html` "#112 by day" calendar | **Same as the leaderboard** (it calls `lbDayPostCredit`) | Explains a PAX's leaderboard number day by day |
 | `ao.html` | One record per **AO per day** | Headcount at a location |
 | `fng.html` | One record per **raw record** | First-post tracking |
+| `who2q.html` | One record per event, **1st F events only** (#204) | Who is available to Q at a workout; 2nd/3rd F events (Dante's Peak QSource) don't count. NeighborUp is kept |
 
 ### The #112 rule
 
