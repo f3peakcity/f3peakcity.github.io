@@ -327,10 +327,13 @@ page, right after parsing — so a rename only needs one entry, in one place.
 
 ## Special events / CSAUPs
 
-One-off events like `#ohnocho` (Oct 10, 2026) and The Odyssey (logged as
-`Odyssey` on 2025-11-01, `The Odyssey` on 2026-10-31) are real posts but not
-AOs. They're listed in `F3_SPECIAL_EVENT_SITES_LC` in `data.js` (lowercased,
-every spelling the sheet uses):
+One-off events like `#ohnocho` (Oct 10, 2026), The Odyssey (logged as
+`Odyssey` on 2025-11-01, `The Odyssey` on 2026-10-31), PM2HR (`PM2HR (Pilot
+Mountain to Hanging Rock)`, 2026-09-19) and the BRR relay teams (`BRR - 6 Pack
+No Abs` etc., 2025-09-05/06) are real posts but not AOs. They're listed in
+`data.js`: exact spellings in `F3_SPECIAL_EVENT_SITES_LC` (lowercased), and
+recurring events whose Site carries a team/edition suffix as whole-word
+prefixes in `F3_SPECIAL_EVENT_PREFIXES_LC` (`brr`, `pm2hr`):
 
 - **Attendance:** they count like any workout — #112, PC Regulars, PAX totals,
   Favorite AO inputs, FNG first posts. Same as before.
@@ -341,8 +344,11 @@ every spelling the sheet uses):
 - **PAX detail:** shown, but only for the PAX who went — no 0-post row for
   everyone else.
 
-New event: add its `Site` spelling(s) to `F3_SPECIAL_EVENT_SITES_LC` and the
-data-tip on `ao.html`'s toggle.
+New event: add its `Site` spelling(s) to `F3_SPECIAL_EVENT_SITES_LC` (or a
+prefix to `F3_SPECIAL_EVENT_PREFIXES_LC`) and the data-tip on `ao.html`'s
+toggle. CSAUP/Convergence-tagged Peak City events get their Site from the
+event name in Slack_Data_Collector (RUNBOOK "Region events"), so add the
+new name here when one first appears.
 
 ## Other definitions
 

@@ -205,6 +205,21 @@ test('special events still count toward attendance', () => {
   assert.strictEqual(f3CountsTowardAttendance('The Odyssey'), true);
 });
 
+test('BRR teams and PM2HR are special events (prefix match)', () => {
+  ['BRR - 6 Pack No Abs', "BRR - Blackburn's Revenge", 'BRR - Chafing the Dream', 'BRR',
+   'PM2HR (Pilot Mountain to Hanging Rock)', 'PM2HR'].forEach(s => {
+    assert.strictEqual(f3IsSpecialEvent(s), true, s);
+    assert.strictEqual(f3IsRealAo(s), false, s);
+    assert.strictEqual(f3IsRealAo(s, { includeSpecialEvents: true }), true, s);
+    assert.strictEqual(f3CountsTowardAttendance(s), true, s);
+  });
+});
+
+test('prefixes match whole words only', () => {
+  assert.strictEqual(f3IsSpecialEvent('Brrr Cold Ruck'), false);
+  assert.strictEqual(f3IsSpecialEvent('PM2HRX'), false);
+});
+
 test('f3IsSpecialEvent knows events from AOs', () => {
   assert.strictEqual(f3IsSpecialEvent(' the odyssey '), true);
   assert.strictEqual(f3IsSpecialEvent('Half Dome'), false);

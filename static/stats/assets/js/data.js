@@ -345,14 +345,20 @@ function f3CountsTowardAttendance(site) {
 // Special events / CSAUPs: real posts by real PAX, so they count toward
 // attendance like any workout, but they aren't AOs. Hidden from AO charts and
 // cards unless includeSpecialEvents is set (the AO page's toggle). Add the next
-// one here, lowercased, under every spelling the sheet uses.
+// one here, lowercased, under every spelling the sheet uses — or, for a
+// recurring event whose Site carries a team/edition suffix, as a prefix.
 const F3_SPECIAL_EVENT_SITES_LC = new Set([
   '#ohnocho',
   'the odyssey',
   'odyssey',
 ]);
+// Whole-word prefixes: 'brr' matches "BRR - 6 Pack No Abs" (one Site per BRR
+// team, 2025), 'pm2hr' matches "PM2HR (Pilot Mountain to Hanging Rock)".
+const F3_SPECIAL_EVENT_PREFIXES_LC = ['brr', 'pm2hr'];
 function f3IsSpecialEvent(site) {
-  return F3_SPECIAL_EVENT_SITES_LC.has(String(site || '').trim().toLowerCase());
+  const s = String(site || '').trim().toLowerCase();
+  return F3_SPECIAL_EVENT_SITES_LC.has(s)
+    || F3_SPECIAL_EVENT_PREFIXES_LC.some(p => s === p || s.startsWith(p + ' '));
 }
 
 // "Is this a distinct, currently-tracked AO worth its own chart bar or card."
@@ -375,7 +381,7 @@ function f3IsRealAo(site, opts = {}) {
   if (!s) return false;
   if (!includeDownrange && s === '#downrange') return false;
   if (!includeShieldlock && (s === 'shield lock' || s === 'shieldlock')) return false;
-  if (!includeSpecialEvents && F3_SPECIAL_EVENT_SITES_LC.has(s)) return false;
+  if (!includeSpecialEvents && f3IsSpecialEvent(s)) return false;
   return !F3_AO_DISPLAY_EXCLUSIONS_LC.has(s);
 }
 
