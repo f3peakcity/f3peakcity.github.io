@@ -16559,6 +16559,7 @@
 {"Date": "2026-10-31", "Name": "Goose", "Site": "The Odyssey", "Role": "P", "ImportedAt": "2026-11-01 13:27:49", "SourceFile": "Attendance!C"},
 {"Date": "2026-10-31", "Name": "HGTV", "Site": "The Odyssey", "Role": "P", "ImportedAt": "2026-11-01 13:27:49", "SourceFile": "Attendance!C"},
 {"Date": "2026-10-31", "Name": "Hamm", "Site": "The Odyssey", "Role": "Q", "ImportedAt": "2026-11-01 14:52:05", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-10-31", "Name": "Happy Gilmore", "Site": "The Odyssey", "Role": "P", "ImportedAt": "2026-11-01 17:46:19", "SourceFile": "Attendance!C"},
 {"Date": "2026-10-31", "Name": "Hello Kitty", "Site": "The Odyssey", "Role": "P", "ImportedAt": "2026-11-01 14:52:05", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-10-31", "Name": "Henny Penny", "Site": "The Odyssey", "Role": "Q", "ImportedAt": "2026-11-01 14:52:05", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-10-31", "Name": "High School Musical", "Site": "The Odyssey", "Role": "P", "ImportedAt": "2026-11-01 13:27:49", "SourceFile": "Attendance!C"},
