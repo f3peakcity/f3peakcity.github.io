@@ -388,6 +388,13 @@ main{flex:1;padding-top:56px;padding-bottom:72px}
 .row--stacked .row-val{grid-column:2;grid-row:1/span 2;align-self:center}
 .w2q-divider{padding:20px 0 8px;border-bottom:1px solid var(--rule)}
 
+/* Who to Q: upcoming Qs. Each row links to the Q Sheet; an open slot is the
+   ask, so it takes the alert tone. */
+a.w2q-slot{color:inherit;text-decoration:none}
+a.w2q-slot:hover .row-name,a.w2q-slot:focus-visible .row-name{text-decoration:underline}
+.w2q-slot .row-name{overflow-wrap:anywhere}
+.w2q-slot.is-open .row-name{color:var(--tone-alert)}
+
 /* PAX: Potential Cotters, collapsed by default. The summary is the section
    head with a +/− marker; the native disclosure keeps it keyboard and
    screen-reader friendly with no script. */
