@@ -493,3 +493,83 @@ def candidates_for_ao(ao_name, att_rows, q_rows, names, terms, first_seen, today
         })
     out.sort(key=lambda c: (2 if c["recent_past"] else 1 if c["past_site_q"] else 0, c["name"].lower()))
     return out
+
+
+# ---- Upcoming Qs (#223): the Q Sheet's day tabs ----
+#
+# One tab per weekday. Column B holds the date (M/D/YYYY), the first rows hold
+# each AO's header (name, location, time, Site Qs), and each AO's column holds
+# whoever signed up, as typed. Columns are configured by letter
+# (who2q_config.json "q_schedule"), and the AO's name must appear in that
+# column's header, so an inserted column can't put the wrong names under an AO.
+
+# A cell that says the AO isn't meeting. When every upcoming slot says one of
+# these (Board Meeting's "See you next year"), the AO is out of season.
+CLOSED_CELLS = {"closed", "see you next year"}
+
+
+def column_index(letter):
+    """'A' -> 0, 'C' -> 2, 'AA' -> 26."""
+    n = 0
+    for ch in letter.strip().upper():
+        if not "A" <= ch <= "Z":
+            raise ValueError("not a column letter: {!r}".format(letter))
+        n = n * 26 + ord(ch) - 64
+    return n - 1
+
+
+def clean_cell(text):
+    """A sheet cell as one line: line breaks and runs of spaces become one space."""
+    return " ".join(normalize(text).split())
+
+
+def _header_key(text):
+    return re.sub(r"[^a-z0-9]", "", clean_cell(text).lower())
+
+
+def parse_sheet_date(text):
+    """'11/2/2026' -> date, anything else -> None (title rows, notes, blanks)."""
+    m = re.fullmatch(r"(\d{1,2})/(\d{1,2})/(\d{4})", clean_cell(text))
+    if not m:
+        return None
+    try:
+        return date(int(m.group(3)), int(m.group(1)), int(m.group(2)))
+    except ValueError:
+        return None
+
+
+def parse_q_tab(csv_text, columns, date_column="B", header_rows=6):
+    """One day tab's CSV -> ({sheet AO: [(date, cell text), ...]}, problems).
+
+    columns: {column letter: AO name as the tab's header spells it}. An AO
+    whose name isn't in its column's header rows is skipped with a problem.
+    Cell text is kept as typed (cleaned to one line); '' means OPEN.
+    """
+    rows = list(csv.reader(io.StringIO(csv_text)))
+    date_idx = column_index(date_column)
+    if not any(date_idx < len(r) and parse_sheet_date(r[date_idx]) for r in rows):
+        return {}, ["Q Sheet has no dates in column {}; is it the right tab?".format(date_column)]
+    slots, problems = {}, []
+    for letter, ao in columns.items():
+        idx = column_index(letter)
+        header = {_header_key(r[idx]) for r in rows[:header_rows] if idx < len(r)}
+        if _header_key(ao) not in header:
+            problems.append("Q Sheet column {} doesn't say {!r} in its header; skipped".format(letter, ao))
+            continue
+        out = []
+        for r in rows:
+            d = parse_sheet_date(r[date_idx]) if date_idx < len(r) else None
+            if d:
+                out.append((d, clean_cell(r[idx]) if idx < len(r) else ""))
+        slots[ao] = out
+    return slots, problems
+
+
+def upcoming_slots(slots, start, n):
+    """The next n workout dates on or after start: [{"date", "q"}], q None when OPEN.
+
+    [] when every one of them says the AO is closed (out of season)."""
+    nxt = sorted((s for s in slots if s[0] >= start), key=lambda s: s[0])[:n]
+    if nxt and all(q.lower() in CLOSED_CELLS for _, q in nxt):
+        return []
+    return [{"date": d.isoformat(), "q": q or None} for d, q in nxt]
