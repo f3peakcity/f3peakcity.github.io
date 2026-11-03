@@ -16,10 +16,12 @@ import json
 import sys
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from who2q_compute import PC_REGULAR_WEEKS, RosterError, build_payload, parse_roster, plausibility_error
+from who2q_compute import (PC_REGULAR_WEEKS, RosterError, build_payload, match_ao, parse_q_tab,
+                           parse_roster, plausibility_error, upcoming_slots)
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 CONFIG_PATH = SCRIPT_DIR / "who2q_config.json"
@@ -59,8 +61,67 @@ GROUP BY a.user_id
 
 def fetch_roster(url):
     """The published Site Q roster CSV (stdlib only: the CI job installs nothing extra)."""
+    return parse_roster(fetch_text(url))
+
+
+SHEET_URL = "https://docs.google.com/spreadsheets/d/{id}/edit#gid={gid}"
+# The day tabs aren't published to the web, but the sheet is shared by link, so
+# Google's query endpoint serves each tab as CSV. By gid, not name: a gid
+# survives a rename, and an unknown tab silently gets the first tab instead
+# (parse_q_tab's header and date checks catch that). headers=0 keeps it from
+# folding the header rows into one line.
+TAB_CSV_URL = "https://docs.google.com/spreadsheets/d/{id}/gviz/tq?tqx=out:csv&headers=0&gid={gid}"
+
+
+def fetch_text(url):
     with urllib.request.urlopen(url, timeout=30) as resp:
-        return parse_roster(resp.read().decode("utf-8-sig"))
+        return resp.read().decode("utf-8-sig")
+
+
+def schedule_start(today, sched, now=None):
+    """First date to list. Today's workouts are over by after_workouts_hour local
+    time, so a run after that starts tomorrow; the page also drops past dates."""
+    now = now or datetime.now(ZoneInfo(sched.get("timezone", "America/New_York")))
+    if today == now.date() and now.hour >= sched.get("after_workouts_hour", 8):
+        return today + timedelta(days=1)
+    return today
+
+
+def add_upcoming_qs(payload, config, today, warnings, fetch=fetch_text, now=None):
+    """Add each AO's next Q slots from the Q Sheet's day tabs (#223).
+
+    Never stops the export: a tab that can't be read, or a column that doesn't
+    match, is a warning and those AOs just go without upcoming Qs.
+    """
+    sched = config.get("q_schedule")
+    if not sched:
+        return
+    start = schedule_start(today, sched, now)
+    # One spare slot, so a page that drops a finished workout still has enough.
+    n = sched.get("slots", 3) + 1
+    ao_names = [ao["name"] for ao in payload["aos"]]
+    found = {}
+    for tab, spec in sched["tabs"].items():
+        try:
+            text = fetch(TAB_CSV_URL.format(id=sched["sheet_id"], gid=spec["gid"]))
+        except OSError as exc:
+            warnings.append("Q Sheet tab {}: {}; its AOs have no upcoming Qs".format(tab, exc))
+            continue
+        slots, problems = parse_q_tab(text, spec["columns"], sched.get("date_column", "B"),
+                                      sched.get("header_rows", 6))
+        warnings.extend("Q Sheet tab {}: {}".format(tab, p) for p in problems)
+        url = SHEET_URL.format(id=sched["sheet_id"], gid=spec["gid"])
+        for sheet_ao, ao_slots in slots.items():
+            ao = match_ao(sheet_ao, ao_names, config)
+            if ao:  # not on the page this run (e.g. out of season): nothing to show
+                found[ao] = {"upcoming_qs": upcoming_slots(ao_slots, start, n), "q_sheet_url": url}
+    if not found:
+        return
+    for ao in payload["aos"]:
+        if ao["name"] in found:
+            ao.update(found[ao["name"]])
+    payload["params"]["q_slots"] = sched.get("slots", 3)
+    payload["upcoming_qs_as_of"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
 def ao_for(ao_name, event_name):
@@ -190,6 +251,7 @@ def main():
     warnings = []
     payload = build_payload(q_rows, att_rows, today, config,
                             roster=roster, first_seen=first_seen, warnings=warnings)
+    add_upcoming_qs(payload, config, today, warnings)
     for w in warnings:
         print(f"WARNING: {w}")
     problem = plausibility_error(payload, att_rows)

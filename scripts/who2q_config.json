@@ -16,6 +16,22 @@
     {"from": "2026-09-22", "to": "2026-09-25", "note": "South Cary (SCary) takeover: their men Q'd our workouts",
      "keep": {"106065": "Santa Maria: Peak City man, his 9/23 Q at 7th Inning Stretch counts"}}
   ],
+  "q_schedule": {
+    "sheet_id": "13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io",
+    "slots": 3,
+    "date_column": "B",
+    "header_rows": 6,
+    "after_workouts_hour": 8,
+    "timezone": "America/New_York",
+    "tabs": {
+      "Monday": {"gid": 1067540258, "columns": {"C": "Beaver Chase", "D": "Hells Bells", "E": "Off The Rails"}},
+      "Tuesday": {"gid": 1309770370, "columns": {"C": "Disturbing The Peace", "D": "CougarTown", "E": "Ruck this Way", "F": "Pump Fiction"}},
+      "Wednesday": {"gid": 1972411165, "columns": {"C": "Tortoises", "D": "Lion's Den", "E": "7th Inning Stretch", "F": "The Foundry"}},
+      "Thursday": {"gid": 601144444, "columns": {"C": "Bounty Hunters", "D": "Hot For Teacher", "F": "Half Dome"}},
+      "Friday": {"gid": 1035187950, "columns": {"C": "Dante's Peak", "D": "Tin 2 Iron", "F": "Board Meeting"}},
+      "Saturday": {"gid": 2065872098, "columns": {"C": "Das Boot", "D": "NeighborUp", "E": "F3 Dads"}}
+    }
+  },
   "site_q_user_ids": {
     "Sputnik": {"user_id": 44977, "note": "Eugene Kornikh - Sputnik; user 2424 is a different Sputnik"}
   },

@@ -156,3 +156,30 @@ aliases applied, so rows may differ if one person posted under two names.
 
 Caveat: `CURRENT_DATE()` in the SQL vs `generated_at` in the JSON differ
 if you validate on a different day than the export ran.
+
+## Upcoming Qs (#223)
+
+Each AO's next 3 workout dates and who signed up to Q, read from the
+[Peak City Q Sheet](https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit)'s
+day tabs (`q_schedule` in `who2q_config.json`). Each tab is listed by its
+**gid**, and each AO by **column letter**, under the name its header uses
+(mapped to the Who to Q name through `ao_aliases`). Column B holds the dates.
+
+- The day tabs aren't published to the web. The export reads them as CSV
+  through Google's query endpoint, which works because the sheet is shared
+  "anyone with the link can view". **If that sharing is turned off, Upcoming
+  Qs go away** (the rest of the page is unaffected).
+- A cell is shown as typed (line breaks become spaces). An empty cell is
+  **Open**. If every upcoming cell says `Closed` or `See you next year`, the
+  AO is out of season and the block is hidden.
+- After 8 am Eastern, today's workouts are over, so the run lists from
+  tomorrow on. The page also drops past dates at midnight.
+- Every row links to that AO's day tab.
+- **Never stops the export.** A tab that can't be read, a column whose header
+  no longer names its AO (someone inserted a column), or a gid that points at
+  the wrong tab is a `WARNING:` line in the log, and those AOs show no
+  upcoming Qs.
+
+**Moving an AO to another day or column:** update its entry under
+`q_schedule.tabs` (the gid is the `#gid=` number in the tab's URL). A new AO
+whose sheet spelling differs from Who to Q's also needs an `ao_aliases` entry.

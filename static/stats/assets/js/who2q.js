@@ -191,6 +191,41 @@ function who2qCandidateRule(p) {
     `and not a current Site Q anywhere. Past Site Qs are listed last.`;
 }
 
+// ---- Upcoming Qs (from the Q Sheet's day tabs, #223) ----
+
+const WHO2Q_DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+function who2qLocalIso(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+// The next n slots from today on (the export may include one that's now past).
+function who2qNextSlots(list, n = 3, now = new Date()) {
+  const today = who2qLocalIso(now);
+  return (list || []).filter(s => s.date >= today).slice(0, n);
+}
+
+// One row per workout date: who signed up, as typed in the sheet, or OPEN.
+// Every row opens the AO's day tab in the Q Sheet, to sign up or see more.
+function who2qUpcomingRowsHtml(list, url, now = new Date()) {
+  if (!list.length) {
+    return '<div class="status label empty-state">No upcoming workouts on the Q Sheet</div>';
+  }
+  const today = f3ParseLocalDate(who2qLocalIso(now));
+  return list.map(s => {
+    const d = f3ParseLocalDate(s.date);
+    const days = Math.round((d - today) / 86400000);
+    const when = `${WHO2Q_DAYS[d.getDay()]} · ${who2qShortDate(s.date, now)}`;
+    const name = s.q ? f3Esc(s.q) : 'Open';
+    return `<a class="row w2q-slot${s.q ? '' : ' is-open'}" href="${f3Esc(url)}" target="_blank" rel="noopener"
+        title="${s.q ? 'Open the Q Sheet' : 'No Q yet: open the Q Sheet to sign up'}">
+      <span class="row-name">${name}</span>
+      <span class="label">${when}</span>
+      <span class="row-val" aria-label="${days === 0 ? 'today' : `in ${days} day${days === 1 ? '' : 's'}`}">${days === 0 ? 'Today' : days}</span>
+    </a>`;
+  }).join('');
+}
+
 // ---- Page wiring (browser only) ----
 
 async function who2qInit() {
@@ -225,6 +260,11 @@ async function who2qInit() {
         `Posts here · last ${p.candidate_window_weeks} wks`;
     }
 
+    const upcomingAsOf = f3FormatRefreshed(data.upcoming_qs_as_of);
+    if (upcomingAsOf) {
+      document.getElementById('w2q-upcoming-note').textContent = `Days out · Q Sheet as of ${upcomingAsOf}`;
+    }
+
     const byName = {};
     data.aos.forEach(ao => {
       byName[ao.name] = ao;
@@ -247,6 +287,12 @@ async function who2qInit() {
       if (hasSiteQs) {
         document.getElementById('w2q-siteqs').innerHTML = who2qCapped(ao.site_qs, who2qSiteQRowsHtml);
         document.getElementById('w2q-cands').innerHTML = who2qCapped(ao.candidates, who2qCandidateRowsHtml);
+      }
+      // Upcoming Qs: only when the export could read this AO's column of the Q Sheet.
+      const slots = Array.isArray(ao.upcoming_qs) ? who2qNextSlots(ao.upcoming_qs, data.params.q_slots || 3) : [];
+      document.getElementById('w2q-upcoming-section').hidden = !slots.length;
+      if (slots.length) {
+        document.getElementById('w2q-upcoming').innerHTML = who2qUpcomingRowsHtml(slots, ao.q_sheet_url);
       }
       // Regulars and PC Regulars: only when the export wrote them (older JSON lacks them).
       const hasRegulars = Array.isArray(ao.regulars) && Array.isArray(ao.pc_regulars);
@@ -293,5 +339,6 @@ if (typeof module !== 'undefined') {
     who2qFmtRate, who2qFmtDate, who2qShortDate, who2qQLoadRowsHtml, who2qQLoadSummary, who2qStaleRowsHtml,
     who2qRosterDate, who2qTenure, who2qSiteQRowsHtml, who2qCandidateRowsHtml, who2qCandidateRule,
     who2qRegularRowsHtml, who2qPcRowsHtml, who2qPcRule, who2qCapped,
+    who2qLocalIso, who2qNextSlots, who2qUpcomingRowsHtml,
   };
 }

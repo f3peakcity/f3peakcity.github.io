@@ -10,6 +10,7 @@ const {
   who2qFmtRate, who2qFmtDate, who2qShortDate, who2qQLoadRowsHtml, who2qQLoadSummary, who2qStaleRowsHtml,
   who2qRosterDate, who2qTenure, who2qSiteQRowsHtml, who2qCandidateRowsHtml, who2qCandidateRule,
   who2qRegularRowsHtml, who2qPcRowsHtml, who2qPcRule, who2qCapped,
+  who2qLocalIso, who2qNextSlots, who2qUpcomingRowsHtml,
 } = require('../assets/js/who2q.js');
 
 let passed = 0;
@@ -172,6 +173,36 @@ test('every list caps at 15 rows and says how many there are', () => {
   assert.ok(html.includes('<i>14</i>') && !html.includes('<i>15</i>'));
   assert.ok(html.includes('Showing 15 of 20'));
   assert.ok(!who2qCapped(list.slice(0, 15), shown => '').includes('Showing'), 'no footer when nothing is cut');
+});
+
+test('upcoming Qs: next slots from today on, capped', () => {
+  const now = new Date(2026, 10, 9, 10, 0);  // Mon Nov 9, 10 am local
+  assert.strictEqual(who2qLocalIso(now), '2026-11-09');
+  const list = [
+    { date: '2026-11-02', q: 'Earhart' },
+    { date: '2026-11-09', q: null },
+    { date: '2026-11-16', q: 'Thurston' },
+    { date: '2026-11-23', q: 'Two Factor' },
+    { date: '2026-11-30', q: null },
+  ];
+  assert.deepStrictEqual(who2qNextSlots(list, 3, now).map(s => s.date),
+    ['2026-11-09', '2026-11-16', '2026-11-23'], 'past dates drop at midnight, today stays');
+  assert.deepStrictEqual(who2qNextSlots(undefined, 3, now), []);
+});
+
+test('upcoming Qs: rows link to the sheet, open slots stand out, text is escaped', () => {
+  const now = new Date(2026, 10, 9, 10, 0);
+  const url = 'https://docs.google.com/spreadsheets/d/X/edit#gid=11';
+  const html = who2qUpcomingRowsHtml([
+    { date: '2026-11-09', q: null },
+    { date: '2026-11-16', q: 'Hail Naw <3yr> & Poi' },
+  ], url, now);
+  assert.strictEqual((html.match(/href="https:\/\/docs\.google\.com\/spreadsheets\/d\/X\/edit#gid=11"/g) || []).length, 2);
+  assert.ok(html.includes('is-open') && html.includes('>Open<'));
+  assert.ok(html.includes('Mon · Nov 9') && html.includes('>Today<'));
+  assert.ok(html.includes('Hail Naw &lt;3yr&gt; &amp; Poi'));
+  assert.ok(html.includes('aria-label="in 7 days"'));
+  assert.ok(who2qUpcomingRowsHtml([], url, now).includes('empty-state'));
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
