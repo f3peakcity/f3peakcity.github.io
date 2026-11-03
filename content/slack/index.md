@@ -4,14 +4,9 @@ comments: false
 socialShare: false
 ---
 
-{{< columns >}}
 Slack is a group chat app that serves as our group's virtual space for all sorts of mumblechatter. You can access Slack from your phone, desktop, or browser.
-{{< column >}}
-<br>
-{{< button href="https://join.slack.com/t/f3peakcity/shared_invite/zt-1mjr2w8sg-ZA2bQ1ClRx70BHEqsuep1g" >}}Join Slack{{< /button >}}
-{{< endcolumns >}}
 
-> **Need an invite?** Anyone already in the Slack can text you an invite link, or you can give them your email and they can send you a link via email. If needed, [contact us](/contact) for help.
+> **Want to join Slack?** Slack is for PAX in our group, and we'll get you connected after your first workout. Visiting from another region, or want to learn more before your first workout? [Contact us](/contact).
 
 ## Channels
 
@@ -33,7 +28,7 @@ Everyone automatically is part of the following channels:
 
 Channels are often used to share interests or coordinate activities around a certain type of event. As Peak City takes off, we are trying to take a "narrow and deep" approach to encourage activity (vs. a "wide and shallow" large number of channels with fewer participants).
 
-> **Tip**: The F3 Carpex Slack (where Peak City started) has been around longer, so has a lot more people and channels. You might try posting there. For an invite, search "slack" on this [F3 Carpex page](https://f3carpex.com/links/).
+> **Tip**: The F3 Carpex Slack (where Peak City started) has been around longer, so has a lot more people and channels. You might try posting there.
 
 | Channel                  | Description                                                                                                                          |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -53,13 +48,17 @@ Don't see a channel you want? Ask in `#mumblechatter` to see if others are inter
   - `#3rdf-`: For service projects, faith-based, and similar topics.
 - Use keywords that people are likely to search for. For example, `#business-finance-career` covers a lot of bases.
 
-## Paxmate
+## F3 Nation App
 
-Paxmate is a tool to help summarize events, including who was there. This information helps us plan events and manage sites. You can also view the data yourself.
+F3 Nation has moved to an all-in-one app, [F3 Me](https://me.f3nation.com/). It's how we post backblasts, and it also keeps stats you can view yourself.
 
-For future enhancements to the tool, see the [`f3_bot` issues](https://github.com/f3peakcity/f3_bot/issues).
+- **Backblasts and stats:** post backblasts and see the stats F3 Nation keeps on your workouts.
+- **Your profile:** update your F3 name, hospital name, home region, avatar, phone number, emergency contact, who brought you, start date, name origin, and "My Why". Until now, these fields were only editable in Slack.
+- **One login:** F3 Me uses the new F3 Nation single sign-on. The goal is one login that works across the Admin portal, Map, Pax Vault, and the rest.
 
-{{< button relref="/articles/paxmate-user-guide" >}}Paxmate User Guide{{< /button >}} | {{< button relref="/paxmate-dashboard" >}}Paxmate Dashboard{{< /button >}}
+Found a bug or have an idea? See the [known issues](https://github.com/F3-Nation/f3-nation/issues) or [submit a bug or feature request](https://github.com/F3-Nation/f3-nation/issues/new/choose).
+
+{{< button href="https://me.f3nation.com/" >}}Open F3 Me{{< /button >}}
 
 ## Profiles
 
