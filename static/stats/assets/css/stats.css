@@ -404,3 +404,37 @@ a.w2q-slot:hover .row-name,a.w2q-slot:focus-visible .row-name{text-decoration:un
 .cotters[open] > summary::after{content:"\2212"}
 .cotters > summary:hover h2{color:var(--green)}
 .cotters > summary > .label{margin-left:auto}
+
+/* ---- How to Q page (q-howto.html); scoped under .qh ---- */
+.qh .page-sub{max-width:48ch}
+.qh .section-head{padding-top:20px}
+.qh .section-head h2{font:900 clamp(34px,6vw,48px)/.95 var(--display);letter-spacing:0}
+.qh .tldr{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));border-bottom:2px solid var(--ink)}
+.qh .tldr div{padding:24px 24px 24px 0}
+.qh .tldr div+div{border-left:1px solid var(--rule);padding-left:24px}
+.qh .tldr .k{font:800 28px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.qh .tldr .v{margin-top:10px;font:700 20px/1.25 var(--display);letter-spacing:.04em;text-transform:uppercase}
+.qh ol.steps{list-style:none;margin:0;padding:0}
+.qh .step{display:grid;grid-template-columns:40px minmax(0,1fr) 230px;gap:8px 28px;align-items:start;padding:28px 0;border-bottom:1px solid var(--rule)}
+.qh .idx{font:900 40px/.9 var(--display);color:var(--green);font-variant-numeric:tabular-nums}
+.qh .step .body{min-width:0}
+.qh .step h3{margin:0;font:900 clamp(26px,4.4vw,34px)/.95 var(--display);text-transform:uppercase;letter-spacing:.01em}
+.qh .step p{margin:12px 0 0;font:400 16px/1.55 var(--serif);color:var(--text);max-width:46ch}
+.qh .step ul{margin:12px 0 0;padding:0;list-style:none;font:400 16px/1.5 var(--serif);color:var(--text)}
+.qh .step ul li{padding:6px 0;border-top:1px solid var(--rule)}
+.qh .step ul li:last-child{border-bottom:1px solid var(--rule)}
+.qh .step ul b{font:700 15px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.qh .cmd{font:600 .9em/1 ui-monospace,Menlo,Consolas,monospace;background:var(--track);padding:2px 6px;text-transform:none;letter-spacing:0;white-space:nowrap}
+.qh h3 .cmd{font-size:.62em;vertical-align:middle}
+.qh .tip{margin-top:14px;display:flex;gap:10px;align-items:baseline;background:var(--green-wash);border-left:3px solid var(--green);padding:8px 12px;font:400 14px/1.5 var(--ui);color:var(--text);max-width:46ch}
+.qh .tip .label{color:var(--green);flex:none}
+.qh .shot{margin:0;border:2px solid var(--ink);background:#fff;overflow:hidden}
+.qh .shot img{display:block;width:100%;height:auto}
+.qh .shot.tall{max-height:400px}
+.qh .done{margin-top:56px;padding:24px 0;border-top:4px solid var(--ink);border-bottom:2px solid var(--ink);font:900 clamp(30px,6vw,48px)/.95 var(--display);text-transform:uppercase;color:var(--green)}
+@media (max-width:640px){
+  .qh .step{grid-template-columns:32px minmax(0,1fr)}
+  .qh .shot{grid-column:2;max-width:300px;margin-top:12px}
+  .qh .idx{font-size:32px}
+  .qh .tldr div+div{border-left:0;border-top:1px solid var(--rule);padding-left:0}
+}
