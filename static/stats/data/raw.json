@@ -16406,6 +16406,7 @@
 {"Date": "2026-10-28", "Name": "Kilmer", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-10-29 13:54:03", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-10-28", "Name": "Molter Mike", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-10-28 13:46:21", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-10-28", "Name": "Mr. Terrific", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-10-28 13:46:21", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-10-28", "Name": "NTB (F3 RVA)", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-07 13:42:50", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-10-28", "Name": "One D", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-10-29 13:54:03", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-10-28", "Name": "Pinto", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-10-28 13:46:21", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-10-28", "Name": "Pivot", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-10-28 13:46:21", "SourceFile": "BigQuery:analytics.attendance_info"},
@@ -16814,9 +16815,12 @@
 {"Date": "2026-11-05", "Name": "Moline", "Site": "Hot for Teacher", "Role": "P", "ImportedAt": "2026-11-05 15:07:28", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-05", "Name": "QWERTY", "Site": "Hot for Teacher", "Role": "P", "ImportedAt": "2026-11-05 15:07:28", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-06", "Name": "Al Atwood", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-06", "Name": "Cadence", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-07 13:42:50", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-06", "Name": "Flounder", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-07 13:42:50", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-06", "Name": "Garden Nomad", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-06", "Name": "Intimidator (BruCo)", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-06", "Name": "Mr. Terrific", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-06", "Name": "Parker", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-07 13:42:50", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-06", "Name": "Pivot", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-06", "Name": "Punch Card", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-06", "Name": "Tweety Bird (GL)", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
@@ -16844,5 +16848,6 @@
 {"Date": "2026-11-06", "Name": "Squeeze Bag", "Site": "Tin2Iron", "Role": "Q", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-06", "Name": "Sunny", "Site": "Tin2Iron", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-06", "Name": "Traffic Cone", "Site": "Tin2Iron", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
-{"Date": "2026-11-06", "Name": "Wahoo", "Site": "Tin2Iron", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"}
+{"Date": "2026-11-06", "Name": "Wahoo", "Site": "Tin2Iron", "Role": "P", "ImportedAt": "2026-11-06 15:26:35", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-07", "Name": "Banana Seat (F3SW)", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-07 13:42:50", "SourceFile": "BigQuery:analytics.attendance_info"}
 ]
