@@ -16879,7 +16879,11 @@
 {"Date": "2026-11-07", "Name": "Tolstoy", "Site": "Das Boot", "Role": "P", "ImportedAt": "2026-11-08 14:01:26", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-07", "Name": "Tom", "Site": "Das Boot", "Role": "P", "ImportedAt": "2026-11-08 14:01:26", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-07", "Name": "Zero Drop", "Site": "Das Boot", "Role": "P", "ImportedAt": "2026-11-08 14:01:26", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-08", "Name": "Astronomer", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-08 17:46:30", "SourceFile": "Attendance!C"},
+{"Date": "2026-11-08", "Name": "Enhancements", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-08 17:46:30", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-08", "Name": "Jockey", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-08 14:01:26", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-08", "Name": "Life Alert", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-08 17:46:30", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-08", "Name": "Orphan", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-08 14:01:26", "SourceFile": "BigQuery:analytics.attendance_info"},
-{"Date": "2026-11-08", "Name": "Thurston", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-08 14:01:26", "SourceFile": "BigQuery:analytics.attendance_info"}
+{"Date": "2026-11-08", "Name": "Thurston", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-08 14:01:26", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-08", "Name": "WebMD (South Cary)", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-08 17:46:30", "SourceFile": "Attendance!C"}
 ]
