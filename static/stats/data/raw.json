@@ -16992,6 +16992,7 @@
 {"Date": "2026-11-11", "Name": "Hitchhiker", "Site": "7th Inning Stretch", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Imp", "Site": "7th Inning Stretch", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Jockey", "Site": "7th Inning Stretch", "Role": "Q", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-11", "Name": "Kickstand ()", "Site": "7th Inning Stretch", "Role": "P", "ImportedAt": "2026-11-11 15:44:31", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-11", "Name": "Ramsay", "Site": "7th Inning Stretch", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Steaks", "Site": "7th Inning Stretch", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Theismann", "Site": "7th Inning Stretch", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
@@ -17003,6 +17004,7 @@
 {"Date": "2026-11-11", "Name": "Zero Drop", "Site": "Lion's Den", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "9-Lives", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Bobby Boucher", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-11", "Name": "Bolton", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 15:44:31", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-11", "Name": "Brownout", "Site": "The Foundry", "Role": "Q", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Crimson", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Dadbod", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
@@ -17013,10 +17015,14 @@
 {"Date": "2026-11-11", "Name": "Malware", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Moline", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "QWERTY", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-11", "Name": "Santa Maria", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 15:44:31", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-11", "Name": "Shut-In", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Squeeze Bag", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-11", "Name": "Stone Age", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 15:44:31", "SourceFile": "Attendance!C"},
+{"Date": "2026-11-11", "Name": "Tolstoy", "Site": "The Foundry", "Role": "P", "ImportedAt": "2026-11-11 15:44:31", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-11", "Name": "Cheap Trick", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Cousin IT", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-11", "Name": "Friar Tuck", "Site": "Tortoises", "Role": "FNG", "ImportedAt": "2026-11-11 15:44:31", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-11", "Name": "Hobbit", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Mama's Boy", "Site": "Tortoises", "Role": "Q", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Poi", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
@@ -17024,5 +17030,6 @@
 {"Date": "2026-11-11", "Name": "Sunny", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Traffic Cone", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-11", "Name": "Wahoo", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
-{"Date": "2026-11-11", "Name": "Zinfandel", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"}
+{"Date": "2026-11-11", "Name": "Zinfandel", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 14:52:54", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-11", "Name": "guppy", "Site": "Tortoises", "Role": "P", "ImportedAt": "2026-11-11 15:44:31", "SourceFile": "Attendance!C"}
 ]
