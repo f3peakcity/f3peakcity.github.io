@@ -17130,5 +17130,13 @@
 {"Date": "2026-11-13", "Name": "Soft Tail", "Site": "Tin2Iron", "Role": "P", "ImportedAt": "2026-11-13 15:03:21", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-13", "Name": "Sunny", "Site": "Tin2Iron", "Role": "P", "ImportedAt": "2026-11-13 15:03:21", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-13", "Name": "Wahoo", "Site": "Tin2Iron", "Role": "P", "ImportedAt": "2026-11-13 15:03:21", "SourceFile": "BigQuery:analytics.attendance_info"},
-{"Date": "2026-11-14", "Name": "Sherpa", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-14 13:54:38", "SourceFile": "BigQuery:analytics.attendance_info"}
+{"Date": "2026-11-14", "Name": "Sherpa", "Site": "#downrange", "Role": "P", "ImportedAt": "2026-11-14 13:54:38", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-14", "Name": "Clockwork", "Site": "Umstead Trails Collaborative", "Role": "P", "ImportedAt": "2026-11-14 17:47:52", "SourceFile": "Attendance!C"},
+{"Date": "2026-11-14", "Name": "Hitchhiker", "Site": "Umstead Trails Collaborative", "Role": "P", "ImportedAt": "2026-11-14 17:47:52", "SourceFile": "Attendance!C"},
+{"Date": "2026-11-14", "Name": "I-Beam", "Site": "Umstead Trails Collaborative", "Role": "P", "ImportedAt": "2026-11-14 17:47:52", "SourceFile": "Attendance!C"},
+{"Date": "2026-11-14", "Name": "Imp", "Site": "Umstead Trails Collaborative", "Role": "P", "ImportedAt": "2026-11-14 17:47:52", "SourceFile": "Attendance!C"},
+{"Date": "2026-11-14", "Name": "Jockey", "Site": "Umstead Trails Collaborative", "Role": "P", "ImportedAt": "2026-11-14 17:47:52", "SourceFile": "Attendance!C"},
+{"Date": "2026-11-14", "Name": "Old Maid", "Site": "Umstead Trails Collaborative", "Role": "P", "ImportedAt": "2026-11-14 17:47:52", "SourceFile": "Attendance!C"},
+{"Date": "2026-11-14", "Name": "Steaks", "Site": "Umstead Trails Collaborative", "Role": "P", "ImportedAt": "2026-11-14 17:47:52", "SourceFile": "Attendance!C"},
+{"Date": "2026-11-14", "Name": "Zero Drop", "Site": "Umstead Trails Collaborative", "Role": "P", "ImportedAt": "2026-11-14 17:47:52", "SourceFile": "Attendance!C"}
 ]
