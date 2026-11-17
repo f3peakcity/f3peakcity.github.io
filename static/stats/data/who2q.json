@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-16",
+ "generated_at": "2026-11-17",
  "params": {
   "window_weeks": 12,
   "regular_threshold": 0.3,
@@ -19,127 +19,127 @@
     {
      "name": "Squeeze Bag",
      "last_q": "2025-08-06",
-     "days_since": 467,
+     "days_since": 468,
      "attended_in_window": 0
     },
     {
      "name": "Schroeder",
      "last_q": "2025-08-13",
-     "days_since": 460,
+     "days_since": 461,
      "attended_in_window": 0
     },
     {
      "name": "Peaches",
      "last_q": "2025-08-27",
-     "days_since": 446,
+     "days_since": 447,
      "attended_in_window": 0
     },
     {
      "name": "Amway",
      "last_q": "2025-11-19",
-     "days_since": 362,
+     "days_since": 363,
      "attended_in_window": 0
     },
     {
      "name": "Kanki",
      "last_q": "2025-12-17",
-     "days_since": 334,
+     "days_since": 335,
      "attended_in_window": 0
     },
     {
      "name": "Mr. Safety",
      "last_q": "2026-02-04",
-     "days_since": 285,
+     "days_since": 286,
      "attended_in_window": 3
     },
     {
      "name": "Rooney",
      "last_q": "2026-02-18",
-     "days_since": 271,
+     "days_since": 272,
      "attended_in_window": 3
     },
     {
      "name": "Sparks",
      "last_q": "2026-03-18",
-     "days_since": 243,
+     "days_since": 244,
      "attended_in_window": 0
     },
     {
      "name": "Spam",
      "last_q": "2026-04-01",
-     "days_since": 229,
+     "days_since": 230,
      "attended_in_window": 1
     },
     {
      "name": "I-Beam",
      "last_q": "2026-04-15",
-     "days_since": 215,
+     "days_since": 216,
      "attended_in_window": 3
     },
     {
      "name": "Yahoo",
      "last_q": "2026-05-20",
-     "days_since": 180,
+     "days_since": 181,
      "attended_in_window": 3
     },
     {
      "name": "Pivot",
      "last_q": "2026-06-17",
-     "days_since": 152,
+     "days_since": 153,
      "attended_in_window": 0
     },
     {
      "name": "Cheap Trick",
      "last_q": "2026-07-08",
-     "days_since": 131,
+     "days_since": 132,
      "attended_in_window": 3
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-07-15",
-     "days_since": 124,
+     "days_since": 125,
      "attended_in_window": 0
     },
     {
      "name": "Open Concept",
      "last_q": "2026-07-22",
-     "days_since": 117,
+     "days_since": 118,
      "attended_in_window": 1
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-08-05",
-     "days_since": 103,
+     "days_since": 104,
      "attended_in_window": 5
     },
     {
      "name": "Soft Tail",
      "last_q": "2026-08-12",
-     "days_since": 96,
+     "days_since": 97,
      "attended_in_window": 1
     },
     {
      "name": "Earhart",
      "last_q": "2026-08-26",
-     "days_since": 82,
+     "days_since": 83,
      "attended_in_window": 6
     },
     {
      "name": "Bumper Sticker",
      "last_q": "2026-09-02",
-     "days_since": 75,
+     "days_since": 76,
      "attended_in_window": 1
     },
     {
      "name": "Hamm",
      "last_q": "2026-09-09",
-     "days_since": 68,
+     "days_since": 69,
      "attended_in_window": 1
     },
     {
      "name": "The Chicken Little",
      "last_q": "2026-09-16",
-     "days_since": 61,
+     "days_since": 62,
      "attended_in_window": 2
     }
    ],
@@ -163,56 +163,56 @@
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-08-05",
-     "days_since": 103
+     "days_since": 104
     },
     {
      "name": "Earhart",
      "attended": 6,
      "rate": 0.5,
      "last_q": "2026-08-26",
-     "days_since": 82
+     "days_since": 83
     },
     {
      "name": "Santa Maria",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-09-23",
-     "days_since": 54
+     "days_since": 55
     },
     {
      "name": "Ramsay",
      "attended": 12,
      "rate": 1.0,
      "last_q": "2026-09-30",
-     "days_since": 47
+     "days_since": 48
     },
     {
      "name": "Gibraltar",
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-10-14",
-     "days_since": 33
+     "days_since": 34
     },
     {
      "name": "Clockwork",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-10-28",
-     "days_since": 19
+     "days_since": 20
     },
     {
      "name": "Imp",
      "attended": 12,
      "rate": 1.0,
      "last_q": "2026-11-04",
-     "days_since": 12
+     "days_since": 13
     },
     {
      "name": "Jockey",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-11-11",
-     "days_since": 5
+     "days_since": 6
     }
    ],
    "pc_regulars": [
@@ -220,13 +220,13 @@
      "name": "I-Beam",
      "posts_here": 6,
      "last_q": "2026-04-15",
-     "days_since": 215
+     "days_since": 216
     },
     {
      "name": "Rooney",
      "posts_here": 5,
      "last_q": "2026-02-18",
-     "days_since": 271
+     "days_since": 272
     },
     {
      "name": "Chalupa",
@@ -238,7 +238,7 @@
      "name": "Mr. Safety",
      "posts_here": 4,
      "last_q": "2026-02-04",
-     "days_since": 285
+     "days_since": 286
     },
     {
      "name": "9-Lives",
@@ -322,7 +322,7 @@
      "name": "Kanki",
      "posts_here": 1,
      "last_q": "2025-12-17",
-     "days_since": 334
+     "days_since": 335
     },
     {
      "name": "Big Red",
@@ -598,7 +598,7 @@
      "name": "Squeeze Bag",
      "posts_here": 0,
      "last_q": "2025-08-06",
-     "days_since": 467
+     "days_since": 468
     }
    ],
    "q_load": [
@@ -775,196 +775,195 @@
   },
   {
    "name": "Beaver Chase",
-   "workouts_in_window": 13,
+   "workouts_in_window": 12,
    "stale_qs": [
     {
      "name": "Mama's Boy",
      "last_q": "2025-09-22",
-     "days_since": 420,
+     "days_since": 421,
      "attended_in_window": 0
     },
     {
      "name": "Sparks",
      "last_q": "2025-09-29",
-     "days_since": 413,
+     "days_since": 414,
      "attended_in_window": 0
     },
     {
      "name": "Theismann",
      "last_q": "2025-11-03",
-     "days_since": 378,
+     "days_since": 379,
      "attended_in_window": 0
     },
     {
      "name": "Hail Naw",
      "last_q": "2025-11-17",
-     "days_since": 364,
+     "days_since": 365,
      "attended_in_window": 0
     },
     {
      "name": "Henny Penny",
      "last_q": "2025-12-29",
-     "days_since": 322,
+     "days_since": 323,
      "attended_in_window": 0
     },
     {
      "name": "Biner",
      "last_q": "2026-01-12",
-     "days_since": 308,
+     "days_since": 309,
      "attended_in_window": 0
     },
     {
      "name": "Bumper Sticker",
      "last_q": "2026-02-09",
-     "days_since": 280,
+     "days_since": 281,
      "attended_in_window": 0
     },
     {
      "name": "4Chan",
      "last_q": "2026-02-12",
-     "days_since": 277,
+     "days_since": 278,
      "attended_in_window": 0
     },
     {
      "name": "Zinfandel",
      "last_q": "2026-03-23",
-     "days_since": 238,
+     "days_since": 239,
      "attended_in_window": 0
     },
     {
      "name": "16 Steves",
      "last_q": "2026-04-20",
-     "days_since": 210,
+     "days_since": 211,
      "attended_in_window": 0
     },
     {
      "name": "Hamm",
      "last_q": "2026-05-04",
-     "days_since": 196,
+     "days_since": 197,
      "attended_in_window": 0
     },
     {
      "name": "Astro",
      "last_q": "2026-05-18",
-     "days_since": 182,
+     "days_since": 183,
      "attended_in_window": 0
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-07-06",
-     "days_since": 133,
+     "days_since": 134,
      "attended_in_window": 6
     },
     {
      "name": "Egon",
      "last_q": "2026-07-13",
-     "days_since": 126,
+     "days_since": 127,
      "attended_in_window": 2
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-07-20",
-     "days_since": 119,
+     "days_since": 120,
      "attended_in_window": 0
     },
     {
      "name": "Clockwork",
      "last_q": "2026-07-27",
-     "days_since": 112,
+     "days_since": 113,
      "attended_in_window": 2
     },
     {
      "name": "Chalupa",
      "last_q": "2026-08-03",
-     "days_since": 105,
+     "days_since": 106,
      "attended_in_window": 0
     },
     {
      "name": "Rooney",
      "last_q": "2026-08-17",
-     "days_since": 91,
+     "days_since": 92,
      "attended_in_window": 1
     },
     {
      "name": "Steaks",
      "last_q": "2026-08-31",
-     "days_since": 77,
+     "days_since": 78,
      "attended_in_window": 1
     },
     {
      "name": "QWERTY",
      "last_q": "2026-09-07",
-     "days_since": 70,
+     "days_since": 71,
      "attended_in_window": 1
     },
     {
      "name": "I-Beam",
      "last_q": "2026-09-14",
-     "days_since": 63,
-     "attended_in_window": 10
+     "days_since": 64,
+     "attended_in_window": 9
     }
    ],
    "regulars": [
     {
-     "name": "Pongo",
-     "attended": 4,
-     "rate": 0.308,
-     "last_q": null,
-     "days_since": null
-    },
-    {
      "name": "Zero Drop",
      "attended": 6,
-     "rate": 0.462,
+     "rate": 0.5,
      "last_q": "2026-07-06",
-     "days_since": 133
+     "days_since": 134
     },
     {
      "name": "I-Beam",
-     "attended": 10,
-     "rate": 0.769,
+     "attended": 9,
+     "rate": 0.75,
      "last_q": "2026-09-14",
-     "days_since": 63
+     "days_since": 64
     },
     {
      "name": "Imp",
-     "attended": 12,
-     "rate": 0.923,
+     "attended": 11,
+     "rate": 0.917,
      "last_q": "2026-10-05",
-     "days_since": 42
+     "days_since": 43
     },
     {
      "name": "Mr. Safety",
-     "attended": 8,
-     "rate": 0.615,
+     "attended": 7,
+     "rate": 0.583,
      "last_q": "2026-10-12",
-     "days_since": 35
+     "days_since": 36
     },
     {
      "name": "Jockey",
-     "attended": 10,
-     "rate": 0.769,
+     "attended": 9,
+     "rate": 0.75,
      "last_q": "2026-10-19",
-     "days_since": 28
+     "days_since": 29
     },
     {
      "name": "Hitchhiker",
-     "attended": 9,
-     "rate": 0.692,
+     "attended": 8,
+     "rate": 0.667,
      "last_q": "2026-10-26",
-     "days_since": 21
+     "days_since": 22
     },
     {
      "name": "Ramsay",
-     "attended": 10,
-     "rate": 0.769,
+     "attended": 9,
+     "rate": 0.75,
      "last_q": "2026-11-09",
-     "days_since": 7
+     "days_since": 8
     }
    ],
    "pc_regulars": [
     {
      "name": "9-Lives",
+     "posts_here": 4,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Pongo",
      "posts_here": 4,
      "last_q": null,
      "days_since": null
@@ -1033,7 +1032,7 @@
      "name": "Hail Naw",
      "posts_here": 1,
      "last_q": "2025-11-17",
-     "days_since": 364
+     "days_since": 365
     },
     {
      "name": "Big Red",
@@ -1222,6 +1221,12 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Shamu",
      "posts_here": 0,
      "last_q": null,
@@ -1309,43 +1314,43 @@
      "name": "Biner",
      "posts_here": 0,
      "last_q": "2026-01-12",
-     "days_since": 308
+     "days_since": 309
     },
     {
      "name": "Bumper Sticker",
      "posts_here": 0,
      "last_q": "2026-02-09",
-     "days_since": 280
+     "days_since": 281
     },
     {
      "name": "Hamm",
      "posts_here": 0,
      "last_q": "2026-05-04",
-     "days_since": 196
+     "days_since": 197
     },
     {
      "name": "Henny Penny",
      "posts_here": 0,
      "last_q": "2025-12-29",
-     "days_since": 322
+     "days_since": 323
     },
     {
      "name": "Mama's Boy",
      "posts_here": 0,
      "last_q": "2025-09-22",
-     "days_since": 420
+     "days_since": 421
     },
     {
      "name": "Theismann",
      "posts_here": 0,
      "last_q": "2025-11-03",
-     "days_since": 378
+     "days_since": 379
     },
     {
      "name": "Zinfandel",
      "posts_here": 0,
      "last_q": "2026-03-23",
-     "days_since": 238
+     "days_since": 239
     }
    ],
    "q_load": [
@@ -1456,12 +1461,6 @@
      "qs": 1,
      "last_q": "2026-07-06",
      "regular": true
-    },
-    {
-     "name": "Astro",
-     "qs": 1,
-     "last_q": "2026-05-18",
-     "regular": false
     }
    ],
    "site_qs": [
@@ -1482,7 +1481,7 @@
     {
      "name": "Mr. Safety",
      "attended": 13,
-     "rate": 0.5,
+     "rate": 0.52,
      "qs_here": 2,
      "q_aos": 3,
      "first_seen": "2025-08-07",
@@ -1492,7 +1491,7 @@
     {
      "name": "Zero Drop",
      "attended": 11,
-     "rate": 0.423,
+     "rate": 0.44,
      "qs_here": 1,
      "q_aos": 10,
      "first_seen": "2025-08-07",
@@ -1527,116 +1526,122 @@
     {
      "name": "Charmin",
      "last_q": "2026-02-26",
-     "days_since": 263,
+     "days_since": 264,
      "attended_in_window": 1
     },
     {
      "name": "Kanki",
      "last_q": "2026-03-12",
-     "days_since": 249,
+     "days_since": 250,
      "attended_in_window": 2
     },
     {
      "name": "Malware",
      "last_q": "2026-03-19",
-     "days_since": 242,
+     "days_since": 243,
      "attended_in_window": 11
     },
     {
      "name": "Crimson",
      "last_q": "2026-04-16",
-     "days_since": 214,
+     "days_since": 215,
      "attended_in_window": 2
     },
     {
      "name": "Firedog",
      "last_q": "2026-04-23",
-     "days_since": 207,
+     "days_since": 208,
      "attended_in_window": 1
     },
     {
      "name": "Jigglypuff",
      "last_q": "2026-04-30",
-     "days_since": 200,
+     "days_since": 201,
      "attended_in_window": 0
     },
     {
      "name": "WahWah",
      "last_q": "2026-05-07",
-     "days_since": 193,
+     "days_since": 194,
      "attended_in_window": 0
     },
     {
      "name": "Cataracts",
      "last_q": "2026-05-14",
-     "days_since": 186,
+     "days_since": 187,
      "attended_in_window": 0
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-05-28",
-     "days_since": 172,
+     "days_since": 173,
      "attended_in_window": 2
     },
     {
      "name": "Dadbod",
      "last_q": "2026-06-11",
-     "days_since": 158,
+     "days_since": 159,
      "attended_in_window": 2
     },
     {
      "name": "Yahoo",
      "last_q": "2026-06-25",
-     "days_since": 144,
+     "days_since": 145,
      "attended_in_window": 0
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-07-23",
-     "days_since": 116,
+     "days_since": 117,
      "attended_in_window": 1
     },
     {
      "name": "The Joker",
      "last_q": "2026-07-30",
-     "days_since": 109,
+     "days_since": 110,
      "attended_in_window": 4
     },
     {
      "name": "Tolstoy",
      "last_q": "2026-08-06",
-     "days_since": 102,
+     "days_since": 103,
      "attended_in_window": 3
     },
     {
      "name": "Hamm",
      "last_q": "2026-08-13",
-     "days_since": 95,
+     "days_since": 96,
      "attended_in_window": 1
     },
     {
      "name": "Clockwork",
      "last_q": "2026-08-20",
-     "days_since": 88,
+     "days_since": 89,
      "attended_in_window": 0
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-08-27",
-     "days_since": 81,
+     "days_since": 82,
      "attended_in_window": 1
     },
     {
      "name": "Hitchhiker",
      "last_q": "2026-09-03",
-     "days_since": 74,
+     "days_since": 75,
      "attended_in_window": 1
     },
     {
      "name": "Imp",
      "last_q": "2026-09-10",
-     "days_since": 67,
+     "days_since": 68,
      "attended_in_window": 2
+    },
+    {
+     "name": "Silver fox",
+     "last_q": "2026-09-17",
+     "days_since": 61,
+     "attended_in_window": 9
     }
    ],
    "regulars": [
@@ -1708,28 +1713,28 @@
      "attended": 11,
      "rate": 0.917,
      "last_q": "2026-03-19",
-     "days_since": 242
+     "days_since": 243
     },
     {
      "name": "The Joker",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-07-30",
-     "days_since": 109
+     "days_since": 110
     },
     {
      "name": "Silver fox",
      "attended": 9,
      "rate": 0.75,
      "last_q": "2026-09-17",
-     "days_since": 60
+     "days_since": 61
     },
     {
      "name": "Chalupa",
      "attended": 10,
      "rate": 0.833,
      "last_q": "2026-10-08",
-     "days_since": 39
+     "days_since": 40
     }
    ],
    "pc_regulars": [
@@ -1737,7 +1742,7 @@
      "name": "Kanki",
      "posts_here": 8,
      "last_q": "2026-03-12",
-     "days_since": 249
+     "days_since": 250
     },
     {
      "name": "Earhart",
@@ -1905,13 +1910,13 @@
      "name": "Cataracts",
      "posts_here": 1,
      "last_q": "2026-05-14",
-     "days_since": 186
+     "days_since": 187
     },
     {
      "name": "Charmin",
      "posts_here": 1,
      "last_q": "2026-02-26",
-     "days_since": 263
+     "days_since": 264
     },
     {
      "name": "9-Lives",
@@ -2005,6 +2010,12 @@
     },
     {
      "name": "Ramsay",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Santa Maria",
      "posts_here": 0,
      "last_q": null,
      "days_since": null
@@ -2210,247 +2221,247 @@
     {
      "name": "Earhart",
      "last_q": "2025-08-12",
-     "days_since": 461,
+     "days_since": 462,
      "attended_in_window": 4
     },
     {
      "name": "Imp",
      "last_q": "2025-08-20",
-     "days_since": 453,
+     "days_since": 454,
      "attended_in_window": 0
     },
     {
      "name": "Crimson",
      "last_q": "2025-09-02",
-     "days_since": 440,
+     "days_since": 441,
      "attended_in_window": 0
     },
     {
      "name": "Steaks",
      "last_q": "2025-09-30",
-     "days_since": 412,
+     "days_since": 413,
      "attended_in_window": 0
     },
     {
      "name": "Shut-In",
      "last_q": "2025-10-07",
-     "days_since": 405,
+     "days_since": 406,
      "attended_in_window": 0
     },
     {
      "name": "Peaches",
      "last_q": "2025-10-08",
-     "days_since": 404,
+     "days_since": 405,
      "attended_in_window": 0
     },
     {
      "name": "Pet Sounds",
      "last_q": "2025-10-14",
-     "days_since": 398,
+     "days_since": 399,
      "attended_in_window": 1
     },
     {
      "name": "Open Concept",
      "last_q": "2025-10-15",
-     "days_since": 397,
+     "days_since": 398,
      "attended_in_window": 0
     },
     {
      "name": "Burt Reynolds",
      "last_q": "2025-10-21",
-     "days_since": 391,
+     "days_since": 392,
      "attended_in_window": 0
     },
     {
      "name": "Wahoo",
      "last_q": "2025-10-29",
-     "days_since": 383,
+     "days_since": 384,
      "attended_in_window": 0
     },
     {
      "name": "Kanki",
      "last_q": "2025-11-04",
-     "days_since": 377,
+     "days_since": 378,
      "attended_in_window": 0
     },
     {
      "name": "Old Maid",
      "last_q": "2025-11-11",
-     "days_since": 370,
+     "days_since": 371,
      "attended_in_window": 4
     },
     {
      "name": "Henny Penny",
      "last_q": "2025-11-12",
-     "days_since": 369,
+     "days_since": 370,
      "attended_in_window": 0
     },
     {
      "name": "Big Red",
      "last_q": "2025-11-18",
-     "days_since": 363,
+     "days_since": 364,
      "attended_in_window": 0
     },
     {
      "name": "Iceman",
      "last_q": "2025-12-03",
-     "days_since": 348,
+     "days_since": 349,
      "attended_in_window": 0
     },
     {
      "name": "Decal",
      "last_q": "2025-12-09",
-     "days_since": 342,
+     "days_since": 343,
      "attended_in_window": 0
     },
     {
      "name": "Bumper Sticker",
      "last_q": "2025-12-17",
-     "days_since": 334,
+     "days_since": 335,
      "attended_in_window": 0
     },
     {
      "name": "16 Steves",
      "last_q": "2026-01-13",
-     "days_since": 307,
+     "days_since": 308,
      "attended_in_window": 0
     },
     {
      "name": "Zinfandel",
      "last_q": "2026-01-20",
-     "days_since": 300,
+     "days_since": 301,
      "attended_in_window": 0
     },
     {
      "name": "Orphan",
      "last_q": "2026-02-03",
-     "days_since": 286,
+     "days_since": 287,
      "attended_in_window": 0
     },
     {
      "name": "The Joker",
      "last_q": "2026-02-10",
-     "days_since": 279,
+     "days_since": 280,
      "attended_in_window": 0
     },
     {
      "name": "Bobby Boucher",
      "last_q": "2026-02-17",
-     "days_since": 272,
+     "days_since": 273,
      "attended_in_window": 3
     },
     {
      "name": "Mr. Safety",
      "last_q": "2026-02-24",
-     "days_since": 265,
+     "days_since": 266,
      "attended_in_window": 3
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-03-03",
-     "days_since": 258,
+     "days_since": 259,
      "attended_in_window": 0
     },
     {
      "name": "Rooney",
      "last_q": "2026-04-21",
-     "days_since": 209,
+     "days_since": 210,
      "attended_in_window": 0
     },
     {
      "name": "Egon",
      "last_q": "2026-05-05",
-     "days_since": 195,
+     "days_since": 196,
      "attended_in_window": 0
     },
     {
      "name": "Maestro",
      "last_q": "2026-05-12",
-     "days_since": 188,
+     "days_since": 189,
      "attended_in_window": 1
     },
     {
      "name": "Flenderson",
      "last_q": "2026-05-26",
-     "days_since": 174,
+     "days_since": 175,
      "attended_in_window": 0
     },
     {
      "name": "Sour Mash",
      "last_q": "2026-06-02",
-     "days_since": 167,
+     "days_since": 168,
      "attended_in_window": 0
     },
     {
      "name": "Hamm",
      "last_q": "2026-06-09",
-     "days_since": 160,
+     "days_since": 161,
      "attended_in_window": 0
     },
     {
      "name": "Franklin",
      "last_q": "2026-06-16",
-     "days_since": 153,
+     "days_since": 154,
      "attended_in_window": 0
     },
     {
      "name": "Malware",
      "last_q": "2026-06-23",
-     "days_since": 146,
+     "days_since": 147,
      "attended_in_window": 4
     },
     {
      "name": "Cheap Trick",
      "last_q": "2026-07-14",
-     "days_since": 125,
+     "days_since": 126,
      "attended_in_window": 1
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-07-21",
-     "days_since": 118,
+     "days_since": 119,
      "attended_in_window": 3
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-07-28",
-     "days_since": 111,
+     "days_since": 112,
      "attended_in_window": 0
     },
     {
      "name": "Chalupa",
      "last_q": "2026-08-04",
-     "days_since": 104,
+     "days_since": 105,
      "attended_in_window": 0
     },
     {
      "name": "Traffic Cone",
      "last_q": "2026-08-18",
-     "days_since": 90,
+     "days_since": 91,
      "attended_in_window": 5
     },
     {
      "name": "Tolstoy",
      "last_q": "2026-08-25",
-     "days_since": 83,
+     "days_since": 84,
      "attended_in_window": 1
     },
     {
      "name": "Jockey",
      "last_q": "2026-09-01",
-     "days_since": 76,
+     "days_since": 77,
      "attended_in_window": 2
     },
     {
      "name": "QWERTY",
      "last_q": "2026-09-08",
-     "days_since": 69,
+     "days_since": 70,
      "attended_in_window": 1
     },
     {
      "name": "Ramsay",
      "last_q": "2026-09-15",
-     "days_since": 62,
+     "days_since": 63,
      "attended_in_window": 9
     }
    ],
@@ -2474,49 +2485,49 @@
      "attended": 4,
      "rate": 0.333,
      "last_q": "2025-08-12",
-     "days_since": 461
+     "days_since": 462
     },
     {
      "name": "Old Maid",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2025-11-11",
-     "days_since": 370
+     "days_since": 371
     },
     {
      "name": "Malware",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-06-23",
-     "days_since": 146
+     "days_since": 147
     },
     {
      "name": "Traffic Cone",
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-08-18",
-     "days_since": 90
+     "days_since": 91
     },
     {
      "name": "Ramsay",
      "attended": 9,
      "rate": 0.75,
      "last_q": "2026-09-15",
-     "days_since": 62
+     "days_since": 63
     },
     {
      "name": "Red Ryder",
      "attended": 6,
      "rate": 0.5,
      "last_q": "2026-09-29",
-     "days_since": 48
+     "days_since": 49
     },
     {
      "name": "Hitchhiker",
      "attended": 11,
      "rate": 0.917,
      "last_q": "2026-11-03",
-     "days_since": 13
+     "days_since": 14
     }
    ],
    "pc_regulars": [
@@ -2524,7 +2535,7 @@
      "name": "Bobby Boucher",
      "posts_here": 6,
      "last_q": "2026-02-17",
-     "days_since": 272
+     "days_since": 273
     },
     {
      "name": "9-Lives",
@@ -2548,7 +2559,7 @@
      "name": "Mr. Safety",
      "posts_here": 3,
      "last_q": "2026-02-24",
-     "days_since": 265
+     "days_since": 266
     },
     {
      "name": "Brownout",
@@ -2572,7 +2583,7 @@
      "name": "Triple Lindy",
      "posts_here": 2,
      "last_q": "2026-03-03",
-     "days_since": 258
+     "days_since": 259
     },
     {
      "name": "Dadbod",
@@ -2587,6 +2598,12 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 1,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "The Chicken Little",
      "posts_here": 1,
      "last_q": null,
@@ -2596,25 +2613,25 @@
      "name": "Kanki",
      "posts_here": 1,
      "last_q": "2025-11-04",
-     "days_since": 377
+     "days_since": 378
     },
     {
      "name": "Maestro",
      "posts_here": 1,
      "last_q": "2026-05-12",
-     "days_since": 188
+     "days_since": 189
     },
     {
      "name": "Open Concept",
      "posts_here": 1,
      "last_q": "2025-10-15",
-     "days_since": 397
+     "days_since": 398
     },
     {
      "name": "Orphan",
      "posts_here": 1,
      "last_q": "2026-02-03",
-     "days_since": 286
+     "days_since": 287
     },
     {
      "name": "Blindside",
@@ -2806,73 +2823,73 @@
      "name": "Big Red",
      "posts_here": 0,
      "last_q": "2025-11-18",
-     "days_since": 363
+     "days_since": 364
     },
     {
      "name": "Bumper Sticker",
      "posts_here": 0,
      "last_q": "2025-12-17",
-     "days_since": 334
+     "days_since": 335
     },
     {
      "name": "Egon",
      "posts_here": 0,
      "last_q": "2026-05-05",
-     "days_since": 195
+     "days_since": 196
     },
     {
      "name": "Henny Penny",
      "posts_here": 0,
      "last_q": "2025-11-12",
-     "days_since": 369
+     "days_since": 370
     },
     {
      "name": "Iceman",
      "posts_here": 0,
      "last_q": "2025-12-03",
-     "days_since": 348
+     "days_since": 349
     },
     {
      "name": "Imp",
      "posts_here": 0,
      "last_q": "2025-08-20",
-     "days_since": 453
+     "days_since": 454
     },
     {
      "name": "Rooney",
      "posts_here": 0,
      "last_q": "2026-04-21",
-     "days_since": 209
+     "days_since": 210
     },
     {
      "name": "Shut-In",
      "posts_here": 0,
      "last_q": "2025-10-07",
-     "days_since": 405
+     "days_since": 406
     },
     {
      "name": "Steaks",
      "posts_here": 0,
      "last_q": "2025-09-30",
-     "days_since": 412
+     "days_since": 413
     },
     {
      "name": "The Joker",
      "posts_here": 0,
      "last_q": "2026-02-10",
-     "days_since": 279
+     "days_since": 280
     },
     {
      "name": "Wahoo",
      "posts_here": 0,
      "last_q": "2025-10-29",
-     "days_since": 383
+     "days_since": 384
     },
     {
      "name": "Zinfandel",
      "posts_here": 0,
      "last_q": "2026-01-20",
-     "days_since": 300
+     "days_since": 301
     }
    ],
    "q_load": [
@@ -3028,10 +3045,6 @@
    ],
    "upcoming_qs": [
     {
-     "date": "2026-11-17",
-     "q": "Biner"
-    },
-    {
      "date": "2026-11-24",
      "q": "Smithers"
     },
@@ -3042,6 +3055,10 @@
     {
      "date": "2026-12-08",
      "q": "Side Effect"
+    },
+    {
+     "date": "2026-12-15",
+     "q": "Mr. Safety"
     }
    ],
    "q_sheet_url": "https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit#gid=1309770370"
@@ -3053,169 +3070,169 @@
     {
      "name": "Ramsay",
      "last_q": "2025-11-14",
-     "days_since": 367,
+     "days_since": 368,
      "attended_in_window": 9
     },
     {
      "name": "Chalupa",
      "last_q": "2025-11-21",
-     "days_since": 360,
+     "days_since": 361,
      "attended_in_window": 0
     },
     {
      "name": "Decal",
      "last_q": "2025-11-26",
-     "days_since": 355,
+     "days_since": 356,
      "attended_in_window": 0
     },
     {
      "name": "Silver fox",
      "last_q": "2025-12-19",
-     "days_since": 332,
+     "days_since": 333,
      "attended_in_window": 0
     },
     {
      "name": "Egon",
      "last_q": "2026-01-02",
-     "days_since": 318,
+     "days_since": 319,
      "attended_in_window": 1
     },
     {
      "name": "Hamm",
      "last_q": "2026-01-23",
-     "days_since": 297,
+     "days_since": 298,
      "attended_in_window": 10
     },
     {
      "name": "Malware",
      "last_q": "2026-01-30",
-     "days_since": 290,
+     "days_since": 291,
      "attended_in_window": 3
     },
     {
      "name": "Old Maid",
      "last_q": "2026-02-13",
-     "days_since": 276,
+     "days_since": 277,
      "attended_in_window": 8
     },
     {
      "name": "Rooney",
      "last_q": "2026-03-06",
-     "days_since": 255,
+     "days_since": 256,
      "attended_in_window": 5
     },
     {
      "name": "Firedog",
      "last_q": "2026-03-20",
-     "days_since": 241,
+     "days_since": 242,
      "attended_in_window": 0
     },
     {
      "name": "Yahoo",
      "last_q": "2026-03-27",
-     "days_since": 234,
+     "days_since": 235,
      "attended_in_window": 4
     },
     {
      "name": "16 Steves",
      "last_q": "2026-04-17",
-     "days_since": 213,
+     "days_since": 214,
      "attended_in_window": 2
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-05-01",
-     "days_since": 199,
+     "days_since": 200,
      "attended_in_window": 7
     },
     {
      "name": "Sour Mash",
      "last_q": "2026-05-08",
-     "days_since": 192,
+     "days_since": 193,
      "attended_in_window": 0
     },
     {
      "name": "Piggly Wiggly",
      "last_q": "2026-05-15",
-     "days_since": 185,
+     "days_since": 186,
      "attended_in_window": 0
     },
     {
      "name": "9-Lives",
      "last_q": "2026-05-25",
-     "days_since": 175,
+     "days_since": 176,
      "attended_in_window": 5
     },
     {
      "name": "Sasquat",
      "last_q": "2026-05-29",
-     "days_since": 171,
+     "days_since": 172,
      "attended_in_window": 6
     },
     {
      "name": "QWERTY",
      "last_q": "2026-06-19",
-     "days_since": 150,
+     "days_since": 151,
      "attended_in_window": 1
     },
     {
      "name": "Jockey",
      "last_q": "2026-07-03",
-     "days_since": 136,
+     "days_since": 137,
      "attended_in_window": 4
     },
     {
      "name": "Iceman",
      "last_q": "2026-07-10",
-     "days_since": 129,
+     "days_since": 130,
      "attended_in_window": 7
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-07-24",
-     "days_since": 115,
+     "days_since": 116,
      "attended_in_window": 2
     },
     {
      "name": "Shut-In",
      "last_q": "2026-07-31",
-     "days_since": 108,
+     "days_since": 109,
      "attended_in_window": 7
     },
     {
      "name": "Hail Naw",
      "last_q": "2026-08-07",
-     "days_since": 101,
+     "days_since": 102,
      "attended_in_window": 7
     },
     {
      "name": "Cheap Trick",
      "last_q": "2026-08-14",
-     "days_since": 94,
+     "days_since": 95,
      "attended_in_window": 3
     },
     {
      "name": "Hitchhiker",
      "last_q": "2026-08-21",
-     "days_since": 87,
+     "days_since": 88,
      "attended_in_window": 8
     },
     {
      "name": "High School Musical",
      "last_q": "2026-08-28",
-     "days_since": 80,
+     "days_since": 81,
      "attended_in_window": 1
     },
     {
      "name": "Imp",
      "last_q": "2026-09-04",
-     "days_since": 73,
+     "days_since": 74,
      "attended_in_window": 10
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-09-11",
-     "days_since": 66,
+     "days_since": 67,
      "attended_in_window": 4
     }
    ],
@@ -3309,126 +3326,126 @@
      "attended": 9,
      "rate": 0.75,
      "last_q": "2025-11-14",
-     "days_since": 367
+     "days_since": 368
     },
     {
      "name": "Hamm",
      "attended": 10,
      "rate": 0.833,
      "last_q": "2026-01-23",
-     "days_since": 297
+     "days_since": 298
     },
     {
      "name": "Old Maid",
      "attended": 8,
      "rate": 0.667,
      "last_q": "2026-02-13",
-     "days_since": 276
+     "days_since": 277
     },
     {
      "name": "Rooney",
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-03-06",
-     "days_since": 255
+     "days_since": 256
     },
     {
      "name": "Yahoo",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-03-27",
-     "days_since": 234
+     "days_since": 235
     },
     {
      "name": "Red Ryder",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-05-01",
-     "days_since": 199
+     "days_since": 200
     },
     {
      "name": "9-Lives",
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-05-25",
-     "days_since": 175
+     "days_since": 176
     },
     {
      "name": "Sasquat",
      "attended": 6,
      "rate": 0.5,
      "last_q": "2026-05-29",
-     "days_since": 171
+     "days_since": 172
     },
     {
      "name": "Jockey",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-07-03",
-     "days_since": 136
+     "days_since": 137
     },
     {
      "name": "Iceman",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-07-10",
-     "days_since": 129
+     "days_since": 130
     },
     {
      "name": "Shut-In",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-07-31",
-     "days_since": 108
+     "days_since": 109
     },
     {
      "name": "Hail Naw",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-08-07",
-     "days_since": 101
+     "days_since": 102
     },
     {
      "name": "Hitchhiker",
      "attended": 8,
      "rate": 0.667,
      "last_q": "2026-08-21",
-     "days_since": 87
+     "days_since": 88
     },
     {
      "name": "Imp",
      "attended": 10,
      "rate": 0.833,
      "last_q": "2026-09-04",
-     "days_since": 73
+     "days_since": 74
     },
     {
      "name": "Triple Lindy",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-09-11",
-     "days_since": 66
+     "days_since": 67
     },
     {
      "name": "Blindside",
      "attended": 6,
      "rate": 0.5,
      "last_q": "2026-10-02",
-     "days_since": 45
+     "days_since": 46
     },
     {
      "name": "Clockwork",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-11-06",
-     "days_since": 10
+     "days_since": 11
     },
     {
      "name": "Headgear",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-11-13",
-     "days_since": 3
+     "days_since": 4
     }
    ],
    "pc_regulars": [
@@ -3448,7 +3465,7 @@
      "name": "Malware",
      "posts_here": 6,
      "last_q": "2026-01-30",
-     "days_since": 290
+     "days_since": 291
     },
     {
      "name": "Henny Penny",
@@ -3538,7 +3555,7 @@
      "name": "Egon",
      "posts_here": 2,
      "last_q": "2026-01-02",
-     "days_since": 318
+     "days_since": 319
     },
     {
      "name": "Bobby Boucher",
@@ -3566,6 +3583,12 @@
     },
     {
      "name": "McEnroe",
+     "posts_here": 1,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Santa Maria",
      "posts_here": 1,
      "last_q": null,
      "days_since": null
@@ -3682,19 +3705,19 @@
      "name": "Chalupa",
      "posts_here": 0,
      "last_q": "2025-11-21",
-     "days_since": 360
+     "days_since": 361
     },
     {
      "name": "Piggly Wiggly",
      "posts_here": 0,
      "last_q": "2026-05-15",
-     "days_since": 185
+     "days_since": 186
     },
     {
      "name": "Silver fox",
      "posts_here": 0,
      "last_q": "2025-12-19",
-     "days_since": 332
+     "days_since": 333
     }
    ],
    "q_load": [
@@ -3898,157 +3921,157 @@
     {
      "name": "Biner",
      "last_q": "2026-01-24",
-     "days_since": 296,
+     "days_since": 297,
      "attended_in_window": 6
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-02-07",
-     "days_since": 282,
+     "days_since": 283,
      "attended_in_window": 2
     },
     {
      "name": "Sour Mash",
      "last_q": "2026-02-14",
-     "days_since": 275,
+     "days_since": 276,
      "attended_in_window": 0
     },
     {
      "name": "Earhart",
      "last_q": "2026-02-21",
-     "days_since": 268,
+     "days_since": 269,
      "attended_in_window": 8
     },
     {
      "name": "Hello Kitty",
      "last_q": "2026-02-28",
-     "days_since": 261,
+     "days_since": 262,
      "attended_in_window": 0
     },
     {
      "name": "Burt Reynolds",
      "last_q": "2026-03-14",
-     "days_since": 247,
+     "days_since": 248,
      "attended_in_window": 0
     },
     {
      "name": "High School Musical",
      "last_q": "2026-04-04",
-     "days_since": 226,
+     "days_since": 227,
      "attended_in_window": 0
     },
     {
      "name": "Gump",
      "last_q": "2026-04-11",
-     "days_since": 219,
+     "days_since": 220,
      "attended_in_window": 0
     },
     {
      "name": "Loom",
      "last_q": "2026-04-18",
-     "days_since": 212,
+     "days_since": 213,
      "attended_in_window": 1
     },
     {
      "name": "Sky Blue",
      "last_q": "2026-04-25",
-     "days_since": 205,
+     "days_since": 206,
      "attended_in_window": 0
     },
     {
      "name": "Cadence",
      "last_q": "2026-05-02",
-     "days_since": 198,
+     "days_since": 199,
      "attended_in_window": 0
     },
     {
      "name": "Sunshine",
      "last_q": "2026-05-09",
-     "days_since": 191,
+     "days_since": 192,
      "attended_in_window": 0
     },
     {
      "name": "Ramsay",
      "last_q": "2026-05-16",
-     "days_since": 184,
+     "days_since": 185,
      "attended_in_window": 0
     },
     {
      "name": "Jockey",
      "last_q": "2026-05-23",
-     "days_since": 177,
+     "days_since": 178,
      "attended_in_window": 3
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-06-06",
-     "days_since": 163,
+     "days_since": 164,
      "attended_in_window": 0
     },
     {
      "name": "Big Red",
      "last_q": "2026-06-13",
-     "days_since": 156,
+     "days_since": 157,
      "attended_in_window": 0
     },
     {
      "name": "Compound W",
      "last_q": "2026-06-20",
-     "days_since": 149,
+     "days_since": 150,
      "attended_in_window": 2
     },
     {
      "name": "Maestro",
      "last_q": "2026-07-04",
-     "days_since": 135,
+     "days_since": 136,
      "attended_in_window": 3
     },
     {
      "name": "Astro",
      "last_q": "2026-07-11",
-     "days_since": 128,
+     "days_since": 129,
      "attended_in_window": 2
     },
     {
      "name": "OTW (On The Way)",
      "last_q": "2026-07-18",
-     "days_since": 121,
+     "days_since": 122,
      "attended_in_window": 1
     },
     {
      "name": "Kitty Litter",
      "last_q": "2026-07-25",
-     "days_since": 114,
+     "days_since": 115,
      "attended_in_window": 0
     },
     {
      "name": "Chalupa",
      "last_q": "2026-08-01",
-     "days_since": 107,
+     "days_since": 108,
      "attended_in_window": 9
     },
     {
      "name": "Amway",
      "last_q": "2026-08-08",
-     "days_since": 100,
+     "days_since": 101,
      "attended_in_window": 0
     },
     {
      "name": "Hamm",
      "last_q": "2026-08-29",
-     "days_since": 79,
+     "days_since": 80,
      "attended_in_window": 1
     },
     {
      "name": "Tolstoy",
      "last_q": "2026-09-05",
-     "days_since": 72,
+     "days_since": 73,
      "attended_in_window": 3
     },
     {
      "name": "Egon",
      "last_q": "2026-09-12",
-     "days_since": 65,
+     "days_since": 66,
      "attended_in_window": 3
     }
    ],
@@ -4142,56 +4165,56 @@
      "attended": 6,
      "rate": 0.5,
      "last_q": "2026-01-24",
-     "days_since": 296
+     "days_since": 297
     },
     {
      "name": "Earhart",
      "attended": 8,
      "rate": 0.667,
      "last_q": "2026-02-21",
-     "days_since": 268
+     "days_since": 269
     },
     {
      "name": "Chalupa",
      "attended": 9,
      "rate": 0.75,
      "last_q": "2026-08-01",
-     "days_since": 107
+     "days_since": 108
     },
     {
      "name": "Old Maid",
      "attended": 8,
      "rate": 0.667,
      "last_q": "2026-09-19",
-     "days_since": 58
+     "days_since": 59
     },
     {
      "name": "Franklin",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-10-03",
-     "days_since": 44
+     "days_since": 45
     },
     {
      "name": "Shut-In",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-10-24",
-     "days_since": 23
+     "days_since": 24
     },
     {
      "name": "Cataracts",
      "attended": 6,
      "rate": 0.5,
      "last_q": "2026-10-31",
-     "days_since": 16
+     "days_since": 17
     },
     {
      "name": "Henny Penny",
      "attended": 8,
      "rate": 0.667,
      "last_q": "2026-11-14",
-     "days_since": 2
+     "days_since": 3
     }
    ],
    "pc_regulars": [
@@ -4205,7 +4228,7 @@
      "name": "Squeeze Bag",
      "posts_here": 8,
      "last_q": "2026-02-07",
-     "days_since": 282
+     "days_since": 283
     },
     {
      "name": "Quitter",
@@ -4379,7 +4402,7 @@
      "name": "Ramsay",
      "posts_here": 1,
      "last_q": "2026-05-16",
-     "days_since": 184
+     "days_since": 185
     },
     {
      "name": "Bobby Boucher",
@@ -4485,6 +4508,12 @@
     },
     {
      "name": "QWERTY",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Santa Maria",
      "posts_here": 0,
      "last_q": null,
      "days_since": null
@@ -4706,268 +4735,276 @@
   },
   {
    "name": "Disturbing the Peace (DTP)",
-   "workouts_in_window": 12,
+   "workouts_in_window": 13,
    "stale_qs": [
     {
      "name": "Triple Lindy",
      "last_q": "2026-01-06",
-     "days_since": 314,
+     "days_since": 315,
      "attended_in_window": 1
     },
     {
      "name": "Orphan",
      "last_q": "2026-01-20",
-     "days_since": 300,
+     "days_since": 301,
      "attended_in_window": 0
     },
     {
      "name": "Sooey",
      "last_q": "2026-01-27",
-     "days_since": 293,
+     "days_since": 294,
      "attended_in_window": 1
     },
     {
      "name": "Hello Kitty",
      "last_q": "2026-02-10",
-     "days_since": 279,
+     "days_since": 280,
      "attended_in_window": 0
     },
     {
      "name": "Cheap Trick",
      "last_q": "2026-02-17",
-     "days_since": 272,
+     "days_since": 273,
      "attended_in_window": 1
     },
     {
      "name": "Smithers",
      "last_q": "2026-02-24",
-     "days_since": 265,
-     "attended_in_window": 2
+     "days_since": 266,
+     "attended_in_window": 3
     },
     {
      "name": "Big Red",
      "last_q": "2026-03-10",
-     "days_since": 251,
-     "attended_in_window": 1
+     "days_since": 252,
+     "attended_in_window": 2
     },
     {
      "name": "Soft Tail",
      "last_q": "2026-04-07",
-     "days_since": 223,
+     "days_since": 224,
      "attended_in_window": 1
     },
     {
      "name": "Headgear",
      "last_q": "2026-04-14",
-     "days_since": 216,
+     "days_since": 217,
      "attended_in_window": 9
     },
     {
      "name": "Old Maid",
      "last_q": "2026-04-21",
-     "days_since": 209,
+     "days_since": 210,
      "attended_in_window": 2
     },
     {
      "name": "Firedog",
      "last_q": "2026-05-05",
-     "days_since": 195,
+     "days_since": 196,
      "attended_in_window": 0
     },
     {
      "name": "Hamm",
      "last_q": "2026-05-19",
-     "days_since": 181,
+     "days_since": 182,
      "attended_in_window": 4
     },
     {
      "name": "Egon",
      "last_q": "2026-05-26",
-     "days_since": 174,
+     "days_since": 175,
      "attended_in_window": 0
     },
     {
      "name": "Jockey",
      "last_q": "2026-06-02",
-     "days_since": 167,
-     "attended_in_window": 5
+     "days_since": 168,
+     "attended_in_window": 6
     },
     {
      "name": "Pierogi",
      "last_q": "2026-06-23",
-     "days_since": 146,
+     "days_since": 147,
      "attended_in_window": 0
     },
     {
      "name": "F3 Yoda",
      "last_q": "2026-06-30",
-     "days_since": 139,
+     "days_since": 140,
      "attended_in_window": 0
     },
     {
      "name": "Hitchhiker",
      "last_q": "2026-07-06",
-     "days_since": 133,
+     "days_since": 134,
      "attended_in_window": 0
     },
     {
      "name": "Zinfandel",
      "last_q": "2026-07-07",
-     "days_since": 132,
+     "days_since": 133,
      "attended_in_window": 0
     },
     {
      "name": "I-Beam",
      "last_q": "2026-07-14",
-     "days_since": 125,
+     "days_since": 126,
      "attended_in_window": 1
-    },
-    {
-     "name": "Bumper Sticker",
-     "last_q": "2026-07-28",
-     "days_since": 111,
-     "attended_in_window": 9
     },
     {
      "name": "Imp",
      "last_q": "2026-08-04",
-     "days_since": 104,
+     "days_since": 105,
      "attended_in_window": 8
     },
     {
      "name": "Hail Naw",
      "last_q": "2026-08-18",
-     "days_since": 90,
+     "days_since": 91,
      "attended_in_window": 6
     },
     {
      "name": "Side effect",
      "last_q": "2026-08-25",
-     "days_since": 83,
+     "days_since": 84,
      "attended_in_window": 1
     },
     {
      "name": "Chalupa",
      "last_q": "2026-09-01",
-     "days_since": 76,
-     "attended_in_window": 3
+     "days_since": 77,
+     "attended_in_window": 4
     },
     {
      "name": "16 Steves",
      "last_q": "2026-09-08",
-     "days_since": 69,
+     "days_since": 70,
      "attended_in_window": 3
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-09-15",
-     "days_since": 62,
+     "days_since": 63,
      "attended_in_window": 2
     }
    ],
    "regulars": [
     {
      "name": "Bullwinkle",
-     "attended": 7,
-     "rate": 0.583,
+     "attended": 8,
+     "rate": 0.615,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Liberty",
+     "attended": 4,
+     "rate": 0.308,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "Piggly Wiggly",
-     "attended": 11,
-     "rate": 0.917,
+     "attended": 12,
+     "rate": 0.923,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "Pongo",
      "attended": 10,
-     "rate": 0.833,
+     "rate": 0.769,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "Headgear",
      "attended": 9,
-     "rate": 0.75,
+     "rate": 0.692,
      "last_q": "2026-04-14",
-     "days_since": 216
+     "days_since": 217
     },
     {
      "name": "Hamm",
      "attended": 4,
-     "rate": 0.333,
+     "rate": 0.308,
      "last_q": "2026-05-19",
-     "days_since": 181
+     "days_since": 182
     },
     {
      "name": "Jockey",
-     "attended": 5,
-     "rate": 0.417,
+     "attended": 6,
+     "rate": 0.462,
      "last_q": "2026-06-02",
-     "days_since": 167
-    },
-    {
-     "name": "Bumper Sticker",
-     "attended": 9,
-     "rate": 0.75,
-     "last_q": "2026-07-28",
-     "days_since": 111
+     "days_since": 168
     },
     {
      "name": "Imp",
      "attended": 8,
-     "rate": 0.667,
+     "rate": 0.615,
      "last_q": "2026-08-04",
-     "days_since": 104
+     "days_since": 105
     },
     {
      "name": "Hail Naw",
      "attended": 6,
-     "rate": 0.5,
+     "rate": 0.462,
      "last_q": "2026-08-18",
-     "days_since": 90
+     "days_since": 91
+    },
+    {
+     "name": "Chalupa",
+     "attended": 4,
+     "rate": 0.308,
+     "last_q": "2026-09-01",
+     "days_since": 77
     },
     {
      "name": "Rooney",
      "attended": 4,
-     "rate": 0.333,
+     "rate": 0.308,
      "last_q": "2026-09-29",
-     "days_since": 48
+     "days_since": 49
     },
     {
      "name": "The Chicken Little",
-     "attended": 4,
-     "rate": 0.333,
+     "attended": 5,
+     "rate": 0.385,
      "last_q": "2026-10-20",
-     "days_since": 27
+     "days_since": 28
     },
     {
      "name": "Kanki",
      "attended": 7,
-     "rate": 0.583,
+     "rate": 0.538,
      "last_q": "2026-10-27",
-     "days_since": 20
+     "days_since": 21
     },
     {
      "name": "The Joker",
-     "attended": 4,
-     "rate": 0.333,
+     "attended": 5,
+     "rate": 0.385,
      "last_q": "2026-11-03",
-     "days_since": 13
+     "days_since": 14
+    },
+    {
+     "name": "Bumper Sticker",
+     "attended": 10,
+     "rate": 0.769,
+     "last_q": "2026-11-17",
+     "days_since": 0
     }
    ],
    "pc_regulars": [
     {
      "name": "Big Red",
-     "posts_here": 7,
+     "posts_here": 8,
      "last_q": "2026-03-10",
-     "days_since": 251
+     "days_since": 252
     },
     {
      "name": "Bobby Boucher",
-     "posts_here": 5,
+     "posts_here": 6,
      "last_q": null,
      "days_since": null
     },
@@ -4981,7 +5018,13 @@
      "name": "Triple Lindy",
      "posts_here": 5,
      "last_q": "2026-01-06",
-     "days_since": 314
+     "days_since": 315
+    },
+    {
+     "name": "Open Concept",
+     "posts_here": 4,
+     "last_q": null,
+     "days_since": null
     },
     {
      "name": "Traffic Cone",
@@ -4999,7 +5042,13 @@
      "name": "Old Maid",
      "posts_here": 4,
      "last_q": "2026-04-21",
-     "days_since": 209
+     "days_since": 210
+    },
+    {
+     "name": "Smithers",
+     "posts_here": 4,
+     "last_q": "2026-02-24",
+     "days_since": 266
     },
     {
      "name": "9-Lives",
@@ -5020,13 +5069,7 @@
      "days_since": null
     },
     {
-     "name": "Liberty",
-     "posts_here": 3,
-     "last_q": null,
-     "days_since": null
-    },
-    {
-     "name": "Open Concept",
+     "name": "Lucky Charms",
      "posts_here": 3,
      "last_q": null,
      "days_since": null
@@ -5038,13 +5081,13 @@
      "days_since": null
     },
     {
-     "name": "Smithers",
-     "posts_here": 3,
-     "last_q": "2026-02-24",
-     "days_since": 265
+     "name": "Biner",
+     "posts_here": 2,
+     "last_q": null,
+     "days_since": null
     },
     {
-     "name": "Biner",
+     "name": "Clockwork",
      "posts_here": 2,
      "last_q": null,
      "days_since": null
@@ -5056,7 +5099,7 @@
      "days_since": null
     },
     {
-     "name": "Lucky Charms",
+     "name": "Henny Penny",
      "posts_here": 2,
      "last_q": null,
      "days_since": null
@@ -5083,34 +5126,28 @@
      "name": "Cheap Trick",
      "posts_here": 2,
      "last_q": "2026-02-17",
-     "days_since": 272
+     "days_since": 273
     },
     {
      "name": "Orphan",
      "posts_here": 2,
      "last_q": "2026-01-20",
-     "days_since": 300
+     "days_since": 301
     },
     {
      "name": "Soft Tail",
      "posts_here": 2,
      "last_q": "2026-04-07",
-     "days_since": 223
+     "days_since": 224
     },
     {
-     "name": "Clockwork",
+     "name": "Charmin",
      "posts_here": 1,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "Dadbod",
-     "posts_here": 1,
-     "last_q": null,
-     "days_since": null
-    },
-    {
-     "name": "Henny Penny",
      "posts_here": 1,
      "last_q": null,
      "days_since": null
@@ -5158,6 +5195,12 @@
      "days_since": null
     },
     {
+     "name": "Two Factor",
+     "posts_here": 1,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Wahoo",
      "posts_here": 1,
      "last_q": null,
@@ -5167,7 +5210,7 @@
      "name": "Sooey",
      "posts_here": 1,
      "last_q": "2026-01-27",
-     "days_since": 293
+     "days_since": 294
     },
     {
      "name": "Bolton (Nomad)",
@@ -5177,12 +5220,6 @@
     },
     {
      "name": "Brownout",
-     "posts_here": 0,
-     "last_q": null,
-     "days_since": null
-    },
-    {
-     "name": "Charmin",
      "posts_here": 0,
      "last_q": null,
      "days_since": null
@@ -5266,6 +5303,12 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Shamu",
      "posts_here": 0,
      "last_q": null,
@@ -5300,15 +5343,15 @@
      "posts_here": 0,
      "last_q": null,
      "days_since": null
-    },
-    {
-     "name": "Two Factor",
-     "posts_here": 0,
-     "last_q": null,
-     "days_since": null
     }
    ],
    "q_load": [
+    {
+     "name": "Bumper Sticker",
+     "qs": 2,
+     "last_q": "2026-11-17",
+     "regular": true
+    },
     {
      "name": "The Joker",
      "qs": 2,
@@ -5367,7 +5410,7 @@
      "name": "Chalupa",
      "qs": 1,
      "last_q": "2026-09-01",
-     "regular": false
+     "regular": true
     },
     {
      "name": "Side effect",
@@ -5385,12 +5428,6 @@
      "name": "Imp",
      "qs": 1,
      "last_q": "2026-08-04",
-     "regular": true
-    },
-    {
-     "name": "Bumper Sticker",
-     "qs": 1,
-     "last_q": "2026-07-28",
      "regular": true
     },
     {
@@ -5459,10 +5496,6 @@
    "candidates": [],
    "upcoming_qs": [
     {
-     "date": "2026-11-17",
-     "q": "Bumper Sticker B-Day Q"
-    },
-    {
      "date": "2026-11-24",
      "q": null
     },
@@ -5473,6 +5506,10 @@
     {
      "date": "2026-12-08",
      "q": null
+    },
+    {
+     "date": "2026-12-15",
+     "q": "I-Beam"
     }
    ],
    "q_sheet_url": "https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit#gid=1309770370"
@@ -5484,151 +5521,157 @@
     {
      "name": "Hamm",
      "last_q": "2025-08-07",
-     "days_since": 466,
+     "days_since": 467,
      "attended_in_window": 0
     },
     {
      "name": "Steaks",
      "last_q": "2025-08-21",
-     "days_since": 452,
+     "days_since": 453,
      "attended_in_window": 0
     },
     {
      "name": "Gump",
      "last_q": "2025-09-04",
-     "days_since": 438,
+     "days_since": 439,
      "attended_in_window": 0
     },
     {
      "name": "PBX",
      "last_q": "2025-09-18",
-     "days_since": 424,
+     "days_since": 425,
      "attended_in_window": 0
     },
     {
      "name": "Pivot",
      "last_q": "2025-10-09",
-     "days_since": 403,
+     "days_since": 404,
      "attended_in_window": 0
     },
     {
      "name": "Two Factor",
      "last_q": "2025-10-16",
-     "days_since": 396,
+     "days_since": 397,
      "attended_in_window": 2
     },
     {
      "name": "Cheap Trick",
      "last_q": "2025-11-13",
-     "days_since": 368,
+     "days_since": 369,
      "attended_in_window": 1
     },
     {
      "name": "Prodigal",
      "last_q": "2025-11-20",
-     "days_since": 361,
+     "days_since": 362,
      "attended_in_window": 0
     },
     {
      "name": "High School Musical",
      "last_q": "2025-12-11",
-     "days_since": 340,
+     "days_since": 341,
      "attended_in_window": 0
     },
     {
      "name": "Kanki",
      "last_q": "2026-02-05",
-     "days_since": 284,
+     "days_since": 285,
      "attended_in_window": 0
     },
     {
      "name": "Cataracts",
      "last_q": "2026-02-12",
-     "days_since": 277,
+     "days_since": 278,
      "attended_in_window": 0
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-03-12",
-     "days_since": 249,
+     "days_since": 250,
      "attended_in_window": 0
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-04-16",
-     "days_since": 214,
+     "days_since": 215,
      "attended_in_window": 1
     },
     {
      "name": "Hail Naw",
      "last_q": "2026-04-23",
-     "days_since": 207,
+     "days_since": 208,
      "attended_in_window": 0
     },
     {
      "name": "Stella",
      "last_q": "2026-05-07",
-     "days_since": 193,
+     "days_since": 194,
      "attended_in_window": 3
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-05-14",
-     "days_since": 186,
+     "days_since": 187,
      "attended_in_window": 1
     },
     {
      "name": "The Count",
      "last_q": "2026-05-21",
-     "days_since": 179,
+     "days_since": 180,
      "attended_in_window": 0
     },
     {
      "name": "Clockwork",
      "last_q": "2026-06-04",
-     "days_since": 165,
+     "days_since": 166,
      "attended_in_window": 1
     },
     {
      "name": "Imp",
      "last_q": "2026-07-02",
-     "days_since": 137,
+     "days_since": 138,
      "attended_in_window": 8
     },
     {
      "name": "Rooney",
      "last_q": "2026-07-23",
-     "days_since": 116,
+     "days_since": 117,
      "attended_in_window": 0
     },
     {
      "name": "F3 Yoda",
      "last_q": "2026-08-13",
-     "days_since": 95,
+     "days_since": 96,
      "attended_in_window": 0
     },
     {
      "name": "Jockey",
      "last_q": "2026-08-20",
-     "days_since": 88,
+     "days_since": 89,
      "attended_in_window": 7
     },
     {
      "name": "Charmin",
      "last_q": "2026-08-27",
-     "days_since": 81,
+     "days_since": 82,
      "attended_in_window": 3
     },
     {
      "name": "Mr. Safety",
      "last_q": "2026-09-03",
-     "days_since": 74,
+     "days_since": 75,
      "attended_in_window": 4
     },
     {
      "name": "Egon",
      "last_q": "2026-09-10",
-     "days_since": 67,
+     "days_since": 68,
+     "attended_in_window": 1
+    },
+    {
+     "name": "Biner",
+     "last_q": "2026-09-17",
+     "days_since": 61,
      "attended_in_window": 1
     }
    ],
@@ -5652,56 +5695,56 @@
      "attended": 8,
      "rate": 0.667,
      "last_q": "2026-07-02",
-     "days_since": 137
+     "days_since": 138
     },
     {
      "name": "Jockey",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-08-20",
-     "days_since": 88
+     "days_since": 89
     },
     {
      "name": "Mr. Safety",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-09-03",
-     "days_since": 74
+     "days_since": 75
     },
     {
      "name": "Zinfandel",
      "attended": 9,
      "rate": 0.75,
      "last_q": "2026-10-01",
-     "days_since": 46
+     "days_since": 47
     },
     {
      "name": "Orphan",
      "attended": 9,
      "rate": 0.75,
      "last_q": "2026-10-15",
-     "days_since": 32
+     "days_since": 33
     },
     {
      "name": "Old Maid",
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-10-22",
-     "days_since": 25
+     "days_since": 26
     },
     {
      "name": "I-Beam",
      "attended": 10,
      "rate": 0.833,
      "last_q": "2026-10-29",
-     "days_since": 18
+     "days_since": 19
     },
     {
      "name": "Hitchhiker",
      "attended": 9,
      "rate": 0.75,
      "last_q": "2026-11-05",
-     "days_since": 11
+     "days_since": 12
     }
    ],
    "pc_regulars": [
@@ -5709,25 +5752,25 @@
      "name": "Stella",
      "posts_here": 12,
      "last_q": "2026-05-07",
-     "days_since": 193
+     "days_since": 194
     },
     {
      "name": "Squeeze Bag",
      "posts_here": 3,
      "last_q": "2026-05-14",
-     "days_since": 186
+     "days_since": 187
     },
     {
      "name": "Two Factor",
      "posts_here": 2,
      "last_q": "2025-10-16",
-     "days_since": 396
+     "days_since": 397
     },
     {
      "name": "Zero Drop",
      "posts_here": 2,
      "last_q": "2026-04-16",
-     "days_since": 214
+     "days_since": 215
     },
     {
      "name": "9-Lives",
@@ -5769,19 +5812,19 @@
      "name": "Cheap Trick",
      "posts_here": 1,
      "last_q": "2025-11-13",
-     "days_since": 368
+     "days_since": 369
     },
     {
      "name": "Hail Naw",
      "posts_here": 1,
      "last_q": "2026-04-23",
-     "days_since": 207
+     "days_since": 208
     },
     {
      "name": "Kanki",
      "posts_here": 1,
      "last_q": "2026-02-05",
-     "days_since": 284
+     "days_since": 285
     },
     {
      "name": "Big Red",
@@ -5994,6 +6037,12 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Shamu",
      "posts_here": 0,
      "last_q": null,
@@ -6069,25 +6118,25 @@
      "name": "Cataracts",
      "posts_here": 0,
      "last_q": "2026-02-12",
-     "days_since": 277
+     "days_since": 278
     },
     {
      "name": "Hamm",
      "posts_here": 0,
      "last_q": "2025-08-07",
-     "days_since": 466
+     "days_since": 467
     },
     {
      "name": "Steaks",
      "posts_here": 0,
      "last_q": "2025-08-21",
-     "days_since": 452
+     "days_since": 453
     },
     {
      "name": "Triple Lindy",
      "posts_here": 0,
      "last_q": "2026-03-12",
-     "days_since": 249
+     "days_since": 250
     }
    ],
    "q_load": [
@@ -6242,303 +6291,303 @@
   },
   {
    "name": "Hell's Bells",
-   "workouts_in_window": 17,
+   "workouts_in_window": 16,
    "stale_qs": [
     {
      "name": "Shut-In",
      "last_q": "2025-08-06",
-     "days_since": 467,
-     "attended_in_window": 1
+     "days_since": 468,
+     "attended_in_window": 0
     },
     {
      "name": "Dumas",
      "last_q": "2025-08-11",
-     "days_since": 462,
+     "days_since": 463,
      "attended_in_window": 1
     },
     {
      "name": "Maestro",
      "last_q": "2025-09-17",
-     "days_since": 425,
+     "days_since": 426,
      "attended_in_window": 0
     },
     {
      "name": "Poi",
      "last_q": "2025-09-29",
-     "days_since": 413,
+     "days_since": 414,
      "attended_in_window": 0
     },
     {
      "name": "Ausfahrt",
      "last_q": "2025-10-13",
-     "days_since": 399,
+     "days_since": 400,
      "attended_in_window": 0
     },
     {
      "name": "Rooney",
      "last_q": "2025-10-17",
-     "days_since": 395,
+     "days_since": 396,
      "attended_in_window": 3
     },
     {
      "name": "Adjacent",
      "last_q": "2025-10-20",
-     "days_since": 392,
+     "days_since": 393,
      "attended_in_window": 0
     },
     {
      "name": "Kanki",
      "last_q": "2025-10-22",
-     "days_since": 390,
+     "days_since": 391,
      "attended_in_window": 2
     },
     {
      "name": "Decal",
      "last_q": "2025-10-29",
-     "days_since": 383,
+     "days_since": 384,
      "attended_in_window": 0
     },
     {
      "name": "Zamboni",
      "last_q": "2025-11-12",
-     "days_since": 369,
+     "days_since": 370,
      "attended_in_window": 0
     },
     {
      "name": "Cataracts",
      "last_q": "2025-11-28",
-     "days_since": 353,
+     "days_since": 354,
      "attended_in_window": 0
     },
     {
      "name": "Side effect",
      "last_q": "2025-12-03",
-     "days_since": 348,
+     "days_since": 349,
      "attended_in_window": 0
     },
     {
      "name": "Crimson",
      "last_q": "2025-12-12",
-     "days_since": 339,
+     "days_since": 340,
      "attended_in_window": 0
     },
     {
      "name": "Flounder",
      "last_q": "2025-12-15",
-     "days_since": 336,
+     "days_since": 337,
      "attended_in_window": 0
     },
     {
      "name": "Red Ryder",
      "last_q": "2025-12-18",
-     "days_since": 333,
+     "days_since": 334,
      "attended_in_window": 0
     },
     {
      "name": "Henny Penny",
      "last_q": "2025-12-22",
-     "days_since": 329,
+     "days_since": 330,
      "attended_in_window": 0
     },
     {
      "name": "Go Fasters",
      "last_q": "2026-01-05",
-     "days_since": 315,
+     "days_since": 316,
      "attended_in_window": 0
     },
     {
      "name": "Mama's Boy",
      "last_q": "2026-01-19",
-     "days_since": 301,
-     "attended_in_window": 3
+     "days_since": 302,
+     "attended_in_window": 2
     },
     {
      "name": "Egon",
      "last_q": "2026-02-02",
-     "days_since": 287,
+     "days_since": 288,
      "attended_in_window": 0
     },
     {
      "name": "Yahoo",
      "last_q": "2026-02-11",
-     "days_since": 278,
+     "days_since": 279,
      "attended_in_window": 0
     },
     {
      "name": "Cousin IT",
      "last_q": "2026-02-20",
-     "days_since": 269,
+     "days_since": 270,
      "attended_in_window": 11
     },
     {
      "name": "Zinfandel",
      "last_q": "2026-03-16",
-     "days_since": 245,
+     "days_since": 246,
      "attended_in_window": 3
     },
     {
      "name": "Scott Thomas",
      "last_q": "2026-05-11",
-     "days_since": 189,
+     "days_since": 190,
      "attended_in_window": 0
     },
     {
      "name": "The Count",
      "last_q": "2026-06-08",
-     "days_since": 161,
+     "days_since": 162,
      "attended_in_window": 0
     },
     {
      "name": "Hobbit",
      "last_q": "2026-06-12",
-     "days_since": 157,
+     "days_since": 158,
      "attended_in_window": 3
     },
     {
      "name": "Soft Tail",
      "last_q": "2026-06-29",
-     "days_since": 140,
-     "attended_in_window": 9
+     "days_since": 141,
+     "attended_in_window": 8
     },
     {
      "name": "Malware",
      "last_q": "2026-07-06",
-     "days_since": 133,
+     "days_since": 134,
      "attended_in_window": 4
     },
     {
      "name": "Theismann",
      "last_q": "2026-07-13",
-     "days_since": 126,
+     "days_since": 127,
      "attended_in_window": 1
     },
     {
      "name": "Momento",
      "last_q": "2026-07-15",
-     "days_since": 124,
+     "days_since": 125,
      "attended_in_window": 6
     },
     {
      "name": "WWW",
      "last_q": "2026-07-27",
-     "days_since": 112,
+     "days_since": 113,
      "attended_in_window": 1
     },
     {
      "name": "Earhart",
      "last_q": "2026-08-03",
-     "days_since": 105,
-     "attended_in_window": 8
+     "days_since": 106,
+     "attended_in_window": 7
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-08-10",
-     "days_since": 98,
+     "days_since": 99,
      "attended_in_window": 1
     },
     {
      "name": "Firedog",
      "last_q": "2026-08-17",
-     "days_since": 91,
+     "days_since": 92,
      "attended_in_window": 2
     },
     {
      "name": "Moonwalk",
      "last_q": "2026-08-31",
-     "days_since": 77,
-     "attended_in_window": 2
+     "days_since": 78,
+     "attended_in_window": 1
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-09-11",
-     "days_since": 66,
-     "attended_in_window": 3
+     "days_since": 67,
+     "attended_in_window": 2
     }
    ],
    "regulars": [
     {
      "name": "Bolton (Nomad)",
      "attended": 6,
-     "rate": 0.353,
+     "rate": 0.375,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "Donatello",
      "attended": 10,
-     "rate": 0.588,
+     "rate": 0.625,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "Sunny",
      "attended": 9,
-     "rate": 0.529,
+     "rate": 0.562,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "Cousin IT",
      "attended": 11,
-     "rate": 0.647,
+     "rate": 0.688,
      "last_q": "2026-02-20",
-     "days_since": 269
+     "days_since": 270
     },
     {
      "name": "Soft Tail",
-     "attended": 9,
-     "rate": 0.529,
+     "attended": 8,
+     "rate": 0.5,
      "last_q": "2026-06-29",
-     "days_since": 140
+     "days_since": 141
     },
     {
      "name": "Momento",
      "attended": 6,
-     "rate": 0.353,
+     "rate": 0.375,
      "last_q": "2026-07-15",
-     "days_since": 124
+     "days_since": 125
     },
     {
      "name": "Earhart",
-     "attended": 8,
-     "rate": 0.471,
+     "attended": 7,
+     "rate": 0.438,
      "last_q": "2026-08-03",
-     "days_since": 105
+     "days_since": 106
     },
     {
      "name": "Wahoo",
-     "attended": 16,
-     "rate": 0.941,
+     "attended": 15,
+     "rate": 0.938,
      "last_q": "2026-10-05",
-     "days_since": 42
+     "days_since": 43
     },
     {
      "name": "McEnroe",
-     "attended": 10,
-     "rate": 0.588,
+     "attended": 9,
+     "rate": 0.562,
      "last_q": "2026-10-19",
-     "days_since": 28
+     "days_since": 29
     },
     {
      "name": "Traffic Cone",
-     "attended": 10,
-     "rate": 0.588,
+     "attended": 9,
+     "rate": 0.562,
      "last_q": "2026-10-26",
-     "days_since": 21
+     "days_since": 22
     },
     {
      "name": "Cheap Trick",
      "attended": 7,
-     "rate": 0.412,
+     "rate": 0.438,
      "last_q": "2026-11-02",
-     "days_since": 14
+     "days_since": 15
     },
     {
      "name": "Kubota",
-     "attended": 12,
-     "rate": 0.706,
+     "attended": 11,
+     "rate": 0.688,
      "last_q": "2026-11-16",
-     "days_since": 0
+     "days_since": 1
     }
    ],
    "pc_regulars": [
@@ -6550,7 +6599,7 @@
     },
     {
      "name": "The Joker",
-     "posts_here": 11,
+     "posts_here": 10,
      "last_q": null,
      "days_since": null
     },
@@ -6567,12 +6616,6 @@
      "days_since": null
     },
     {
-     "name": "Open Concept",
-     "posts_here": 5,
-     "last_q": null,
-     "days_since": null
-    },
-    {
      "name": "Ottoman",
      "posts_here": 5,
      "last_q": null,
@@ -6582,31 +6625,31 @@
      "name": "Mama's Boy",
      "posts_here": 5,
      "last_q": "2026-01-19",
-     "days_since": 301
+     "days_since": 302
     },
     {
      "name": "Zinfandel",
      "posts_here": 5,
      "last_q": "2026-03-16",
-     "days_since": 245
+     "days_since": 246
+    },
+    {
+     "name": "Open Concept",
+     "posts_here": 4,
+     "last_q": null,
+     "days_since": null
     },
     {
      "name": "Kanki",
      "posts_here": 4,
      "last_q": "2025-10-22",
-     "days_since": 390
+     "days_since": 391
     },
     {
      "name": "Rooney",
      "posts_here": 4,
      "last_q": "2025-10-17",
-     "days_since": 395
-    },
-    {
-     "name": "Headgear",
-     "posts_here": 3,
-     "last_q": null,
-     "days_since": null
+     "days_since": 396
     },
     {
      "name": "Tolstoy",
@@ -6627,13 +6670,13 @@
      "days_since": null
     },
     {
-     "name": "Quitter",
+     "name": "Headgear",
      "posts_here": 2,
      "last_q": null,
      "days_since": null
     },
     {
-     "name": "Ramsay",
+     "name": "Quitter",
      "posts_here": 2,
      "last_q": null,
      "days_since": null
@@ -6648,7 +6691,7 @@
      "name": "Shut-In",
      "posts_here": 2,
      "last_q": "2025-08-06",
-     "days_since": 467
+     "days_since": 468
     },
     {
      "name": "Imp",
@@ -6664,6 +6707,12 @@
     },
     {
      "name": "QWERTY",
+     "posts_here": 1,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Ramsay",
      "posts_here": 1,
      "last_q": null,
      "days_since": null
@@ -6696,19 +6745,19 @@
      "name": "Cataracts",
      "posts_here": 1,
      "last_q": "2025-11-28",
-     "days_since": 353
+     "days_since": 354
     },
     {
      "name": "Poi",
      "posts_here": 1,
      "last_q": "2025-09-29",
-     "days_since": 413
+     "days_since": 414
     },
     {
      "name": "Red Ryder",
      "posts_here": 1,
      "last_q": "2025-12-18",
-     "days_since": 333
+     "days_since": 334
     },
     {
      "name": "Bobby Boucher",
@@ -6867,6 +6916,12 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Shamu",
      "posts_here": 0,
      "last_q": null,
@@ -6894,37 +6949,37 @@
      "name": "Egon",
      "posts_here": 0,
      "last_q": "2026-02-02",
-     "days_since": 287
+     "days_since": 288
     },
     {
      "name": "Henny Penny",
      "posts_here": 0,
      "last_q": "2025-12-22",
-     "days_since": 329
+     "days_since": 330
     },
     {
      "name": "Maestro",
      "posts_here": 0,
      "last_q": "2025-09-17",
-     "days_since": 425
+     "days_since": 426
     },
     {
      "name": "Side effect",
      "posts_here": 0,
      "last_q": "2025-12-03",
-     "days_since": 348
+     "days_since": 349
     },
     {
      "name": "Yahoo",
      "posts_here": 0,
      "last_q": "2026-02-11",
-     "days_since": 278
+     "days_since": 279
     }
    ],
    "q_load": [
     {
      "name": "Kubota",
-     "qs": 5,
+     "qs": 4,
      "last_q": "2026-11-16",
      "regular": true
     },
@@ -7060,8 +7115,8 @@
    "candidates": [
     {
      "name": "McEnroe",
-     "attended": 18,
-     "rate": 0.514,
+     "attended": 17,
+     "rate": 0.5,
      "qs_here": 1,
      "q_aos": 1,
      "first_seen": "2026-03-18",
@@ -7071,7 +7126,7 @@
     {
      "name": "Theismann",
      "attended": 14,
-     "rate": 0.4,
+     "rate": 0.412,
      "qs_here": 1,
      "q_aos": 2,
      "first_seen": "2025-08-08",
@@ -7106,170 +7161,176 @@
     {
      "name": "16 Steves",
      "last_q": "2025-08-14",
-     "days_since": 459,
+     "days_since": 460,
      "attended_in_window": 1
     },
     {
      "name": "The Chicken Little",
      "last_q": "2025-08-21",
-     "days_since": 452,
+     "days_since": 453,
      "attended_in_window": 5
     },
     {
      "name": "Wahoo",
      "last_q": "2025-09-25",
-     "days_since": 417,
+     "days_since": 418,
      "attended_in_window": 1
     },
     {
      "name": "Cataracts",
      "last_q": "2025-10-09",
-     "days_since": 403,
+     "days_since": 404,
      "attended_in_window": 0
     },
     {
      "name": "Soft Tail",
      "last_q": "2025-10-23",
-     "days_since": 389,
+     "days_since": 390,
      "attended_in_window": 0
     },
     {
      "name": "Egon",
      "last_q": "2025-10-30",
-     "days_since": 382,
+     "days_since": 383,
      "attended_in_window": 0
     },
     {
      "name": "Ramsay",
      "last_q": "2025-11-06",
-     "days_since": 375,
+     "days_since": 376,
      "attended_in_window": 1
     },
     {
      "name": "Hall Pass",
      "last_q": "2025-11-13",
-     "days_since": 368,
+     "days_since": 369,
      "attended_in_window": 0
     },
     {
      "name": "Franklin",
      "last_q": "2025-12-18",
-     "days_since": 333,
+     "days_since": 334,
      "attended_in_window": 1
     },
     {
      "name": "Iceman",
      "last_q": "2026-01-15",
-     "days_since": 305,
+     "days_since": 306,
      "attended_in_window": 0
     },
     {
      "name": "Kanki",
      "last_q": "2026-01-22",
-     "days_since": 298,
+     "days_since": 299,
      "attended_in_window": 0
     },
     {
      "name": "Decal",
      "last_q": "2026-02-05",
-     "days_since": 284,
+     "days_since": 285,
      "attended_in_window": 0
     },
     {
      "name": "QWERTY",
      "last_q": "2026-02-12",
-     "days_since": 277,
+     "days_since": 278,
      "attended_in_window": 11
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-02-19",
-     "days_since": 270,
+     "days_since": 271,
      "attended_in_window": 0
     },
     {
      "name": "I-Beam",
      "last_q": "2026-03-12",
-     "days_since": 249,
+     "days_since": 250,
      "attended_in_window": 0
     },
     {
      "name": "Orphan",
      "last_q": "2026-03-19",
-     "days_since": 242,
+     "days_since": 243,
      "attended_in_window": 0
     },
     {
      "name": "The Joker",
      "last_q": "2026-04-02",
-     "days_since": 228,
+     "days_since": 229,
      "attended_in_window": 1
     },
     {
      "name": "Rooney",
      "last_q": "2026-04-09",
-     "days_since": 221,
+     "days_since": 222,
      "attended_in_window": 0
     },
     {
      "name": "Imp",
      "last_q": "2026-05-07",
-     "days_since": 193,
+     "days_since": 194,
      "attended_in_window": 0
     },
     {
      "name": "Cheap Trick",
      "last_q": "2026-05-28",
-     "days_since": 172,
+     "days_since": 173,
      "attended_in_window": 7
     },
     {
      "name": "Earhart",
      "last_q": "2026-06-11",
-     "days_since": 158,
+     "days_since": 159,
      "attended_in_window": 2
     },
     {
      "name": "F3 Yoda",
      "last_q": "2026-06-18",
-     "days_since": 151,
+     "days_since": 152,
      "attended_in_window": 0
     },
     {
      "name": "Two Factor",
      "last_q": "2026-06-25",
-     "days_since": 144,
+     "days_since": 145,
      "attended_in_window": 0
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-07-02",
-     "days_since": 137,
+     "days_since": 138,
      "attended_in_window": 5
     },
     {
      "name": "Hamm",
      "last_q": "2026-07-09",
-     "days_since": 130,
+     "days_since": 131,
      "attended_in_window": 1
     },
     {
      "name": "Biner",
      "last_q": "2026-07-30",
-     "days_since": 109,
+     "days_since": 110,
      "attended_in_window": 3
     },
     {
      "name": "Yahoo",
      "last_q": "2026-08-13",
-     "days_since": 95,
+     "days_since": 96,
      "attended_in_window": 2
     },
     {
      "name": "9-Lives",
      "last_q": "2026-09-03",
-     "days_since": 74,
+     "days_since": 75,
      "attended_in_window": 5
+    },
+    {
+     "name": "Tolstoy",
+     "last_q": "2026-09-17",
+     "days_since": 61,
+     "attended_in_window": 3
     }
    ],
    "regulars": [
@@ -7285,63 +7346,63 @@
      "attended": 5,
      "rate": 0.417,
      "last_q": "2025-08-21",
-     "days_since": 452
+     "days_since": 453
     },
     {
      "name": "QWERTY",
      "attended": 11,
      "rate": 0.917,
      "last_q": "2026-02-12",
-     "days_since": 277
+     "days_since": 278
     },
     {
      "name": "Cheap Trick",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-05-28",
-     "days_since": 172
+     "days_since": 173
     },
     {
      "name": "Zero Drop",
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-07-02",
-     "days_since": 137
+     "days_since": 138
     },
     {
      "name": "9-Lives",
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-09-03",
-     "days_since": 74
+     "days_since": 75
     },
     {
      "name": "Hobbit",
      "attended": 8,
      "rate": 0.667,
      "last_q": "2026-10-01",
-     "days_since": 46
+     "days_since": 47
     },
     {
      "name": "Moline",
      "attended": 10,
      "rate": 0.833,
      "last_q": "2026-10-22",
-     "days_since": 25
+     "days_since": 26
     },
     {
      "name": "Squeeze Bag",
      "attended": 6,
      "rate": 0.5,
      "last_q": "2026-10-29",
-     "days_since": 18
+     "days_since": 19
     },
     {
      "name": "Brownout",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-11-12",
-     "days_since": 4
+     "days_since": 5
     }
    ],
    "pc_regulars": [
@@ -7367,7 +7428,7 @@
      "name": "The Joker",
      "posts_here": 4,
      "last_q": "2026-04-02",
-     "days_since": 228
+     "days_since": 229
     },
     {
      "name": "Big Red",
@@ -7377,6 +7438,12 @@
     },
     {
      "name": "Ottoman",
+     "posts_here": 3,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Santa Maria",
      "posts_here": 3,
      "last_q": null,
      "days_since": null
@@ -7427,13 +7494,13 @@
      "name": "Red Ryder",
      "posts_here": 2,
      "last_q": "2026-02-19",
-     "days_since": 270
+     "days_since": 271
     },
     {
      "name": "Wahoo",
      "posts_here": 2,
      "last_q": "2025-09-25",
-     "days_since": 417
+     "days_since": 418
     },
     {
      "name": "Bullwinkle",
@@ -7463,25 +7530,25 @@
      "name": "Cataracts",
      "posts_here": 1,
      "last_q": "2025-10-09",
-     "days_since": 403
+     "days_since": 404
     },
     {
      "name": "Franklin",
      "posts_here": 1,
      "last_q": "2025-12-18",
-     "days_since": 333
+     "days_since": 334
     },
     {
      "name": "Ramsay",
      "posts_here": 1,
      "last_q": "2025-11-06",
-     "days_since": 375
+     "days_since": 376
     },
     {
      "name": "Rooney",
      "posts_here": 1,
      "last_q": "2026-04-09",
-     "days_since": 221
+     "days_since": 222
     },
     {
      "name": "Bolton (Nomad)",
@@ -7679,43 +7746,43 @@
      "name": "Egon",
      "posts_here": 0,
      "last_q": "2025-10-30",
-     "days_since": 382
+     "days_since": 383
     },
     {
      "name": "I-Beam",
      "posts_here": 0,
      "last_q": "2026-03-12",
-     "days_since": 249
+     "days_since": 250
     },
     {
      "name": "Iceman",
      "posts_here": 0,
      "last_q": "2026-01-15",
-     "days_since": 305
+     "days_since": 306
     },
     {
      "name": "Imp",
      "posts_here": 0,
      "last_q": "2026-05-07",
-     "days_since": 193
+     "days_since": 194
     },
     {
      "name": "Kanki",
      "posts_here": 0,
      "last_q": "2026-01-22",
-     "days_since": 298
+     "days_since": 299
     },
     {
      "name": "Orphan",
      "posts_here": 0,
      "last_q": "2026-03-19",
-     "days_since": 242
+     "days_since": 243
     },
     {
      "name": "Soft Tail",
      "posts_here": 0,
      "last_q": "2025-10-23",
-     "days_since": 389
+     "days_since": 390
     }
    ],
    "q_load": [
@@ -7905,157 +7972,157 @@
     {
      "name": "16 Steves",
      "last_q": "2026-02-11",
-     "days_since": 278,
+     "days_since": 279,
      "attended_in_window": 0
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-02-18",
-     "days_since": 271,
+     "days_since": 272,
      "attended_in_window": 6
     },
     {
      "name": "Zinfandel",
      "last_q": "2026-02-18",
-     "days_since": 271,
+     "days_since": 272,
      "attended_in_window": 3
     },
     {
      "name": "Yahoo",
      "last_q": "2026-02-25",
-     "days_since": 264,
+     "days_since": 265,
      "attended_in_window": 2
     },
     {
      "name": "Smithers",
      "last_q": "2026-03-04",
-     "days_since": 257,
+     "days_since": 258,
      "attended_in_window": 1
     },
     {
      "name": "Hello Kitty",
      "last_q": "2026-03-11",
-     "days_since": 250,
+     "days_since": 251,
      "attended_in_window": 0
     },
     {
      "name": "Cataracts",
      "last_q": "2026-04-01",
-     "days_since": 229,
+     "days_since": 230,
      "attended_in_window": 1
     },
     {
      "name": "Kitty Litter",
      "last_q": "2026-04-08",
-     "days_since": 222,
+     "days_since": 223,
      "attended_in_window": 0
     },
     {
      "name": "Hamm",
      "last_q": "2026-04-22",
-     "days_since": 208,
+     "days_since": 209,
      "attended_in_window": 1
     },
     {
      "name": "Decal",
      "last_q": "2026-04-29",
-     "days_since": 201,
+     "days_since": 202,
      "attended_in_window": 2
     },
     {
      "name": "The Joker",
      "last_q": "2026-05-20",
-     "days_since": 180,
+     "days_since": 181,
      "attended_in_window": 4
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-06-03",
-     "days_since": 166,
+     "days_since": 167,
      "attended_in_window": 2
     },
     {
      "name": "Band Camp-Samer Issa",
      "last_q": "2026-06-10",
-     "days_since": 159,
+     "days_since": 160,
      "attended_in_window": 0
     },
     {
      "name": "Headgear",
      "last_q": "2026-06-17",
-     "days_since": 152,
+     "days_since": 153,
      "attended_in_window": 0
     },
     {
      "name": "Pet Sounds",
      "last_q": "2026-07-01",
-     "days_since": 138,
+     "days_since": 139,
      "attended_in_window": 0
     },
     {
      "name": "Jockey",
      "last_q": "2026-07-08",
-     "days_since": 131,
+     "days_since": 132,
      "attended_in_window": 0
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-07-15",
-     "days_since": 124,
+     "days_since": 125,
      "attended_in_window": 2
     },
     {
      "name": "Mr. Safety",
      "last_q": "2026-07-22",
-     "days_since": 117,
+     "days_since": 118,
      "attended_in_window": 2
     },
     {
      "name": "Ramsay",
      "last_q": "2026-07-29",
-     "days_since": 110,
+     "days_since": 111,
      "attended_in_window": 0
     },
     {
      "name": "Pierogi",
      "last_q": "2026-08-05",
-     "days_since": 103,
+     "days_since": 104,
      "attended_in_window": 0
     },
     {
      "name": "QWERTY",
      "last_q": "2026-08-12",
-     "days_since": 96,
+     "days_since": 97,
      "attended_in_window": 0
     },
     {
      "name": "I-Beam",
      "last_q": "2026-08-19",
-     "days_since": 89,
+     "days_since": 90,
      "attended_in_window": 3
     },
     {
      "name": "Biner",
      "last_q": "2026-08-26",
-     "days_since": 82,
+     "days_since": 83,
      "attended_in_window": 2
     },
     {
      "name": "Maestro",
      "last_q": "2026-09-02",
-     "days_since": 75,
+     "days_since": 76,
      "attended_in_window": 7
     },
     {
      "name": "Kanki",
      "last_q": "2026-09-09",
-     "days_since": 68,
+     "days_since": 69,
      "attended_in_window": 2
     },
     {
      "name": "Pongo",
      "last_q": "2026-09-16",
-     "days_since": 61,
+     "days_since": 62,
      "attended_in_window": 5
     }
    ],
@@ -8065,35 +8132,35 @@
      "attended": 6,
      "rate": 0.5,
      "last_q": "2026-02-18",
-     "days_since": 271
+     "days_since": 272
     },
     {
      "name": "The Joker",
      "attended": 4,
      "rate": 0.333,
      "last_q": "2026-05-20",
-     "days_since": 180
+     "days_since": 181
     },
     {
      "name": "Maestro",
      "attended": 7,
      "rate": 0.583,
      "last_q": "2026-09-02",
-     "days_since": 75
+     "days_since": 76
     },
     {
      "name": "Pongo",
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-09-16",
-     "days_since": 61
+     "days_since": 62
     },
     {
      "name": "Bumper Sticker",
      "attended": 11,
      "rate": 0.917,
      "last_q": "2026-11-04",
-     "days_since": 12
+     "days_since": 13
     }
    ],
    "pc_regulars": [
@@ -8107,7 +8174,7 @@
      "name": "Zinfandel",
      "posts_here": 7,
      "last_q": "2026-02-18",
-     "days_since": 271
+     "days_since": 272
     },
     {
      "name": "Malware",
@@ -8119,7 +8186,7 @@
      "name": "Cataracts",
      "posts_here": 4,
      "last_q": "2026-04-01",
-     "days_since": 229
+     "days_since": 230
     },
     {
      "name": "Rooney",
@@ -8137,7 +8204,7 @@
      "name": "Yahoo",
      "posts_here": 3,
      "last_q": "2026-02-25",
-     "days_since": 264
+     "days_since": 265
     },
     {
      "name": "9-Lives",
@@ -8173,13 +8240,13 @@
      "name": "Hamm",
      "posts_here": 2,
      "last_q": "2026-04-22",
-     "days_since": 208
+     "days_since": 209
     },
     {
      "name": "Smithers",
      "posts_here": 2,
      "last_q": "2026-03-04",
-     "days_since": 257
+     "days_since": 258
     },
     {
      "name": "Blindside",
@@ -8387,6 +8454,12 @@
     },
     {
      "name": "Piggly Wiggly",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Santa Maria",
      "posts_here": 0,
      "last_q": null,
      "days_since": null
@@ -8640,19 +8713,19 @@
     {
      "name": "Orphan",
      "last_q": "2026-04-18",
-     "days_since": 212,
+     "days_since": 213,
      "attended_in_window": 0
     },
     {
      "name": "Hobbit",
      "last_q": "2026-05-30",
-     "days_since": 170,
+     "days_since": 171,
      "attended_in_window": 0
     },
     {
      "name": "Imp",
      "last_q": "2026-06-27",
-     "days_since": 142,
+     "days_since": 143,
      "attended_in_window": 0
     }
    ],
@@ -8662,21 +8735,21 @@
      "attended": 1,
      "rate": 0.333,
      "last_q": "2026-09-19",
-     "days_since": 58
+     "days_since": 59
     },
     {
      "name": "Biner",
      "attended": 1,
      "rate": 0.333,
      "last_q": "2026-09-26",
-     "days_since": 51
+     "days_since": 52
     },
     {
      "name": "Jockey",
      "attended": 1,
      "rate": 0.333,
      "last_q": "2026-10-10",
-     "days_since": 37
+     "days_since": 38
     }
    ],
    "pc_regulars": [
@@ -9000,6 +9073,12 @@
     },
     {
      "name": "Rooney",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Santa Maria",
      "posts_here": 0,
      "last_q": null,
      "days_since": null
@@ -9134,7 +9213,7 @@
      "name": "Orphan",
      "posts_here": 0,
      "last_q": "2026-04-18",
-     "days_since": 212
+     "days_since": 213
     }
    ],
    "q_load": [
@@ -9200,210 +9279,210 @@
   },
   {
    "name": "Off The Rails",
-   "workouts_in_window": 13,
+   "workouts_in_window": 12,
    "stale_qs": [
     {
      "name": "Silver fox",
      "last_q": "2025-08-07",
-     "days_since": 466,
+     "days_since": 467,
      "attended_in_window": 0
     },
     {
      "name": "Theismann",
      "last_q": "2025-08-21",
-     "days_since": 452,
+     "days_since": 453,
      "attended_in_window": 5
     },
     {
      "name": "Cheap Trick",
      "last_q": "2025-10-20",
-     "days_since": 392,
-     "attended_in_window": 6
+     "days_since": 393,
+     "attended_in_window": 5
     },
     {
      "name": "Chalupa",
      "last_q": "2025-10-27",
-     "days_since": 385,
+     "days_since": 386,
      "attended_in_window": 1
     },
     {
      "name": "Open Concept",
      "last_q": "2025-11-03",
-     "days_since": 378,
+     "days_since": 379,
      "attended_in_window": 4
     },
     {
      "name": "Franklin",
      "last_q": "2025-11-10",
-     "days_since": 371,
+     "days_since": 372,
      "attended_in_window": 5
     },
     {
      "name": "Clockwork",
      "last_q": "2025-11-14",
-     "days_since": 367,
+     "days_since": 368,
      "attended_in_window": 1
     },
     {
      "name": "Side effect",
      "last_q": "2025-11-27",
-     "days_since": 354,
+     "days_since": 355,
      "attended_in_window": 0
     },
     {
      "name": "Malware",
      "last_q": "2025-12-11",
-     "days_since": 340,
+     "days_since": 341,
      "attended_in_window": 0
     },
     {
      "name": "Sooey",
      "last_q": "2026-01-12",
-     "days_since": 308,
+     "days_since": 309,
      "attended_in_window": 1
     },
     {
      "name": "Disco Duck",
      "last_q": "2026-01-15",
-     "days_since": 305,
+     "days_since": 306,
      "attended_in_window": 0
     },
     {
      "name": "Hello Kitty",
      "last_q": "2026-02-02",
-     "days_since": 287,
+     "days_since": 288,
      "attended_in_window": 0
     },
     {
      "name": "Henny Penny",
      "last_q": "2026-02-16",
-     "days_since": 273,
+     "days_since": 274,
      "attended_in_window": 1
     },
     {
      "name": "Big Red",
      "last_q": "2026-03-02",
-     "days_since": 259,
+     "days_since": 260,
      "attended_in_window": 0
     },
     {
      "name": "Flenderson",
      "last_q": "2026-03-09",
-     "days_since": 252,
+     "days_since": 253,
      "attended_in_window": 0
     },
     {
      "name": "Ramsay",
      "last_q": "2026-03-16",
-     "days_since": 245,
+     "days_since": 246,
      "attended_in_window": 1
     },
     {
      "name": "Yahoo",
      "last_q": "2026-03-23",
-     "days_since": 238,
+     "days_since": 239,
      "attended_in_window": 2
     },
     {
      "name": "Traffic Cone",
      "last_q": "2026-04-13",
-     "days_since": 217,
+     "days_since": 218,
      "attended_in_window": 0
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-04-20",
-     "days_since": 210,
+     "days_since": 211,
      "attended_in_window": 1
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-05-18",
-     "days_since": 182,
+     "days_since": 183,
      "attended_in_window": 1
     },
     {
      "name": "Cataracts",
      "last_q": "2026-06-01",
-     "days_since": 168,
+     "days_since": 169,
      "attended_in_window": 0
     },
     {
      "name": "Hobbit",
      "last_q": "2026-06-08",
-     "days_since": 161,
+     "days_since": 162,
      "attended_in_window": 1
     },
     {
      "name": "Piggly Wiggly",
      "last_q": "2026-06-15",
-     "days_since": 154,
+     "days_since": 155,
      "attended_in_window": 0
     },
     {
      "name": "Earhart",
      "last_q": "2026-06-22",
-     "days_since": 147,
+     "days_since": 148,
      "attended_in_window": 2
     },
     {
      "name": "Kanki",
      "last_q": "2026-06-29",
-     "days_since": 140,
+     "days_since": 141,
      "attended_in_window": 1
     },
     {
      "name": "Hitchhiker",
      "last_q": "2026-07-06",
-     "days_since": 133,
+     "days_since": 134,
      "attended_in_window": 0
     },
     {
      "name": "Maestro",
      "last_q": "2026-07-13",
-     "days_since": 126,
-     "attended_in_window": 10
+     "days_since": 127,
+     "attended_in_window": 9
     },
     {
      "name": "Poi",
      "last_q": "2026-07-27",
-     "days_since": 112,
-     "attended_in_window": 8
+     "days_since": 113,
+     "attended_in_window": 7
     },
     {
      "name": "Moline",
      "last_q": "2026-08-03",
-     "days_since": 105,
+     "days_since": 106,
      "attended_in_window": 5
     },
     {
      "name": "Sour Mash",
      "last_q": "2026-08-17",
-     "days_since": 91,
-     "attended_in_window": 4
+     "days_since": 92,
+     "attended_in_window": 3
     },
     {
      "name": "Brownout",
      "last_q": "2026-08-24",
-     "days_since": 84,
-     "attended_in_window": 1
+     "days_since": 85,
+     "attended_in_window": 0
     },
     {
      "name": "Egon",
      "last_q": "2026-08-31",
-     "days_since": 77,
+     "days_since": 78,
      "attended_in_window": 1
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-09-07",
-     "days_since": 70,
+     "days_since": 71,
      "attended_in_window": 2
     },
     {
      "name": "Hamm",
      "last_q": "2026-09-14",
-     "days_since": 63,
+     "days_since": 64,
      "attended_in_window": 2
     }
    ],
@@ -9411,79 +9490,72 @@
     {
      "name": "Blindside",
      "attended": 5,
-     "rate": 0.385,
+     "rate": 0.417,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "Theismann",
      "attended": 5,
-     "rate": 0.385,
+     "rate": 0.417,
      "last_q": "2025-08-21",
-     "days_since": 452
+     "days_since": 453
     },
     {
      "name": "Cheap Trick",
-     "attended": 6,
-     "rate": 0.462,
+     "attended": 5,
+     "rate": 0.417,
      "last_q": "2025-10-20",
-     "days_since": 392
+     "days_since": 393
     },
     {
      "name": "Open Concept",
      "attended": 4,
-     "rate": 0.308,
+     "rate": 0.333,
      "last_q": "2025-11-03",
-     "days_since": 378
+     "days_since": 379
     },
     {
      "name": "Franklin",
      "attended": 5,
-     "rate": 0.385,
+     "rate": 0.417,
      "last_q": "2025-11-10",
-     "days_since": 371
+     "days_since": 372
     },
     {
      "name": "Maestro",
-     "attended": 10,
-     "rate": 0.769,
+     "attended": 9,
+     "rate": 0.75,
      "last_q": "2026-07-13",
-     "days_since": 126
+     "days_since": 127
     },
     {
      "name": "Poi",
-     "attended": 8,
-     "rate": 0.615,
+     "attended": 7,
+     "rate": 0.583,
      "last_q": "2026-07-27",
-     "days_since": 112
+     "days_since": 113
     },
     {
      "name": "Moline",
      "attended": 5,
-     "rate": 0.385,
+     "rate": 0.417,
      "last_q": "2026-08-03",
-     "days_since": 105
-    },
-    {
-     "name": "Sour Mash",
-     "attended": 4,
-     "rate": 0.308,
-     "last_q": "2026-08-17",
-     "days_since": 91
+     "days_since": 106
     },
     {
      "name": "Tolstoy",
      "attended": 11,
-     "rate": 0.846,
+     "rate": 0.917,
      "last_q": "2026-10-05",
-     "days_since": 42
+     "days_since": 43
     },
     {
      "name": "Zinfandel",
      "attended": 4,
-     "rate": 0.308,
+     "rate": 0.333,
      "last_q": "2026-10-19",
-     "days_since": 28
+     "days_since": 29
     }
    ],
    "pc_regulars": [
@@ -9491,17 +9563,17 @@
      "name": "Yahoo",
      "posts_here": 9,
      "last_q": "2026-03-23",
-     "days_since": 238
+     "days_since": 239
     },
     {
      "name": "Old Maid",
-     "posts_here": 5,
+     "posts_here": 4,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "Dadbod",
-     "posts_here": 4,
+     "posts_here": 3,
      "last_q": null,
      "days_since": null
     },
@@ -9509,7 +9581,7 @@
      "name": "Red Ryder",
      "posts_here": 3,
      "last_q": "2026-04-20",
-     "days_since": 210
+     "days_since": 211
     },
     {
      "name": "Mr. Safety",
@@ -9518,31 +9590,19 @@
      "days_since": null
     },
     {
-     "name": "The Chicken Little",
-     "posts_here": 2,
-     "last_q": null,
-     "days_since": null
-    },
-    {
      "name": "Henny Penny",
      "posts_here": 2,
      "last_q": "2026-02-16",
-     "days_since": 273
+     "days_since": 274
     },
     {
      "name": "Ramsay",
      "posts_here": 2,
      "last_q": "2026-03-16",
-     "days_since": 245
+     "days_since": 246
     },
     {
      "name": "9-Lives",
-     "posts_here": 1,
-     "last_q": null,
-     "days_since": null
-    },
-    {
-     "name": "Bolton (Nomad)",
      "posts_here": 1,
      "last_q": null,
      "days_since": null
@@ -9584,40 +9644,52 @@
      "days_since": null
     },
     {
+     "name": "The Chicken Little",
+     "posts_here": 1,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Chalupa",
      "posts_here": 1,
      "last_q": "2025-10-27",
-     "days_since": 385
+     "days_since": 386
     },
     {
      "name": "Clockwork",
      "posts_here": 1,
      "last_q": "2025-11-14",
-     "days_since": 367
+     "days_since": 368
     },
     {
      "name": "Flenderson",
      "posts_here": 1,
      "last_q": "2026-03-09",
-     "days_since": 252
+     "days_since": 253
     },
     {
      "name": "Malware",
      "posts_here": 1,
      "last_q": "2025-12-11",
-     "days_since": 340
+     "days_since": 341
     },
     {
      "name": "Silver fox",
      "posts_here": 1,
      "last_q": "2025-08-07",
-     "days_since": 466
+     "days_since": 467
     },
     {
      "name": "Sooey",
      "posts_here": 1,
      "last_q": "2026-01-12",
-     "days_since": 308
+     "days_since": 309
+    },
+    {
+     "name": "Squeeze Bag",
+     "posts_here": 1,
+     "last_q": "2026-05-18",
+     "days_since": 183
     },
     {
      "name": "Biner",
@@ -9627,6 +9699,12 @@
     },
     {
      "name": "Bobby Boucher",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Bolton (Nomad)",
      "posts_here": 0,
      "last_q": null,
      "days_since": null
@@ -9746,6 +9824,12 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Shamu",
      "posts_here": 0,
      "last_q": null,
@@ -9797,19 +9881,19 @@
      "name": "Big Red",
      "posts_here": 0,
      "last_q": "2026-03-02",
-     "days_since": 259
+     "days_since": 260
     },
     {
      "name": "Side effect",
      "posts_here": 0,
      "last_q": "2025-11-27",
-     "days_since": 354
+     "days_since": 355
     },
     {
      "name": "Traffic Cone",
      "posts_here": 0,
      "last_q": "2026-04-13",
-     "days_since": 217
+     "days_since": 218
     }
    ],
    "q_load": [
@@ -9823,7 +9907,7 @@
      "name": "Sour Mash",
      "qs": 2,
      "last_q": "2026-08-17",
-     "regular": true
+     "regular": false
     },
     {
      "name": "The Joker",
@@ -9950,12 +10034,6 @@
      "qs": 1,
      "last_q": "2026-06-01",
      "regular": false
-    },
-    {
-     "name": "Squeeze Bag",
-     "qs": 1,
-     "last_q": "2026-05-18",
-     "regular": false
     }
    ],
    "site_qs": [
@@ -9982,7 +10060,7 @@
     {
      "name": "Poi",
      "attended": 14,
-     "rate": 0.538,
+     "rate": 0.56,
      "qs_here": 1,
      "q_aos": 3,
      "first_seen": "2025-08-07",
@@ -10005,7 +10083,7 @@
     },
     {
      "date": "2026-12-14",
-     "q": null
+     "q": "cheap Trick 🎂"
     }
    ],
    "q_sheet_url": "https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit#gid=1067540258"
@@ -10017,25 +10095,25 @@
     {
      "name": "Two Factor",
      "last_q": "2026-06-02",
-     "days_since": 167,
+     "days_since": 168,
      "attended_in_window": 3
     },
     {
      "name": "Charmin",
      "last_q": "2026-06-23",
-     "days_since": 146,
+     "days_since": 147,
      "attended_in_window": 4
     },
     {
      "name": "Orphan",
      "last_q": "2026-07-28",
-     "days_since": 111,
+     "days_since": 112,
      "attended_in_window": 0
     },
     {
      "name": "Gibraltar",
      "last_q": "2026-08-11",
-     "days_since": 97,
+     "days_since": 98,
      "attended_in_window": 4
     }
    ],
@@ -10066,28 +10144,28 @@
      "attended": 3,
      "rate": 0.75,
      "last_q": "2026-06-02",
-     "days_since": 167
+     "days_since": 168
     },
     {
      "name": "Charmin",
      "attended": 4,
      "rate": 1.0,
      "last_q": "2026-06-23",
-     "days_since": 146
+     "days_since": 147
     },
     {
      "name": "Gibraltar",
      "attended": 4,
      "rate": 1.0,
      "last_q": "2026-08-11",
-     "days_since": 97
+     "days_since": 98
     },
     {
      "name": "Clockwork",
      "attended": 4,
      "rate": 1.0,
      "last_q": "2026-10-27",
-     "days_since": 20
+     "days_since": 21
     }
    ],
    "pc_regulars": [
@@ -10417,6 +10495,12 @@
     },
     {
      "name": "Red Ryder",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Santa Maria",
      "posts_here": 0,
      "last_q": null,
      "days_since": null
@@ -10607,270 +10691,270 @@
   },
   {
    "name": "Pump Fiction",
-   "workouts_in_window": 12,
+   "workouts_in_window": 13,
    "stale_qs": [
     {
      "name": "Pierogi",
      "last_q": "2025-08-19",
-     "days_since": 454,
+     "days_since": 455,
      "attended_in_window": 0
     },
     {
      "name": "Franklin",
      "last_q": "2025-08-26",
-     "days_since": 447,
+     "days_since": 448,
      "attended_in_window": 0
     },
     {
      "name": "Bumper Sticker",
      "last_q": "2025-10-21",
-     "days_since": 391,
+     "days_since": 392,
      "attended_in_window": 0
     },
     {
      "name": "Sour Mash",
      "last_q": "2025-11-05",
-     "days_since": 376,
+     "days_since": 377,
      "attended_in_window": 0
     },
     {
      "name": "Clockwork",
      "last_q": "2025-11-11",
-     "days_since": 370,
+     "days_since": 371,
      "attended_in_window": 0
     },
     {
      "name": "Decal",
      "last_q": "2025-11-25",
-     "days_since": 356,
+     "days_since": 357,
      "attended_in_window": 0
     },
     {
      "name": "Kubota",
      "last_q": "2025-12-09",
-     "days_since": 342,
+     "days_since": 343,
      "attended_in_window": 0
     },
     {
      "name": "I Pity The Fool",
      "last_q": "2025-12-23",
-     "days_since": 328,
+     "days_since": 329,
      "attended_in_window": 4
     },
     {
      "name": "Tiny Arms",
      "last_q": "2025-12-30",
-     "days_since": 321,
+     "days_since": 322,
      "attended_in_window": 3
     },
     {
      "name": "Kwikstop",
      "last_q": "2026-01-20",
-     "days_since": 300,
+     "days_since": 301,
      "attended_in_window": 0
     },
     {
      "name": "Chalupa",
      "last_q": "2026-01-27",
-     "days_since": 293,
+     "days_since": 294,
      "attended_in_window": 3
     },
     {
      "name": "Prodigal",
      "last_q": "2026-03-03",
-     "days_since": 258,
+     "days_since": 259,
      "attended_in_window": 0
     },
     {
      "name": "Big Red",
      "last_q": "2026-03-17",
-     "days_since": 244,
+     "days_since": 245,
      "attended_in_window": 4
     },
     {
      "name": "Hello Kitty",
      "last_q": "2026-04-07",
-     "days_since": 223,
+     "days_since": 224,
      "attended_in_window": 0
     },
     {
      "name": "Pet Sounds",
      "last_q": "2026-04-14",
-     "days_since": 216,
+     "days_since": 217,
      "attended_in_window": 0
     },
     {
      "name": "Kanki",
      "last_q": "2026-04-21",
-     "days_since": 209,
+     "days_since": 210,
      "attended_in_window": 1
     },
     {
      "name": "Ramsay",
      "last_q": "2026-05-05",
-     "days_since": 195,
+     "days_since": 196,
      "attended_in_window": 0
     },
     {
      "name": "Shut-In",
      "last_q": "2026-05-12",
-     "days_since": 188,
+     "days_since": 189,
      "attended_in_window": 0
     },
     {
      "name": "Rooney",
      "last_q": "2026-05-19",
-     "days_since": 181,
+     "days_since": 182,
      "attended_in_window": 1
     },
     {
      "name": "Piggly Wiggly",
      "last_q": "2026-05-26",
-     "days_since": 174,
+     "days_since": 175,
      "attended_in_window": 0
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-06-02",
-     "days_since": 167,
+     "days_since": 168,
      "attended_in_window": 0
     },
     {
      "name": "Side effect",
      "last_q": "2026-06-09",
-     "days_since": 160,
+     "days_since": 161,
      "attended_in_window": 1
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-06-16",
-     "days_since": 153,
+     "days_since": 154,
      "attended_in_window": 0
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-06-30",
-     "days_since": 139,
+     "days_since": 140,
      "attended_in_window": 0
     },
     {
      "name": "Jockey",
      "last_q": "2026-07-14",
-     "days_since": 125,
+     "days_since": 126,
      "attended_in_window": 1
     },
     {
      "name": "Cataracts",
      "last_q": "2026-07-28",
-     "days_since": 111,
+     "days_since": 112,
      "attended_in_window": 0
     },
     {
      "name": "Orphan",
      "last_q": "2026-08-04",
-     "days_since": 104,
-     "attended_in_window": 11
+     "days_since": 105,
+     "attended_in_window": 12
     },
     {
      "name": "The Joker",
      "last_q": "2026-08-11",
-     "days_since": 97,
+     "days_since": 98,
      "attended_in_window": 3
     },
     {
      "name": "Cheap Trick",
      "last_q": "2026-08-18",
-     "days_since": 90,
+     "days_since": 91,
      "attended_in_window": 1
     },
     {
      "name": "Imp",
      "last_q": "2026-08-25",
-     "days_since": 83,
+     "days_since": 84,
      "attended_in_window": 1
     },
     {
      "name": "Hamm",
      "last_q": "2026-09-01",
-     "days_since": 76,
+     "days_since": 77,
      "attended_in_window": 2
     },
     {
      "name": "Dominic Hardy",
      "last_q": "2026-09-08",
-     "days_since": 69,
+     "days_since": 70,
      "attended_in_window": 1
     },
     {
      "name": "Silver fox",
      "last_q": "2026-09-15",
-     "days_since": 62,
-     "attended_in_window": 12
+     "days_since": 63,
+     "attended_in_window": 13
     }
    ],
    "regulars": [
     {
      "name": "Shamu",
-     "attended": 10,
-     "rate": 0.833,
+     "attended": 11,
+     "rate": 0.846,
      "last_q": null,
      "days_since": null
     },
     {
      "name": "I Pity The Fool",
      "attended": 4,
-     "rate": 0.333,
+     "rate": 0.308,
      "last_q": "2025-12-23",
-     "days_since": 328
+     "days_since": 329
     },
     {
      "name": "Big Red",
      "attended": 4,
-     "rate": 0.333,
+     "rate": 0.308,
      "last_q": "2026-03-17",
-     "days_since": 244
+     "days_since": 245
     },
     {
      "name": "Orphan",
-     "attended": 11,
-     "rate": 0.917,
+     "attended": 12,
+     "rate": 0.923,
      "last_q": "2026-08-04",
-     "days_since": 104
+     "days_since": 105
     },
     {
      "name": "Silver fox",
-     "attended": 12,
+     "attended": 13,
      "rate": 1.0,
      "last_q": "2026-09-15",
-     "days_since": 62
+     "days_since": 63
     },
     {
      "name": "Zinfandel",
      "attended": 6,
-     "rate": 0.5,
+     "rate": 0.462,
      "last_q": "2026-09-29",
-     "days_since": 48
+     "days_since": 49
     },
     {
      "name": "Egon",
      "attended": 8,
-     "rate": 0.667,
+     "rate": 0.615,
      "last_q": "2026-10-06",
-     "days_since": 41
+     "days_since": 42
     },
     {
      "name": "Tolstoy",
-     "attended": 9,
-     "rate": 0.75,
+     "attended": 10,
+     "rate": 0.769,
      "last_q": "2026-10-27",
-     "days_since": 20
+     "days_since": 21
     },
     {
      "name": "Mama's Boy",
-     "attended": 11,
-     "rate": 0.917,
+     "attended": 12,
+     "rate": 0.923,
      "last_q": "2026-11-03",
-     "days_since": 13
+     "days_since": 14
     }
    ],
    "pc_regulars": [
@@ -10890,7 +10974,7 @@
      "name": "Chalupa",
      "posts_here": 3,
      "last_q": "2026-01-27",
-     "days_since": 293
+     "days_since": 294
     },
     {
      "name": "Lucky Charms",
@@ -10899,7 +10983,7 @@
      "days_since": null
     },
     {
-     "name": "Sputnik",
+     "name": "Sooey",
      "posts_here": 2,
      "last_q": null,
      "days_since": null
@@ -10908,7 +10992,7 @@
      "name": "Kanki",
      "posts_here": 2,
      "last_q": "2026-04-21",
-     "days_since": 209
+     "days_since": 210
     },
     {
      "name": "Blindside",
@@ -10935,12 +11019,6 @@
      "days_since": null
     },
     {
-     "name": "Sooey",
-     "posts_here": 1,
-     "last_q": null,
-     "days_since": null
-    },
-    {
      "name": "The Chicken Little",
      "posts_here": 1,
      "last_q": null,
@@ -10956,7 +11034,7 @@
      "name": "Bumper Sticker",
      "posts_here": 1,
      "last_q": "2025-10-21",
-     "days_since": 391
+     "days_since": 392
     },
     {
      "name": "9-Lives",
@@ -11139,6 +11217,12 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Shocker",
      "posts_here": 0,
      "last_q": null,
@@ -11196,31 +11280,31 @@
      "name": "Clockwork",
      "posts_here": 0,
      "last_q": "2025-11-11",
-     "days_since": 370
+     "days_since": 371
     },
     {
      "name": "Franklin",
      "posts_here": 0,
      "last_q": "2025-08-26",
-     "days_since": 447
+     "days_since": 448
     },
     {
      "name": "Kubota",
      "posts_here": 0,
      "last_q": "2025-12-09",
-     "days_since": 342
+     "days_since": 343
     },
     {
      "name": "Ramsay",
      "posts_here": 0,
      "last_q": "2026-05-05",
-     "days_since": 195
+     "days_since": 196
     },
     {
      "name": "Shut-In",
      "posts_here": 0,
      "last_q": "2026-05-12",
-     "days_since": 188
+     "days_since": 189
     }
    ],
    "q_load": [
@@ -11235,6 +11319,12 @@
      "qs": 2,
      "last_q": "2026-08-04",
      "regular": true
+    },
+    {
+     "name": "Sputnik",
+     "qs": 1,
+     "last_q": "2026-11-17",
+     "regular": false
     },
     {
      "name": "Henny Penny",
@@ -11380,8 +11470,8 @@
    "candidates": [
     {
      "name": "Orphan",
-     "attended": 18,
-     "rate": 0.72,
+     "attended": 19,
+     "rate": 0.731,
      "qs_here": 2,
      "q_aos": 5,
      "first_seen": "2025-08-12",
@@ -11390,10 +11480,6 @@
     }
    ],
    "upcoming_qs": [
-    {
-     "date": "2026-11-17",
-     "q": "Sputnik"
-    },
     {
      "date": "2026-11-24",
      "q": "Two Factor"
@@ -11405,391 +11491,397 @@
     {
      "date": "2026-12-08",
      "q": null
+    },
+    {
+     "date": "2026-12-15",
+     "q": null
     }
    ],
    "q_sheet_url": "https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit#gid=1309770370"
   },
   {
    "name": "Ruck this Way",
-   "workouts_in_window": 12,
+   "workouts_in_window": 13,
    "stale_qs": [
     {
      "name": "Hamm",
      "last_q": "2025-08-09",
-     "days_since": 464,
+     "days_since": 465,
      "attended_in_window": 0
     },
     {
      "name": "Bobby Boucher",
      "last_q": "2025-08-15",
-     "days_since": 458,
+     "days_since": 459,
      "attended_in_window": 0
     },
     {
      "name": "Mr. Safety",
      "last_q": "2025-08-16",
-     "days_since": 457,
+     "days_since": 458,
      "attended_in_window": 0
     },
     {
      "name": "Dewey Decimal",
      "last_q": "2025-08-19",
-     "days_since": 454,
+     "days_since": 455,
      "attended_in_window": 1
     },
     {
      "name": "Torpedo",
      "last_q": "2025-08-23",
-     "days_since": 450,
+     "days_since": 451,
      "attended_in_window": 0
     },
     {
      "name": "Scott Thomas",
      "last_q": "2025-08-26",
-     "days_since": 447,
+     "days_since": 448,
      "attended_in_window": 0
     },
     {
      "name": "Big Red",
      "last_q": "2025-08-29",
-     "days_since": 444,
+     "days_since": 445,
      "attended_in_window": 0
     },
     {
      "name": "Earhart",
      "last_q": "2025-08-30",
-     "days_since": 443,
-     "attended_in_window": 0
+     "days_since": 444,
+     "attended_in_window": 1
     },
     {
      "name": "QWERTY",
      "last_q": "2025-09-02",
-     "days_since": 440,
-     "attended_in_window": 0
+     "days_since": 441,
+     "attended_in_window": 1
     },
     {
      "name": "ViewMaster",
      "last_q": "2025-09-09",
-     "days_since": 433,
+     "days_since": 434,
      "attended_in_window": 0
     },
     {
      "name": "Bumper Sticker",
      "last_q": "2025-09-12",
-     "days_since": 430,
+     "days_since": 431,
      "attended_in_window": 0
     },
     {
      "name": "Sour Mash",
      "last_q": "2025-09-13",
-     "days_since": 429,
+     "days_since": 430,
      "attended_in_window": 0
     },
     {
      "name": "Pet Sounds",
      "last_q": "2025-09-16",
-     "days_since": 426,
+     "days_since": 427,
      "attended_in_window": 0
     },
     {
      "name": "Schroeder",
      "last_q": "2025-09-20",
-     "days_since": 422,
+     "days_since": 423,
      "attended_in_window": 0
     },
     {
      "name": "Gadget",
      "last_q": "2025-09-26",
-     "days_since": 416,
+     "days_since": 417,
      "attended_in_window": 0
     },
     {
      "name": "Imp",
      "last_q": "2025-10-04",
-     "days_since": 408,
+     "days_since": 409,
      "attended_in_window": 0
     },
     {
      "name": "Sasquat",
      "last_q": "2025-10-24",
-     "days_since": 388,
+     "days_since": 389,
      "attended_in_window": 0
     },
     {
      "name": "Cauliflower",
      "last_q": "2025-10-25",
-     "days_since": 387,
+     "days_since": 388,
      "attended_in_window": 0
     },
     {
      "name": "Chalupa",
      "last_q": "2025-10-28",
-     "days_since": 384,
+     "days_since": 385,
      "attended_in_window": 0
     },
     {
      "name": "Triple Lindy",
      "last_q": "2025-11-01",
-     "days_since": 380,
+     "days_since": 381,
      "attended_in_window": 1
     },
     {
      "name": "Steaks",
      "last_q": "2025-11-04",
-     "days_since": 377,
+     "days_since": 378,
      "attended_in_window": 0
     },
     {
      "name": "short circuit",
      "last_q": "2025-11-08",
-     "days_since": 373,
+     "days_since": 374,
      "attended_in_window": 0
     },
     {
      "name": "Henny Penny",
      "last_q": "2025-11-15",
-     "days_since": 366,
+     "days_since": 367,
      "attended_in_window": 0
     },
     {
      "name": "Clockwork",
      "last_q": "2025-11-18",
-     "days_since": 363,
+     "days_since": 364,
      "attended_in_window": 0
     },
     {
      "name": "Wahoo",
      "last_q": "2025-11-18",
-     "days_since": 363,
-     "attended_in_window": 7
+     "days_since": 364,
+     "attended_in_window": 8
     },
     {
      "name": "I-Beam",
      "last_q": "2025-11-25",
-     "days_since": 356,
+     "days_since": 357,
      "attended_in_window": 0
     },
     {
      "name": "16 Steves",
      "last_q": "2025-11-29",
-     "days_since": 352,
+     "days_since": 353,
      "attended_in_window": 0
     },
     {
      "name": "Rooney",
      "last_q": "2025-12-05",
-     "days_since": 346,
+     "days_since": 347,
      "attended_in_window": 0
     },
     {
      "name": "The Chicken Little",
      "last_q": "2025-12-06",
-     "days_since": 345,
+     "days_since": 346,
      "attended_in_window": 0
     },
     {
      "name": "Headgear",
      "last_q": "2025-12-09",
-     "days_since": 342,
+     "days_since": 343,
      "attended_in_window": 0
     },
     {
      "name": "Kanki",
      "last_q": "2025-12-16",
-     "days_since": 335,
+     "days_since": 336,
      "attended_in_window": 0
     },
     {
      "name": "Zero Drop",
      "last_q": "2025-12-20",
-     "days_since": 331,
-     "attended_in_window": 0
+     "days_since": 332,
+     "attended_in_window": 1
     },
     {
      "name": "Piggly Wiggly",
      "last_q": "2025-12-23",
-     "days_since": 328,
+     "days_since": 329,
      "attended_in_window": 0
     },
     {
      "name": "Largemouth",
      "last_q": "2025-12-27",
-     "days_since": 324,
+     "days_since": 325,
      "attended_in_window": 0
     },
     {
      "name": "Hail Naw",
      "last_q": "2025-12-30",
-     "days_since": 321,
+     "days_since": 322,
      "attended_in_window": 0
     },
     {
      "name": "Sooey",
      "last_q": "2026-01-03",
-     "days_since": 317,
+     "days_since": 318,
      "attended_in_window": 0
     },
     {
      "name": "High School Musical",
      "last_q": "2026-01-10",
-     "days_since": 310,
+     "days_since": 311,
      "attended_in_window": 0
     },
     {
      "name": "Astronomer",
      "last_q": "2026-01-13",
-     "days_since": 307,
+     "days_since": 308,
      "attended_in_window": 0
     },
     {
      "name": "The Joker",
      "last_q": "2026-01-13",
-     "days_since": 307,
+     "days_since": 308,
      "attended_in_window": 0
     },
     {
      "name": "Decal",
      "last_q": "2026-02-10",
-     "days_since": 279,
+     "days_since": 280,
      "attended_in_window": 0
     },
     {
      "name": "Shut-In",
      "last_q": "2026-03-24",
-     "days_since": 237,
+     "days_since": 238,
      "attended_in_window": 0
     },
     {
      "name": "Old Maid",
      "last_q": "2026-03-31",
-     "days_since": 230,
+     "days_since": 231,
      "attended_in_window": 0
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-05-26",
-     "days_since": 174,
+     "days_since": 175,
      "attended_in_window": 0
     },
     {
      "name": "Cataracts",
      "last_q": "2026-06-30",
-     "days_since": 139,
-     "attended_in_window": 0
+     "days_since": 140,
+     "attended_in_window": 1
     },
     {
      "name": "Cheap Trick",
      "last_q": "2026-07-21",
-     "days_since": 118,
-     "attended_in_window": 4
+     "days_since": 119,
+     "attended_in_window": 5
     },
     {
      "name": "Side effect",
      "last_q": "2026-08-04",
-     "days_since": 104,
+     "days_since": 105,
      "attended_in_window": 2
     },
     {
      "name": "Zinfandel",
      "last_q": "2026-08-11",
-     "days_since": 97,
-     "attended_in_window": 1
+     "days_since": 98,
+     "attended_in_window": 2
     },
     {
      "name": "Franklin",
      "last_q": "2026-08-18",
-     "days_since": 90,
-     "attended_in_window": 2
+     "days_since": 91,
+     "attended_in_window": 3
     },
     {
      "name": "Biner",
      "last_q": "2026-09-01",
-     "days_since": 76,
+     "days_since": 77,
      "attended_in_window": 1
     },
     {
      "name": "Jockey",
      "last_q": "2026-09-15",
-     "days_since": 62,
+     "days_since": 63,
      "attended_in_window": 1
     }
    ],
    "regulars": [
     {
+     "name": "Quitter",
+     "attended": 4,
+     "rate": 0.308,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Wahoo",
-     "attended": 7,
-     "rate": 0.583,
+     "attended": 8,
+     "rate": 0.615,
      "last_q": "2025-11-18",
-     "days_since": 363
+     "days_since": 364
     },
     {
      "name": "Cheap Trick",
-     "attended": 4,
-     "rate": 0.333,
+     "attended": 5,
+     "rate": 0.385,
      "last_q": "2026-07-21",
-     "days_since": 118
+     "days_since": 119
     },
     {
      "name": "Hobbit",
-     "attended": 5,
-     "rate": 0.417,
+     "attended": 6,
+     "rate": 0.462,
      "last_q": "2026-09-29",
-     "days_since": 48
+     "days_since": 49
     },
     {
      "name": "Malware",
-     "attended": 6,
-     "rate": 0.5,
+     "attended": 7,
+     "rate": 0.538,
      "last_q": "2026-10-06",
-     "days_since": 41
+     "days_since": 42
     },
     {
      "name": "Shocker",
-     "attended": 9,
-     "rate": 0.75,
+     "attended": 10,
+     "rate": 0.769,
      "last_q": "2026-10-13",
-     "days_since": 34
+     "days_since": 35
     },
     {
      "name": "Flenderson",
-     "attended": 10,
-     "rate": 0.833,
+     "attended": 11,
+     "rate": 0.846,
      "last_q": "2026-10-27",
-     "days_since": 20
+     "days_since": 21
     },
     {
      "name": "Soft Tail",
      "attended": 4,
-     "rate": 0.333,
+     "rate": 0.308,
      "last_q": "2026-11-03",
-     "days_since": 13
+     "days_since": 14
     },
     {
      "name": "Yahoo",
      "attended": 5,
-     "rate": 0.417,
+     "rate": 0.385,
      "last_q": "2026-11-10",
-     "days_since": 6
+     "days_since": 7
+    },
+    {
+     "name": "Blindside",
+     "attended": 4,
+     "rate": 0.308,
+     "last_q": "2026-11-17",
+     "days_since": 0
     }
    ],
    "pc_regulars": [
     {
-     "name": "Quitter",
-     "posts_here": 8,
-     "last_q": null,
-     "days_since": null
-    },
-    {
-     "name": "Blindside",
-     "posts_here": 3,
-     "last_q": null,
-     "days_since": null
-    },
-    {
      "name": "Triple Lindy",
      "posts_here": 3,
      "last_q": "2025-11-01",
-     "days_since": 380
+     "days_since": 381
     },
     {
      "name": "Brownout",
@@ -11799,9 +11891,39 @@
     },
     {
      "name": "Sunny",
+     "posts_here": 2,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Santa Maria",
      "posts_here": 1,
      "last_q": null,
      "days_since": null
+    },
+    {
+     "name": "Theismann",
+     "posts_here": 1,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Earhart",
+     "posts_here": 1,
+     "last_q": "2025-08-30",
+     "days_since": 444
+    },
+    {
+     "name": "QWERTY",
+     "posts_here": 1,
+     "last_q": "2025-09-02",
+     "days_since": 441
+    },
+    {
+     "name": "Zero Drop",
+     "posts_here": 1,
+     "last_q": "2025-12-20",
+     "days_since": 332
     },
     {
      "name": "9-Lives",
@@ -11996,12 +12118,6 @@
      "days_since": null
     },
     {
-     "name": "Theismann",
-     "posts_here": 0,
-     "last_q": null,
-     "days_since": null
-    },
-    {
      "name": "Tolstoy",
      "posts_here": 0,
      "last_q": null,
@@ -12023,145 +12139,127 @@
      "name": "Big Red",
      "posts_here": 0,
      "last_q": "2025-08-29",
-     "days_since": 444
+     "days_since": 445
     },
     {
      "name": "Bobby Boucher",
      "posts_here": 0,
      "last_q": "2025-08-15",
-     "days_since": 458
+     "days_since": 459
     },
     {
      "name": "Bumper Sticker",
      "posts_here": 0,
      "last_q": "2025-09-12",
-     "days_since": 430
+     "days_since": 431
     },
     {
      "name": "Chalupa",
      "posts_here": 0,
      "last_q": "2025-10-28",
-     "days_since": 384
+     "days_since": 385
     },
     {
      "name": "Clockwork",
      "posts_here": 0,
      "last_q": "2025-11-18",
-     "days_since": 363
-    },
-    {
-     "name": "Earhart",
-     "posts_here": 0,
-     "last_q": "2025-08-30",
-     "days_since": 443
+     "days_since": 364
     },
     {
      "name": "Hail Naw",
      "posts_here": 0,
      "last_q": "2025-12-30",
-     "days_since": 321
+     "days_since": 322
     },
     {
      "name": "Hamm",
      "posts_here": 0,
      "last_q": "2025-08-09",
-     "days_since": 464
+     "days_since": 465
     },
     {
      "name": "Headgear",
      "posts_here": 0,
      "last_q": "2025-12-09",
-     "days_since": 342
+     "days_since": 343
     },
     {
      "name": "Henny Penny",
      "posts_here": 0,
      "last_q": "2025-11-15",
-     "days_since": 366
+     "days_since": 367
     },
     {
      "name": "I-Beam",
      "posts_here": 0,
      "last_q": "2025-11-25",
-     "days_since": 356
+     "days_since": 357
     },
     {
      "name": "Imp",
      "posts_here": 0,
      "last_q": "2025-10-04",
-     "days_since": 408
+     "days_since": 409
     },
     {
      "name": "Kanki",
      "posts_here": 0,
      "last_q": "2025-12-16",
-     "days_since": 335
+     "days_since": 336
     },
     {
      "name": "Mr. Safety",
      "posts_here": 0,
      "last_q": "2025-08-16",
-     "days_since": 457
+     "days_since": 458
     },
     {
      "name": "Old Maid",
      "posts_here": 0,
      "last_q": "2026-03-31",
-     "days_since": 230
+     "days_since": 231
     },
     {
      "name": "Piggly Wiggly",
      "posts_here": 0,
      "last_q": "2025-12-23",
-     "days_since": 328
-    },
-    {
-     "name": "QWERTY",
-     "posts_here": 0,
-     "last_q": "2025-09-02",
-     "days_since": 440
+     "days_since": 329
     },
     {
      "name": "Rooney",
      "posts_here": 0,
      "last_q": "2025-12-05",
-     "days_since": 346
+     "days_since": 347
     },
     {
      "name": "Shut-In",
      "posts_here": 0,
      "last_q": "2026-03-24",
-     "days_since": 237
+     "days_since": 238
     },
     {
      "name": "Sooey",
      "posts_here": 0,
      "last_q": "2026-01-03",
-     "days_since": 317
+     "days_since": 318
     },
     {
      "name": "Steaks",
      "posts_here": 0,
      "last_q": "2025-11-04",
-     "days_since": 377
+     "days_since": 378
     },
     {
      "name": "The Chicken Little",
      "posts_here": 0,
      "last_q": "2025-12-06",
-     "days_since": 345
+     "days_since": 346
     },
     {
      "name": "The Joker",
      "posts_here": 0,
      "last_q": "2026-01-13",
-     "days_since": 307
-    },
-    {
-     "name": "Zero Drop",
-     "posts_here": 0,
-     "last_q": "2025-12-20",
-     "days_since": 331
+     "days_since": 308
     }
    ],
    "q_load": [
@@ -12199,6 +12297,12 @@
      "name": "Malware",
      "qs": 2,
      "last_q": "2026-10-06",
+     "regular": true
+    },
+    {
+     "name": "Blindside",
+     "qs": 1,
+     "last_q": "2026-11-17",
      "regular": true
     },
     {
@@ -12266,9 +12370,19 @@
    ],
    "candidates": [
     {
+     "name": "Cheap Trick",
+     "attended": 11,
+     "rate": 0.407,
+     "qs_here": 3,
+     "q_aos": 8,
+     "first_seen": "2025-08-07",
+     "past_site_q": null,
+     "recent_past": false
+    },
+    {
      "name": "Hobbit",
-     "attended": 13,
-     "rate": 0.5,
+     "attended": 14,
+     "rate": 0.519,
      "qs_here": 3,
      "q_aos": 7,
      "first_seen": "2025-08-12",
@@ -12277,10 +12391,6 @@
     }
    ],
    "upcoming_qs": [
-    {
-     "date": "2026-11-17",
-     "q": "Blindside"
-    },
     {
      "date": "2026-11-24",
      "q": null
@@ -12291,6 +12401,10 @@
     },
     {
      "date": "2026-12-08",
+     "q": null
+    },
+    {
+     "date": "2026-12-15",
      "q": null
     }
    ],
@@ -12303,55 +12417,55 @@
     {
      "name": "Scott Thomas",
      "last_q": "2025-09-07",
-     "days_since": 435,
+     "days_since": 436,
      "attended_in_window": 0
     },
     {
      "name": "Steaks",
      "last_q": "2025-12-07",
-     "days_since": 344,
+     "days_since": 345,
      "attended_in_window": 0
     },
     {
      "name": "Spam",
      "last_q": "2026-01-04",
-     "days_since": 316,
+     "days_since": 317,
      "attended_in_window": 3
     },
     {
      "name": "Sooey",
      "last_q": "2026-01-11",
-     "days_since": 309,
+     "days_since": 310,
      "attended_in_window": 1
     },
     {
      "name": "Old Maid",
      "last_q": "2026-01-18",
-     "days_since": 302,
+     "days_since": 303,
      "attended_in_window": 0
     },
     {
      "name": "Franklin",
      "last_q": "2026-06-21",
-     "days_since": 148,
+     "days_since": 149,
      "attended_in_window": 0
     },
     {
      "name": "Yahoo",
      "last_q": "2026-07-12",
-     "days_since": 127,
+     "days_since": 128,
      "attended_in_window": 0
     },
     {
      "name": "Shut-In",
      "last_q": "2026-08-23",
-     "days_since": 85,
+     "days_since": 86,
      "attended_in_window": 0
     },
     {
      "name": "Schroeder",
      "last_q": "2026-08-30",
-     "days_since": 78,
+     "days_since": 79,
      "attended_in_window": 1
     }
    ],
@@ -12389,21 +12503,21 @@
      "attended": 3,
      "rate": 0.5,
      "last_q": "2026-01-04",
-     "days_since": 316
+     "days_since": 317
     },
     {
      "name": "Orphan",
      "attended": 3,
      "rate": 0.5,
      "last_q": "2026-10-18",
-     "days_since": 29
+     "days_since": 30
     },
     {
      "name": "Jockey",
      "attended": 5,
      "rate": 0.833,
      "last_q": "2026-11-15",
-     "days_since": 1
+     "days_since": 2
     }
    ],
    "pc_regulars": [
@@ -12423,7 +12537,7 @@
      "name": "Sooey",
      "posts_here": 2,
      "last_q": "2026-01-11",
-     "days_since": 309
+     "days_since": 310
     },
     {
      "name": "Gibraltar",
@@ -12471,7 +12585,7 @@
      "name": "Steaks",
      "posts_here": 1,
      "last_q": "2025-12-07",
-     "days_since": 344
+     "days_since": 345
     },
     {
      "name": "9-Lives",
@@ -12744,6 +12858,12 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Shamu",
      "posts_here": 0,
      "last_q": null,
@@ -12837,7 +12957,7 @@
      "name": "Old Maid",
      "posts_here": 0,
      "last_q": "2026-01-18",
-     "days_since": 302
+     "days_since": 303
     }
    ],
    "q_load": [
@@ -12899,91 +13019,91 @@
     {
      "name": "Cheap Trick",
      "last_q": "2025-08-08",
-     "days_since": 465,
+     "days_since": 466,
      "attended_in_window": 0
     },
     {
      "name": "Franklin",
      "last_q": "2025-08-22",
-     "days_since": 451,
+     "days_since": 452,
      "attended_in_window": 0
     },
     {
      "name": "16 Steves",
      "last_q": "2025-09-05",
-     "days_since": 437,
+     "days_since": 438,
      "attended_in_window": 0
     },
     {
      "name": "Smithers",
      "last_q": "2026-05-29",
-     "days_since": 171,
+     "days_since": 172,
      "attended_in_window": 1
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-06-05",
-     "days_since": 164,
+     "days_since": 165,
      "attended_in_window": 0
     },
     {
      "name": "Clockwork",
      "last_q": "2026-06-12",
-     "days_since": 157,
+     "days_since": 158,
      "attended_in_window": 0
     },
     {
      "name": "Ramsay",
      "last_q": "2026-06-26",
-     "days_since": 143,
+     "days_since": 144,
      "attended_in_window": 1
     },
     {
      "name": "Open Concept",
      "last_q": "2026-07-03",
-     "days_since": 136,
+     "days_since": 137,
      "attended_in_window": 1
     },
     {
      "name": "Gibraltar",
      "last_q": "2026-07-10",
-     "days_since": 129,
+     "days_since": 130,
      "attended_in_window": 1
     },
     {
      "name": "Rooney",
      "last_q": "2026-07-31",
-     "days_since": 108,
+     "days_since": 109,
      "attended_in_window": 1
     },
     {
      "name": "Silver fox",
      "last_q": "2026-08-07",
-     "days_since": 101,
+     "days_since": 102,
      "attended_in_window": 1
     },
     {
      "name": "Yahoo",
      "last_q": "2026-08-14",
-     "days_since": 94,
+     "days_since": 95,
      "attended_in_window": 0
     },
     {
      "name": "Lightswitch (GL)",
      "last_q": "2026-08-21",
-     "days_since": 87,
+     "days_since": 88,
      "attended_in_window": 1
     },
     {
      "name": "OTW (On The Way)",
      "last_q": "2026-08-28",
-     "days_since": 80,
+     "days_since": 81,
      "attended_in_window": 1
     },
     {
      "name": "Flenderson",
      "last_q": "2026-09-11",
-     "days_since": 66,
+     "days_since": 67,
      "attended_in_window": 2
     }
    ],
@@ -13070,71 +13190,77 @@
      "attended": 1,
      "rate": 0.5,
      "last_q": "2026-05-29",
-     "days_since": 171
+     "days_since": 172
     },
     {
      "name": "Ramsay",
      "attended": 1,
      "rate": 0.5,
      "last_q": "2026-06-26",
-     "days_since": 143
+     "days_since": 144
     },
     {
      "name": "Open Concept",
      "attended": 1,
      "rate": 0.5,
      "last_q": "2026-07-03",
-     "days_since": 136
+     "days_since": 137
     },
     {
      "name": "Gibraltar",
      "attended": 1,
      "rate": 0.5,
      "last_q": "2026-07-10",
-     "days_since": 129
+     "days_since": 130
     },
     {
      "name": "Rooney",
      "attended": 1,
      "rate": 0.5,
      "last_q": "2026-07-31",
-     "days_since": 108
+     "days_since": 109
     },
     {
      "name": "Silver fox",
      "attended": 1,
      "rate": 0.5,
      "last_q": "2026-08-07",
-     "days_since": 101
+     "days_since": 102
     },
     {
      "name": "Lightswitch (GL)",
      "attended": 1,
      "rate": 0.5,
      "last_q": "2026-08-21",
-     "days_since": 87
+     "days_since": 88
     },
     {
      "name": "OTW (On The Way)",
      "attended": 1,
      "rate": 0.5,
      "last_q": "2026-08-28",
-     "days_since": 80
+     "days_since": 81
     },
     {
      "name": "Flenderson",
      "attended": 2,
      "rate": 1.0,
      "last_q": "2026-09-11",
-     "days_since": 66
+     "days_since": 67
     }
    ],
    "pc_regulars": [
     {
+     "name": "Santa Maria",
+     "posts_here": 4,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Cheap Trick",
      "posts_here": 4,
      "last_q": "2025-08-08",
-     "days_since": 465
+     "days_since": 466
     },
     {
      "name": "Henny Penny",
@@ -13530,7 +13656,7 @@
      "name": "Franklin",
      "posts_here": 0,
      "last_q": "2025-08-22",
-     "days_since": 451
+     "days_since": 452
     }
    ],
    "q_load": [
@@ -13679,199 +13805,199 @@
     {
      "name": "Bumper Sticker",
      "last_q": "2025-08-06",
-     "days_since": 467,
+     "days_since": 468,
      "attended_in_window": 0
     },
     {
      "name": "Rooney",
      "last_q": "2025-08-13",
-     "days_since": 460,
+     "days_since": 461,
      "attended_in_window": 1
     },
     {
      "name": "Red Ryder",
      "last_q": "2025-08-27",
-     "days_since": 446,
+     "days_since": 447,
      "attended_in_window": 0
     },
     {
      "name": "Gibraltar",
      "last_q": "2025-09-03",
-     "days_since": 439,
+     "days_since": 440,
      "attended_in_window": 0
     },
     {
      "name": "Peaches",
      "last_q": "2025-09-10",
-     "days_since": 432,
+     "days_since": 433,
      "attended_in_window": 0
     },
     {
      "name": "Biner",
      "last_q": "2025-10-08",
-     "days_since": 404,
+     "days_since": 405,
      "attended_in_window": 0
     },
     {
      "name": "Iceman",
      "last_q": "2025-10-15",
-     "days_since": 397,
+     "days_since": 398,
      "attended_in_window": 0
     },
     {
      "name": "Hail Naw",
      "last_q": "2025-10-29",
-     "days_since": 383,
+     "days_since": 384,
      "attended_in_window": 1
     },
     {
      "name": "Zinfandel",
      "last_q": "2025-11-19",
-     "days_since": 362,
+     "days_since": 363,
      "attended_in_window": 2
     },
     {
      "name": "Kanki",
      "last_q": "2025-12-10",
-     "days_since": 341,
+     "days_since": 342,
      "attended_in_window": 0
     },
     {
      "name": "Earhart",
      "last_q": "2025-12-31",
-     "days_since": 320,
+     "days_since": 321,
      "attended_in_window": 1
     },
     {
      "name": "Henny Penny",
      "last_q": "2026-01-14",
-     "days_since": 306,
+     "days_since": 307,
      "attended_in_window": 0
     },
     {
      "name": "Pom Pom",
      "last_q": "2026-02-04",
-     "days_since": 285,
+     "days_since": 286,
      "attended_in_window": 0
     },
     {
      "name": "Boom Boom",
      "last_q": "2026-02-11",
-     "days_since": 278,
+     "days_since": 279,
      "attended_in_window": 0
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-02-18",
-     "days_since": 271,
+     "days_since": 272,
      "attended_in_window": 1
     },
     {
      "name": "Kubota",
      "last_q": "2026-03-04",
-     "days_since": 257,
+     "days_since": 258,
      "attended_in_window": 0
     },
     {
      "name": "Dewey Decimal",
      "last_q": "2026-03-18",
-     "days_since": 243,
+     "days_since": 244,
      "attended_in_window": 0
     },
     {
      "name": "Maestro",
      "last_q": "2026-03-25",
-     "days_since": 236,
+     "days_since": 237,
      "attended_in_window": 1
     },
     {
      "name": "Cheap Trick",
      "last_q": "2026-04-01",
-     "days_since": 229,
+     "days_since": 230,
      "attended_in_window": 0
     },
     {
      "name": "Squeeze Bag",
      "last_q": "2026-04-15",
-     "days_since": 215,
+     "days_since": 216,
      "attended_in_window": 10
     },
     {
      "name": "Egon",
      "last_q": "2026-04-29",
-     "days_since": 201,
+     "days_since": 202,
      "attended_in_window": 0
     },
     {
      "name": "Franklin",
      "last_q": "2026-05-06",
-     "days_since": 194,
+     "days_since": 195,
      "attended_in_window": 0
     },
     {
      "name": "The Chicken Little",
      "last_q": "2026-05-13",
-     "days_since": 187,
+     "days_since": 188,
      "attended_in_window": 0
     },
     {
      "name": "Hamm",
      "last_q": "2026-06-03",
-     "days_since": 166,
+     "days_since": 167,
      "attended_in_window": 0
     },
     {
      "name": "Hobbit",
      "last_q": "2026-06-10",
-     "days_since": 159,
+     "days_since": 160,
      "attended_in_window": 1
     },
     {
      "name": "Dadbod",
      "last_q": "2026-07-08",
-     "days_since": 131,
+     "days_since": 132,
      "attended_in_window": 5
     },
     {
      "name": "Coco Crisp (F3 Carpex)",
      "last_q": "2026-07-15",
-     "days_since": 124,
+     "days_since": 125,
      "attended_in_window": 0
     },
     {
      "name": "Chalupa",
      "last_q": "2026-08-05",
-     "days_since": 103,
+     "days_since": 104,
      "attended_in_window": 0
     },
     {
      "name": "Hitchhiker",
      "last_q": "2026-08-12",
-     "days_since": 96,
+     "days_since": 97,
      "attended_in_window": 6
     },
     {
      "name": "Shut-In",
      "last_q": "2026-08-19",
-     "days_since": 89,
+     "days_since": 90,
      "attended_in_window": 11
     },
     {
      "name": "Poi",
      "last_q": "2026-08-26",
-     "days_since": 82,
+     "days_since": 83,
      "attended_in_window": 1
     },
     {
      "name": "Jockey",
      "last_q": "2026-09-09",
-     "days_since": 68,
+     "days_since": 69,
      "attended_in_window": 2
     },
     {
      "name": "Bobby Boucher",
      "last_q": "2026-09-16",
-     "days_since": 61,
+     "days_since": 62,
      "attended_in_window": 3
     }
    ],
@@ -13895,42 +14021,42 @@
      "attended": 10,
      "rate": 0.833,
      "last_q": "2026-04-15",
-     "days_since": 215
+     "days_since": 216
     },
     {
      "name": "Dadbod",
      "attended": 5,
      "rate": 0.417,
      "last_q": "2026-07-08",
-     "days_since": 131
+     "days_since": 132
     },
     {
      "name": "Hitchhiker",
      "attended": 6,
      "rate": 0.5,
      "last_q": "2026-08-12",
-     "days_since": 96
+     "days_since": 97
     },
     {
      "name": "Shut-In",
      "attended": 11,
      "rate": 0.917,
      "last_q": "2026-08-19",
-     "days_since": 89
+     "days_since": 90
     },
     {
      "name": "Moline",
      "attended": 9,
      "rate": 0.75,
      "last_q": "2026-09-30",
-     "days_since": 47
+     "days_since": 48
     },
     {
      "name": "Brownout",
      "attended": 10,
      "rate": 0.833,
      "last_q": "2026-11-11",
-     "days_since": 5
+     "days_since": 6
     }
    ],
    "pc_regulars": [
@@ -13956,7 +14082,7 @@
      "name": "Franklin",
      "posts_here": 3,
      "last_q": "2026-05-06",
-     "days_since": 194
+     "days_since": 195
     },
     {
      "name": "Malware",
@@ -13974,19 +14100,19 @@
      "name": "Rooney",
      "posts_here": 2,
      "last_q": "2025-08-13",
-     "days_since": 460
+     "days_since": 461
     },
     {
      "name": "Zero Drop",
      "posts_here": 2,
      "last_q": "2026-02-18",
-     "days_since": 271
+     "days_since": 272
     },
     {
      "name": "Zinfandel",
      "posts_here": 2,
      "last_q": "2025-11-19",
-     "days_since": 362
+     "days_since": 363
     },
     {
      "name": "Bolton (Nomad)",
@@ -14007,28 +14133,34 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 1,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Earhart",
      "posts_here": 1,
      "last_q": "2025-12-31",
-     "days_since": 320
+     "days_since": 321
     },
     {
      "name": "Hail Naw",
      "posts_here": 1,
      "last_q": "2025-10-29",
-     "days_since": 383
+     "days_since": 384
     },
     {
      "name": "Iceman",
      "posts_here": 1,
      "last_q": "2025-10-15",
-     "days_since": 397
+     "days_since": 398
     },
     {
      "name": "Maestro",
      "posts_here": 1,
      "last_q": "2026-03-25",
-     "days_since": 236
+     "days_since": 237
     },
     {
      "name": "Big Red",
@@ -14256,61 +14388,61 @@
      "name": "Biner",
      "posts_here": 0,
      "last_q": "2025-10-08",
-     "days_since": 404
+     "days_since": 405
     },
     {
      "name": "Bumper Sticker",
      "posts_here": 0,
      "last_q": "2025-08-06",
-     "days_since": 467
+     "days_since": 468
     },
     {
      "name": "Cheap Trick",
      "posts_here": 0,
      "last_q": "2026-04-01",
-     "days_since": 229
+     "days_since": 230
     },
     {
      "name": "Egon",
      "posts_here": 0,
      "last_q": "2026-04-29",
-     "days_since": 201
+     "days_since": 202
     },
     {
      "name": "Gibraltar",
      "posts_here": 0,
      "last_q": "2025-09-03",
-     "days_since": 439
+     "days_since": 440
     },
     {
      "name": "Henny Penny",
      "posts_here": 0,
      "last_q": "2026-01-14",
-     "days_since": 306
+     "days_since": 307
     },
     {
      "name": "Kanki",
      "posts_here": 0,
      "last_q": "2025-12-10",
-     "days_since": 341
+     "days_since": 342
     },
     {
      "name": "Kubota",
      "posts_here": 0,
      "last_q": "2026-03-04",
-     "days_since": 257
+     "days_since": 258
     },
     {
      "name": "Red Ryder",
      "posts_here": 0,
      "last_q": "2025-08-27",
-     "days_since": 446
+     "days_since": 447
     },
     {
      "name": "The Chicken Little",
      "posts_here": 0,
      "last_q": "2026-05-13",
-     "days_since": 187
+     "days_since": 188
     }
    ],
    "q_load": [
@@ -14470,43 +14602,43 @@
     {
      "name": "Zinfandel",
      "last_q": "2026-01-30",
-     "days_since": 290,
+     "days_since": 291,
      "attended_in_window": 4
     },
     {
      "name": "Cousin IT",
      "last_q": "2026-04-03",
-     "days_since": 227,
+     "days_since": 228,
      "attended_in_window": 4
     },
     {
      "name": "Traffic Cone",
      "last_q": "2026-06-05",
-     "days_since": 164,
+     "days_since": 165,
      "attended_in_window": 5
     },
     {
      "name": "Go Fasters",
      "last_q": "2026-07-10",
-     "days_since": 129,
+     "days_since": 130,
      "attended_in_window": 0
     },
     {
      "name": "Soft Tail",
      "last_q": "2026-07-17",
-     "days_since": 122,
+     "days_since": 123,
      "attended_in_window": 2
     },
     {
      "name": "Chalupa",
      "last_q": "2026-07-24",
-     "days_since": 115,
+     "days_since": 116,
      "attended_in_window": 1
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-08-14",
-     "days_since": 94,
+     "days_since": 95,
      "attended_in_window": 1
     }
    ],
@@ -14551,42 +14683,42 @@
      "attended": 4,
      "rate": 0.571,
      "last_q": "2026-01-30",
-     "days_since": 290
+     "days_since": 291
     },
     {
      "name": "Cousin IT",
      "attended": 4,
      "rate": 0.571,
      "last_q": "2026-04-03",
-     "days_since": 227
+     "days_since": 228
     },
     {
      "name": "Traffic Cone",
      "attended": 5,
      "rate": 0.714,
      "last_q": "2026-06-05",
-     "days_since": 164
+     "days_since": 165
     },
     {
      "name": "Wahoo",
      "attended": 5,
      "rate": 0.714,
      "last_q": "2026-09-18",
-     "days_since": 59
+     "days_since": 60
     },
     {
      "name": "Biner",
      "attended": 3,
      "rate": 0.429,
      "last_q": "2026-10-02",
-     "days_since": 45
+     "days_since": 46
     },
     {
      "name": "Kubota",
      "attended": 7,
      "rate": 1.0,
      "last_q": "2026-10-16",
-     "days_since": 31
+     "days_since": 32
     }
    ],
    "pc_regulars": [
@@ -14933,6 +15065,12 @@
      "days_since": null
     },
     {
+     "name": "Santa Maria",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
      "name": "Shamu",
      "posts_here": 0,
      "last_q": null,
@@ -15085,79 +15223,79 @@
     {
      "name": "Hobbit",
      "last_q": "2026-01-14",
-     "days_since": 306,
+     "days_since": 307,
      "attended_in_window": 3
     },
     {
      "name": "Kubota",
      "last_q": "2026-01-28",
-     "days_since": 292,
+     "days_since": 293,
      "attended_in_window": 0
     },
     {
      "name": "Crimson",
      "last_q": "2026-03-04",
-     "days_since": 257,
+     "days_since": 258,
      "attended_in_window": 2
     },
     {
      "name": "Disco Duck",
      "last_q": "2026-03-11",
-     "days_since": 250,
+     "days_since": 251,
      "attended_in_window": 1
     },
     {
      "name": "Zero Drop",
      "last_q": "2026-03-18",
-     "days_since": 243,
+     "days_since": 244,
      "attended_in_window": 1
     },
     {
      "name": "Kindergarten Cop",
      "last_q": "2026-06-10",
-     "days_since": 159,
+     "days_since": 160,
      "attended_in_window": 2
     },
     {
      "name": "Wahoo",
      "last_q": "2026-06-24",
-     "days_since": 145,
+     "days_since": 146,
      "attended_in_window": 10
     },
     {
      "name": "Theismann",
      "last_q": "2026-07-08",
-     "days_since": 131,
+     "days_since": 132,
      "attended_in_window": 0
     },
     {
      "name": "WWW",
      "last_q": "2026-07-29",
-     "days_since": 110,
+     "days_since": 111,
      "attended_in_window": 5
     },
     {
      "name": "Triple Lindy",
      "last_q": "2026-08-12",
-     "days_since": 96,
+     "days_since": 97,
      "attended_in_window": 0
     },
     {
      "name": "Red Ryder",
      "last_q": "2026-08-19",
-     "days_since": 89,
+     "days_since": 90,
      "attended_in_window": 0
     },
     {
      "name": "Earhart",
      "last_q": "2026-09-02",
-     "days_since": 75,
+     "days_since": 76,
      "attended_in_window": 1
     },
     {
      "name": "Sooey",
      "last_q": "2026-09-09",
-     "days_since": 68,
+     "days_since": 69,
      "attended_in_window": 3
     }
    ],
@@ -15209,35 +15347,35 @@
      "attended": 10,
      "rate": 0.909,
      "last_q": "2026-06-24",
-     "days_since": 145
+     "days_since": 146
     },
     {
      "name": "WWW",
      "attended": 5,
      "rate": 0.455,
      "last_q": "2026-07-29",
-     "days_since": 110
+     "days_since": 111
     },
     {
      "name": "Sputnik",
      "attended": 6,
      "rate": 0.545,
      "last_q": "2026-10-07",
-     "days_since": 40
+     "days_since": 41
     },
     {
      "name": "Malware",
      "attended": 4,
      "rate": 0.364,
      "last_q": "2026-10-21",
-     "days_since": 26
+     "days_since": 27
     },
     {
      "name": "Traffic Cone",
      "attended": 10,
      "rate": 0.909,
      "last_q": "2026-11-04",
-     "days_since": 12
+     "days_since": 13
     }
    ],
    "pc_regulars": [
@@ -15281,7 +15419,7 @@
      "name": "Kubota",
      "posts_here": 4,
      "last_q": "2026-01-28",
-     "days_since": 292
+     "days_since": 293
     },
     {
      "name": "Silver fox",
@@ -15293,7 +15431,7 @@
      "name": "Hobbit",
      "posts_here": 3,
      "last_q": "2026-01-14",
-     "days_since": 306
+     "days_since": 307
     },
     {
      "name": "Quitter",
@@ -15311,7 +15449,7 @@
      "name": "Zero Drop",
      "posts_here": 2,
      "last_q": "2026-03-18",
-     "days_since": 243
+     "days_since": 244
     },
     {
      "name": "Cataracts",
@@ -15567,6 +15705,12 @@
     },
     {
      "name": "Ramsay",
+     "posts_here": 0,
+     "last_q": null,
+     "days_since": null
+    },
+    {
+     "name": "Santa Maria",
      "posts_here": 0,
      "last_q": null,
      "days_since": null
@@ -15769,6 +15913,6 @@
    "q_sheet_url": "https://docs.google.com/spreadsheets/d/13aEBXExY-04Lq8cCtnqIeOhaxSDh0CGuUPY9vrYW8Io/edit#gid=1972411165"
   }
  ],
- "upcoming_qs_as_of": "2026-11-16T16:43:30+00:00",
- "refreshed_at": "2026-11-16T16:43:30+00:00"
+ "upcoming_qs_as_of": "2026-11-17T16:39:52+00:00",
+ "refreshed_at": "2026-11-17T16:39:52+00:00"
 }
