@@ -17563,6 +17563,7 @@
 {"Date": "2026-11-26", "Name": "Hitchhiker", "Site": "Bounty Hunters", "Role": "P", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-26", "Name": "Jockey", "Site": "Bounty Hunters", "Role": "Q", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-26", "Name": "Mama's Boy", "Site": "Bounty Hunters", "Role": "P", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-26", "Name": "Mike", "Site": "Bounty Hunters", "Role": "FNG", "ImportedAt": "2026-11-26 18:00:15", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-26", "Name": "Old Maid", "Site": "Bounty Hunters", "Role": "P", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-26", "Name": "Open Concept", "Site": "Bounty Hunters", "Role": "P", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-26", "Name": "QWERTY", "Site": "Bounty Hunters", "Role": "P", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
