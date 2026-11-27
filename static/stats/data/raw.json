@@ -17582,6 +17582,7 @@
 {"Date": "2026-11-27", "Name": "Hamm", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-27", "Name": "Hitchhiker", "Site": "Dante's Peak", "Role": "Q", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-27", "Name": "Imp", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-27", "Name": "Klondike", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:45:26", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-27", "Name": "Mr. Safety", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-27", "Name": "Ramsay", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-27", "Name": "Shut-In", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"}
