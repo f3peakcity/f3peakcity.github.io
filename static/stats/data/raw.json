@@ -17576,5 +17576,13 @@
 {"Date": "2026-11-26", "Name": "Theismann", "Site": "Bounty Hunters", "Role": "P", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-26", "Name": "Triple Lindy", "Site": "Bounty Hunters", "Role": "P", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-26", "Name": "Wahoo", "Site": "Bounty Hunters", "Role": "Q", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
-{"Date": "2026-11-26", "Name": "Zinfandel", "Site": "Bounty Hunters", "Role": "Q", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"}
+{"Date": "2026-11-26", "Name": "Zinfandel", "Site": "Bounty Hunters", "Role": "Q", "ImportedAt": "2026-11-26 17:29:25", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-27", "Name": "Bumper Sticker", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-27", "Name": "Cheap Trick", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-27", "Name": "Hamm", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-27", "Name": "Hitchhiker", "Site": "Dante's Peak", "Role": "Q", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-27", "Name": "Imp", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-27", "Name": "Mr. Safety", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-27", "Name": "Ramsay", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-27", "Name": "Shut-In", "Site": "Dante's Peak", "Role": "P", "ImportedAt": "2026-11-27 17:09:20", "SourceFile": "BigQuery:analytics.attendance_info"}
 ]
