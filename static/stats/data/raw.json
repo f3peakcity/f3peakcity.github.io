@@ -17605,6 +17605,7 @@
 {"Date": "2026-11-28", "Name": "Henny Penny", "Site": "Das Boot", "Role": "P", "ImportedAt": "2026-11-28 15:56:05", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-28", "Name": "Kanki", "Site": "Das Boot", "Role": "P", "ImportedAt": "2026-11-28 15:56:05", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-28", "Name": "Rooney", "Site": "Das Boot", "Role": "Q", "ImportedAt": "2026-11-28 15:56:05", "SourceFile": "BigQuery:analytics.attendance_info"},
+{"Date": "2026-11-28", "Name": "Saban", "Site": "Das Boot", "Role": "P", "ImportedAt": "2026-11-28 16:31:24", "SourceFile": "Attendance!C"},
 {"Date": "2026-11-28", "Name": "Shut-In", "Site": "Das Boot", "Role": "P", "ImportedAt": "2026-11-28 15:56:05", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-28", "Name": "Spam", "Site": "Das Boot", "Role": "P", "ImportedAt": "2026-11-28 15:56:05", "SourceFile": "BigQuery:analytics.attendance_info"},
 {"Date": "2026-11-28", "Name": "Sputnik", "Site": "Das Boot", "Role": "P", "ImportedAt": "2026-11-28 15:56:05", "SourceFile": "BigQuery:analytics.attendance_info"},
